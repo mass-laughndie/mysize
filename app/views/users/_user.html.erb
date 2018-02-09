@@ -1,0 +1,31 @@
+<li class="user-list">
+  <a href="<%= user_path(user) %>" class="index-data">
+    <div class="c index-left">
+      <div class="index-image">
+        <%= image_for(user, size: 40) %>
+      </div>
+      <div class="index-size">
+        <%= 21.5 + user.shoe_size / 2.0 %>
+      </div>
+    </div>
+    <div class="index-center">
+      <div class="index-name">
+        <%= user.name %>
+      </div>
+      <div class="index-mysizeid">
+        <%= fa_icon("at") + user.mysize_id %>
+      </div>
+    </div>
+    <div class="index-profile">
+      <%= user.profile_content %>
+    </div>
+  </a>
+  <div class="act-form">
+    <% if current_user.admin? && !current_user?(user) %>
+      <%= link_to "削除", user, method: :delete,
+                               data: { confirm: "本当にいいですか??" } %>
+    <% else %>
+      <%= link_to fa_icon("user") + fa_icon("plus"), '#' %>
+    <% end %>
+  </div>
+</li>

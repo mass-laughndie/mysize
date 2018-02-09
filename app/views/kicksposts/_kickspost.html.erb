@@ -1,0 +1,27 @@
+<li id="kickspost-<%= kickspost.id %>" class="kickspost-list">
+  <div class="post-top">
+    <div class="post-icon">
+      <%= link_to image_for(kickspost.user, size: 40), micropost.user %>
+    </div>
+    <div class="post-content">
+      <div class="post-name">
+        <%= kickspost.user.name %>
+      </div>
+      <div class="post-mysizeid">
+        <%= kickspost.user.mysize_id %>
+      </div>
+    </div>
+  </div>
+  <div class="post-middle">
+    <div class="post-picture">
+      <%= kickspost.picture unless kickspost.picture.nil? %>
+    </div>
+    <div class="post-react">
+      <i class="fa fa_heart"></i>
+    </div>
+  </div>
+  <div class="post-bottom">
+    <div class="post-content">
+      <span><%= kickspost.user.name %></span><%= kickspost.content %>
+    </div>
+  </div>

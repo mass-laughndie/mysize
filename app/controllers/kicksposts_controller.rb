@@ -1,0 +1,2 @@
+class KickspostsController < ApplicationController
+end
