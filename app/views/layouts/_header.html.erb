@@ -1,0 +1,21 @@
+<header>
+  <div class="wrapper container">
+    <% if logged_in? %>
+      <div class="header-link">
+        <%= link_to image_for(current_user, size: 40), current_user, class: "left-header" %>
+      </div>
+    <% else %>
+      <div class="header-link">
+        <%= link_to fa_icon("sign-in"), login_path, class: "left-header" %>
+      </div>
+    <% end %>
+    <div class="header-link">
+      <div class="logo">
+        <%= link_to "Mysize", root_path, class: "logo-text" %>
+      </div>
+    </div>
+    <div class="header-link">
+      <%= link_to fa_icon("plus-square"), '#', class: "right-header" %>
+    </div>
+  </div>
+</header>

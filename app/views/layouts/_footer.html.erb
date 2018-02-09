@@ -1,0 +1,29 @@
+<% unless logged_in? %>
+  <footer class="my-footer">
+    <div class="links">
+      <%= link_to fa_icon("caret-right") + "登録/ログインはTOPへ", root_path %>
+    </div>
+    <div class="links">
+        <%= link_to "ヘルプ", help_path %>
+        <%= link_to "Mysize とは",   about_path %>
+        <%= link_to "利用規約", terms_path %>
+        <%= link_to "プライバシーポリシー", privacy_path %>
+    </div>
+    <div class="links">
+      <%= link_to fa_icon("twitter"), '#' %>
+    </div>
+    <%= link_to fa_icon("copyright") + "2018 Mysize", root_path %>
+  </footer>
+
+  <!--
+  <nav>
+      <ul>
+        <li><%= link_to "ヘルプ", help_path %></li>
+        <li><%= link_to "このサイトについて",   about_path %></li>
+        <li><%= link_to "利用規約", terms_path %></li>
+        <li><%= link_to "プライバシーポリシー", privacy_path %></li>
+        <li><%= link_to fa_icon("twitter"), '# '%></li>
+      </ul>
+    </nav>
+  -->
+<% end %>
