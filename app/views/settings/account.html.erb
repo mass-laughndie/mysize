@@ -1,0 +1,47 @@
+<% provide(:title, "アカウント設定") %>
+
+<div class="content-nspace">
+  <div class="ns-page-title">
+    <h1 class="title-text">アカウント設定</h1>
+  </div>
+  <div class="setting-select">
+    <ul>
+      <li class="set-list">
+        <a href="<%= mysizeid_settings_path %>">
+          <div class="set-text">
+            MysizeID
+            <div class="sss"><%= "@" + @user.mysize_id %></div>
+          </div>
+          <div class="set-icon">
+            <%= fa_icon("angle-right") %>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= email_settings_path %>">
+          <div class="set-text">
+            メールアドレス<div class="sss"><%= @user.email %></div>
+          </div>
+          <div class="set-icon">
+            <%= fa_icon("angle-right") %>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= password_settings_path %>">
+          <div class="set-text set-text1">
+            パスワード
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <% unless current_user.admin? %>
+    <div class="set-leave">
+      <%= link_to "退会する", leave_settings_path %>
+    </div>
+  <% end %>
+</div>

@@ -13,3 +13,11 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+ 
+//flash非表示
+function clearBox() {
+  document.getElementById("temp3").style.display = "none";
+}
+
+setTimeout( clearBox, 3000 );

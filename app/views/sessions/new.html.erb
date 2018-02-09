@@ -1,0 +1,24 @@
+<% provide(:title, "ログイン") %>
+<div class="content">
+  <div class="page-title">
+    <h1 class="title-text">ログイン<small>(MysizeID)</small></h1>
+  </div>
+  <div class="d">
+    <%= form_tag('/login', method: "post") do %>
+      <div class="c base-form">
+        <%= text_field_tag :mysize_id, nil, placeholder: "MysizeIDまたはメールアドレス" %>
+      </div>
+      <div class="c base-form">
+        <%= password_field_tag :password, nil, placeholder: "Password" %>
+      </div>
+      <div class="c button accent">
+        <%= submit_tag "ログイン", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+    <div class="c atention">
+      <p>
+        <%= link_to "パスワードを忘れた", '#' %>
+      </p>
+    </div>
+  </div>
+</div>

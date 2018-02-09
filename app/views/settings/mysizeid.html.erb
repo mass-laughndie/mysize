@@ -1,0 +1,18 @@
+<% provide(:title, "MysizeID編集") %>
+
+<div class="content-nspace">
+  <div class="ns-page-title">
+    <h1 class="title-text">MysizeID編集</h1>
+  </div>
+  <div class="set-form">
+    <%= form_for(@user, url: mysizeid_settings_path) do |f| %>
+      <%= render 'shared/error_messages' %>
+      <div class="c base-form">
+        <%= f.text_field :mysize_id, placeholder: "MysizeID (a-z,0-9,_ 15文字以内)" %>
+      </div>
+      <div class="c button button-mini accent">
+        <%= f.submit "保存", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>

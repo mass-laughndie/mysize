@@ -1,0 +1,18 @@
+<% provide(:title, "メールアドレス編集") %>
+
+<div class="content-nspace">
+  <div class="ns-page-title">
+    <h1 class="title-text">メールアドレス編集</h1>
+  </div>
+  <div class="set-form">
+    <%= form_for(@user, url: email_settings_path) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="c base-form">
+        <%= f.email_field :email, placeholder: "メールアドレス" %>
+      </div>
+      <div class="c button button-mini accent">
+        <%= f.submit "保存", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>

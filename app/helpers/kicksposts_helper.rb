@@ -1,0 +1,2 @@
+module KickspostsHelper
+end
