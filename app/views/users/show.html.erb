@@ -2,8 +2,8 @@
 
 <div class="content-sspace">
   <div class="profile-top">
-    <div class="user_icon">
-      <%= image_for(@user, size: 75) %>
+    <div class="c user_icon">
+      <%= image_tag(image_url(@user), alt: @user.name) %>
     </div>
     <div class="user_stats">
       <a href="#">
@@ -95,9 +95,15 @@
     </div>
   </div>
   <div class="post-content">
-    <div class="c no-post">
-      <i class="fa fa-image" ></i>
-      <div class=" no-text">表示できるデータがありません</div>
-    </div>
+    <% unless @user.kicksposts.any? %>
+      <div class="c no-post">
+        <i class="fa fa-image" ></i>
+        <div class=" no-text">表示できるデータがありません</div>
+      </div>
+    <% else %>
+      <ul>
+        <%= render @kicksposts %>
+      </ul>
+    <% end %>
   </div>
 </div>

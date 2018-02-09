@@ -35,6 +35,7 @@
       <div class="label-form">
         <%= f.label :image, "アイコン" %>
         <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
       </div>
       <div class="label-form">
         <%= f.label :profile_content, "プロフィール" %>

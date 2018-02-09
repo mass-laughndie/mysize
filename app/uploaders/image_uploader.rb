@@ -3,7 +3,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
-  process resize_to_limit: [200,200]
+  process resize_to_fill: [100,100, gravity = 'Center']
   process convert: 'jpg'
 
   # Choose what kind of storage to use for this uploader:
@@ -12,6 +12,8 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
+  # underscore → クラス名をファイル名に変換(ex: "AdminUser".underscore => admin_user)
+  # mounted_as → ファイルを定義するparams(:image, :picture)
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -33,9 +35,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  # gravity = ::Magick::CenterGravity→中心をくりぬく(サイズぴったりなら不要)
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -49,6 +49,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
   def filename
-    super.chomp(File.extname(super)) + '.jpg' if original_filename.present?
+    "#{secure_token}.jpg" if original_filename.present?
   end
+
+  protected
+
+    def secure_token
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+    end
 end

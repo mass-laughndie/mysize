@@ -6,12 +6,11 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: "gravatar")
   end
 
-  def image_for(user, size: 50 )
-    if user.image
-      image_url = "/user_images/#{user.image}"
+  def image_url(user)
+    if !user.image.nil?
+      "#{user.image}"
     else
-      image_url = "default_image1.png"
+      "default_image1.png"
     end
-    image_tag(image_url, alt: user.name, size: "#{size}x#{size}", class: "user_image")
   end
 end

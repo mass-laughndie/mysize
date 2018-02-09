@@ -254,23 +254,27 @@ nav {
 /* profile */
 
 .profile-top {
-  height: 83px;
+  height: 90px;
   position: relative;
   width: 100%;
 }
 
 .user_icon {
-  position: relative;
   float: left;
+  height: 100%;
+  position: relative;
+  width: 22%;
 
   img {
-    background-color: $back;
+    max-width: 90px;
+    width: 100%;
   }
 }
 
 .user_stats {
   float: left;
-  margin: 14px 0 0 4%;
+  height: 100%;
+  margin: 0 2%;
   position: relative;
   width: 74%;
 
@@ -280,6 +284,8 @@ nav {
     font-size: 0.65em;
     padding: 1% 2%;
     position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     text-align: center;
     width: 33.3%;
 

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :admusrind
 
   def show
-    @user = User.find_by(mysize_id: params[:id]) || User.find_by(mysize_id: params[:mysize_id]) || User.find_by(email: params[:mysize_id])
+    @user = User.find_by(mysize_id: params[:mysize_id]) || User.find_by(email: params[:mysize_id])
     @kicksposts = @user.kicksposts
   end
 

@@ -24,3 +24,11 @@ User.create!(name: "Masa",
                image: nil,
                profile_content: profile_content)
 end
+
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence(5)
+  picture = nil
+  users.each { |user| user.kicksposts.create!(content: content,
+                                              picture: picture) }
+end

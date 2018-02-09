@@ -5,7 +5,7 @@ class User < ApplicationRecord
   before_save { email.downcase! }
   before_save { mysize_id.downcase! }
 
-  #mount_uploader :image, ImageUploader
+  mount_uploader :image, ImageUploader
 
   validates :name, presence: { message: "名前を入力してください" },
                                length: { maximum: 50,
