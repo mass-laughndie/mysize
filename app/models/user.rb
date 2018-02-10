@@ -60,16 +60,6 @@ class User < ApplicationRecord
     end
   end
 
-  def set_image(file)
-    if !file.nil?
-      file_name = file.original_filename
-      File.open("public/user_images/#{file_name}", 'wb') do |f|
-        f.write(file.read)
-      end
-      self.image = file_name
-    end
-  end
-
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))

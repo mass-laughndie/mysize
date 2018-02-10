@@ -23,9 +23,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    
-    file = params[:user][:images]
-    @user.set_image(file)
 
     #passwordバリデーション有効化
     @user.validate_password = true

@@ -7,10 +7,10 @@ module UsersHelper
   end
 
   def image_url(user)
-    if !user.image.nil?
+    if user.image?
       "#{user.image}"
     else
-      "default_image1.png"
+      "/images/default_image1.png"
     end
   end
 end
