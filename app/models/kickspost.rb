@@ -5,4 +5,6 @@ class Kickspost < ApplicationRecord
   validates :content, presence: { message: "内容を入力してください" },
                       length: { maximum: 500,
                                 massage: "500文字まで入力できます" }
+
+  mount_uploader :picture, PictureUploader
 end

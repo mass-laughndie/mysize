@@ -42,5 +42,5 @@ Rails.application.routes.draw do
     delete '/leave',   to: 'settings#destroy'
   end
 
-  resources :kisksposts, only: [:create, :destroy]
+  resources :kicksposts, only: [:create, :destroy]
 end

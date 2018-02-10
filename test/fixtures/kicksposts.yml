@@ -1,15 +1,31 @@
 orange:
+  picture: <%= Faker::Avatar.image %>
   content: "I just ate an orange!"
   created_at: <%= 10.minutes.ago %>
+  user: mysize1
 
 tau_manifesto:
+  picture: <%= Faker::Avatar.image %>
   content: "Check out the @tauday site by @mhartl: http://tauday.com"
   created_at: <%= 3.years.ago %>
+  user: mysize1
 
 cat_video:
+  picture: <%= Faker::Avatar.image %>
   content: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
   created_at: <%= 2.hours.ago %>
+  user: mysize1
 
 most_recent:
+  picture: <%= Faker::Avatar.image %>
   content: "Writing a short test"
   created_at: <%= Time.zone.now %>
+  user: mysize1
+
+<% 30.times do |n| %>
+kickspost_<%= n %>:
+  picture: <%= Faker::Avatar.image %>
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 42.days.ago %>
+  user: mysize1
+<% end %>

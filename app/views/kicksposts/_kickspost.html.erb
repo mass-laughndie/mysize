@@ -24,5 +24,7 @@
     <div class="post-content">
       <span><%= kickspost.user.name %></span><%= kickspost.content %>
     </div>
+    <div class="post-time">
+      <span><%= time_ago_in_words(kickspost.created_at) %>前</span>
   </div>
 </li>

@@ -3,8 +3,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
-  process resize_to_fill: [100,100, gravity = 'Center']
+  process resize_to_fill: [100,100]
   process convert: 'jpg'
+  process quality: 100
 
   # Choose what kind of storage to use for this uploader:
   
@@ -56,6 +57,6 @@ class ImageUploader < CarrierWave::Uploader::Base
 
     def secure_token
       var = :"@#{mounted_as}_secure_token"
-      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.urlsafe_base64(7))
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.urlsafe_base64(6))
     end
 end
