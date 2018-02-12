@@ -6,7 +6,7 @@
   </div>
   <div class="set-form">
     <%= form_for(@user, url: mysizeid_settings_path) do |f| %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/error_messages', object: f.object %>
       <div class="c base-form">
         <%= f.text_field :mysize_id, placeholder: "MysizeID (a-z,0-9,_ 15文字以内)" %>
       </div>

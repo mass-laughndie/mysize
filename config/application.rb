@@ -6,9 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ToyApp
+module Mysize1
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.i18n.default_locale = :ja
     config.load_defaults 5.1
 
     # Settings in config/environments/* take precedence over those specified here.

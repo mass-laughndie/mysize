@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20180207085723) do
   create_table "kicksposts", force: :cascade do |t|
     t.text "content"
     t.string "picture"
+    t.integer "size"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

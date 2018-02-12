@@ -3,10 +3,10 @@ class PictureUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
-  process resize_to_fill: [300,300]
+  process :fix_exif_rotation  #１番目固定
+  process resize_to_fit: [600, 800]
   process convert: 'png'
   process quality: 100
-
   # Choose what kind of storage to use for this uploader:
   
   storage :file

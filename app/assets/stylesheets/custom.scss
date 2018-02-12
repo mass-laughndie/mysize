@@ -401,7 +401,7 @@ nav {
   position: relative;
 }
 
-.post-menu {
+.post-select {
   border-top: 1px solid $back;
   border-bottom: 1px solid $back;
   height: 52px;
@@ -420,8 +420,114 @@ nav {
   }
 }
 
-.post-content {
+.post-main {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+.post-top {
+  height: 50px;
+  padding: 8px;
   position: relative;
+  width: 100%;
+}
+
+.post-icon {
+  float: left;
+  margin-right: 16px;
+  position: relative;
+  width: 34px;
+
+  a {
+    display: block;
+    height: 34px;
+
+    img {
+      border-radius: 17.5%;
+    }
+  }
+}
+
+.post-user {
+  position: relative;
+  float: left;
+
+  .post-name {
+    font-size: 0.9em;
+    font-weight: 450;
+    line-height: 18px;
+    letter-spacing: 0.01em;
+  }
+
+  .post-mysizeid {
+    font-size: 0.8em;
+    line-height: 16px;
+    color: $base-grey;
+  }
+}
+
+.post-menu {
+  height: 34px;
+  position: absolute;
+  right: 16px;
+  width: 24px;
+
+  a {
+    display: block;
+    height: 24px;
+    margin: 5px 0;
+  }
+}
+
+.post-middle {
+  position:relative;
+  width: 100%;
+
+  .post-picture {
+    width: 100%;
+
+    a {
+      display: block;
+
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  .post-react {
+    height: 40px;
+    padding: 3px;
+    a {
+      display: inline-block;
+      text-align: center;
+      width: 34px;
+
+      i {
+        display: block;
+        line-height: 34px;
+      }
+    }
+  }
+}
+
+.post-bottom {
+  font-size: 14px;
+  padding: 0 16px;
+
+  .post-content {
+    margin: 5px 0;
+    a {
+      font-weight: 600;
+      margin-right: 0.3em;
+    }
+  }
+  .post-time {
+    color: $base-grey;
+    font-size: 10px;
+  }
 }
 
 .no-post {

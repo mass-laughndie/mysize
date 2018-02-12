@@ -1,20 +1,32 @@
-<div class="content">
-  <div class="page-title c">
-    <h1 class="title-text" style="max-width: 100%">Mysize</h1>
+<% if logged_in? %>
+  <div class="post-main">
+    <% unless @kicksposts.any? %>
+      <div class="c no-post">
+        <i class="fa fa-image" ></i>
+        <div class=" no-text">表示できるデータがありません</div>
+      </div>
+    <% else %>
+      <ul>
+        <%= render @kicksposts %>
+      </ul>
+    <% end %>
   </div>
-
-  <h2 class="c">
-    ～開発中～
-  </h2>
-  <div class="c button twitter-color">
-    <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '#' %>
+<% else %>
+  <div class="content">
+    <div class="page-title c">
+      <h1 class="title-text" style="max-width: 100%">Mysize </h1>
+    </div>
+    <h2 class="c">～開発中～</h2>
+    <div class="c button twitter-color">
+      <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '#' %>
+    </div>
+    <div class="c button accent">
+      <%= link_to "MysizeIDで登録する", signup_path %>
+    </div>
+    <div class="c atention">
+      <p>
+        <%= link_to "MysizeIDでログインする", login_path %>
+      </p>
+    </div>
   </div>
-  <div class="c button accent">
-    <%= link_to "MysizeIDで登録する", signup_path %>
-  </div>
-  <div class="c atention">
-    <p>
-      <%= link_to "MysizeIDでログインする", login_path %>
-    </p>
-  </div>
-</div>
+<% end %>

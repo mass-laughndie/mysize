@@ -1,10 +1,10 @@
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
   <div class="error">
     <div class="c error-title">
       入力内容をご確認ください。
     </div>
     <ul>
-    <% @user.errors.each do |key, message| %>
+    <% object.errors.each do |key, message| %>
       <li><%= fa_icon("exclamation-circle") + message %></li>
     <% end %>
     </ul>

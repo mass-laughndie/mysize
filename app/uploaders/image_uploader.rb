@@ -3,6 +3,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
+  process :fix_exif_rotation  #１番目固定
   process resize_to_fill: [100,100]
   process convert: 'jpg'
   process quality: 100
@@ -59,4 +60,5 @@ class ImageUploader < CarrierWave::Uploader::Base
       var = :"@#{mounted_as}_secure_token"
       model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.urlsafe_base64(6))
     end
+
 end

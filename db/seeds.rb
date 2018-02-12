@@ -4,17 +4,17 @@ User.create!(name: "Masa",
              password: "foobar",
              password_confirmation: "foobar",
              shoe_size: 10,
-             image: nil,
+             image: open("#{Rails.root}/db/data/icon1.jpg"),
              profile_content: "Jordan1(26.5cm)/Kithコラボが好きです！",
              admin: true)
 
-49.times do |n|
+19.times do |n|
   name = Faker::Name.name
   email = "mysize-#{n+1}@example.com"
   mysize_id = "mysize_#{n+1}"
   password = "password"
   shoe_size = rand(1..17)
-  image = Faker::Avatar.image
+  image = open("#{Rails.root}/db/data/icon#{rand(2..10)}.jpg")
   profile_content = Faker::Lorem.sentence(5)
   User.create!(name: name,
                email: email,
@@ -27,9 +27,10 @@ User.create!(name: "Masa",
 end
 
 users = User.order(:created_at).take(6)
-50.times do
-  content = Faker::Lorem.sentence(5)
-  picture = nil
-  users.each { |user| user.kicksposts.create!(content: content,
-                                              picture: picture) }
+5.times do
+  users.each do |user|
+    user.kicksposts.create!(content: Faker::Lorem.sentence(5),
+                            picture: open("#{Rails.root}/db/data/kicks#{rand(1..15)}.jpg"),
+                            size: rand(1..17))
+  end
 end
