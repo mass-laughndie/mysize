@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
     if logged_in?
-      @kicksposts = current_user.kicksposts
+      @kicksposts = current_user.feed
     end
   end
 

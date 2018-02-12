@@ -10,6 +10,15 @@
         <%= f.hidden_field :picture_cache %>
       </div>
       <div class="label-form">
+        <%= f.label :size, "スニーカーのサイズ" %>
+        <%= f.select(:size) do %>
+          <%= content_tag(:option, "選択してください", value: '') %>
+          <% 17.times do |n| %>
+            <%= content_tag(:option, "#{21.5+0.5*(n+1)}cm", value: (n+1) ) %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="label-form">
         <%= f.label :content, "投稿フォーム" %>
         <%= f.text_area :content, placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
       </div>

@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <div class="post-main">
-    <% unless @kicksposts.any? %>
+    <% if @kicksposts.nil? %>
       <div class="c no-post">
         <i class="fa fa-image" ></i>
         <div class=" no-text">表示できるデータがありません</div>

@@ -18,10 +18,10 @@ class KickspostsController < ApplicationController
   def create
     @kickspost = current_user.kicksposts.build(kicksposts_params)
     if @kickspost.save
-      flash[:success] = "投稿に成功しました！"
-      redirect_to user_path(@kickspost.user)
+      flash[:success] = "投稿に成功しました"
+      redirect_to root_url
     else
-      render 'static_pages/home'
+      render 'new'
     end
   end
 
@@ -40,7 +40,7 @@ class KickspostsController < ApplicationController
   private
 
     def kicksposts_params
-      params.require(:kickspost).permit(:picture, :picture_cache, :content)
+      params.require(:kickspost).permit(:picture, :picture_cache, :size, :content)
     end
 
     def set_and_check_kickspost

@@ -13,24 +13,12 @@
       </div>
       <div class="label-form">
         <%= f.label :shoe_size, "スニーカーのベースサイズ" %>
-        <%= f.select :shoe_size, [["22cm", "1"],
-                                  ["22.5cm", "2"],
-                                  ["23cm", "3"],
-                                  ["23.5cm", "4"],
-                                  ["24cm", "5"],
-                                  ["24.5cm", "6"],
-                                  ["25cm", "7"],
-                                  ["25.5cm", "8"],
-                                  ["26cm", "9"],
-                                  ["26.5cm", "10"],
-                                  ["27cm", "11"],
-                                  ["27.5cm", "12"],
-                                  ["28cm", "13"],
-                                  ["28.5cm", "15"],
-                                  ["29cm", "15"],
-                                  ["29.5cm", "16"],
-                                  ["30cm", "17"]],
-                                  include_blank: true %>
+        <%= f.select(:shoe_size) do %>
+          <%= content_tag(:option, "選択してください", value: '') %>
+          <% 17.times do |n| %>
+            <%= content_tag(:option, "#{21.5+0.5*(n+1)}cm", value: (n+1) ) %>
+          <% end %>
+        <% end %>
       </div>
       <div class="label-form">
         <%= f.label :image, "アイコン" %>

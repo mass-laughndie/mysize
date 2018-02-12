@@ -13,12 +13,20 @@ class KickspostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
-=begin
+
   test "should reidrect destroy when not logged in" do
     assert_no_difference 'Kickspost.count' do
-      delete kickspost_path(@kickspost)
+      delete kickspost_path(@kickspost.user, @kickspost)
     end
     assert_redirected_to login_url
   end
-=end
+
+  test "should redirect destroy for wrong kickspost" do
+    log_in_as(users(:mysize1))
+    kickspost = kicksposts(:ants)
+    assert_no_difference 'Kickspost.count' do
+      delete kickspost_path(kickspost.user, kickspost)
+    end
+    assert_redirected_to root_url
+  end
 end
