@@ -5,11 +5,14 @@
     </div>
     <div class="post-user">
       <div class="post-name">
-        <%= kickspost.user.name %>
+        <%= link_to kickspost.user.name, kickspost.user %>
       </div>
       <div class="post-mysizeid">
-        <%= fa_icon("at") + kickspost.user.mysize_id %>
+        <%= link_to fa_icon("at") + kickspost.user.mysize_id, kickspost.user %>
       </div>
+    </div>
+    <div class="c post-shoesize">
+      <%= link_to 21.5 + kickspost.user.shoe_size / 2.0, kickspost.user %>
     </div>
     <div class="c post-menu">
       <% if current_user == kickspost.user %>
