@@ -13,12 +13,7 @@
       </div>
       <div class="label-form">
         <%= f.label :shoe_size, "スニーカーのベースサイズ" %>
-        <%= f.select(:shoe_size) do %>
-          <%= content_tag(:option, "選択してください", value: '') %>
-          <% 17.times do |n| %>
-            <%= content_tag(:option, "#{21.5+0.5*(n+1)}cm", value: (n+1) ) %>
-          <% end %>
-        <% end %>
+        <%= f.select(:shoe_size, options_for_select(size_array, @user.shoe_size), prompt: "選択してください") %>
       </div>
       <div class="label-form">
         <%= f.label :image, "アイコン" %>
