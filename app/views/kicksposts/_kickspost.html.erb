@@ -1,27 +1,42 @@
 <li id="kickspost-<%= kickspost.id %>" class="kickspost-list">
   <div class="post-top">
     <div class="post-icon">
-      <%= link_to image_for(kickspost.user, size: 40), micropost.user %>
+      <%= link_to image_tag(image_url(kickspost.user), size: 34), kickspost.user %>
     </div>
-    <div class="post-content">
+    <div class="post-user">
       <div class="post-name">
-        <%= kickspost.user.name %>
+        <%= link_to kickspost.user.name, kickspost.user %>
       </div>
       <div class="post-mysizeid">
-        <%= kickspost.user.mysize_id %>
+        <%= link_to fa_icon("at") + kickspost.user.mysize_id, kickspost.user %>
       </div>
+    </div>
+    <div class="c post-shoesize">
+      <%= link_to 21.5 + kickspost.user.shoe_size / 2.0, kickspost.user %>
+    </div>
+    <div class="c post-menu">
+      <% if current_user == kickspost.user %>
+        <%= link_to fa_icon("ellipsis-h"), kickspost_path(kickspost.user.mysize_id, kickspost), method: :delete,
+                      data: { confirm: "本当に削除してよろしいですか？" } %>
+      <% end %>
     </div>
   </div>
   <div class="post-middle">
+    <% unless kickspost.picture.nil? %>
     <div class="post-picture">
-      <%= kickspost.picture unless kickspost.picture.nil? %>
+      <%= link_to image_tag(kickspost.picture), kickspost_path(kickspost.user.mysize_id, kickspost) %>
     </div>
+    <% end %>
     <div class="post-react">
-      <i class="fa fa_heart"></i>
+      <%= link_to fa_icon("heart"), '#' %>
+      <%= link_to fa_icon("thumbs-up"), '#' %>
     </div>
   </div>
   <div class="post-bottom">
     <div class="post-content">
-      <span><%= kickspost.user.name %></span><%= kickspost.content %>
+      <%= link_to kickspost.user.name, user_path(kickspost.user) %><%= kickspost.content %>
     </div>
+    <div class="post-time">
+      <span><%= time_ago_in_words(kickspost.created_at) %>前</span>
   </div>
+</li>

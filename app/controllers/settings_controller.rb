@@ -91,7 +91,7 @@ class SettingsController < ApplicationController
   private
 
     def profile_params
-      params.require(:user).permit(:name, :shoe_size, :image, :profile_content)
+      params.require(:user).permit(:name, :shoe_size, :image, :image_cache, :profile_content)
     end
 
     def email_params

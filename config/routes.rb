@@ -8,16 +8,22 @@ Rails.application.routes.draw do
   get '/terms',   to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
 
-  get  '/signup', to: 'users#new'
-  post '/signup', to: 'users#create'
+  get  '/signup',   to: 'users#new'
+  post '/signup',   to: 'users#create'
   get '/admusrind', to: 'users#admusrind'
+
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  get '/upload',  to: 'kicksposts#new'
+  post '/upload', to: 'kicksposts#create'
+  
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
                     path: '/' do
     member do
+      resources :kicksposts, except: [:new, :create]
       get :following,
           :followers
     end
@@ -41,7 +47,5 @@ Rails.application.routes.draw do
     get   '/leave',    to: 'settings#leave'
     delete '/leave',   to: 'settings#destroy'
   end
-
-
 
 end

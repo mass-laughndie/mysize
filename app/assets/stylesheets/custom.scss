@@ -254,23 +254,39 @@ nav {
 /* profile */
 
 .profile-top {
-  height: 83px;
+  height: 90px;
   position: relative;
   width: 100%;
 }
 
 .user_icon {
-  position: relative;
   float: left;
+  height: 100%;
+  position: relative;
+  width: 22%;
 
   img {
-    background-color: $back;
+    max-width: 90px;
+    width: 100%;
   }
 }
 
+/* background表示ver
+.icon1 {
+  background: no-repeat center;
+  height: 75px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 75px;
+}
+*/
+
 .user_stats {
   float: left;
-  margin: 14px 0 0 4%;
+  height: 100%;
+  margin: 0 2%;
   position: relative;
   width: 74%;
 
@@ -280,6 +296,8 @@ nav {
     font-size: 0.65em;
     padding: 1% 2%;
     position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     text-align: center;
     width: 33.3%;
 
@@ -383,7 +401,7 @@ nav {
   position: relative;
 }
 
-.post-menu {
+.post-select {
   border-top: 1px solid $back;
   border-bottom: 1px solid $back;
   height: 52px;
@@ -402,8 +420,131 @@ nav {
   }
 }
 
-.post-content {
+.post-main {
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+.post-top {
+  height: 50px;
+  padding: 8px;
   position: relative;
+  width: 100%;
+}
+
+.post-icon {
+  float: left;
+  margin-right: 16px;
+  position: relative;
+  width: 34px;
+
+  a {
+    display: block;
+    height: 34px;
+
+    img {
+      border-radius: 17.5%;
+    }
+  }
+}
+
+.post-user {
+  float: left;
+  position: relative;
+  margin-right: 16px;
+
+  .post-name {
+    font-size: 0.9em;
+    font-weight: 450;
+    line-height: 18px;
+  }
+
+  .post-mysizeid {
+    font-size: 0.7em;
+    line-height: 16px;
+    a {
+      color: $base-grey;
+    }
+  }
+}
+
+.post-shoesize {
+  position: relative;
+  float: left;
+  margin: 5px 0;
+  width: 40px;
+  a {
+    border: 1px solid $main-color;
+    border-radius: 5px;
+    display: block;
+    font-size: 0.9em;
+    height: 24px;
+  }
+}
+
+.post-menu {
+  height: 34px;
+  position: absolute;
+  right: 16px;
+  width: 24px;
+
+  a {
+    display: block;
+    height: 24px;
+    margin: 5px 0;
+  }
+}
+
+.post-middle {
+  position:relative;
+  width: 100%;
+
+  .post-picture {
+    width: 100%;
+
+    a {
+      display: block;
+
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  .post-react {
+    height: 40px;
+    padding: 3px;
+    a {
+      display: inline-block;
+      text-align: center;
+      width: 34px;
+
+      i {
+        display: block;
+        line-height: 34px;
+      }
+    }
+  }
+}
+
+.post-bottom {
+  font-size: 14px;
+  padding: 0 16px;
+
+  .post-content {
+    margin: 5px 0;
+    word-wrap: break-word;
+    a {
+      font-weight: 600;
+      margin-right: 0.3em;
+    }
+  }
+  .post-time {
+    color: $base-grey;
+    font-size: 10px;
+  }
 }
 
 .no-post {

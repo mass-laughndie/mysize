@@ -2,7 +2,7 @@
   <a href="<%= user_path(user) %>" class="index-data">
     <div class="c index-left">
       <div class="index-image">
-        <%= image_for(user, size: 40) %>
+        <%= image_tag(image_url(user), alt: user.name, size: 40) %>
       </div>
       <div class="index-size">
         <%= 21.5 + user.shoe_size / 2.0 %>

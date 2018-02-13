@@ -8,7 +8,7 @@
       <p>退会すると全ての投稿や質問などが削除され、復帰することはできません。</p>
     <div class="set-form">
       <%= form_tag('/settings/leave', method: "delete") do %>
-        <%= render 'shared/error_messages' %>
+        <%= render 'shared/error_messages', object: current_user %>
         <div class="label-form" style="margin: 30px 0;">
           <%= label_tag :password, "パスワード" %>
           <%= password_field_tag :password, nil, placeholder: "Password" %>

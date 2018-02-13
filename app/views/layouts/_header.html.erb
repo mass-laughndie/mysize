@@ -2,7 +2,7 @@
   <div class="wrapper container">
     <% if logged_in? %>
       <div class="header-link">
-        <%= link_to image_for(current_user, size: 40), current_user, class: "left-header" %>
+        <%= link_to image_tag(image_url(current_user), size: 40, alt: current_user.name), current_user, class: "left-header" %>
       </div>
     <% else %>
       <div class="header-link">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="header-link">
-      <%= link_to fa_icon("plus-square"), '#', class: "right-header" %>
+      <%= link_to fa_icon("plus-square"), upload_path, class: "right-header" %>
     </div>
   </div>
 </header>

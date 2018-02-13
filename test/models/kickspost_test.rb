@@ -4,7 +4,9 @@ class KickspostTest < ActiveSupport::TestCase
   
   def setup
     @user = users(:mysize1)
-    @kickspost = @user.kicksposts.build(content: "Lorem ipsum")
+    @kickspost = @user.kicksposts.build(content: "Lorem ipsum",
+                                        picture: open("#{Rails.root}/db/data/kicks1.jpg"),
+                                        size: 7)
   end
 
   test "should be valid" do
