@@ -27,24 +27,3 @@ CarrierWave.configure do |config|
   end
 end
 =end
-module CarrierWave
-  module MiniMagick
-    #画質調整
-    def quality(percentage)
-      manipulate! do |img|
-        img.quality(percentage.to_s)
-        img = yield(img) if block_given?
-        img
-      end
-    end
-
-    #画像の自動回転を防ぐ
-    def fix_exif_rotation
-      manipulate! do |img|
-        img = img.auto_orient
-        img = yield(img) if block_given?
-        img
-      end
-    end
-  end
-end

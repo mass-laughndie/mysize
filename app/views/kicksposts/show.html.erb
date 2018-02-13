@@ -21,7 +21,7 @@
   <div class="post-middle">
     <% unless @kickspost.picture.nil? %>
     <div class="post-picture">
-      <%= link_to image_tag(@kickspost.picture), kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
+      <%= link_to image_tag(picture_url(@kickspost)), kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
     </div>
     <% end %>
     <div class="post-react">
