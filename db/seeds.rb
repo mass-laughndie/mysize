@@ -15,7 +15,7 @@ User.create!(name: "Masa",
   password = "password"
   shoe_size = rand(1..17)
   image = open("#{Rails.root}/db/data/icon#{rand(2..10)}.jpg")
-  profile_content = Faker::Lorem.paragraph(2, false, 4)
+  profile_content = Faker::Lorem.sentence(5)
   User.create!(name: name,
                email: email,
                mysize_id: mysize_id,
