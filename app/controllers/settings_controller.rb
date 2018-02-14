@@ -13,9 +13,7 @@ class SettingsController < ApplicationController
   end
 
   def profile_update
-    #file = params[:user][:images]
-    #@user.set_image(file)
-
+    @user.validate_shoesize = true
     if @user.update_attributes(profile_params)
       flash[:success] = "更新が完了しました！"
       redirect_to @user
