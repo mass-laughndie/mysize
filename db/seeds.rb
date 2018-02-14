@@ -4,7 +4,7 @@ User.create!(name: "Masa",
              password: "foobar",
              password_confirmation: "foobar",
              shoe_size: 10,
-             remote_image_url: "#{Rails.root}/db/data/icon1.jpg",
+             remote_image_url: Faker::Avatar.image,
              profile_content: "Jordan1(26.5cm)/Kithコラボが好きです！",
              admin: true)
 
@@ -14,7 +14,7 @@ User.create!(name: "Masa",
   mysize_id = "mysize_#{n+1}"
   password = "password"
   shoe_size = rand(1..17)
-  image = "#{Rails.root}/db/data/icon#{rand(2..10)}.jpg"
+  image = Faker::Avatar.image
   profile_content = Faker::Lorem.sentence(5)
   User.create!(name: name,
                email: email,
@@ -26,13 +26,21 @@ User.create!(name: "Masa",
                profile_content: profile_content)
 end
 
-#if Rails.env.development?
 users = User.order(:created_at).take(6)
-5.times do
-  users.each do |user|
-    user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
-                            remote_picture_url: "#{Rails.root}/db/data/kicks#{rand(1..15)}.jpg",
-                            size: rand(1..17))
+if Rails.env.development?
+  5.times do
+    users.each do |user|
+      user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
+                              picture: open("#{Rails.root}/db/data/kicks#{rand(1..15)}.jpg"),
+                              size: rand(1..17))
+    end
   end
-#  end
+elsif Rails.env.production?
+  5.times do
+    users.each do |user|
+      user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
+                              remote_picture_url: Faker::Avatar.image,
+                              size: rand(1..17))
+    end
+  end
 end
