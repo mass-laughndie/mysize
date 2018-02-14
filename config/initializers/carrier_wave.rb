@@ -21,7 +21,9 @@ end
 =end
 
 CarrierWave.configure do |config|
+  #テスト時の画像の格納場所を変更 => gitに保存されなくなる
   config.cache_dir = Rails.root.join 'tmp/uploads'
+  
 =begin
   if Rails.env.development? || Rails.env.production?
     config.storage :file

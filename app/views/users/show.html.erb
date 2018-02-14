@@ -96,11 +96,8 @@
     </div>
   </div>
   <div class="post-main">
-    <% unless @user.kicksposts.any? %>
-      <div class="c no-post">
-        <i class="fa fa-image" ></i>
-        <div class=" no-text">表示できるデータがありません</div>
-      </div>
+    <% if @user.kicksposts.blank? %>
+      <%= render 'shared/no_data' %>
     <% else %>
       <ul>
         <%= render @kicksposts %>
