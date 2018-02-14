@@ -16,8 +16,10 @@ gem 'jquery-rails',             '4.3.1'    #js使用のため
 gem 'turbolinks',               '5.0.1'    #
 gem 'jbuilder',                 '2.7.0'    #
 gem 'font-awesome-rails'                   #
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'dotenv-rails'                         #key管理
 
 #開発、テスト環境に使用
 group :development, :test do

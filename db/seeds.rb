@@ -26,11 +26,13 @@ User.create!(name: "Masa",
                profile_content: profile_content)
 end
 
-users = User.order(:created_at).take(6)
-5.times do
-  users.each do |user|
-    user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
-                            picture: open("#{Rails.root}/db/data/kicks1.jpg"),
-                            size: rand(1..17))
+if Rails.env.development?
+  users = User.order(:created_at).take(6)
+  5.times do
+    users.each do |user|
+      user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
+                              picture: open("#{Rails.root}/db/data/kicks#{rand(1..15)}.jpg"),
+                              size: rand(1..17))
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207085723) do
+ActiveRecord::Schema.define(version: 20180213100732) do
 
   create_table "kicksposts", force: :cascade do |t|
     t.text "content"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20180207085723) do
     t.string "profile_content"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.string "uid"
+    t.string "provider"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mysize_id"], name: "index_users_on_mysize_id", unique: true
   end

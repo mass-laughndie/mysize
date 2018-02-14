@@ -1,15 +1,23 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # devise :database_authenticatable, :registerable,
+         # :recoverable, :rememberable, :trackable, :validatable,
+  #devise :omniauthable, omniauth_providers: [:twitter]
 
-  attr_accessor :validate_password, :remember_token
+  attr_accessor :validate_name, :validate_password, :validate_shoesize,
+                :remember_token
   has_many :kicksposts, dependent: :destroy
 
   before_save :downcase_email_and_mysizeid
 
   mount_uploader :image, ImageUploader
 
-  validates :name, presence: { message: "名前を入力してください" },
-                               length: { maximum: 50,
-                                         message: "名前は50文字以内まで有効です" }
+  validates :name, presence: { message: "名前を入力してください",
+                               if: :validate_name? },
+                   length: { maximum: 50,
+                             message: "名前は50文字以内まで有効です",
+                             allow_blank: true }
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
   validates :mysize_id, presence:   { message: "MysizeIDを入力してください" },
@@ -46,11 +54,12 @@ class User < ApplicationRecord
   validates :profile_content, length: { maximum: 160,
                                         massage: "プロフィールは160字以内で入力してください" }
 
-  
   validates :shoe_size, presence: { message: "スニーカーのサイズを選択してください",
-                                    on: :update }
+                                    if: :validate_shoesize? }
 
   validate :image_size
+
+  # validates :uid, presence: true
   
   class << self
 
@@ -78,8 +87,55 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+=begin
+  def self.find_for_oauth(auth)
+    user = User.where(uid: auth.uid, provider: auth.provider).first
+ 
+    unless user
+      user = User.create(
+        uid:      auth.uid,
+        provider: auth.provider,
+        email:    User.dummy_email(auth),
+        password: Devise.friendly_token[0, 20],
+        image: auth.info.image,
+        name: auth.info.name,
+        mysize_id: auth.info.nickname,
+      )
+    end
+ 
+    user
+  end
+=end
+  
+  def self.find_or_create_from_auth(auth)
+    provider = auth[:provider]
+    uid = auth[:uid]
+    name = auth[:info][:name]
+    mysize_id = auth[:info][:nickname]
+    email = User.dummy_email(auth)
+    image = auth[:info][:image].sub("_normal", "")
+
+    #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
+    self.find_or_create_by(provider: provider, uid: uid) do |user|
+      user.name = name
+      user.email = email
+      user.remote_image_url = image
+      if User.find_by(mysize_id: mysize_id).nil?
+        user.mysize_id = mysize_id
+      end
+    end
+  end
+
   def to_param
     mysize_id
+  end
+
+  def validate_name?
+    validate_name == 'true' || validate_name == true
+  end
+
+  def validate_shoesize?
+    validate_shoesize == 'true' || validate_shoesize == true
   end
 
   def validate_password?
@@ -105,5 +161,9 @@ class User < ApplicationRecord
       if image.size > 10.megabytes
         error.add(:image, "画像サイズは最大10MBまで設定できます")
       end
+    end
+
+    def self.dummy_email(auth)
+      "#{auth.uid}-#{auth.provider}@example.com"
     end
 end

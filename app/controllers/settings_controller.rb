@@ -3,6 +3,29 @@ class SettingsController < ApplicationController
   before_action :logged_in_user
   before_action :get_user
 
+  def welcome
+  end
+
+  def welcome_update
+    @user.validate_shoesize = true
+    @user.validate_name = true
+    unless @user.uid.nil?
+      @user.validate_password = true
+    end
+    if @user.uid.nil? && @user.update_attributes(profile_params)
+      flash[:success] = "プロフィール登録が完了しました！"
+      redirect_to @user
+    elsif !@user.uid.nil? && @user.update_attributes(omniauth_params)
+      flash[:success] = "アカウント登録が完了しました！"
+      redirect_to @user
+    else
+      if params[:user][:name].blank? || params[:user][:mysize_id].blank?
+        @user.reload
+      end
+      render 'welcome'
+    end
+  end
+
   def option
   end
 
@@ -13,13 +36,15 @@ class SettingsController < ApplicationController
   end
 
   def profile_update
-    #file = params[:user][:images]
-    #@user.set_image(file)
-
+    @user.validate_shoesize = true
+    @user.validate_name = true
     if @user.update_attributes(profile_params)
       flash[:success] = "更新が完了しました！"
       redirect_to @user
     else
+      if params[:user][:name].blank?
+        @user.reload
+      end
       render 'profile'
     end
   end
@@ -90,8 +115,14 @@ class SettingsController < ApplicationController
 
   private
 
+    def omniauth_params
+      params.require(:user).permit(:name, :mysize_id, :shoe_size,
+                                   :password, :password_confirmation)
+    end
+
     def profile_params
-      params.require(:user).permit(:name, :shoe_size, :image, :image_cache, :profile_content)
+      params.require(:user).permit(:name, :shoe_size, :image,
+                                   :image_cache, :profile_content)
     end
 
     def email_params

@@ -128,6 +128,17 @@ header {
   }
 }
 
+.welcome-text {
+  padding-bottom: 20px;
+  width: 100%;
+
+  p {
+    font-weight: 550;
+    padding: 0;
+  }
+  
+}
+
 /* header */
 
 .header-link {
@@ -560,7 +571,7 @@ nav {
 
   .no-text {
     font-weight: 500;
-    line-height: 50px;
+    line-height: 30px;
   }
 }
 
