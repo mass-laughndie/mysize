@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+    #初回でnameを入力せずに他のページに飛ぼうとした場合
+    def no_name
+      if current_user.name.nil?
+        flash[:danger] = "ユーザー名を登録してください"
+        redirect_to(welcome_path)
+      end
+    end
+
     #ログイン済みユーザーか確認
     def logged_in_user
       #ログインしていない場合

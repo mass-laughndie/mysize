@@ -5,7 +5,7 @@ class User < ApplicationRecord
          # :recoverable, :rememberable, :trackable, :validatable,
   #devise :omniauthable, omniauth_providers: [:twitter]
 
-  attr_accessor :validate_password, :validate_shoesize,
+  attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token
   has_many :kicksposts, dependent: :destroy
 
@@ -13,9 +13,11 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  validates :name, presence: { message: "名前を入力してください" },
-                               length: { maximum: 50,
-                                         message: "名前は50文字以内まで有効です" }
+  validates :name, presence: { message: "名前を入力してください",
+                               if: :validate_name? },
+                   length: { maximum: 50,
+                             message: "名前は50文字以内まで有効です",
+                             allow_blank: true }
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
   validates :mysize_id, presence:   { message: "MysizeIDを入力してください" },
@@ -112,14 +114,12 @@ class User < ApplicationRecord
     mysize_id = auth[:info][:nickname]
     email = User.dummy_email(auth)
     image = auth[:info][:image].sub("_normal", "")
-    password = "000000"
 
     #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
     self.find_or_create_by(provider: provider, uid: uid) do |user|
       user.name = name
       user.email = email
       user.remote_image_url = image
-      user.password = password
       if User.find_by(mysize_id: mysize_id).nil?
         user.mysize_id = mysize_id
       end
@@ -128,6 +128,10 @@ class User < ApplicationRecord
 
   def to_param
     mysize_id
+  end
+
+  def validate_name?
+    validate_name == 'true' || validate_name == true
   end
 
   def validate_shoesize?

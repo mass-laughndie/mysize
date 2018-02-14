@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  before_action :no_name, only: [:show]
   before_action :admin_user, only: :admusrind
 
   def show
@@ -23,14 +24,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     #passwordバリデーション有効化
     @user.validate_password = true
 
     if @user.save
       log_in @user
       flash[:success] = "登録が完了しました！"
-      redirect_to @user
+      redirect_to welcome_path
     else
       render 'new'
     end
@@ -39,8 +39,8 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :mysize_id,
-                                 :password, :password_confirmation)
+      params.require(:user).permit(:email, :mysize_id,
+                                   :password, :password_confirmation)
     end
 
     def admin_user

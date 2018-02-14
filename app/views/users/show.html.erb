@@ -61,7 +61,7 @@
   </div>
   <div class="profile-bottom">
     <div class="user_profile">
-      <% unless @user.profile_content.nil? %>
+      <% unless @user.profile_content.blank? %>
         <%= @user.profile_content %>
       <% else %>
         プロフィールが未記入です。

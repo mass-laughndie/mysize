@@ -1,5 +1,6 @@
 class KickspostsController < ApplicationController
   before_action :logged_in_user
+  before_action :no_name
   before_action :set_and_check_kickspost, only: [:show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 

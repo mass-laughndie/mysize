@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
 
+  get   '/welcome',    to: 'settings#welcome'
+  patch '/welcome',    to: 'settings#welcome_update'
+  put   '/welcome',    to: 'settings#welcome_update'
+
   get '/upload',  to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
   

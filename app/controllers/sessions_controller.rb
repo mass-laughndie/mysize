@@ -22,8 +22,13 @@ class SessionsController < ApplicationController
   def omniauth_create
     @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
     log_in @user
-    flash[:success] = "ログインに成功しました！"
-    redirect_back_or root_url
+    if @user.shoe_size.nil?
+      flash[:success] = "登録が完了しました"
+      redirect_to welcome_url
+    else
+      flash[:success] = "ログインに成功しました！"
+      redirect_to @user
+    end
   end
 
   def destroy
