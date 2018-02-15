@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in @user
-      UserMailer.welcome(@user).deliver_now
+      @user.send_welcome_email
       flash[:success] = "登録が完了しました！"
       redirect_to welcome_path
     else

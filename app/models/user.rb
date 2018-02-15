@@ -71,6 +71,10 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
+
+    def new_reset_token
+      SecureRandom.uuid
+    end
   end
 
   def remember
@@ -85,6 +89,10 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_now
   end
 
 =begin
@@ -129,6 +137,12 @@ class User < ApplicationRecord
   def to_param
     mysize_id
   end
+
+=begin
+  def validate_on?(name)
+    send("validate_#{param}") == 'true' || send("validate_#{param}") == true
+  end
+=end
 
   def validate_name?
     validate_name == 'true' || validate_name == true
