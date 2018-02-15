@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
+
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
   
   test "invalid signup information" do
     get signup_path
@@ -23,6 +27,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                           password:              "password",
                                           password_confirmation: "password" } }
     end
+    assert_equal 1, ActionMailer::Base.deliveries.size
     follow_redirect!
     assert_template 'settings/welcome'
     assert_not flash.empty?
