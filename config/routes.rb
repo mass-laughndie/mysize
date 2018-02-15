@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  
   root 'static_pages#home'
 
   get '/help',    to: 'static_pages#help'
@@ -36,7 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :settings, only: [] do
+  resource :settings, only: :none do
     get   '/option',   to: 'settings#option'
     get   '/account',  to: 'settings#account'
     get   '/profile',  to: 'settings#profile'
@@ -55,4 +54,5 @@ Rails.application.routes.draw do
     delete '/leave',   to: 'settings#destroy'
   end
 
+  resource :password_resets, only: [:new, :create, :edit, :update]
 end
