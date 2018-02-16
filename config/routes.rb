@@ -24,6 +24,13 @@ Rails.application.routes.draw do
 
   get '/upload',  to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
+
+  resource :password_reset, only: [:new, :create],
+                            path_names: {new: ''} do
+    collection do
+      get :confirm
+    end
+  end
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
@@ -54,5 +61,4 @@ Rails.application.routes.draw do
     delete '/leave',   to: 'settings#destroy'
   end
 
-  resource :password_resets, only: [:new, :create, :edit, :update]
 end

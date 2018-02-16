@@ -38,11 +38,11 @@
     </div>
   </div>
   <div class="profile-middle">
-    <div class="user_text">
-      <div class="user_name">
+    <div class="user-text">
+      <div class="user-name">
         <h1><%= @user.name %></h1>
       </div>
-      <div class="user_mysizeid">
+      <div class="user-mysizeid">
         <%= fa_icon("at") + @user.mysize_id %>
       </div>
     </div>
@@ -60,7 +60,7 @@
     <% end %>
   </div>
   <div class="profile-bottom">
-    <div class="user_profile">
+    <div class="user-profile">
       <% unless @user.profile_content.blank? %>
         <%= @user.profile_content %>
       <% else %>

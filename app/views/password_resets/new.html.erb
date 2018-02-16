@@ -1,2 +1,23 @@
-<h1>PasswordResets#new</h1>
-<p>Find me in app/views/password_resets/new.html.erb</p>
+<% provide(:title, "パスワード再発行") %>
+
+<div class="content-pspace">
+  <div class="ps-page-title">
+    <h1 class="title-text">パスワードを忘れた</h1>
+  </div>
+  <div class="reset-text">
+    <p>仮ログインURLをメールアドレスに送信します。登録済みのメールアドレスを入力してください。</p>
+    <% if logged_in? && !current_user.uid.nil? %>
+      <p class="sfont">※Twitterによりアカウントを作成後、メールアドレスを編集していない方は、先に「アカウント設定」からメールアドレスの編集を行ってください。</p>
+    <% end %>
+  </div>
+  <div class="set-form">
+    <%= form_tag(:password_reset, url: password_reset_path) do %>
+      <div class="c base-form">
+        <%= email_field_tag :email, nil, placeholder: "Email" %>
+      </div>
+      <div class="c button accent nls">
+        <%= submit_tag "仮ログインURLを発行", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>

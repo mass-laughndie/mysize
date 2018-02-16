@@ -11,7 +11,10 @@
     <% end %>
     <div class="header-link">
       <div class="logo">
-        <%= link_to "Mysize", root_path, class: "logo-text" %>
+        <a class="logo-text" href="<%= root_path %>">
+          <%= image_tag("/images/apps_icon5.png", size: 24) %>
+          <span class="logo-font">Mysize</span>
+        </a>
       </div>
     </div>
     <div class="header-link">

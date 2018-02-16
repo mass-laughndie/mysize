@@ -6,7 +6,7 @@ class User < ApplicationRecord
   #devise :omniauthable, omniauth_providers: [:twitter]
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
-                :remember_token
+                :remember_token, :reset_token
   has_many :kicksposts, dependent: :destroy
 
   before_save :downcase_email_and_mysizeid
@@ -93,6 +93,16 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.welcome(self).deliver_now
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_reset_token
+    update_attribute(:reset_digest, User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
   end
 
 =begin

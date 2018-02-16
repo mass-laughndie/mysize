@@ -2,12 +2,14 @@
 
 /* mixins, variables, ertc. */
 
-$base-color: #fff;  /* white */
-$main-color: #000;  /* black */
-$accent-color: #f00;  /* red */
+$base: #fff;  /* white */
+$main: #000;  /* black */
+$accent: #ff0000;  /* red */
+$waccent: #ff6666; /* week red*/
 $test: #e6e6fa;
-$back: #eee;
+$back: #fafafa;
 $base-grey: #999;
+$twi-blue: #55acee;
 $twi-grey: #657786;
 
 @mixin box_sizing {
@@ -27,16 +29,24 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
-  background: $base-color;
+  background: $back;
+  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   position: relative;
   padding: 51px 0;
-  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
 a {
-  color: $main-color;
+  color: $main;
   text-decoration: none;
+
+  .fa {
+    color: $base-grey;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -48,14 +58,20 @@ li {
   list-style: none;
 }
 
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
 .c {
   text-align: center;
 }
 
 .content {
-  margin: 20px;
-  padding: 25px;
-  background: $base-color;
+  /*margin: 20px;*/
+  padding: 45px;
+  background: $base;
 
   p {
     font-size: 16px;
@@ -74,8 +90,32 @@ li {
   text-align: center;
 }
 
+.top-text {
+  background: #fff;
+  height: 150px;
+  margin: 0 auto;
+  padding: 10px;
+  width: 270px;
+
+  img {
+    display: inline-block;
+    float: left;
+    height: 80px;
+    margin: 25px 10px;
+    width: 80px;
+  }
+
+  span {
+    color: $accent;
+    display: inline-block;
+    float: left;
+    font-size: 100px;
+    line-height: 130px;
+  }
+}
+
 .title-text {
-  color: #main-color;
+  color: $main;
   font-size: 1.3em;
   letter-spacing: 0.1em;
 }
@@ -85,20 +125,30 @@ li {
   text-align: center;
 }
 
+.ps-page-title {
+  padding: 20px;
+  text-align: center;
+}
+
 .content-sspace {
-  background: $base-color;
-  margin: 10px;
+  background: $base;
+  padding: 10px;
   position: relative;
 }
 
 .content-nspace {
-  background: $base-color;
-  margin: 0;
+  background: $base;
+  position: relative;
+}
+
+.content-pspace {
+  background: $base;
+  padding: 10px 40px;
   position: relative;
 }
 
 header {
-  background: $base-color;
+  background: $base;
   position: fixed;
   top: 0;
   left: 0;
@@ -116,7 +166,7 @@ header {
 
 .wrapper {
   height: 50px;
-  background: $base-color;
+  background: $base;
   text-align: center;
   position: relative;
 }
@@ -124,7 +174,7 @@ header {
 
 .atention {
   margin: 0 auto;
-  width: 90%;
+  width: 85%;
 
   p a {
     color: #3599f0;
@@ -167,26 +217,49 @@ header {
   height: 50px;
 
   i {
-    background: $accent-color;
-    border-radius: 17.5%;
+    color: $main;
   }
-
+/*
+  i {
+    background: $accent;
+    border-radius: 17.5%;
+    color: $base;
+  }
+*/
   img {
-    background-color: $back;
+    background: $back;
     border-radius: 17.5%;
     margin: 5px 0;
   }
 }
 
 .logo {
-  line-height: 30px;
+  margin: 10px 0;
 
-  a.logo-text {
-    color: $accent-color;
-    font-weight: 600;
-    margin: 10px auto;
-    width: 80px;
+  .logo-text {
+    color: $accent;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    width: 90px;
+
+    img {
+      display: inline-block;
+      float: left;
+      margin: 3px;
+    }
+    span {
+      display: inline-block;
+      float: left;
+      font-size: 2.0em;
+      margin-bottom: 5px;
+    }
   }
+}
+
+.logo-font {
+  font-family: 'Chathura', sans-serif;
 }
 
 .right-header {
@@ -196,7 +269,7 @@ header {
 /* navigation */
 
 nav {
-  background: $base-color;
+  background: $base;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -242,17 +315,21 @@ nav {
 
     a {
       display: inline-block;
-      color: $main-color;
+      color: $twi-grey;
       font-size: 12px;
       padding: 5px;
       text-decoration: none;
     }
   }
+
+  a {
+    color: $twi-grey;
+  }
 }
 
 .my-navi {
   height: 50px;
-  background: $main-color;
+  background: $main;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -262,7 +339,7 @@ nav {
   width: 100%
 
   a {
-    color: $main-color;
+    color: $main;
   }
 }
 
@@ -328,17 +405,17 @@ nav {
   width: 100%;
 }
 
-.user_text {
+.user-text {
   float: left;
   position: relative;
   width: 50%;
 }
 
-.user_name {
+.user-name {
   position: relative;
 }
 
-.user_mysizeid {
+.user-mysizeid {
   position: relative;
   font-size: 0.8em;
   color: $base-grey;
@@ -348,6 +425,7 @@ nav {
   border: 1px solid $twi-grey;
   border-radius: 5px;
   font-size: 0.7em;
+  font-weight: 600;
   float: left;
   height: 30px;
   margin: 8px 2% 12px;
@@ -377,11 +455,15 @@ nav {
     line-height: 28px;
     text-align: center;
     width: 100%;
+
+    .fa {
+      color: $main;
+    }
   }
 }
 
 .set-follow {
-  background-color: $accent-color;
+  background: $accent;
   border-radius: 5px;
   font-size: 0.7em;
   float: left;
@@ -402,6 +484,10 @@ nav {
 
 .profile-bottom {
   font-size: 1em;
+
+  .user-profile {
+    margin: 5px 0;
+  }
 }
 
 .follow-info a {
@@ -417,6 +503,7 @@ nav {
 }
 
 .post-select {
+  background: $base;
   border-top: 1px solid $back;
   border-bottom: 1px solid $back;
   height: 52px;
@@ -436,6 +523,7 @@ nav {
 }
 
 .post-main {
+  background: $base;
   margin: 0 auto;
   max-width: 600px;
   width: 100%;
@@ -490,7 +578,7 @@ nav {
   margin: 5px 0;
   width: 40px;
   a {
-    border: 1px solid $main-color;
+    border: 1px solid $main;
     border-radius: 5px;
     display: block;
     font-size: 0.9em;
@@ -563,6 +651,7 @@ nav {
 }
 
 .no-post {
+  background: $back;
   height: 150px;
   margin: 75px 0;
 
@@ -579,6 +668,39 @@ nav {
   }
 }
 
+.no-link {
+  height: 60px;
+  margin: 10px 0;
+
+  a {
+    background: $waccent;
+    border-radius: 5px;
+    display: block;
+    height: 40px;
+    margin: 0 auto;
+    padding: 5px 10px;
+    width: 150px;
+    
+    .fa {
+      color: $base;
+      float: left;
+      font-size: 30px;
+      line-height: 24px;
+      margin: 2px 3% 2px 0;
+      width: 30%;
+    }
+
+    span {
+      color: $base;
+      float: left;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 30px;
+      width: 67%;
+    }
+  }
+}
+
   /* material */
 
 /* button, form */
@@ -591,11 +713,11 @@ nav {
   line-height: 40px;
   letter-spacing: 0.2px;
   border-radius: 5px;
-  margin: 30px auto;
+  margin: 0 auto;
+  padding: 10px 0 30px;
 
   input {
     border: 0px;
-    background-color: $accent-color;
     border-radius: 5px;
     color: #fff;
     font-size: 1rem;
@@ -608,8 +730,16 @@ nav {
   }
 }
 
+.label-button {
+  padding: 30px 0;
+}
+
 .button-mini {
   width: 45%;
+}
+
+.button-middle {
+  width: 70%;
 }
 
 .button:hover {
@@ -618,16 +748,24 @@ nav {
 }
 
 .twitter-color {
-  background-color: #55acee;
+  background: $twi-blue;
+
   a {
     display: block;
     color: #ffffff;
+
+    i {
+      color: #fff;
+    }
   }
 }
 
 .accent {
-  background-color: $accent-color;
-  font-weight: 650;
+
+  input {
+    background: $accent;
+  }
+
   a {
     display: block;
     color: #ffffff;
@@ -649,6 +787,13 @@ nav {
 
 .mb {
   margin-bottom: 50px;
+}
+
+.nls {
+  width: 210px;
+  input {
+    letter-spacing: 0.03em;
+  }
 }
 
 .label-form {
@@ -687,7 +832,7 @@ nav {
 /* error */
 
 .error {
-  background-color: #fff6f6;
+  background: #fff6f6;
   border: 1.5px solid #ebccd1;
   border-radius: 5px;
   margin: 0 auto;
@@ -719,7 +864,7 @@ nav {
 /* flash */
 
 .flash-base {
-  background-color: rgba(0,0,0,0);
+  background: rgba(0,0,0,0);
   font-size: 1.1em;
   font-weight: 550;
   height: 50px;
@@ -732,12 +877,12 @@ nav {
   z-index: 90;
 
   .flash-success {
-    background-color: rgba(223,240,216,0.85);
+    background: rgba(223,240,216,0.85);
     color: #3c763d;
   }
 
   .flash-danger {
-    background-color: rgba(255,246,246,0.85);
+    background: rgba(255,246,246,0.85);
     color: #e5171f;
     font-size: 0.7em;
   }
@@ -790,13 +935,14 @@ nav {
 }
 
 .set-leave {
+  background: $back;
   height: 150px;
   position: relative;
 
   a {
     position: absolute;
-    bottom: 5px;
-    right: 10px;
+    bottom: 20px;
+    right: 30px;
   }
 }
 
@@ -860,9 +1006,9 @@ nav {
   z-index: 100;
 
   a {
-    border: 1px solid $accent-color;
+    border: 1px solid $accent;
     border-radius: 4px;
-    color: $accent-color;
+    color: $accent;
     display: block;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -872,6 +1018,16 @@ nav {
       font-size: 0.7em;
       margin: 2px auto;
     }
+  }
+}
+
+.reset-text {
+  p {
+    margin-bottom: 10px;
+  }
+  .sfont {
+    font-size: 0.8em;
+    line-height: 16px;
   }
 }
 
