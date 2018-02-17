@@ -103,7 +103,7 @@ class SettingsController < ApplicationController
     if @user.authenticate(params[:password]) && !@user.admin?
       log_out
       @user.destroy
-      flash[:success] = "退会が完了しました。ご利用ありがとうございました。"
+      flash[:success] = "退会処理が完了しました。ご利用ありがとうございました。"
       redirect_to root_url
     else
       if @user.admin?

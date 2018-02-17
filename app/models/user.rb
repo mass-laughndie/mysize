@@ -82,9 +82,11 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  def authenticated?(rem_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(rem_token)
+  #tokenがdigestと一致 => true
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def forget
@@ -92,17 +94,22 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_now
+    mail = UserMailer.welcome(self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
   end
 
-  def create_reset_digest
+  def create_reset_digest_and_e_token
     self.reset_token = User.new_reset_token
-    update_attribute(:reset_digest, User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_columns(reset_digest: User.digest(reset_token),
+                   e_token: User.digest(email),
+                   reset_sent_at: Time.zone.now)
   end
 
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
+    mail = UserMailer.password_reset(self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
   end
 
 =begin
@@ -172,6 +179,10 @@ class User < ApplicationRecord
 
   def feed
     Kickspost.where("user_id = ?", id)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
 
   private

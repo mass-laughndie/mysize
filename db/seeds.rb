@@ -26,7 +26,7 @@ User.create!(name: "Masa",
                profile_content: profile_content)
 end
 
-users = User.order(:created_at).take(6)
+users = User.order(:created_at).take(3)
 if Rails.env.development?
   5.times do
     users.each do |user|

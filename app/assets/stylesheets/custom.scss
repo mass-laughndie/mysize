@@ -189,8 +189,31 @@ header {
   p {
     font-weight: 550;
     padding: 0;
+  } 
+}
+
+.to-top {
+  height: 70px;
+  padding: 20px 0;
+  margin: 0 auto;
+  width: 90px;
+
+  a {
+    border: 1px solid $base-grey;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: block;
+
+    i {
+      margin-right: 5%;
+      width: 20%;
+    }
+
+    span {
+      font-weight: 550;
+      width: 75%;
+    }
   }
-  
 }
 
 /* header */
@@ -713,8 +736,7 @@ nav {
   line-height: 40px;
   letter-spacing: 0.2px;
   border-radius: 5px;
-  margin: 0 auto;
-  padding: 10px 0 30px;
+  margin: 25px auto;
 
   input {
     border: 0px;
@@ -761,6 +783,7 @@ nav {
 }
 
 .accent {
+  background: $accent;
 
   input {
     background: $accent;

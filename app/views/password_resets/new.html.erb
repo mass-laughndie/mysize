@@ -1,11 +1,11 @@
-<% provide(:title, "パスワード再発行") %>
+<% provide(:title, "パスワードを忘れた") %>
 
 <div class="content-pspace">
   <div class="ps-page-title">
     <h1 class="title-text">パスワードを忘れた</h1>
   </div>
   <div class="reset-text">
-    <p>仮ログインURLをメールアドレスに送信します。登録済みのメールアドレスを入力してください。</p>
+    <p>パスワード再発行URLをメールアドレスに送信します。登録済みのメールアドレスを入力してください。</p>
     <% if logged_in? && !current_user.uid.nil? %>
       <p class="sfont">※Twitterによりアカウントを作成後、メールアドレスを編集していない方は、先に「アカウント設定」からメールアドレスの編集を行ってください。</p>
     <% end %>
@@ -16,7 +16,7 @@
         <%= email_field_tag :email, nil, placeholder: "Email" %>
       </div>
       <div class="c button accent nls">
-        <%= submit_tag "仮ログインURLを発行", data: { disable_with: "処理中..."} %>
+        <%= submit_tag "パスワードを再設定する", data: { disable_with: "処理中..."} %>
       </div>
     <% end %>
   </div>

@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20180215113442) do
     t.string "uid"
     t.string "provider"
     t.string "reset_digest"
+    t.string "e_token"
     t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mysize_id"], name: "index_users_on_mysize_id", unique: true
