@@ -14,7 +14,7 @@
           <%= password_field_tag :password, nil, placeholder: "Password" %>
         </div>
         <p>※退会処理には時間がかかる場合がございます。退化処理が完了するまで画面を閉じずにお待ちください。</p>
-        <div class="c button button-mini accent">
+        <div class="c button button-mini accent" style="width: 40%">
           <%= submit_tag "退会する", data: { disable_with: "処理中...",
                                          confirm: "退会します。取り消せませんがよろしいですか？"} %>
         </div>
