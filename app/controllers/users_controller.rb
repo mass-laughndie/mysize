@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
 
-  before_action :no_name, only: [:show]
-  before_action :admin_user, only: :admusrind
+  before_action :logged_in_user, only: :admusrind
+  before_action :admin_user,     only: :admusrind
 
   def show
     @user = User.find_by(mysize_id: params[:mysize_id])
+    if current_user == @user
+      no_name
+    end
     @kicksposts = @user.kicksposts
   end
 
@@ -29,6 +32,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in @user
+      @user.send_welcome_email
       flash[:success] = "登録が完了しました！"
       redirect_to welcome_path
     else

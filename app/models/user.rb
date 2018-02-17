@@ -6,7 +6,7 @@ class User < ApplicationRecord
   #devise :omniauthable, omniauth_providers: [:twitter]
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
-                :remember_token
+                :remember_token, :reset_token
   has_many :kicksposts, dependent: :destroy
 
   before_save :downcase_email_and_mysizeid
@@ -71,6 +71,10 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
+
+    def new_reset_token
+      SecureRandom.uuid
+    end
   end
 
   def remember
@@ -78,13 +82,34 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  def authenticated?(rem_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(rem_token)
+  #tokenがdigestと一致 => true
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def send_welcome_email
+    mail = UserMailer.welcome(self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
+  end
+
+  def create_reset_digest_and_e_token
+    self.reset_token = User.new_reset_token
+    update_columns(reset_digest: User.digest(reset_token),
+                   e_token: User.digest(email),
+                   reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    mail = UserMailer.password_reset(self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
   end
 
 =begin
@@ -130,6 +155,12 @@ class User < ApplicationRecord
     mysize_id
   end
 
+=begin
+  def validate_on?(name)
+    send("validate_#{param}") == 'true' || send("validate_#{param}") == true
+  end
+=end
+
   def validate_name?
     validate_name == 'true' || validate_name == true
   end
@@ -148,6 +179,10 @@ class User < ApplicationRecord
 
   def feed
     Kickspost.where("user_id = ?", id)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
 
   private

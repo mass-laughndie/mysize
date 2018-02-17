@@ -1,7 +1,9 @@
 class SettingsController < ApplicationController
 
   before_action :logged_in_user
+  before_action :no_name, except: [:welcome, :welcome_update]
   before_action :get_user
+  before_action :no_access, only: [:welcome, :welcome_update]
 
   def welcome
   end
@@ -101,7 +103,7 @@ class SettingsController < ApplicationController
     if @user.authenticate(params[:password]) && !@user.admin?
       log_out
       @user.destroy
-      flash[:success] = "退会が完了しました。ご利用ありがとうございました。"
+      flash[:success] = "退会処理が完了しました。ご利用ありがとうございました。"
       redirect_to root_url
     else
       if @user.admin?
@@ -139,5 +141,12 @@ class SettingsController < ApplicationController
 
     def get_user
       @user = current_user
+    end
+
+    def no_access
+      unless current_user.name.nil?
+        flash[:danger] = "そのページにはアクセスできません"
+        return_back
+      end
     end
 end

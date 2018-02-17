@@ -1,8 +1,10 @@
-<% unless logged_in? %>
+
   <footer class="my-footer">
+    <% unless logged_in? %>
     <div class="links">
       <%= link_to fa_icon("caret-right") + "登録/ログインはTOPへ", root_path %>
     </div>
+    <% end %>
     <div class="links">
         <%= link_to "ヘルプ", help_path %>
         <%= link_to "Mysize とは",   about_path %>
@@ -26,4 +28,3 @@
       </ul>
     </nav>
   -->
-<% end %>

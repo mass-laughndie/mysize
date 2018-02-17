@@ -5,8 +5,11 @@ module SessionsHelper
   end
 
   def remember(user)
+    #remember_tokenを発行し、userのDBにrember_digest(tokenのハッシュ化)を保存
     user.remember
+    #cookiesにidを保存
     cookies.permanent.signed[:msuid] = user.id
+    #cookiesにremeber_tokenを保存
     cookies.permanent[:remember_token] = user.remember_token
   end
 
@@ -19,7 +22,7 @@ module SessionsHelper
       @current_user ||= User.find_by(id: msuid)
     elsif (msuid = cookies.signed[:msuid])
       user = User.find_by(id: msuid)
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end

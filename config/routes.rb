@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  
   root 'static_pages#home'
 
   get '/help',    to: 'static_pages#help'
@@ -25,6 +24,13 @@ Rails.application.routes.draw do
 
   get '/upload',  to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
+
+  resource :password_reset, except: [:show, :destroy],
+                            path_names: {new: '' } do
+    collection do
+      get :confirm
+    end
+  end
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
@@ -36,7 +42,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :settings, only: [] do
+  resource :settings, only: :none do
     get   '/option',   to: 'settings#option'
     get   '/account',  to: 'settings#account'
     get   '/profile',  to: 'settings#profile'
