@@ -8,6 +8,9 @@ class User < ApplicationRecord
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
   has_many :kicksposts, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
 
   before_save :downcase_email_and_mysizeid
 
