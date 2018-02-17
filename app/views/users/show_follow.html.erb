@@ -1,0 +1,11 @@
+<% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの" + @title) %>
+<div class="content-nspace">
+  <div class="ns-page-title">
+    <h1 class="title-text"><%= @title %></h1>
+  </div>
+  <div class="setting-select">
+    <ul>
+      <%= render @users %>
+    </ul>
+  </div>
+</div>

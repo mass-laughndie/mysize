@@ -21,10 +21,7 @@
     </div>
   </a>
   <div class="act-form">
-    <% if current_user.admin? && !current_user?(user) %>
-      <%= link_to "削除", user, method: :delete,
-                               data: { confirm: "本当にいいですか??" } %>
-    <% else %>
+    <% if !current_user?(user) %>
       <%= link_to fa_icon("user") + fa_icon("plus"), '#' %>
     <% end %>
   </div>

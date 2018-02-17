@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :relationships, only: [:create, :destroy]
+
   resource :settings, only: :none do
     get   '/option',   to: 'settings#option'
     get   '/account',  to: 'settings#account'
