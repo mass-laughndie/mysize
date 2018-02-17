@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   post '/upload', to: 'kicksposts#create'
 
   resource :password_reset, except: [:show, :destroy],
-                            path_names: {new: ''} do
+                            path_names: {new: '' } do
     collection do
       get :confirm
     end
