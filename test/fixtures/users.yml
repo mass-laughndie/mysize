@@ -27,7 +27,7 @@ mysize3:
   image: <%= open("#{Rails.root}/db/data/icon3.jpg") %>
   profile_content: <% Faker::Lorem.sentence(5) %>
 
-mysize2:
+mysize4:
   name: Mysize Example4
   email: user4@example.com
   mysize_id: user4

@@ -1,8 +1,8 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さん") %>
 
-<div class="content-sspace">
+<div class="content-mspace">
   <div class="profile-top">
-    <div class="c user_icon">
+    <div class="user_icon">
       <%= image_tag(image_url(@user), alt: @user.name) %>
       <!--<div class="icon1" style="background-image: url(<%= image_url(@user) %>);"></div>-->
     </div>
@@ -54,7 +54,7 @@
         <%= link_to fa_icon("cog"), option_settings_path %>
       </div>
     <% else %>
-      <div class="set-follow">
+      <div class="c set-follow">
         <%= render 'follow_form' if logged_in? %>
       </div>
     <% end %>

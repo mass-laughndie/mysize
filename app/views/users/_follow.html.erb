@@ -1,4 +1,6 @@
-<%= form_tag(current_user.active_relationships.build) do |f| %>
-  <div><%= hidden_field_tag :followed_id, @user.id %></div>
-  <%= button_tag fa_icon("user") + fa_icon("plus"), class: "follow-button accent" %>
-<% end %>
+<div class="form-follow">
+  <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+    <div><%= hidden_field_tag :followed_id, @user.id %></div>
+    <%= f.button fa_icon("user") + fa_icon("plus") %>
+  <% end %>
+</div>

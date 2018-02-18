@@ -58,6 +58,18 @@ li {
   list-style: none;
 }
 
+button,
+input[type="submit"] {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -136,6 +148,12 @@ input, textarea, select {
   position: relative;
 }
 
+.content-mspace {
+  background: $base;
+  padding: 20px;
+  position: relative;
+}
+
 .content-nspace {
   background: $base;
   position: relative;
@@ -161,6 +179,7 @@ header {
 .container {
   width: 100%;
   margin: 0 auto;
+  max-width: 600px;
   position: relative;
 }
 
@@ -430,6 +449,7 @@ nav {
 
 .user-text {
   float: left;
+  height: 50px;
   position: relative;
   width: 50%;
 }
@@ -486,21 +506,54 @@ nav {
 }
 
 .set-follow {
-  background: $accent;
+  float: left;
+  height: 50px;
+  position: relative;
+  width: 50%;
+}
+
+#follow-form {
+  background: $base-grey;
   border-radius: 5px;
   font-size: 0.7em;
   float: left;
-  height: 30px;
-  margin: 8px 10% 12px;
-  position: relative;
-  width: 30%;
+  height: 32px;
+  margin: 7px auto 11px;
+  position: absolute;
+  right: 5%;
+  width: 52px;
+}
 
-  a {
+.form-follow {
+  background: #fff;
+  border: 1px solid $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
+    color: $accent;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+
+.form-unfollow {
+  background: $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
     color: #fff;
     display: block;
-    font-weight: 550;
-    line-height: 28px;
-    text-align: center;
+    font-size: 14px;
+    height: 100%;
     width: 100%;
   }
 }
