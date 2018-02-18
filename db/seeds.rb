@@ -28,7 +28,7 @@ User.create!(name: "Masa",
 end
 
 #Kickspost
-users = User.order(:created_at).take(3)
+users = User.order(:created_at).take(6)
 if Rails.env.development?
   5.times do
     users.each do |user|
