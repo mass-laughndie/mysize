@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
-  
+
   has_many :kicksposts, dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship",
@@ -189,7 +189,8 @@ class User < ApplicationRecord
   end
 
   def feed
-    Kickspost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    Kickspost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
   def password_reset_expired?

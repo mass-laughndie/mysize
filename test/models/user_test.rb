@@ -117,4 +117,22 @@ class UserTest < ActiveSupport::TestCase
     user1.unfollow(user2)
     assert_not user1.following?(user2)
   end
+
+  test "feed should have the right posts" do
+    user1 = users(:mysize1)
+    user2 = users(:mysize2)
+    user3 = users(:mysize3)
+    #フォローしているユーザーの投稿
+    user3.kicksposts.each do |post_following|
+      assert user1.feed.include?(post_following)
+    end
+    #自分の投稿
+    user1.kicksposts.each do |post_self|
+      assert user1.feed.include?(post_self)
+    end
+    #フォローしてないユーザーの投稿
+    user2.kicksposts.each do |post_unfollowed|
+      assert_not user1.feed.include?(post_unfollowed)
+    end
+  end
 end
