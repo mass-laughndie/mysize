@@ -1,0 +1,9 @@
+<div class="post-main">
+  <% if @kicksposts.blank? %>
+    <%= render 'shared/no_data' %>
+  <% else %>
+    <ul>
+      <%= render @kicksposts %>
+    </ul>
+  <% end %>
+</div>
