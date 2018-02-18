@@ -55,7 +55,7 @@
       </div>
     <% else %>
       <div class="c set-follow">
-        <%= render 'follow_form' if logged_in? %>
+        <%= render partial: 'follow_form', locals: { user: @user } if logged_in? %>
       </div>
     <% end %>
   </div>

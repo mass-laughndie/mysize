@@ -150,7 +150,7 @@ input, textarea, select {
 
 .content-mspace {
   background: $base;
-  padding: 20px;
+  padding: 16px;
   position: relative;
 }
 
@@ -171,7 +171,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 23;
+  z-index: 100;
   border-bottom: 1px solid #eee;
   height: 51px;
 }
@@ -376,7 +376,7 @@ nav {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 101;
   border-bottom: 1px solid #eee;
   width: 100%
 
@@ -1079,7 +1079,7 @@ nav {
   position: absolute;
   top: 8%;
   right: 4%;
-  z-index: 100;
+  z-index: 10;
 
   a {
     border: 1px solid $accent;

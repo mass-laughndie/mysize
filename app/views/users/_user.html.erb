@@ -22,8 +22,7 @@
   </a>
   <div class="act-form">
     <% unless current_user?(user) %>
-      <%= render partial: 'user_follow_form',
-                 locals: { user: user } if logged_in? %>
+      <%= render partial: 'follow_form', locals: { user: user } if logged_in? %>
     <% end %>
   </div>
 </li>
