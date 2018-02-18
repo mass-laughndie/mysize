@@ -512,9 +512,7 @@ nav {
   width: 50%;
 }
 
-#follow-form {
-  background: $base-grey;
-  border-radius: 5px;
+.follow-form {
   font-size: 0.7em;
   float: left;
   height: 32px;
@@ -538,6 +536,14 @@ nav {
     font-size: 14px;
     height: 100%;
     width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-plus {
+      font-size: 10px;
+    }
   }
 }
 
@@ -555,6 +561,14 @@ nav {
     font-size: 14px;
     height: 100%;
     width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-check {
+      font-size: 10px;
+    }
   }
 }
 
