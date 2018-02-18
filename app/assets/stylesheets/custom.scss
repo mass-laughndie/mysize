@@ -58,6 +58,18 @@ li {
   list-style: none;
 }
 
+button,
+input[type="submit"] {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -136,6 +148,12 @@ input, textarea, select {
   position: relative;
 }
 
+.content-mspace {
+  background: $base;
+  padding: 16px;
+  position: relative;
+}
+
 .content-nspace {
   background: $base;
   position: relative;
@@ -153,7 +171,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 23;
+  z-index: 100;
   border-bottom: 1px solid #eee;
   height: 51px;
 }
@@ -161,6 +179,7 @@ header {
 .container {
   width: 100%;
   margin: 0 auto;
+  max-width: 600px;
   position: relative;
 }
 
@@ -357,7 +376,7 @@ nav {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 101;
   border-bottom: 1px solid #eee;
   width: 100%
 
@@ -430,6 +449,7 @@ nav {
 
 .user-text {
   float: left;
+  height: 50px;
   position: relative;
   width: 50%;
 }
@@ -486,22 +506,69 @@ nav {
 }
 
 .set-follow {
-  background: $accent;
-  border-radius: 5px;
+  float: left;
+  height: 50px;
+  position: relative;
+  width: 50%;
+}
+
+.follow-form {
   font-size: 0.7em;
   float: left;
-  height: 30px;
-  margin: 8px 10% 12px;
-  position: relative;
-  width: 30%;
+  height: 32px;
+  margin: 7px auto 11px;
+  position: absolute;
+  right: 5%;
+  width: 52px;
+}
 
-  a {
+.form-follow {
+  background: #fff;
+  border: 1px solid $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
+    color: $accent;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-plus {
+      font-size: 10px;
+    }
+  }
+}
+
+
+.form-unfollow {
+  background: $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
     color: #fff;
     display: block;
-    font-weight: 550;
-    line-height: 28px;
-    text-align: center;
+    font-size: 14px;
+    height: 100%;
     width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-check {
+      font-size: 10px;
+    }
   }
 }
 
@@ -1026,7 +1093,7 @@ nav {
   position: absolute;
   top: 8%;
   right: 4%;
-  z-index: 100;
+  z-index: 10;
 
   a {
     border: 1px solid $accent;

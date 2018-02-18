@@ -1,3 +1,4 @@
+# User
 User.create!(name: "Masa",
              email: "mysize@example.com",
              mysize_id: "masa",
@@ -8,7 +9,7 @@ User.create!(name: "Masa",
              profile_content: "Jordan1(26.5cm)/Kithコラボが好きです！",
              admin: true)
 
-19.times do |n|
+29.times do |n|
   name = Faker::Name.name
   email = "mysize-#{n+1}@example.com"
   mysize_id = "mysize_#{n+1}"
@@ -26,6 +27,7 @@ User.create!(name: "Masa",
                profile_content: profile_content)
 end
 
+#Kickspost
 users = User.order(:created_at).take(3)
 if Rails.env.development?
   5.times do
@@ -44,3 +46,11 @@ elsif Rails.env.production?
     end
   end
 end
+
+#Relationship
+users = User.all
+user = users.first
+following = users[2..25]
+followers = users[3..15]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
