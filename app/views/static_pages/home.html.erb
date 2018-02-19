@@ -1,7 +1,7 @@
 <% if logged_in? %>
   <div class="post-main">
     <% if @kicksposts.blank? %>
-      <%= render 'shared/no_data' %>
+      <%= render partial: 'shared/no_data', locals: { user: @user } %>
     <% else %>
       <ul>
         <%= render @kicksposts %>

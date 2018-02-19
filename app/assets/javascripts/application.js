@@ -22,3 +22,13 @@ function clearBox() {
 }
 
 setTimeout( clearBox, 3000 );
+
+$(function(){
+  $("[id^=post-nav]").on('click', function(){
+    var
+      str = $(this).attr("id"),
+      num = str.match(/\d/g).join("");
+    $('#nav-list-' + num).slideToggle('fast');
+    return false;
+  });
+});

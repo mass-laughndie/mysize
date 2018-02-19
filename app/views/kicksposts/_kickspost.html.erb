@@ -16,8 +16,17 @@
     </div>
     <div class="c post-menu">
       <% if current_user == kickspost.user %>
-        <%= link_to fa_icon("ellipsis-h"), kickspost_path(kickspost.user.mysize_id, kickspost), method: :delete,
-                      data: { confirm: "本当に削除してよろしいですか？" } %>
+        <div id="post-nav-<%= kickspost.id %>" class="post-nav">
+          <%= fa_icon("ellipsis-h") %>
+        </div>
+        <ul id="nav-list-<%= kickspost.id %>" class="nav-list">
+          <li><%= link_to "削除",
+                  kickspost_path(kickspost.user.mysize_id, kickspost),
+                  method: :delete,
+                  data: { confirm: "本当に削除してよろしいですか？" } %></li>
+          <li class="bar"></li>
+          <li><%= link_to "編集", '#' %>
+        </ul>
       <% end %>
     </div>
   </div>
