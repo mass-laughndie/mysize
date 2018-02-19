@@ -12,23 +12,27 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require jquery.turbolinks
+//= require jquery_ujs
 //= require turbolinks
 //= require_tree .
 
  
 //flash非表示
 function clearBox() {
-  document.getElementById("temp3").style.display = "none";
+  $("#temp3").css('display', 'none');
 }
 
 setTimeout( clearBox, 3000 );
 
-$(function(){
-  $("[id^=post-nav]").on('click', function(){
-    var
-      str = $(this).attr("id"),
-      num = str.match(/\d/g).join("");
-    $('#nav-list-' + num).slideToggle('fast');
-    return false;
+
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    $("[id^=post-nav]").on('click', function(){
+      var
+        str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $('#nav-list-' + num).slideToggle('fast');
+    });
   });
 });
