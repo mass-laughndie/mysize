@@ -5,9 +5,11 @@
                  locals: { user: @user,
                            target: "data" } %>
     <% else %>
-      <ul>
-        <%= render @kicksposts %>
-      </ul>
+      <div class="post-line clearfix">
+        <ul>
+          <%= render @kicksposts %>
+        </ul>
+      </div>
     <% end %>
   </div>
 <% else %>

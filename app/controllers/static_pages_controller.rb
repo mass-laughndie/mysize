@@ -9,10 +9,8 @@ class StaticPagesController < ApplicationController
   def latest
     if logged_in?
       @user = current_user
-      @kicksposts = current_user.feed
-    else
-      @kicksposts = Kickspost.all
     end
+    @kicksposts = Kickspost.all
   end
 
   def help
