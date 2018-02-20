@@ -7,7 +7,7 @@
   <div class="setting-select">
     <ul>
       <% @ausers.each do |user| %>
-        <%= render(partial: 'users/auser', object: user) %>
+        <%= render partial: 'users/auser', object: user %>
       <% end %>
     </ul>
   </div>

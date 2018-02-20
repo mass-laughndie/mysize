@@ -1,6 +1,7 @@
 <% provide(:title, "プロフィール編集") %>
 <% provide(:button_text, "更新") %>
 <% provide(:post_url, profile_settings_path) %>
+<%= render 'layouts/back', back_path: "#{user_path(@user)}" %>
 
 <div class="content">
   <div class="page-title">

@@ -1,11 +1,27 @@
-<div class="c no-post">
-  <i class="fa fa-image"></i>
-  <div class="no-text">
-    表示できるデータがありません<br>あなたのマイスニーカーを投稿しましょう
+<% if target == "data" %>
+  <div class="c no-post">
+    <i class="fa fa-image"></i>
+    <div class="no-text">表示できるデータがありません</div>
+    <% if current_user?(user) %>
+      <div class="no-text">あなたのマイスニーカーを投稿しましょう</div>
+      <div class="no-link">
+        <a href="<%= upload_path %>">
+          <%= fa_icon("plus-square") %><span>投稿する</span>
+        </a>
+      </div>
+    <% end %>
   </div>
-  <div class="no-link">
-    <a href="<%= upload_path %>">
-      <%= fa_icon("plus-square") %><span>投稿する</span>
-    </a>
+<% elsif target == "person" %>
+  <div class="c no-post">
+    <i class="fa fa-users"></i>
+    <div class="no-text">1件もありません</div>
+    <% if current_user?(user) %>
+      <div class="no-text">あなたと同じサイズの人を探して<br>フォローしましょう</div>
+      <div class="no-link">
+        <a href="#">
+          <%= fa_icon("search") %><span>検索する</span>
+        </a>
+      </div>
+    <% end %>
   </div>
-</div>
+<% end %>

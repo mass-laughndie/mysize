@@ -44,6 +44,7 @@ class SessionsController < ApplicationController
 
     def logged_in
       if logged_in?
+        flash[:info] = "既にログイン中です"
         redirect_to root_url
       end
     end

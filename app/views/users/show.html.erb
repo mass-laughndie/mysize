@@ -4,7 +4,6 @@
   <div class="profile-top">
     <div class="user_icon">
       <%= image_tag(image_url(@user), alt: @user.name) %>
-      <!--<div class="icon1" style="background-image: url(<%= image_url(@user) %>);"></div>-->
     </div>
     <div class="user_stats">
       <a href="#">
@@ -37,7 +36,7 @@
       </a>
     </div>
   </div>
-  <div class="profile-middle">
+  <div class="profile-middle clear">
     <div class="user-text">
       <div class="user-name">
         <h1><%= @user.name %></h1>
@@ -86,10 +85,10 @@
 <div class="post">
   <div class="post-select">
     <div class="c post-list">
-      <%= link_to fa_icon("th"), '#' %>
+      <%= link_to fa_icon("th"), user_path(@user, display: "square") %>
     </div>
     <div class="c post-list">
-      <%= link_to fa_icon("list-ul"), '#' %>
+      <%= link_to fa_icon("list-ul"), user_path(@user) %>
     </div>
     <div class="c post-list">
       <%= link_to fa_icon("thumbs-up"), '#' %>
@@ -97,11 +96,15 @@
   </div>
   <div class="post-main">
     <% if @user.kicksposts.blank? %>
-      <%= render 'shared/no_data' %>
+      <%= render partial: 'shared/no_data',
+                 locals: { user: @user,
+                           target: "data" } %>
     <% else %>
-      <ul>
-        <%= render @kicksposts %>
-      </ul>
+      <div class="post-line clear">
+        <ul>
+          <%= render @kicksposts %>
+        </ul>
+      </div>
     <% end %>
   </div>
 </div>
