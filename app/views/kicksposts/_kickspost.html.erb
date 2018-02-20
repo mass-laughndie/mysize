@@ -3,6 +3,9 @@
     <div class="square-picture">
       <a class="cover" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>" style="background-image: url('<%= picture_url(kickspost) %>')"></a>
     </div>
+    <div class="kicks-size">
+      <%= 21.5 + kickspost.size / 2.0 %>
+    </div>
   </li>
 <% else %>
   <li id="kickspost-<%= kickspost.id %>" class="kickspost-list">

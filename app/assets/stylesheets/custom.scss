@@ -748,6 +748,7 @@ nav {
   display: block;
   float: left;
   max-width: 200px;
+  position: relative;
   width: 33.3%;
 
   .square-picture {
@@ -786,6 +787,18 @@ nav {
       width: 100%;
     }
   }
+}
+
+.kicks-size {
+  background: rgba(0,0,0,0.2);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 7px;
+  pointer-events: none;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
 }
 
 .post-middle {
