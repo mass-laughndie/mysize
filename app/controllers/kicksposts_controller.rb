@@ -7,11 +7,6 @@ class KickspostsController < ApplicationController
   def show
   end
 
-  def index
-    @user = User.find_by(mysize_id: params[:mysize_id])
-    @Kicksposts = @user.kicksposts
-  end
-
   def new
     @kickspost = current_user.kicksposts.build
   end
@@ -30,6 +25,12 @@ class KickspostsController < ApplicationController
   end
 
   def update
+    if @kickspost.update_attributes(postscontent_params)
+      flash[:success] = "編集に成功しました"
+      redirect_to root_url
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -42,6 +43,10 @@ class KickspostsController < ApplicationController
 
     def kicksposts_params
       params.require(:kickspost).permit(:picture, :picture_cache, :size, :content)
+    end
+
+    def postscontent_params
+      params.require(:kickspost).permit(:size, :content)
     end
 
     def set_and_check_kickspost
