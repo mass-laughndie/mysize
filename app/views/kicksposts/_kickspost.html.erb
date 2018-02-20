@@ -1,7 +1,7 @@
 <% if params[:display] == "square" %>
   <li id="postsquare-<%= kickspost.id %>" class="postsquare-list">
     <div class="square-picture">
-      <a class="cover" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>" style="background-image: url('<%= picture_url(kickspost) %>')"></a>
+      <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content, class: 'cover'), kickspost_path(kickspost.user.mysize_id, kickspost) %>
     </div>
     <div class="kicks-size">
       <%= 21.5 + kickspost.size.to_i / 2.0 %>
@@ -44,7 +44,7 @@
       <% unless kickspost.picture.nil? %>
         <div class="post-link">
           <div class="post-picture">
-            <%= link_to image_tag(picture_url(kickspost)), kickspost_path(kickspost.user.mysize_id, kickspost) %>
+            <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content), kickspost_path(kickspost.user.mysize_id, kickspost) %>
           </div>
           <div class="post-size">
             <%= 21.5 + kickspost.size.to_i / 2.0 %>

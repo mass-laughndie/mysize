@@ -1,5 +1,5 @@
 <li id="postsquare-<%= kickspost.id %>" class="postsquare-list">
   <div class="square-picture">
-    <a class="cover" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>" style="background-image: url('<%= picture_url(kickspost) %>')"></a>
+    <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content, class: 'cover'), kickspost_path(kickspost.user.mysize_id, kickspost) %>
   </div>
 </li>
