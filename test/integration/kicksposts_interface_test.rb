@@ -3,9 +3,10 @@ require 'test_helper'
 class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:mysize1)
+    @kickspost = kicksposts(:orange)
   end
 
-  test "kickspost interface" do
+  test "create kickspost interface" do
     get upload_path
     assert_redirected_to login_path
     log_in_as(@user)
@@ -46,5 +47,24 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     end
     get user_path(users(:mysize2))
     assert_select 'i.fa-ellipsis-h', count: 0
+  end
+
+  test "update kickspost interface" do
+    get edit_kickspost_path(@user, @kickspost)
+    assert_redirected_to login_path
+    log_in_as(@user)
+    get edit_kickspost_path(@user, @kickspost)
+    assert_template 'kicksposts/edit'
+    content = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    patch kickspost_path(@user, @kickspost), params: { kickspost: { size: 7,
+                                                                    content: "" } }
+    assert_select 'div.error'
+    assert_template 'kicksposts/edit'
+    # patch kickspost_path(@user.mysize_id, @kickspost.id), params: { kickspost: { size: 7,
+    #                                                                content: content } }
+    #assert_not flash.empty?
+    #assert_redirected_to root_url
+    #follow_redirect!
+    #assert_match content, response.body
   end
 end

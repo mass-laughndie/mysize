@@ -35,7 +35,7 @@
                     method: :delete,
                     data: { confirm: "本当に削除してよろしいですか？" } %></li>
             <li class="bar"></li>
-            <li><%= link_to "編集", '#' %></li>
+            <li><%= link_to "編集", edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
           </ul>
         <% end %>
       </div>
