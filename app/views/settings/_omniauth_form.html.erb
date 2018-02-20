@@ -1,0 +1,35 @@
+<%= form_for(@user, url: welcome_path, multipart: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="label-form">
+    <%= f.label :name, "*ユーザー名" %>
+    <%= f.text_field :name, placeholder: "ユーザー名" %>
+  </div>
+  <div class="label-form">
+    <%= f.label :mysize_id, "*Mysize ID" %>
+    <%= f.text_field :mysize_id, placeholder: "a-z,0-9,_ 15文字以内" %>
+  </div>
+  <div class="label-form">
+    <%= f.label :shoe_size, "*スニーカーのベースサイズ" %>
+    <%= f.select(:shoe_size, options_for_select(size_array, @user.shoe_size),
+                  prompt: "選択してください") %>
+  </div>
+  <div class="label-form">
+    <%= f.label :password, "*Password" %>
+    <%= f.password_field :password, placeholder: "6文字以上" %>
+  </div>
+  <div class="label-form">
+    <%= f.label :password_confirmation, "*Password確認" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="c button button-mini label-button accent">
+    <%= f.submit yield(:button_text), data: { disable_with: "処理中..."} %>
+  </div>
+  <script type="text/javascript">
+    $('#user_image').bind('change', function() {
+      var size_in_megabytes = this.file[0].size/1024/1024;
+      if (size_in_megabytes > 10) {
+        alert('ファイルは最大10MBまでとなります。');
+      }
+    });
+  </script>
+<% end %>

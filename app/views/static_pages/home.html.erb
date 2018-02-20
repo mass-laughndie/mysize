@@ -1,24 +1,28 @@
 <% if logged_in? %>
   <div class="post-main">
-    <% if @kicksposts.nil? %>
-      <div class="c no-post">
-        <i class="fa fa-image" ></i>
-        <div class=" no-text">表示できるデータがありません</div>
-      </div>
+    <% if @kicksposts.blank? %>
+      <%= render partial: 'shared/no_data',
+                 locals: { user: @user,
+                           target: "data" } %>
     <% else %>
-      <ul>
-        <%= render @kicksposts %>
-      </ul>
+      <div class="post-line clear">
+        <ul>
+          <%= render @kicksposts %>
+        </ul>
+      </div>
     <% end %>
   </div>
 <% else %>
   <div class="content">
     <div class="page-title c">
-      <h1 class="title-text" style="max-width: 100%">Mysize </h1>
+      <div class="top-text">
+        <%= image_tag("/images/apps_icon5.png", size: 90) %>
+        <span class="logo-font">Mysize</span>
+      </div>
     </div>
     <h2 class="c">～開発中～</h2>
     <div class="c button twitter-color">
-      <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '#' %>
+      <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", 'auth/twitter' %>
     </div>
     <div class="c button accent">
       <%= link_to "MysizeIDで登録する", signup_path %>

@@ -1,0 +1,17 @@
+<% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの" + @title) %>
+<% unless @users.blank? %>
+  <div class="content-nspace">
+    <div class="ns-page-title">
+      <h1 class="title-text"><%= @title %></h1>
+    </div>
+    <div class="setting-select">
+      <ul>
+        <%= render @users %>
+      </ul>
+    </div>
+  </div>
+<% else %>
+  <%= render partial: 'shared/no_data',
+                 locals: { user: @user,
+                           target: "person" } %>
+<% end %>

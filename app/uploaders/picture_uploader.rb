@@ -53,6 +53,14 @@ class PictureUploader < CarrierWave::Uploader::Base
     "#{secure_token}.png" if original_filename.present?
   end
 
+  def quality(percentage)
+    manipulate! do |img|
+      img.quality(percentage.to_s)
+      img = yield(img) if block_given?
+      img
+    end
+  end
+
   def fix_exif_rotation
     manipulate! do |img|
       img = img.auto_orient

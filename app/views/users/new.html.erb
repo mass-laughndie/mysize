@@ -7,9 +7,6 @@
     <%= form_for(@user, url: signup_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="c base-form">
-        <%= f.text_field :name, placeholder: "ユーザー名" %>
-      </div>
-      <div class="c base-form">
         <%= f.text_field :mysize_id, placeholder: "MysizeID (a-z,0-9,_ 15文字以内)" %>
       </div>
       <div class="c base-form">

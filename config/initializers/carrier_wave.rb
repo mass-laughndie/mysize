@@ -18,33 +18,17 @@ class NullStorage
     true
   end
 end
+=end
 
 CarrierWave.configure do |config|
+  #テスト時の画像の格納場所を変更 => gitに保存されなくなる
+  config.cache_dir = Rails.root.join 'tmp/uploads'
+  
+=begin
   if Rails.env.development? || Rails.env.production?
     config.storage :file
   elsif Rails.env.test?
     config.strage NullStorage
   end
-end
 =end
-module CarrierWave
-  module MiniMagick
-    #画質調整
-    def quality(percentage)
-      manipulate! do |img|
-        img.quality(percentage.to_s)
-        img = yield(img) if block_given?
-        img
-      end
-    end
-
-    #画像の自動回転を防ぐ
-    def fix_exif_rotation
-      manipulate! do |img|
-        img = img.auto_orient
-        img = yield(img) if block_given?
-        img
-      end
-    end
-  end
 end

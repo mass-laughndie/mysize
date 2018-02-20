@@ -2,12 +2,14 @@
 
 /* mixins, variables, ertc. */
 
-$base-color: #fff;  /* white */
-$main-color: #000;  /* black */
-$accent-color: #f00;  /* red */
+$base: #fff;  /* white */
+$main: #000;  /* black */
+$accent: #ff0000;  /* red */
+$waccent: #ff6666; /* week red*/
 $test: #e6e6fa;
-$back: #eee;
+$back: #fafafa;
 $base-grey: #999;
+$twi-blue: #55acee;
 $twi-grey: #657786;
 
 @mixin box_sizing {
@@ -28,20 +30,45 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 }
 
 body {
-  background: $base-color;
+  background: $back;
+  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   position: relative;
   padding: 51px 0;
-  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
 a {
-  color: $main-color;
+  color: $main;
   text-decoration: none;
+
+  .fa {
+    color: $base-grey;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
-   font-weight: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+button,
+input[type="submit"] {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .c {
@@ -49,9 +76,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content {
-  margin: 20px;
-  padding: 25px;
-  background: $base-color;
+  /*margin: 20px;*/
+  padding: 45px;
+  background: $base;
 
   p {
     font-size: 16px;
@@ -70,8 +97,32 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
+.top-text {
+  background: #fff;
+  height: 150px;
+  margin: 0 auto;
+  padding: 10px;
+  width: 270px;
+
+  img {
+    display: inline-block;
+    float: left;
+    height: 80px;
+    margin: 25px 10px;
+    width: 80px;
+  }
+
+  span {
+    color: $accent;
+    display: inline-block;
+    float: left;
+    font-size: 100px;
+    line-height: 130px;
+  }
+}
+
 .title-text {
-  color: #main-color;
+  color: $main;
   font-size: 1.3em;
   letter-spacing: 0.1em;
 }
@@ -81,38 +132,59 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
+.ps-page-title {
+  padding: 20px;
+  text-align: center;
+}
+
 .content-sspace {
-  background: $base-color;
-  margin: 10px;
+  background: $base;
+  padding: 10px;
+  position: relative;
+}
+
+.content-mspace {
+  background: $base;
+  padding: 16px;
   position: relative;
 }
 
 .content-nspace {
-  background: $base-color;
-  margin: 0;
+  background: $base;
+  position: relative;
+}
+
+.content-pspace {
+  background: $base;
+  padding: 10px 40px;
   position: relative;
 }
 
 header {
-  background: $base-color;
+  background: $base;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 23;
+  z-index: 100;
   border-bottom: 1px solid #eee;
   height: 51px;
+}
+
+#main {
+  position: relative;
 }
 
 .container {
   width: 100%;
   margin: 0 auto;
+  max-width: 600px;
   position: relative;
 }
 
 .wrapper {
   height: 50px;
-  background: $base-color;
+  background: $base;
   text-align: center;
   position: relative;
 }
@@ -120,11 +192,45 @@ header {
 
 .atention {
   margin: 0 auto;
-  width: 90%;
+  width: 85%;
 
   p a {
     color: #3599f0;
     text-decoration: underline;
+  }
+}
+
+.welcome-text {
+  padding-bottom: 20px;
+  width: 100%;
+
+  p {
+    font-weight: 550;
+    padding: 0;
+  } 
+}
+
+.to-top {
+  height: 70px;
+  padding: 20px 0;
+  margin: 0 auto;
+  width: 90px;
+
+  a {
+    border: 1px solid $base-grey;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: block;
+
+    i {
+      margin-right: 5%;
+      width: 20%;
+    }
+
+    span {
+      font-weight: 550;
+      width: 75%;
+    }
   }
 }
 
@@ -152,26 +258,49 @@ header {
   height: 50px;
 
   i {
-    background: $accent-color;
-    border-radius: 17.5%;
+    color: $main;
   }
-
+/*
+  i {
+    background: $accent;
+    border-radius: 17.5%;
+    color: $base;
+  }
+*/
   img {
-    background-color: $back;
+    background: $back;
     border-radius: 17.5%;
     margin: 5px 0;
   }
 }
 
 .logo {
-  line-height: 30px;
+  margin: 10px 0;
 
-  a.logo-text {
-    color: $accent-color;
-    font-weight: 600;
-    margin: 10px auto;
-    width: 80px;
+  .logo-text {
+    color: $accent;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    width: 90px;
+
+    img {
+      display: inline-block;
+      float: left;
+      margin: 3px;
+    }
+    span {
+      display: inline-block;
+      float: left;
+      font-size: 2.0em;
+      margin-bottom: 5px;
+    }
   }
+}
+
+.logo-font {
+  font-family: 'Chathura', sans-serif;
 }
 
 .right-header {
@@ -181,7 +310,7 @@ header {
 /* navigation */
 
 nav {
-  background: $base-color;
+  background: $base;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -216,10 +345,15 @@ nav {
 /* footer */
 
 .my-footer {
+  margin: 0 auto;
+  max-width: 600px;
   text-align: center;
   padding: 20px;
+  position: relative;
+  width: 100%;
 
   .links {
+    width: 100%;
 
     a:hover {
       opacity: 0.5;
@@ -227,27 +361,31 @@ nav {
 
     a {
       display: inline-block;
-      color: $main-color;
+      color: $twi-grey;
       font-size: 12px;
       padding: 5px;
       text-decoration: none;
     }
   }
+
+  a {
+    color: $twi-grey;
+  }
 }
 
 .my-navi {
   height: 50px;
-  background: $main-color;
+  background: $main;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 101;
   border-bottom: 1px solid #eee;
   width: 100%
 
   a {
-    color: $main-color;
+    color: $main;
   }
 }
 
@@ -308,22 +446,22 @@ nav {
 }
 
 .profile-middle {
-  height: 50px;
   position: relative;
   width: 100%;
 }
 
-.user_text {
+.user-text {
   float: left;
   position: relative;
   width: 50%;
 }
 
-.user_name {
+.user-name {
   position: relative;
+  font-size: 0.9em;
 }
 
-.user_mysizeid {
+.user-mysizeid {
   position: relative;
   font-size: 0.8em;
   color: $base-grey;
@@ -333,6 +471,7 @@ nav {
   border: 1px solid $twi-grey;
   border-radius: 5px;
   font-size: 0.7em;
+  font-weight: 600;
   float: left;
   height: 30px;
   margin: 8px 2% 12px;
@@ -362,31 +501,86 @@ nav {
     line-height: 28px;
     text-align: center;
     width: 100%;
+
+    .fa {
+      color: $main;
+    }
   }
 }
 
 .set-follow {
-  background-color: $accent-color;
-  border-radius: 5px;
+  float: left;
+  height: 50px;
+  position: relative;
+  width: 50%;
+}
+
+.follow-form {
   font-size: 0.7em;
   float: left;
-  height: 30px;
-  margin: 8px 10% 12px;
-  position: relative;
-  width: 30%;
+  height: 32px;
+  margin: 7px auto 11px;
+  position: absolute;
+  right: 5%;
+  width: 52px;
+}
 
-  a {
+.form-follow {
+  background: #fff;
+  border: 1px solid $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
+    color: $accent;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-plus {
+      font-size: 10px;
+    }
+  }
+}
+
+
+.form-unfollow {
+  background: $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
     color: #fff;
     display: block;
-    font-weight: 550;
-    line-height: 28px;
-    text-align: center;
+    font-size: 14px;
+    height: 100%;
     width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-check {
+      font-size: 10px;
+    }
   }
 }
 
 .profile-bottom {
-  font-size: 1em;
+
+  .user-profile {
+    font-size: 0.9em;
+    margin: 5px 0;
+  }
 }
 
 .follow-info a {
@@ -402,6 +596,7 @@ nav {
 }
 
 .post-select {
+  background: $base;
   border-top: 1px solid $back;
   border-bottom: 1px solid $back;
   height: 52px;
@@ -421,9 +616,27 @@ nav {
 }
 
 .post-main {
+  background: $base;
   margin: 0 auto;
   max-width: 600px;
+  position: relative;
   width: 100%;
+}
+
+.post-line {
+  display: block;
+  width: 100%;
+}
+
+/* floatの解除 */
+.clear:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+.kickspost-list {
+  padding-bottom: 30px;
 }
 
 .post-top {
@@ -435,7 +648,7 @@ nav {
 
 .post-icon {
   float: left;
-  margin-right: 16px;
+  margin-right: 10px;
   position: relative;
   width: 34px;
 
@@ -451,13 +664,18 @@ nav {
 
 .post-user {
   float: left;
-  position: relative;
   margin-right: 16px;
+  position: relative;
+  width: 63%;
 
   .post-name {
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-weight: 450;
     line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
   }
 
   .post-mysizeid {
@@ -470,46 +688,144 @@ nav {
 }
 
 .post-shoesize {
-  position: relative;
-  float: left;
-  margin: 5px 0;
-  width: 40px;
+  border: 1px solid $base-grey;
+  border-radius: 5px;
+  margin: 3px 0;
+  position: absolute;
+  right: 50px;
+
   a {
-    border: 1px solid $main-color;
-    border-radius: 5px;
+    color: $base-grey;
     display: block;
-    font-size: 0.9em;
-    height: 24px;
+    font-size: 12px;
+    padding: 3px 7px;
   }
 }
 
 .post-menu {
   height: 34px;
   position: absolute;
-  right: 16px;
+  right: 12px;
   width: 24px;
 
-  a {
+  .post-nav {
     display: block;
     height: 24px;
     margin: 5px 0;
+    cursor: pointer;
+
+    &:hover {
+      background: lighten($base, 3%);
   }
+  }
+}
+
+.nav-list {
+  background: $base;
+  border: 1px solid $base-grey;
+  color: $main;
+  display: none;
+  height: 63px;
+  overflow: hidden;
+  position: absolute;
+  left: auto;
+  right: 0;
+  width: 62px;
+  z-index: 90;
+
+  li {
+    background: $base;
+    font-size: 0.8em;
+    font-weight: 450;
+    line-height: 30px;
+    color: $main;
+    z-index: 90;
+  }
+
+  .bar {
+    border-top: 1px solid $base-grey;
+    height: 0;
+  }
+}
+
+.postsquare-list {
+  display: block;
+  float: left;
+  max-width: 200px;
+  position: relative;
+  width: 33.3%;
+
+  .square-picture {
+    border: 0.5px solid #fff;
+    position: relative;
+    width: 100%;
+
+    a {
+      display: block;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      .cover {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .square-picture:before {
+    content:"";
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.kicks-size {
+  background: rgba(0,0,0,0.2);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 7px;
+  pointer-events: none;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
 }
 
 .post-middle {
   position:relative;
   width: 100%;
 
-  .post-picture {
-    width: 100%;
+  .post-link {
+    position: relative;
 
-    a {
-      display: block;
+    .post-picture {
+      width: 100%;
 
-      img {
+      a {
         display: block;
-        width: 100%;
+
+        img {
+          display: block;
+          width: 100%;
+        }
       }
+    }
+
+    .post-size {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      color: #fff;
+      font-size: 13px;
+      padding: 4px 7px;
+      pointer-events: none;
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
     }
   }
 
@@ -548,7 +864,7 @@ nav {
 }
 
 .no-post {
-  height: 150px;
+  background: $back;
   margin: 75px 0;
 
   i {
@@ -560,7 +876,40 @@ nav {
 
   .no-text {
     font-weight: 500;
-    line-height: 50px;
+    line-height: 30px;
+  }
+}
+
+.no-link {
+  height: 60px;
+  margin: 10px 0;
+
+  a {
+    background: $waccent;
+    border-radius: 5px;
+    display: block;
+    height: 40px;
+    margin: 0 auto;
+    padding: 5px 10px;
+    width: 150px;
+    
+    .fa {
+      color: $base;
+      float: left;
+      font-size: 30px;
+      line-height: 24px;
+      margin: 2px 3% 2px 0;
+      width: 30%;
+    }
+
+    span {
+      color: $base;
+      float: left;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 30px;
+      width: 67%;
+    }
   }
 }
 
@@ -576,11 +925,10 @@ nav {
   line-height: 40px;
   letter-spacing: 0.2px;
   border-radius: 5px;
-  margin: 30px auto;
+  margin: 25px auto;
 
   input {
     border: 0px;
-    background-color: $accent-color;
     border-radius: 5px;
     color: #fff;
     font-size: 1rem;
@@ -593,8 +941,16 @@ nav {
   }
 }
 
+.label-button {
+  padding: 30px 0;
+}
+
 .button-mini {
-  width: 45%;
+  width: 30%;
+}
+
+.button-middle {
+  width: 70%;
 }
 
 .button:hover {
@@ -603,16 +959,25 @@ nav {
 }
 
 .twitter-color {
-  background-color: #55acee;
+  background: $twi-blue;
+
   a {
     display: block;
     color: #ffffff;
+
+    i {
+      color: #fff;
+    }
   }
 }
 
 .accent {
-  background-color: $accent-color;
-  font-weight: 650;
+  background: $accent;
+
+  input {
+    background: $accent;
+  }
+
   a {
     display: block;
     color: #ffffff;
@@ -634,6 +999,13 @@ nav {
 
 .mb {
   margin-bottom: 50px;
+}
+
+.nls {
+  width: 210px;
+  input {
+    letter-spacing: 0.03em;
+  }
 }
 
 .label-form {
@@ -672,7 +1044,7 @@ nav {
 /* error */
 
 .error {
-  background-color: #fff6f6;
+  background: #fff6f6;
   border: 1.5px solid #ebccd1;
   border-radius: 5px;
   margin: 0 auto;
@@ -704,7 +1076,7 @@ nav {
 /* flash */
 
 .flash-base {
-  background-color: rgba(0,0,0,0);
+  background: rgba(0,0,0,0);
   font-size: 1.1em;
   font-weight: 550;
   height: 50px;
@@ -714,17 +1086,23 @@ nav {
   right: 0;
   left: 0;
   text-align: center;
-  z-index: 90;
+  z-index: 200;
 
   .flash-success {
-    background-color: rgba(223,240,216,0.85);
+    background: rgba(223,240,216,0.85);
     color: #3c763d;
   }
 
   .flash-danger {
-    background-color: rgba(255,246,246,0.85);
+    background: rgba(255,246,246,0.85);
     color: #e5171f;
     font-size: 0.7em;
+  }
+
+  .flash-info {
+    background: rgba(224,255,255,0.85);
+    color: #00bfff;
+    font-weight: 450;
   }
 }
 
@@ -775,13 +1153,14 @@ nav {
 }
 
 .set-leave {
+  background: $back;
   height: 150px;
   position: relative;
 
   a {
     position: absolute;
-    bottom: 5px;
-    right: 10px;
+    bottom: 20px;
+    right: 30px;
   }
 }
 
@@ -842,12 +1221,12 @@ nav {
   position: absolute;
   top: 8%;
   right: 4%;
-  z-index: 100;
+  z-index: 10;
 
   a {
-    border: 1px solid $accent-color;
+    border: 1px solid $accent;
     border-radius: 4px;
-    color: $accent-color;
+    color: $accent;
     display: block;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -858,6 +1237,21 @@ nav {
       margin: 2px auto;
     }
   }
+}
+
+.reset-text {
+  p {
+    margin-bottom: 10px;
+  }
+  .sfont {
+    font-size: 0.8em;
+    line-height: 16px;
+  }
+}
+
+/* 読み込みバー */
+.turbolinks-progress-bar{
+  background-color: $accent;
 }
 
 @media only screen and (max-width: 767px) {

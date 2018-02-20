@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
+  get '/latest',    to: 'static_pages#latest'
   get '/help',    to: 'static_pages#help'
   get '/about',   to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
@@ -16,8 +17,21 @@ Rails.application.routes.draw do
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get '/auth/:provider/callback', to: 'sessions#omniauth_create'
+
+  get   '/welcome',    to: 'settings#welcome'
+  patch '/welcome',    to: 'settings#welcome_update'
+  put   '/welcome',    to: 'settings#welcome_update'
+
   get '/upload',  to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
+
+  resource :password_reset, except: [:show, :destroy],
+                            path_names: {new: '' } do
+    collection do
+      get :confirm
+    end
+  end
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
@@ -29,7 +43,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :settings, only: [] do
+  resources :relationships, only: [:create, :destroy]
+
+  resource :settings, only: :none do
     get   '/option',   to: 'settings#option'
     get   '/account',  to: 'settings#account'
     get   '/profile',  to: 'settings#profile'

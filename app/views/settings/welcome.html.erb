@@ -1,0 +1,27 @@
+<% provide(:title, "Welcomeページ") %>
+<% provide(:button_text, "登録") %>
+<% provide(:post_url, welcome_path) %>
+<%= render 'layouts/no_left_header' %>
+<%= render 'layouts/no_right_header' %>
+
+<div class="content">
+  <div class="page-title">
+    <h1 class="title-text">Mysizeへようこそ！</h1>
+  </div>
+  <div class=" c welcome-text">
+    <% if current_user.uid.nil? %>
+      <p>プロフィールを設定しましょう。</p>
+      <p><small>(*:必須項目)</small></p>
+    <% else %>
+      <p>アカウント設定しましょう。</p>
+      <p><small>(*:必須項目)</small></p>
+    <% end %>
+  </div>
+  <div class="set-form">
+    <% if current_user.uid.nil? %>
+      <%= render 'profile_form' %>
+    <% else %>
+      <%= render 'omniauth_form' %>
+    <% end %>
+  </div>
+</div>

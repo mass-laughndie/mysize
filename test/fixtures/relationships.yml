@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  follower: mysize1
+  followed: mysize3
+
+two:
+  follower: mysize1
+  followed: mysize4
+
+three:
+  follower: mysize3
+  followed: mysize1
+
+four:
+  follower: mysize2
+  followed: mysize1

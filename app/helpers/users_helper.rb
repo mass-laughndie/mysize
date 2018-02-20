@@ -10,7 +10,7 @@ module UsersHelper
     if user.image?
       "#{user.image}"
     else
-      "/images/default_image1.png"
+      "/images/default1.png"
     end
   end
 end

@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
 
-  before_action :admin_user, only: :admusrind
+  before_action :logged_in_user, only: [:admusrind, :following, :followers]
+  before_action :admin_user,     only: :admusrind
 
   def show
     @user = User.find_by(mysize_id: params[:mysize_id])
+    if current_user == @user
+      no_name
+    end
     @kicksposts = @user.kicksposts
   end
 
@@ -12,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def admusrind
-    @users = User.all
+    @ausers = User.all
   end
 
   def destroy
@@ -23,24 +27,38 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     #passwordバリデーション有効化
     @user.validate_password = true
 
     if @user.save
       log_in @user
+      @user.send_welcome_email
       flash[:success] = "登録が完了しました！"
-      redirect_to @user
+      redirect_to welcome_path
     else
       render 'new'
     end
+  end
+
+  def following
+    @title = "フォロー"
+    @user = User.find_by(mysize_id: params[:mysize_id])
+    @users = @user.following
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "フォロワー"
+    @user = User.find_by(mysize_id: params[:mysize_id])
+    @users = @user.followers
+    render 'show_follow'
   end
   
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :mysize_id,
-                                 :password, :password_confirmation)
+      params.require(:user).permit(:email, :mysize_id,
+                                   :password, :password_confirmation)
     end
 
     def admin_user
