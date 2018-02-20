@@ -4,7 +4,7 @@
       <a class="cover" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>" style="background-image: url('<%= picture_url(kickspost) %>')"></a>
     </div>
     <div class="kicks-size">
-      <%= 21.5 + kickspost.size / 2.0 %>
+      <%= 21.5 + kickspost.size.to_i / 2.0 %>
     </div>
   </li>
 <% else %>
@@ -42,8 +42,13 @@
     </div>
     <div class="post-middle">
       <% unless kickspost.picture.nil? %>
-        <div class="post-picture">
-          <%= link_to image_tag(picture_url(kickspost)), kickspost_path(kickspost.user.mysize_id, kickspost) %>
+        <div class="post-link">
+          <div class="post-picture">
+            <%= link_to image_tag(picture_url(kickspost)), kickspost_path(kickspost.user.mysize_id, kickspost) %>
+          </div>
+          <div class="post-size">
+            <%= 21.5 + kickspost.size.to_i / 2.0 %>
+          </div>
         </div>
       <% end %>
       <div class="post-react">

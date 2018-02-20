@@ -36,7 +36,7 @@
       </a>
     </div>
   </div>
-  <div class="profile-middle">
+  <div class="profile-middle clear">
     <div class="user-text">
       <div class="user-name">
         <h1><%= @user.name %></h1>
@@ -100,7 +100,7 @@
                  locals: { user: @user,
                            target: "data" } %>
     <% else %>
-      <div class="post-line clearfix">
+      <div class="post-line clear">
         <ul>
           <%= render @kicksposts %>
         </ul>

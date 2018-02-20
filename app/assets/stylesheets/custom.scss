@@ -47,7 +47,6 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
-   font-weight: 100%;
 }
 
 li {
@@ -447,20 +446,19 @@ nav {
 }
 
 .profile-middle {
-  height: 50px;
   position: relative;
   width: 100%;
 }
 
 .user-text {
   float: left;
-  height: 50px;
   position: relative;
   width: 50%;
 }
 
 .user-name {
   position: relative;
+  font-size: 0.9em;
 }
 
 .user-mysizeid {
@@ -578,9 +576,9 @@ nav {
 }
 
 .profile-bottom {
-  font-size: 1em;
 
   .user-profile {
+    font-size: 0.9em;
     margin: 5px 0;
   }
 }
@@ -631,7 +629,7 @@ nav {
 }
 
 /* floatの解除 */
-.clearfix:after {
+.clear:after {
   content: " ";
   display: block;
   clear: both;
@@ -650,7 +648,7 @@ nav {
 
 .post-icon {
   float: left;
-  margin-right: 16px;
+  margin-right: 10px;
   position: relative;
   width: 34px;
 
@@ -666,13 +664,18 @@ nav {
 
 .post-user {
   float: left;
-  position: relative;
   margin-right: 16px;
+  position: relative;
+  width: 63%;
 
   .post-name {
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-weight: 450;
     line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
   }
 
   .post-mysizeid {
@@ -685,23 +688,24 @@ nav {
 }
 
 .post-shoesize {
-  position: relative;
-  float: left;
-  margin: 5px 0;
-  width: 40px;
+  border: 1px solid $base-grey;
+  border-radius: 5px;
+  margin: 3px 0;
+  position: absolute;
+  right: 50px;
+
   a {
-    border: 1px solid $main;
-    border-radius: 5px;
+    color: $base-grey;
     display: block;
-    font-size: 0.9em;
-    height: 24px;
+    font-size: 12px;
+    padding: 3px 7px;
   }
 }
 
 .post-menu {
   height: 34px;
   position: absolute;
-  right: 16px;
+  right: 12px;
   width: 24px;
 
   .post-nav {
@@ -805,16 +809,32 @@ nav {
   position:relative;
   width: 100%;
 
-  .post-picture {
-    width: 100%;
+  .post-link {
+    position: relative;
 
-    a {
-      display: block;
+    .post-picture {
+      width: 100%;
 
-      img {
+      a {
         display: block;
-        width: 100%;
+
+        img {
+          display: block;
+          width: 100%;
+        }
       }
+    }
+
+    .post-size {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      color: #fff;
+      font-size: 13px;
+      padding: 4px 7px;
+      pointer-events: none;
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
     }
   }
 
