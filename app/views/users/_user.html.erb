@@ -5,7 +5,7 @@
         <%= image_tag(image_url(user), alt: user.name, size: 40) %>
       </div>
       <div class="index-size">
-        <%= 21.5 + user.shoe_size / 2.0 %>
+        <%= user.shoe_size %>
       </div>
     </div>
     <div class="index-center">
@@ -22,7 +22,7 @@
   </a>
   <div class="act-form">
     <% unless current_user?(user) %>
-      <%= render partial: 'follow_form', locals: { user: user } if logged_in? %>
+      <%= render partial: 'users/follow_form', locals: { user: user } if logged_in? %>
     <% end %>
   </div>
 </li>

@@ -1,0 +1,11 @@
+<div class="c search">
+  <%= form_tag(search_path,
+               method: "get",
+               enforce_utf8: false) do %>
+    <%= text_field_tag :search, params[:search],
+                        placeholder: "キーワード検索" %>
+    <span class="search-button">
+      <%= button_tag fa_icon("search"), name: nil %>
+   </span>
+  <% end %>
+</div>

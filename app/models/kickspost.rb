@@ -11,6 +11,25 @@ class Kickspost < ApplicationRecord
   validate  :picture_size
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 
+  class << self
+
+    def search(search)
+      if search
+        keyword_arys = search.gsub(/　/, " ").split()
+        size_search = keyword_arys[0].to_f
+        cond = where(["content LIKE (?) OR size IN (?)", "%#{keyword_arys[0]}%", "#{size_search}"])
+        for i in 1..(keyword_arys.length - 1) do
+          size_search = keyword_arys[i].to_f
+          cond = cond.where(["content LIKE (?) OR size IN (?)", "%#{keyword_arys[i]}%", "#{size_search}"])
+        end
+        cond
+      else
+        all
+      end
+    end
+
+  end
+
   private
 
     def picture_size

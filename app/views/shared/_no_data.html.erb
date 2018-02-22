@@ -1,4 +1,4 @@
-<% if target == "data" %>
+<% if target == "post" %>
   <div class="c no-post">
     <i class="fa fa-image"></i>
     <div class="no-text">表示できるデータがありません</div>
@@ -23,5 +23,9 @@
         </a>
       </div>
     <% end %>
+  </div>
+<% else %>
+  <div class="c no-post">
+    <div class="no-text">1件もありません</div>
   </div>
 <% end %>

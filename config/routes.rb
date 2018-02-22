@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get '/upload',  to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
 
+  get '/search', to: 'search#search'
+
   resource :password_reset, except: [:show, :destroy],
                             path_names: {new: '' } do
     collection do

@@ -4,7 +4,7 @@
       <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content, class: 'cover'), kickspost_path(kickspost.user.mysize_id, kickspost) %>
     </div>
     <div class="kicks-size">
-      <%= 21.5 + kickspost.size.to_i / 2.0 %>
+      <%= kickspost.size %>
     </div>
   </li>
 <% else %>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="c post-shoesize">
-        <%= link_to 21.5 + kickspost.user.shoe_size.to_i * 0.5, user_path(kickspost.user, display: "square") %>
+        <%= link_to kickspost.user.shoe_size, user_path(kickspost.user, display: "square") %>
       </div>
       <div class="c post-menu">
         <% if current_user == kickspost.user %>
@@ -47,7 +47,7 @@
             <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content), kickspost_path(kickspost.user.mysize_id, kickspost) %>
           </div>
           <div class="post-size">
-            <%= 21.5 + kickspost.size.to_i / 2.0 %>
+            <%= kickspost.size %>
           </div>
         </div>
       <% end %>
