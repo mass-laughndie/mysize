@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20180217074234) do
   create_table "kicksposts", force: :cascade do |t|
     t.text "content"
     t.string "picture"
-    t.integer "size"
+    t.float "size"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180217074234) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "image"
-    t.integer "shoe_size"
+    t.float "shoe_size"
     t.string "profile_content"
     t.string "remember_digest"
     t.boolean "admin", default: false

@@ -3,7 +3,7 @@ class CreateKicksposts < ActiveRecord::Migration[5.1]
     create_table :kicksposts do |t|
       t.text :content
       t.string :picture
-      t.integer :size
+      t.float :size
       t.references :user, foreign_key: true
 
       t.timestamps
