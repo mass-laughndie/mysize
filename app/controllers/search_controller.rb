@@ -16,6 +16,6 @@ class SearchController < ApplicationController
     if params[:history] == "clear"
       @history.clear
     end
-  end
 =end
+  end
 end
