@@ -4,7 +4,7 @@
       <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content, class: 'cover'), kickspost_path(kickspost.user.mysize_id, kickspost) %>
     </div>
     <div class="kicks-size">
-      <%= 21.5 + kickspost.size.to_i / 2.0 %>
+      <%= kickspost.size %>
     </div>
   </li>
 <% else %>
@@ -15,14 +15,14 @@
       </div>
       <div class="post-user">
         <div class="post-name">
-          <%= link_to kickspost.user.name, kickspost.user %>
+          <%= link_to kickspost.user.name, user_path(kickspost.user, display: "square") %>
         </div>
         <div class="post-mysizeid">
-          <%= link_to fa_icon("at") + kickspost.user.mysize_id, kickspost.user %>
+          <%= link_to fa_icon("at") + kickspost.user.mysize_id, user_path(kickspost.user, display: "square") %>
         </div>
       </div>
       <div class="c post-shoesize">
-        <%= link_to 21.5 + kickspost.user.shoe_size.to_i * 0.5, kickspost.user %>
+        <%= link_to kickspost.user.shoe_size, user_path(kickspost.user, display: "square") %>
       </div>
       <div class="c post-menu">
         <% if current_user == kickspost.user %>
@@ -35,7 +35,7 @@
                     method: :delete,
                     data: { confirm: "本当に削除してよろしいですか？" } %></li>
             <li class="bar"></li>
-            <li><%= link_to "編集", '#' %></li>
+            <li><%= link_to "編集", edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
           </ul>
         <% end %>
       </div>
@@ -47,7 +47,7 @@
             <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content), kickspost_path(kickspost.user.mysize_id, kickspost) %>
           </div>
           <div class="post-size">
-            <%= 21.5 + kickspost.size.to_i / 2.0 %>
+            <%= kickspost.size %>
           </div>
         </div>
       <% end %>
@@ -58,7 +58,7 @@
     </div>
     <div class="post-bottom">
       <div class="post-content">
-        <%= link_to kickspost.user.mysize_id, user_path(kickspost.user) %> <%= kickspost.content %>
+        <%= link_to kickspost.user.mysize_id, user_path(kickspost.user, display: "square") %> <%= kickspost.content %>
       </div>
       <div class="post-time">
         <span><%= time_ago_in_words(kickspost.created_at) %>前</span>

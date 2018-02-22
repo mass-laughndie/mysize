@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get '/upload',  to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
 
+  get '/search', to: 'search#search'
+
   resource :password_reset, except: [:show, :destroy],
                             path_names: {new: '' } do
     collection do
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
                     only: [:show, :destroy],
                     path: '/' do
     member do
-      resources :kicksposts, except: [:new, :create]
+      resources :kicksposts, except: [:new, :create, :index]
       get :following,
           :followers
     end

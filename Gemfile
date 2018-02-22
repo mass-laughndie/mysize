@@ -17,7 +17,6 @@ gem 'jquery-turbolinks'
 gem 'turbolinks',               '5.0.1'    #
 gem 'jbuilder',                 '2.7.0'    #
 gem 'font-awesome-rails'                   #
-gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'dotenv-rails'                         #key管理

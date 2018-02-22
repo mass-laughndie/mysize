@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def home
     if logged_in?
       @user = current_user
-      @kicksposts = current_user.feed
+      @kicksposts = current_user.feed.reorder(updated_at: :desc)
     end
   end
 
@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
     if logged_in?
       @user = current_user
     end
-    @kicksposts = Kickspost.all
+    @kicksposts = Kickspost.reorder(updated_at: :desc)
   end
 
   def help

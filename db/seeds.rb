@@ -4,7 +4,7 @@ User.create!(name: "Masa",
              mysize_id: "masa",
              password: "foobar",
              password_confirmation: "foobar",
-             shoe_size: 10,
+             shoe_size: 26.5,
              remote_image_url: Faker::Avatar.image,
              profile_content: "Jordan1(26.5cm)/Kithコラボが好きです！",
              admin: true)
@@ -14,7 +14,7 @@ User.create!(name: "Masa",
   email = "mysize-#{n+1}@example.com"
   mysize_id = "mysize_#{n+1}"
   password = "password"
-  shoe_size = rand(1..17)
+  shoe_size = 21.5 + 0.5 * rand(1..17)
   image = Faker::Avatar.image
   profile_content = Faker::Lorem.sentence(5)
   User.create!(name: name,
@@ -34,7 +34,7 @@ if Rails.env.development?
     users.each do |user|
       user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
                               picture: open("#{Rails.root}/db/data/kicks#{rand(1..15)}.jpg"),
-                              size: rand(1..17))
+                              size: 21.5 + 0.5 * rand(1..17))
     end
   end
 elsif Rails.env.production?
@@ -42,7 +42,7 @@ elsif Rails.env.production?
     users.each do |user|
       user.kicksposts.create!(content: Faker::Lorem.paragraph(2, false, 4),
                               remote_picture_url: Faker::Avatar.image,
-                              size: rand(1..17))
+                              size: 21.5 + 0.5 * rand(1..17))
     end
   end
 end
