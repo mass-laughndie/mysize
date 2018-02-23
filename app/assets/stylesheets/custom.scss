@@ -8,6 +8,7 @@ $accent: #ff0000;  /* red */
 $waccent: #ff6666; /* week red*/
 $test: #e6e6fa;
 $back: #fafafa;
+$weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
@@ -865,7 +866,7 @@ nav {
 
 .no-post {
   background: $back;
-  margin: 75px 0;
+  padding: 75px 0;
 
   i {
     color: $base-grey;
@@ -1161,6 +1162,74 @@ nav {
     position: absolute;
     bottom: 20px;
     right: 30px;
+  }
+}
+
+
+/* search */
+
+.search {
+  display: block;
+  height: 30px;
+  width: 100%;
+
+  form {
+    background: $weak-grey;
+    border-radius: 5px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    width: 90%;
+
+    input {
+      background: $weak-grey;
+      border-radius: 5px;
+      border: none;
+      font-size: 12px;
+      height: 100%;
+      padding: 5px 30px 5px 15px;
+      position: relative;
+      width: 100%;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .search-button {
+      height: 100%;
+      position:absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+
+      button {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.search-select {
+  height: 40px;
+  position:relative;
+  width: 100%;
+
+  .search-list {
+    float: left;
+    height: 100%;
+    position:relative;
+    width: 50%;
+
+    a {
+      color: $base-grey;
+      display: block;
+      font-weight: 550;
+      height: 100%;
+      line-height: 40px;
+    }
   }
 }
 

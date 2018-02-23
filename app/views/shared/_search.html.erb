@@ -4,8 +4,8 @@
                enforce_utf8: false) do %>
     <%= text_field_tag :search, params[:search],
                         placeholder: "キーワード検索" %>
-    <span class="search-button">
+    <div class="search-button">
       <%= button_tag fa_icon("search"), name: nil %>
-   </span>
+    </div>
   <% end %>
 </div>
