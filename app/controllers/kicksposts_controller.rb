@@ -5,6 +5,8 @@ class KickspostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
+    @comments = @kickspost.comments.includes(:user).all
+    @comment  = @kickspost.comments.build(user_id: current_user.id) if logged_in?
   end
 
   def new
@@ -50,7 +52,7 @@ class KickspostsController < ApplicationController
     end
 
     def set_and_check_kickspost
-      @kickspost = Kickspost.find_by(id: params[:id])
+      @kickspost = Kickspost.includes(:user).find_by(id: params[:id])
       @user = User.find_by(id: @kickspost.user_id)
       @check = User.find_by(mysize_id: params[:mysize_id])
       if @user != @check

@@ -58,7 +58,7 @@
     </div>
     <div class="post-bottom">
       <div class="post-content">
-        <%= link_to kickspost.user.mysize_id, user_path(kickspost.user, display: "square") %> <%= kickspost.content %>
+        <%= link_to kickspost.user.mysize_id, user_path(kickspost.user, display: "square"), class: 'content-name' %> <%= kickspost.content %>
       </div>
       <div class="post-time">
         <span><%= time_ago_in_words(kickspost.created_at) %>前</span>

@@ -27,7 +27,10 @@ Rails.application.routes.draw do
   post '/upload', to: 'kicksposts#create'
 
   get '/search', to: 'search#search'
-
+=begin
+  get  '/question', to: 'comments#new'
+  post '/question', to: 'comments#create'
+=end
   resource :password_reset, except: [:show, :destroy],
                             path_names: {new: '' } do
     collection do
@@ -39,7 +42,15 @@ Rails.application.routes.draw do
                     only: [:show, :destroy],
                     path: '/' do
     member do
-      resources :kicksposts, except: [:new, :create, :index]
+      resources :kicksposts, except: [:new, :create, :index] do
+        resources :comments, only: [:create, :destroy],
+                             controller: 'comments'
+      end
+=begin
+      resources :comments, except: [:new, :create, :index] do
+        post :comment
+      end
+=end
       get :following,
           :followers
     end

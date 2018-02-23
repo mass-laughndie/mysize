@@ -9,6 +9,7 @@ class User < ApplicationRecord
                 :remember_token, :reset_token
 
   has_many :kicksposts, dependent: :destroy
+  has_many :comments,   dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",

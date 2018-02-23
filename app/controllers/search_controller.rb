@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   def search
     @users = User.search(params[:search])
-    @kicksposts = Kickspost.search(params[:search])
+    @kicksposts = Kickspost.search(params[:search]).includes(:user)
 
 =begin
     @history ||= []
