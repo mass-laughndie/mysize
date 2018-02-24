@@ -3,7 +3,8 @@
     <%= link_to comment.user.mysize_id, user_path(comment.user, display: "square") , class: 'content-name' %><%= comment.comment_content %>
     <% if current_user == comment.user || current_user == kickspost.user %>
       <span class="comment-delete">
-        <%= link_to fa_icon("trash"), kickspost_comment_path(comment.kickspost.user.mysize_id, comment.kickspost_id, comment.id), method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
+        <%= link_to fa_icon("trash"), comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
+            method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
       </span>
     <% end %>
   </div>

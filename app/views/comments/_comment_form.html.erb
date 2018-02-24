@@ -1,7 +1,7 @@
 <div class="c comment-form">
-  <%= form_for(@comment, url: kickspost_comments_path(kickspost_id: @kickspost.id)) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <div><%= f.hidden_field :user_id %></div>
+  <%= form_for(:comment, url: comments_url) do |f| %>
+    <div><%= f.hidden_field :kickspost_id, value: kickspost.id %></div>
+    <div><%= f.hidden_field :user_id, value: current_user.id %></div>
     <%= f.text_field :comment_content,　placeholder: "コメントをする" %>
     <div class="comment-button">
       <%= f.button fa_icon("reply") %>

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post '/upload', to: 'kicksposts#create'
 
   get '/search', to: 'search#search'
+
 =begin
   get  '/question', to: 'comments#new'
   post '/question', to: 'comments#create'
@@ -42,15 +43,7 @@ Rails.application.routes.draw do
                     only: [:show, :destroy],
                     path: '/' do
     member do
-      resources :kicksposts, except: [:new, :create, :index] do
-        resources :comments, only: [:create, :destroy],
-                             controller: 'comments'
-      end
-=begin
-      resources :comments, except: [:new, :create, :index] do
-        post :comment
-      end
-=end
+      resources :kicksposts, except: [:new, :create, :index]
       get :following,
           :followers
     end
@@ -76,5 +69,7 @@ Rails.application.routes.draw do
     get   '/leave',    to: 'settings#leave'
     delete '/leave',   to: 'settings#destroy'
   end
+
+  resources :comments, only: [:create, :destroy]
 
 end

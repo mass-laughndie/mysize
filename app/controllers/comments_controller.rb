@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
 
   before_action :logged_in_user, only: [:create, :destroy]
-  before_action :get_post, only: [:create, :destroy]
   before_action :corrent_user,   only: :destroy
 
   def create
+    @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     if @comment.save
       flash[:success] = "コメントを送信しました"
@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
     @comment.destroy
     flash[:success] = "コメントを削除しました"
     redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
@@ -26,10 +27,6 @@ class CommentsController < ApplicationController
 
     def post_comment_params
       params.require(:comment).permit(:user_id, :comment_content)
-    end
-
-    def get_post
-      @kickspost = Kickspost.find(params[:kickspost_id])
     end
 
     def corrent_user

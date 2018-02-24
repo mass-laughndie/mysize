@@ -1,11 +1,8 @@
 <div class="post-main">
-  <%= render partial: 'kicksposts/kickspost', locals: { kickspost: @kickspost } %>
-  <div class="post-comment">
-    <ul>
-      <%= render @comments, kickspost: @kickspost unless @comments.nil? %>
-    </ul>
-  </div>
+  <%= render partial: 'kicksposts/kickspost',
+             locals: { kickspost: @kickspost,
+                       comment_disnum: nil } %>
   <% if logged_in? %>
-    <%= render 'comments/comment_form' %>
+    <%= render partial: 'comments/comment_form', locals: { kickspost: @kickspost } %>
   <% end %>
 </div>

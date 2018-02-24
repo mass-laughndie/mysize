@@ -6,7 +6,6 @@ class KickspostsController < ApplicationController
 
   def show
     @comments = @kickspost.comments.includes(:user).all
-    @comment  = @kickspost.comments.build(user_id: current_user.id) if logged_in?
   end
 
   def new
