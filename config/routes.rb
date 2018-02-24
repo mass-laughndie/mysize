@@ -28,6 +28,10 @@ Rails.application.routes.draw do
 
   get '/search', to: 'search#search'
 
+=begin
+  get  '/question', to: 'comments#new'
+  post '/question', to: 'comments#create'
+=end
   resource :password_reset, except: [:show, :destroy],
                             path_names: {new: '' } do
     collection do
@@ -65,5 +69,7 @@ Rails.application.routes.draw do
     get   '/leave',    to: 'settings#leave'
     delete '/leave',   to: 'settings#destroy'
   end
+
+  resources :comments, only: [:create, :destroy]
 
 end

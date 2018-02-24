@@ -13,18 +13,20 @@ gem 'sass-rails',               '5.0.6'    #sass使用のため
 gem 'uglifier',                 '3.2.0'    #jsの軽量化?
 gem 'coffee-rails',             '4.2.2'    #coffeer.script使用のため
 gem 'jquery-rails',             '4.3.1'    #js使用のため
-gem 'jquery-turbolinks'
+gem 'jquery-turbolinks',        '2.1.0'
 gem 'turbolinks',               '5.0.1'    #
 gem 'jbuilder',                 '2.7.0'    #
-gem 'font-awesome-rails'                   #
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'dotenv-rails'                         #key管理
+gem 'font-awesome-rails',     '4.7.0.3'    #
+gem 'omniauth',              '~> 1.8.1'
+gem 'omniauth-twitter',      '~> 1.4.0'
+gem 'dotenv-rails',          '~> 2.2.1'    #key管理
 
 #開発、テスト環境に使用
 group :development, :test do
-  gem 'sqlite3', '1.3.13'       #DB処理言語、usersリソースなどのtable構築のため
-  gem 'byebug',  '9.0.6', platform: :mri    #debug用?
+  gem 'sqlite3',       '1.3.13'       #DB処理言語、usersリソースなどのtable構築のため
+  gem 'pry-rails',  '~> 0.3.6'
+  gem 'pry-byebug', '~> 3.6.0'
+  gem 'pry-doc',    '~> 0.13.1'
 end
 
 #開発環境にのみ使用
