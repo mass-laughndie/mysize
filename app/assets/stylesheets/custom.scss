@@ -853,15 +853,16 @@ nav {
   .post-content {
     margin: 5px 0;
     word-wrap: break-word;
-    a {
-      font-weight: 600;
-      margin-right: 0.3em;
-    }
   }
   .post-time {
     color: $base-grey;
     font-size: 10px;
   }
+}
+
+.content-name {
+  font-weight: 600;
+  margin-right: 0.3em;
 }
 
 .no-post {
@@ -910,6 +911,29 @@ nav {
       font-weight: 600;
       line-height: 30px;
       width: 67%;
+    }
+  }
+}
+
+/* comment */
+
+.post-comment {
+  font-size: 14px;
+  position: relative;
+  width: 100%;
+
+  .comment-list {
+    padding-bottom: 5px;
+    width: 100%;
+
+    .comment-content {
+      position: relative;
+      width: 100%;
+      word-wrap: break-word;
+    
+      .comment-delete {
+        height: 100%;
+      }
     }
   }
 }
