@@ -1,5 +1,5 @@
 <li class="user-list">
-  <a href="<%= user_path(user) %>" class="index-data">
+  <a href="<%= user_path(user, display: 'square') %>" class="index-data">
     <div class="c index-left">
       <div class="index-image">
         <%= image_tag(image_url(user), alt: user.name, size: 40) %>
