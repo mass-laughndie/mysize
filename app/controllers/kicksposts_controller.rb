@@ -37,7 +37,7 @@ class KickspostsController < ApplicationController
   def destroy
     @kickspost.destroy
     flash[:danger] = "投稿を削除しました"
-    redirect_to request.referrer || current_user
+    redirect_to user_path(current_user, display: "square")
   end
 
   private
@@ -51,7 +51,7 @@ class KickspostsController < ApplicationController
     end
 
     def set_and_check_kickspost
-      @kickspost = Kickspost.includes(:user).find_by(id: params[:id])
+      @kickspost = Kickspost.find_by(id: params[:id])
       @user = User.find_by(id: @kickspost.user_id)
       @check = User.find_by(mysize_id: params[:mysize_id])
       if @user != @check
