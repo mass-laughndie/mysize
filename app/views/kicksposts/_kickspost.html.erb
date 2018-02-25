@@ -91,11 +91,7 @@
                          locals: {kickspost: kickspost,
                                   comment: kickspost.comments.first } %>
             <% else %>
-              <% kickspost.comments.each do |comment| %>
-                <%= render partial: 'comments/comment',
-                           locals: { kickspost: kickspost,
-                                     comment: comment } %>
-              <% end %>
+              <%= render @comments, kickspost: kickspost %>
             <% end %>
           </ul>
         </div>

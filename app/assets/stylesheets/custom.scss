@@ -915,28 +915,6 @@ nav {
   }
 }
 
-/* comment */
-
-.post-comment {
-  font-size: 14px;
-  position: relative;
-  width: 100%;
-
-  .comment-list {
-    padding-bottom: 5px;
-    width: 100%;
-
-    .comment-content {
-      position: relative;
-      width: 100%;
-      word-wrap: break-word;
-    
-      .comment-delete {
-        height: 100%;
-      }
-    }
-  }
-}
 
   /* material */
 
@@ -1256,6 +1234,35 @@ nav {
       line-height: 40px;
     }
   }
+}
+
+/* comment */
+
+.post-comment {
+  font-size: 14px;
+  position: relative;
+  width: 100%;
+
+  .comment-list {
+    padding-bottom: 5px;
+    width: 100%;
+
+    .comment-content {
+      position: relative;
+      width: 100%;
+      word-wrap: break-word;
+    
+      .comment-act {
+        height: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.com-link {
+  color: rgba(0,53,105,0.85);
+  font-weight: 550;
 }
 
 .comment-lead {
