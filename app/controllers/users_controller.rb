@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if current_user == @user
       no_name
     end
-    @kicksposts = @user.kicksposts
+    @kicksposts = @user.kicksposts.includes(:comments)
   end
 
   def new

@@ -6,7 +6,7 @@
       <%= image_tag(image_url(@user), alt: @user.name) %>
     </div>
     <div class="user_stats">
-      <a href="#">
+      <a href="<%= search_path(keyword: @user.shoe_size) %>">
         <div class="num">
           <strong id="user_size" class="stat">
             <% unless @user.shoe_size.nil? %>
@@ -18,7 +18,7 @@
         </div>
         cm
       </a>
-      <a href="#">
+      <a href="<%= user_path(@user, display: "square") %>">
         <div class="num">
           <strong id="shoes" class="stat">
             <%= @user.kicksposts.count %>

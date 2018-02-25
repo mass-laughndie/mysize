@@ -2,7 +2,7 @@
   <%= form_tag(search_path,
                method: "get",
                enforce_utf8: false) do %>
-    <%= text_field_tag :search, params[:search],
+    <%= text_field_tag :keyword, params[:keyword],
                         placeholder: "キーワード検索" %>
     <div class="inner-button search-button">
       <%= button_tag fa_icon("search"), name: nil %>
