@@ -1,3 +1,4 @@
+<% unless params[:for] == 'mysizeid' %>
 <li class="user-list">
   <a href="<%= user_path(user, display: 'square') %>" class="index-data">
     <div class="c index-left">
@@ -13,7 +14,7 @@
         <%= user.name %>
       </div>
       <div class="index-mysizeid">
-        <%= fa_icon("at") + user.mysize_id %>
+        <%= "@" + user.mysize_id %>
       </div>
     </div>
     <div class="index-profile">
@@ -26,3 +27,6 @@
     <% end %>
   </div>
 </li>
+<% else %>
+  <%= user.mysize_id %>
+<% end %>

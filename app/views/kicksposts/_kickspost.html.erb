@@ -76,31 +76,35 @@
         <div class="post-comment">
           <% if comment_disnum == "few" %>
             <div class="comment-lead">
-              <%= link_to "コメントを見る・書く",
-                          kickspost_path(kickspost.user.mysize_id, kickspost) %>
+              <% if current_user == kickspost.user %>
+                <%= link_to "コメントを見る・返信する",
+                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
+              <% else %>
+                <%= link_to "コメントを見る・書く",
+                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
+              <% end %>
             </div>
           <% end %>
           <ul>
             <% if comment_disnum == "few" %>
               <%= render partial: 'comments/comment',
-                         locals: {kickspost: kickspost,
-                                  comment: kickspost.comments.first } %>
+                         locals: { kickspost: kickspost,
+                                   comment: kickspost.comments.first,
+                                   comment_disnum: comment_disnum } %>
             <% else %>
-              <% kickspost.comments.each do |comment| %>
-                <%= render partial: 'comments/comment',
-                           locals: { kickspost: kickspost,
-                                     comment: comment } %>
-              <% end %>
+              <%= render partial: @comments,
+                         locals: { kickspost: kickspost,
+                                   comment_disnum: comment_disnum } %>
             <% end %>
           </ul>
         </div>
       <% else %>
-        <% if comment_disnum == "few" %>
-          <div class="comment-lead">
-            <%= link_to "コメントを見る・書く",
-                        kickspost_path(kickspost.user.mysize_id, kickspost) %>
-          </div>
-        <% end %>
+        <% if comment_disnum == "few" && current_user != kickspost.user %>
+            <div class="comment-lead">
+              <%= link_to "コメントを書く",
+                          kickspost_path(kickspost.user.mysize_id, kickspost) %>
+            </div>
+          <% end %>
       <% end %>
       <div class="post-time">
         <span><%= time_ago_in_words(kickspost.created_at) %>前</span>

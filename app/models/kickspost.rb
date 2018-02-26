@@ -8,7 +8,8 @@ class Kickspost < ApplicationRecord
   validates :content, presence: { message: "内容を入力してください" },
                       length:   { maximum: 500,
                                   massage: "500文字まで入力できます" }
-  validates :picture, presence: { message: "ファイルを選択してください"}
+  validates :picture, presence: { message: "ファイルを選択してください",
+                                  on: :create }
   validate  :picture_size
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 

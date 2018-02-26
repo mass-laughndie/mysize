@@ -8,11 +8,10 @@ class CommentsController < ApplicationController
     @comment = @kickspost.comments.build(post_comment_params)
     if @comment.save
       flash[:success] = "コメントを送信しました"
-      redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
     else
       flash[:danger] = "コメントを送信できませんでした"
-      render 'kicksposts/show'
     end
+    redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
   end
 
   def destroy

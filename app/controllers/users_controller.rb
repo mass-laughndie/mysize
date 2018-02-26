@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if current_user == @user
       no_name
     end
-    @kicksposts = @user.kicksposts
+    @kicksposts = @user.kicksposts.includes(:comments)
   end
 
   def new
@@ -17,6 +17,15 @@ class UsersController < ApplicationController
 
   def admusrind
     @ausers = User.all
+  end
+
+  def index
+    @users = User.all
+    @ary = [];
+    @users.each do |user|
+      @ary << user.mysize_id
+    end
+    render layout: false
   end
 
   def destroy
