@@ -1,4 +1,6 @@
 
+
+
 //flash非表示
 function clearBox() {
   $("#temp3").css('display', 'none');
@@ -34,39 +36,64 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/*
-function load(_url){
-  var xhr;
-  xhr = new XMLHttpRequest();
-  xhr.open("GET", _url, true);
-  xhr.send(null);
-  console.log("???")
-  return xhr.status;
-}
-*/
 
-//commentリンク
+function indexId(){
+  return $.ajax({
+    type: 'GET',
+    url: '/index?for=mysizeid&key=mysizeid',
+    dataType: 'html'
+  })
+}
+
+//comment返信ユーザーのリンク化
+function changeLink(_iid) {
+  $('.comment-content').each(function(){
+    var
+      txt = $(this).html(),
+      exp = txt.match(/@[a-zA-Z0-9_]+\s/g);               //全「@ID 」
+    if(exp != null){
+      for(var i = 0; i < exp.length; i++){
+        var
+          elength = exp[i].length;                         //文字数
+          msid = exp[i].substring(1, elength - 1);         //「ID」
+        //indexid内のものと一致する場合
+        if (iid.indexOf(msid) >= 0){
+          var
+            url = window.location.protocol + "//"
+                  + window.location.host + '/'
+                  + msid + "?display=square",
+            str = exp[i].substring(0, elength - 1),         //「@ID」
+            txt = $(this).html();             //新たに定義しないと複数置換できない
+          $(this).html(txt.replace(str, "<a class='com-link' href=" + url + ">" + str + "</a>"));
+        }
+      }
+    }
+  });
+}
+
+//index_id
+iid = [];
+
+//comment送信先ユーザーリンク化
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    if($('.comment-content').length) {
-      $('.comment-content').each(function(){
-        var
-          txt = $(this).html(),
-          exp = txt.match(/@[a-zA-Z0-9_]+\s/g);               //全「@ID 」
-        if(exp != null){
-          for(var i = 0; i < exp.length; i++){
-            var
-              elength = exp[i].length;                         //文字数
-              msid = exp[i].substring(1, elength - 1);         //「ID」
-              url = window.location.protocol + "//"
-                    + window.location.host + '/'
-                    + msid + "?display=square";
-              str = exp[i].substring(0, elength - 1);          //「@ID」
-            var txt = $(this).html();             //新たに定義しないと複数置換できない
-            $(this).html(txt.replace(str, "<a class='com-link' href=" + url + ">" + str + "</a>"));
-          }
-        }
-      });
+    //commentがある場合
+    if ($('.comment-content').length) {
+      //data未取得
+      if (iid.length == 0) {
+        indexId().done(function(data) {
+          iid = $(data).find('#index-id').text().split(/\s+/);
+          iid.shift();
+          iid.pop();
+          changeLink(iid);
+        }).fail(function(data) {
+          console.log('failed loading data!!!');
+          return false;
+        })
+      //data取得済み
+      } else {
+        changeLink(iid);
+      }
     }
   });
 });

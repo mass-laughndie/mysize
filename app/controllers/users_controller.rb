@@ -19,6 +19,15 @@ class UsersController < ApplicationController
     @ausers = User.all
   end
 
+  def index
+    @users = User.all
+    @ary = [];
+    @users.each do |user|
+      @ary << user.mysize_id
+    end
+    render layout: false
+  end
+
   def destroy
     User.find_by(mysize_id: params[:mysize_id]).destroy
     flash[:success] = "削除が完了しました"

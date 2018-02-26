@@ -28,6 +28,10 @@
             </div>
           </div>
         <% end %>
+      <% elsif params[:for] == 'mysizeids' %>
+        <ul>
+          <%= render @users %>
+        </ul>
       <% else %>
         <% if @users.blank? %>
           <%= render partial: 'shared/no_data',
