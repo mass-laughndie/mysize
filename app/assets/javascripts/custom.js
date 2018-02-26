@@ -56,7 +56,7 @@ function changeLink(_iid) {
         var
           elength = exp[i].length;                         //文字数
           msid = exp[i].substring(1, elength - 1);         //「ID」
-        //indexid内のものと一致する場合
+        //indexid内のものと一致する場合リンク化
         if (iid.indexOf(msid) >= 0){
           var
             url = window.location.protocol + "//"

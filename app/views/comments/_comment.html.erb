@@ -3,17 +3,19 @@
     <%= link_to comment.user.mysize_id, user_path(comment.user, display: "square"),
                 class: "content-name", id: "content-name-" + comment.id.to_s %>
     <%= comment.comment_content %>
-    <% unless current_user == comment.user %>
-      <span class="comment-act" id="comment-reply-<%= comment.id %>">
-        返信<%= fa_icon('reply')%>
-      </span>
-    <% end %>
-    <% if current_user == comment.user || current_user == kickspost.user %>
-      <span class="comment-act comment-delete">
-        <%= link_to fa_icon("trash"),
-            comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
-            method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
-      </span>
+    <% unless comment_disnum == "few" %>
+      <% unless current_user == comment.user %>
+        <span class="comment-act" id="comment-reply-<%= comment.id %>">
+          返信<%= fa_icon('reply')%>
+        </span>
+      <% end %>
+      <% if current_user == comment.user || current_user == kickspost.user %>
+        <span class="comment-act comment-delete">
+          <%= link_to fa_icon("trash"),
+              comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
+              method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
+        </span>
+      <% end %>
     <% end %>
   </div>
 </li>

@@ -88,10 +88,13 @@
           <ul>
             <% if comment_disnum == "few" %>
               <%= render partial: 'comments/comment',
-                         locals: {kickspost: kickspost,
-                                  comment: kickspost.comments.first } %>
+                         locals: { kickspost: kickspost,
+                                   comment: kickspost.comments.first,
+                                   comment_disnum: comment_disnum } %>
             <% else %>
-              <%= render @comments, kickspost: kickspost %>
+              <%= render partial: @comments,
+                         locals: { kickspost: kickspost,
+                                   comment_disnum: comment_disnum } %>
             <% end %>
           </ul>
         </div>
