@@ -21,10 +21,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @ary = [];
-    @users.each do |user|
-      @ary << user.mysize_id
-    end
     render layout: false
   end
 
