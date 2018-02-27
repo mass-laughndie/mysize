@@ -21,10 +21,12 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+
 //comment返信
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    $('[id^=comment-reply]').on('click', function(){
+    //同じ要素内でautolink化しているためclick発火には静的な親要素で仕込む必要あり
+    $('body').on('click', '[id^=comment-reply]', function(){
       var
         cid = $(this).attr("id"),
         num = cid.match(/\d/g).join("");
