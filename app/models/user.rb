@@ -1,15 +1,11 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  # devise :database_authenticatable, :registerable,
-         # :recoverable, :rememberable, :trackable, :validatable,
-  #devise :omniauthable, omniauth_providers: [:twitter]
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
 
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
+  has_many :notices,   dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
@@ -21,7 +17,8 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
-  before_save :downcase_email_and_mysizeid
+  before_save :downcase_email
+  before_save :downcase_mysizeid
 
   mount_uploader :image, ImageUploader
 
@@ -226,10 +223,51 @@ class User < ApplicationRecord
     following.include?(other)
   end
 
+  def notice_from(kind, model)
+    notices.create(kind: kind, kind_id: model.id)
+  end
+
+  def notice_delete(kind, model)
+    notices.where(kind: kind, kind_id: model.id).destroy_all
+  end
+
+  #list系の更新or作成
+  def week_notice_list(kind_list, model)
+    this_day = Time.zone.now.all_day
+    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    notice_list = self.notices.find_by(kind: kind_list, created_at: this_day)
+    #今週のlistがある場合
+    if notice_list
+      #listのupdated_atを更新 => noticeビューの上段に持ってくる
+      notice_list.touch
+    #ない場合
+    else
+      #list作成(kind_idはlistの最初のnotice内のkind_idと同じ
+      #         => 期間内削除時[=最初のnotice削除時]に使用)
+      notices.create(kind: kind_list, kind_id: model.id)
+    end
+  end
+
+  def week_notice_list_delete(kind)
+    this_day = Time.zone.now.all_day
+    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    notice = self.notices.where(kind: kind, created_at: this_day)
+    #今週中に特定のnoticeが１つもない場合
+    if notice.blank?
+      #そのnoticeのlistがあれば削除
+      if notice_list = notices.find_by(kind: kind + "_list", created_at: this_day)
+        notice_list.destroy
+      end
+    end
+  end
+
   private
 
-    def downcase_email_and_mysizeid
+    def downcase_email
       email.downcase!
+    end
+
+    def downcase_mysizeid
       mysize_id.downcase!
     end
 
@@ -242,4 +280,5 @@ class User < ApplicationRecord
     def self.dummy_email(auth)
       "#{auth.uid}-#{auth.provider}@example.com"
     end
+
 end

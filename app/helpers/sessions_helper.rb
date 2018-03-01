@@ -60,4 +60,5 @@ module SessionsHelper
     #GETリクエストがあるURLに送られたらそのURLをsessionの:forwarding_urlキーに一時的に格納
     session[:forwarding_url] = request.original_url if request.get?
   end
+  
 end

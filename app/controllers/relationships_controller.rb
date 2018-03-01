@@ -4,7 +4,9 @@ class RelationshipsController < ApplicationController
 
   def create
     @user = User.find(params[:followed_id])
-    current_user.follow(@user)
+    @relation = current_user.follow(@user)
+    @user.notice_from(params[:kind], @relation)
+    @user.week_notice_list("follow_list", @relation)
     respond_to do |format|
       format.html { redirect_to request.fullpath }
       format.js
@@ -12,8 +14,11 @@ class RelationshipsController < ApplicationController
   end
 
   def destroy
-    @user = Relationship.find(params[:id]).followed
+    @relation = Relationship.find(params[:id])
+    @user = @relation.followed
     current_user.unfollow(@user)
+    @user.notice_delete("follow", @relation)
+    @user.week_notice_list_delete("follow")
     respond_to do |format|
       format.html { redirect_to request.fullpath }
       format.js

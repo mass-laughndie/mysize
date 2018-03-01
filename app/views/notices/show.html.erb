@@ -1,0 +1,11 @@
+<% provide(title: "通知") %>
+
+<% if logged_in? %>
+<div class="content-nspace">
+  <ul>
+    <%= render @notice_lists %>
+  </ul>
+</div>
+<% else %>
+  <p>ログインしてください</p>
+<% end %>
