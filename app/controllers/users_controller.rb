@@ -48,14 +48,14 @@ class UsersController < ApplicationController
   def following
     @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.following#.includes(:passive_relationships)
+    @users = @user.following.order(updated_at: :desc)#.includes(:passive_relationships)
     render 'show_follow'
   end
 
   def followers
     @title = "フォロワー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.followers#.includes(:active_relationships)
+    @users = @user.followers.order(updated_at: :desc)#.includes(:active_relationships)
     render 'show_follow'
   end
   
