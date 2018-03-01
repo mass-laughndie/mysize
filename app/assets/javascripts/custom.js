@@ -99,3 +99,18 @@ document.addEventListener('turbolinks:load', function() {
     }
   });
 });
+
+
+//高さ自動調整リンク
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    $('.link-list').each(function() {
+      //子要素(=absolute要素内の固定長要素)の高さ
+      var height = $(this).find('.content-height').height();
+      //親要素を子要素の高さで確保
+      $(this).height(height);
+      //同長のリンクcover生成
+      $(this).find(".content-link").css('padding-bottom', height);
+    });
+  });
+});

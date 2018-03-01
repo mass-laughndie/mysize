@@ -1,0 +1,12 @@
+<% if notice.kind == "comment" %>
+  <span>comment</span>
+<% else %>
+  <span>reply</span>
+<% end %>
+<div class="comment-content">
+  <%= link_to comment.user.mysize_id,
+              user_path(comment.user, display: "square"),
+              class: "content-name",
+              id: "content-name-" + comment.id.to_s %>
+  <span><%= comment.comment_content %></span>
+</div>

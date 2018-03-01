@@ -1,28 +1,27 @@
-<li id="notice-list-<%= notice.id %>" class="notice-list">
-  <% if notice.kind == "follow_list" %>
-    <span>follow_list</span>
-    <% @followers[@num].each do |user| %>
-      <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
-          user_path(user, display: "square"), class: "notice-image" %>
-    <% end %>
-    <% @num -= 1 %>
-  <% elsif notice.kind == "comment" %>
-    <span>comment</span>
-    <!--<% comment = Comment.find_by(id: notice.kind_id) %>-->
-    <div class="comment-content">
-      <%= link_to comment.user.mysize_id, user_path(comment.user, display: "square"),
-                  class: "content-name", id: "content-name-" + comment.id.to_s %>
-      <%= comment.comment_content %>
-    </div>
-  <% elsif notice.kind == "reply" %>
-    <span>reply</span>
-    <% reply = Comment.find_by(id: notice.kind_id) %>
-    <div class="comment-content">
-      <%= link_to reply.user.mysize_id, user_path(reply.user, display: "square"),
-                  class: "content-name", id: "content-name-" + reply.id.to_s %>
-      <%= reply.comment_content %>
-    </div>
-  <% elsif notice.kind == "like" %>
-    <span>other</span>
+<li id="notice-list-<%= notice.id %>" class="notice-list link-list">
+  <% if notice.kind == "comment" || notice.kind == "reply" %>
+    <% comment = Comment.find_by(id: notice.kind_id) %>
+    <a class="content-link" href="<%= kickspost_url(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
+  <% elsif notice.kind == "follow_list" %>
+    <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
   <% end %>
+  <div class="content-abs">
+    <div class="content-height">
+      <div class="notice-content">
+        <% if notice.kind == "follow_list" %>
+          <%= render partial: 'notices/follow_notice' %>
+        <% elsif notice.kind == "comment" %>
+          <%= render partial: 'notices/comment_notice',
+                     locals: {comment: comment,
+                              notice: notice } %>
+        <% elsif notice.kind == "reply" %>
+          <%= render partial: 'notices/comment_notice',
+                     locals: {comment: comment,
+                              notice: notice } %>
+        <% elsif notice.kind == "like" %>
+          <span>other</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </li>
