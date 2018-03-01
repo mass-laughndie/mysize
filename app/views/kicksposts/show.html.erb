@@ -2,7 +2,7 @@
   <%= render partial: 'kicksposts/kickspost',
              locals: { kickspost: @kickspost,
                        comment_disnum: nil } %>
-  <% if logged_in? %>
+  <% if logged_in? && @kickspost.user != current_user %>
     <%= render partial: 'comments/comment_form', locals: { kickspost: @kickspost } %>
   <% end %>
 </div>

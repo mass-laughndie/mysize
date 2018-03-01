@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get  '/signup',   to: 'users#new'
   post '/signup',   to: 'users#create'
   get '/admusrind', to: 'users#admusrind'
+  get '/index',     to: 'users#index'
 
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
   patch '/welcome',    to: 'settings#welcome_update'
   put   '/welcome',    to: 'settings#welcome_update'
 
-  get '/upload',  to: 'kicksposts#new'
+  get  '/upload', to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
 
   get '/search', to: 'search#search'
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
       get :confirm
     end
   end
+
+  resource  :notice,   only: [:show, :create, :destroy]
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],

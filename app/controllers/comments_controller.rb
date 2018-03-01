@@ -7,16 +7,30 @@ class CommentsController < ApplicationController
     @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     if @comment.save
+      #コメント通知作成
+      @kickspost.user.notice_from(params[:kind], @comment)
+      #返信通知作成
+      msids = params[:comment][:comment_content].scan(/@[a-zA-Z0-9_]+\s/)
+      if msids.any?
+        msids.each do |msid|
+          msid.delete!("@").delete!(" ")
+          user = User.find_by(mysize_id: msid)
+          if user && user != @kickspost.user
+            user.notice_from("reply", @comment)
+          end
+        end
+      end
       flash[:success] = "コメントを送信しました"
-      redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
     else
       flash[:danger] = "コメントを送信できませんでした"
-      render 'kicksposts/show'
     end
+    redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
   end
 
   def destroy
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
+    @kickspost.user.notice_delete("comment", @comment)
+    @kickspost.user.notice_delete("reply", @comment)
     @comment.destroy
     flash[:success] = "コメントを削除しました"
     redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)

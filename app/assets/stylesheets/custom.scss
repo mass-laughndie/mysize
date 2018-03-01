@@ -915,28 +915,6 @@ nav {
   }
 }
 
-/* comment */
-
-.post-comment {
-  font-size: 14px;
-  position: relative;
-  width: 100%;
-
-  .comment-list {
-    padding-bottom: 5px;
-    width: 100%;
-
-    .comment-content {
-      position: relative;
-      width: 100%;
-      word-wrap: break-word;
-    
-      .comment-delete {
-        height: 100%;
-      }
-    }
-  }
-}
 
   /* material */
 
@@ -1258,6 +1236,35 @@ nav {
   }
 }
 
+/* comment */
+
+.post-comment {
+  font-size: 14px;
+  position: relative;
+  width: 100%;
+
+  .comment-list {
+    padding-bottom: 5px;
+    width: 100%;
+
+    .comment-content {
+      position: relative;
+      width: 100%;
+      word-wrap: break-word;
+    
+      .comment-act {
+        height: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.com-link {
+  color: rgba(0,53,105,0.85);
+  font-weight: 550;
+}
+
 .comment-lead {
   margin-bottom: 5px;
   a {
@@ -1271,6 +1278,17 @@ nav {
   height: 50px;
   margin-top: -10px;
   padding-bottom: 20px;
+/*
+  form {
+    background: $base;
+  }
+
+  form input {
+    background: $base;
+    border: 1px solid $twi-grey;
+    border-radius: 8px;
+  }
+*/
 }
 
 /* user index */

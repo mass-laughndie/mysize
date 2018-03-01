@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180223060248) do
+ActiveRecord::Schema.define(version: 20180227081756) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_content"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20180223060248) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_kicksposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_kicksposts_on_user_id"
+  end
+
+  create_table "notices", force: :cascade do |t|
+    t.string "kind"
+    t.integer "user_id"
+    t.integer "kind_id"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_notices_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_notices_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
