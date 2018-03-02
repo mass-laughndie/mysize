@@ -861,8 +861,11 @@ nav {
 }
 
 .content-name {
+  float: left;
   font-weight: 600;
   margin-right: 0.3em;
+  position: relative;
+  z-index: 10;
 }
 
 .no-post {
@@ -1109,6 +1112,32 @@ nav {
   }
 }
 
+/* link-list */
+
+.link-list {
+  position: relative;
+  width: 100%; 
+
+  .content-link {
+    display: block;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 5;
+  }
+
+  .content-abs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .content-height {
+    width: 100%;
+  }
+}
+
 /* settings */
 
 .setting-select {
@@ -1289,6 +1318,60 @@ nav {
     border-radius: 8px;
   }
 */
+}
+
+/* notice */
+
+.notice-content {
+  border-bottom: 1px solid $weak-grey;
+  padding: 10px 20px;
+  position: relative;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.notice-images {
+  height: 50px;
+  margin: 5px 10px 10px;
+}
+
+.notice-image {
+  display: block;
+  float: left;
+  height: 40px;
+  margin: 5px;
+  position: relative;
+  width: 40px;
+  z-index: 10;
+
+  img {
+    border-radius: 5px;
+    display: block;
+  }
+}
+
+.notice-text {
+  span {
+    font-weight: 600;
+  }
+}
+
+.notice-icon {
+  float: left;
+  width: 15%;
+}
+
+.notice-comment-text {
+  float: right;
+  margin:  5px 0;
+  padding-left: 1.5%; 
+  width: 83.5%;
+}
+
+.notice-comment-content {
+  float: right;
+  padding-left: 1.5%; 
+  width: 83.5%;
 }
 
 /* user index */

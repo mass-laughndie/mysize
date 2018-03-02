@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       get :confirm
     end
   end
+
+  resource  :notice,   only: [:show, :create, :destroy]
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],

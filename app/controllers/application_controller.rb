@@ -47,4 +47,13 @@ class ApplicationController < ActionController::Base
         redirect_to @request_from
       end
     end
+
+    def that_week(time)
+      time.beginning_of_week..time.end_of_week
+    end
+
+    def that_day(time)
+      time.all_day
+    end
+
 end
