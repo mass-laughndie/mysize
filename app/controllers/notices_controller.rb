@@ -6,7 +6,9 @@ class NoticesController < ApplicationController
     #全通知
     @notices   = current_user.notices.includes(:user)
     current_user.delete_past_notices_already_read(@notices)
-    current_user.decrement!(:notice_count, by = current_user.notice_count)
+    if current_user.notice_count > 0
+      current_user.decrement!(:notice_count, by = current_user.notice_count)
+    end
     #全通知リスト
     @notice_lists = @notices.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "follow_list", "comment", "reply").reorder(updated_at: :desc)
 

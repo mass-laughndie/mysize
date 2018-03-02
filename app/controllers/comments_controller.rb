@@ -7,9 +7,14 @@ class CommentsController < ApplicationController
     @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     if @comment.save
-      #コメント通知作成
-      @kickspost.user.notice_from(params[:kind], @comment)
-      @kickspost.user.increment!(:notice_count, by = 1)
+
+      #自分のポストじゃないとき
+      unless current_user.kicksposts.include?(@kickspost)
+        #コメント通知作成
+        @kickspost.user.notice_from(params[:kind], @comment)
+        #通知カウント +1
+        @kickspost.user.increment!(:notice_count, by = 1)
+      end
       #返信通知作成
       msids = params[:comment][:comment_content].scan(/@[a-zA-Z0-9_]+\s/)
       if msids.any?
