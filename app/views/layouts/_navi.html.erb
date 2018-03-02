@@ -6,24 +6,17 @@
     <div class="nav-link">
       <%= link_to fa_icon("search"), search_url %>
     </div>
-    <!--
     <div class="nav-link">
-      <%= link_to fa_icon("plus-square"), '#' %>
-    </div>
-  -->
-    <div class="nav-link">
-      <%= link_to fa_icon("bell"), notice_url %>
+      <%= link_to(notice_url) do %>
+        <i class="fa fa-bell">
+          <% if logged_in? && current_user.notice_count > 0 %>
+            <span id="notice-count"><%= current_user.notice_count %></span>
+          <% end %>
+        </i>
+      <% end %>
     </div>
     <div class="nav-link">
       <%= link_to fa_icon("comment"), '#' %>
-      <!--
-      <a href="#"">
-        <span class="fa-stack">
-          <i class="fa fa-comment-o fa-stack-1x"></i>
-          <i class="fa fa-question fa-stack-1x fa-05x"></i>
-        </span>
-      </a>
-      -->
     </div>
   </div>
 </nav>

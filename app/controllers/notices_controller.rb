@@ -3,6 +3,7 @@ class NoticesController < ApplicationController
   before_action :logged_in_user
 
   def show
+    current_user.decrement!(:notice_count, by = current_user.notice_count)
     #全通知
     @notices   = current_user.notices.includes(:user)
     #全通知リスト
@@ -23,8 +24,8 @@ class NoticesController < ApplicationController
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
     @num = 0
 
-    @comments  = Comment.where(id: @notices.where(kind: "comment").pluck(:kind_id)).order(created_at: :desc)
-    @replies   = Comment.where(id: @notices.where(kind: "reply").pluck(:kind_id)).order(created_at: :desc)
+    # @comments  = Comment.where(id: @notices.where(kind: "comment").pluck(:kind_id)).order(created_at: :desc)
+    # @replies   = Comment.where(id: @notices.where(kind: "reply").pluck(:kind_id)).order(created_at: :desc)
   end
 
   def create

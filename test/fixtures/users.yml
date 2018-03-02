@@ -8,6 +8,7 @@ mysize1:
   shoe_size: 7
   image: <%= open("#{Rails.root}/db/data/icon1.jpg") %>
   profile_content: <% Faker::Lorem.sentence(5) %>
+  notice_count: 0
 
 mysize2:
   name: Mysize Example2
@@ -17,6 +18,7 @@ mysize2:
   shoe_size: 7
   image: <%= open("#{Rails.root}/db/data/icon2.jpg") %>
   profile_content: <% Faker::Lorem.sentence(5) %>
+  notice_count: 0
 
 mysize3:
   name: Mysize Example3
@@ -26,6 +28,7 @@ mysize3:
   shoe_size: 9
   image: <%= open("#{Rails.root}/db/data/icon3.jpg") %>
   profile_content: <% Faker::Lorem.sentence(5) %>
+  notice_count: 0
 
 mysize4:
   name: Mysize Example4
@@ -35,3 +38,4 @@ mysize4:
   shoe_size: 3
   image: <%= open("#{Rails.root}/db/data/icon4.jpg") %>
   profile_content: <% Faker::Lorem.sentence(5) %>
+  notice_count: 0

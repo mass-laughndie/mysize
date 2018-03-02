@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227081756) do
+ActiveRecord::Schema.define(version: 20180302062341) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_content"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20180227081756) do
     t.string "kind"
     t.integer "user_id"
     t.integer "kind_id"
-    t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_notices_on_user_id_and_created_at"
@@ -73,6 +72,7 @@ ActiveRecord::Schema.define(version: 20180227081756) do
     t.string "reset_digest"
     t.string "e_token"
     t.datetime "reset_sent_at"
+    t.integer "notice_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mysize_id"], name: "index_users_on_mysize_id", unique: true
   end
