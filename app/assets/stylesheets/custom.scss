@@ -472,6 +472,7 @@ nav {
 
 .user-text {
   float: left;
+  padding-left: 2%;
   position: relative;
   width: 50%;
 }
@@ -492,7 +493,7 @@ nav {
   border-radius: 5px;
   font-size: 0.7em;
   font-weight: 600;
-  float: left;
+  float: right;
   height: 30px;
   margin: 8px 2% 12px;
   position: relative;
@@ -510,7 +511,7 @@ nav {
   border: 1px solid $twi-grey;
   border-radius: 5px;
   font-size: 0.9em;
-  float: left;
+  float: right;
   height: 30px;
   margin: 8px 0 12px;
   position: relative;
@@ -535,13 +536,12 @@ nav {
   width: 50%;
 }
 
-.follow-form {
+.profile-follow {
   font-size: 0.7em;
-  float: left;
   height: 32px;
   margin: 7px auto 11px;
   position: absolute;
-  right: 5%;
+  right: 13%;
   width: 52px;
 }
 
@@ -1150,10 +1150,33 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-  }
+  
+    .content-height {
+      width: 100%;
 
-  .content-height {
-    width: 100%;
+      .list-content {
+        border-bottom: 1px solid $weak-grey;
+        padding: 10px 20px;
+        position: relative;
+        width: 100%;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
+
+.list-image {
+  display: block;
+  float: left;
+  height: 40px;
+  margin: 5px;
+  position: relative;
+  width: 40px;
+  z-index: 10;
+
+  img {
+    border-radius: 5px;
+    display: block;
   }
 }
 
@@ -1341,32 +1364,9 @@ nav {
 
 /* notice */
 
-.notice-content {
-  border-bottom: 1px solid $weak-grey;
-  padding: 10px 20px;
-  position: relative;
-  width: 100%;
-  word-wrap: break-word;
-}
-
 .notice-images {
   height: 50px;
   margin: 5px 10px 10px;
-}
-
-.notice-image {
-  display: block;
-  float: left;
-  height: 40px;
-  margin: 5px;
-  position: relative;
-  width: 40px;
-  z-index: 10;
-
-  img {
-    border-radius: 5px;
-    display: block;
-  }
 }
 
 .notice-text {
@@ -1395,78 +1395,63 @@ nav {
 
 /* user index */
 
-.user-list {
-  border-bottom: 1px solid $back;
-  display: block;
-  height: 100%;
-  position: relative;
-}
-
-.index-data {
-  display: block;
-  height: 140px;
-  padding: 2%;
-}
-
 .index-left {
-  height: 100%;
   float: left;
-  width: 20%;
+  position: relative;
+  width: 15%;
+
+  .index-image {
+    float: left;
+    height: 50px;
+    margin: 5px 0;
+    position: relative;
+    width: 100%;
+  }
+
+  .index-size {
+    border: 1px solid $main;
+    border-radius: 5px;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin: 15px 0;
+    width: 100%;
+  }
 }
 
-.index-image {
-  height: 60%;
-}
+.index-right {
+  float: right;
+  margin-left: 3%;
+  width: 82%;
 
-.index-size {
-  height: 40%;
-}
+  .index-upper {
+    margin: 5px 0 10px;
+    width: 100%;
 
-.index-center {
-  float: left;
-  height: 30%;
-  width: 76%;
-}
+    .index-text {
+      float: left;
+      margin-right: 2%;
+      width: 79%;
+    }
 
-.index-name {
-  height: 50%;
-}
-
-.index-mysizeid {
-  height: 50%;
-  font-size: 0.8em;
-  color: $base-grey;
-}
-
-.index-profile {
-  float: left;
-  height: 66%;
-  line-height: 1em;
-  margin: 2% 0;
-  width: 76%;
-}
-
-.act-form {
-  position: absolute;
-  top: 8%;
-  right: 4%;
-  z-index: 10;
-
-  a {
-    border: 1px solid $accent;
-    border-radius: 4px;
-    color: $accent;
-    display: block;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    padding: 1px 8px;
-
-    .fa-plus {
-      font-size: 0.7em;
-      margin: 2px auto;
+    .index-follow {
+      float: right;
+      height: 30px;
+      margin-top: 10px;
+      position: relative;
+      width: 19%;
     }
   }
 }
+
+.abs-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+/* password_reset */
 
 .reset-text {
   p {

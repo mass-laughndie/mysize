@@ -5,6 +5,7 @@ class NoticesController < ApplicationController
   def show
     #全通知
     @notices   = current_user.notices.includes(:user)
+    #既読済みの過去通知の削除
     current_user.delete_past_notices_already_read(@notices)
     if current_user.notice_count > 0
       current_user.decrement!(:notice_count, by = current_user.notice_count)

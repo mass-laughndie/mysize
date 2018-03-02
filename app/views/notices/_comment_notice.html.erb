@@ -1,6 +1,6 @@
 <div class="notice-icon">
   <%= link_to image_tag(image_url(comment.user), size: 40, alt: comment.user.name),
-          user_path(comment.user, display: "square"), class: "notice-image" %>
+          user_path(comment.user, display: "square"), class: "list-image" %>
 </div>
 <div class="notice-text notice-comment-text">
   <% if notice.kind == "comment" %>
