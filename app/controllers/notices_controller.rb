@@ -3,9 +3,10 @@ class NoticesController < ApplicationController
   before_action :logged_in_user
 
   def show
-    current_user.decrement!(:notice_count, by = current_user.notice_count)
     #全通知
     @notices   = current_user.notices.includes(:user)
+    current_user.delete_past_notices_already_read(@notices)
+    current_user.decrement!(:notice_count, by = current_user.notice_count)
     #全通知リスト
     @notice_lists = @notices.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "follow_list", "comment", "reply").reorder(updated_at: :desc)
 
