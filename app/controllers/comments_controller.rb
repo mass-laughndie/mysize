@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
     if @comment.save
       #コメント通知作成
       @kickspost.user.notice_from(params[:kind], @comment)
+      @kickspost.user.increment!(:notice_count, by = 1)
       #返信通知作成
       msids = params[:comment][:comment_content].scan(/@[a-zA-Z0-9_]+\s/)
       if msids.any?
@@ -17,6 +18,7 @@ class CommentsController < ApplicationController
           user = User.find_by(mysize_id: msid)
           if user && user != @kickspost.user
             user.notice_from("reply", @comment)
+            user.increment!(:notice_count, by = 1)
           end
         end
       end
