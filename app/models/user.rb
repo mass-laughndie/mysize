@@ -248,18 +248,50 @@ class User < ApplicationRecord
     end
   end
 
-  def week_notice_list_delete(kind)
-    this_day = Time.zone.now.all_day
+  #期間periodないのlist系通知の要素が空の場合に削除
+  def week_notice_list_delete(kind, period)
+    # this_day = Time.zone.now.all_day
     # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice = self.notices.where(kind: kind, created_at: this_day)
-    #今週中に特定のnoticeが１つもない場合
+    notice = self.notices.where(kind: kind, created_at: period)
+    #期間中に特定のnoticeが１つもない場合
     if notice.blank?
       #そのnoticeのlistがあれば削除
-      if notice_list = notices.find_by(kind: kind + "_list", created_at: this_day)
+      if notice_list = notices.find_by(kind: kind + "_list", created_at: period)
         notice_list.destroy
       end
     end
   end
+
+  #既読済みの期間以前の通知を削除
+  #notices = current_userの全通知
+  def delete_past_notices_already_read(notices)
+    #削除ライン([テスト]1.day.ago => [本番]10.week.ago)
+    deleteline = Time.new(2000,1,1)..1.day.ago
+    #list計以外の通知(要素通知)
+    enotices = notices.where.not(kind: "follow_list")
+    #既読数 = 要素通知数 - 未読通知数
+    readnum = enotices.count - self.notice_count
+
+    #削除ライン以前の要素通知
+    cnotices = enotices.where(created_at: deleteline)
+    #存在する && 既読がある場合
+    if cnotices.any? && readnum > 0
+      #cnoticesの既読済みを抽出して削除
+      cnotices.last(readnum).destroy_all
+
+      #空になったlistも削除
+      #削除ライン以前のlist系抽出
+      flnotices = notices.where(kind: "follow_list", created_at: deleteline)
+      #存在する場合
+      if flnotices.any?
+        #各list系通知の期間内の要素が空なら削除
+        flnotices.each do |list|
+          self.week_notice_list_delete("follow", that_day(list.created_at))
+        end
+      end
+    end
+  end
+
 
   private
 

@@ -4,7 +4,6 @@ class CreateNotices < ActiveRecord::Migration[5.1]
       t.string     :kind
       t.references :user,       foreign_key: true
       t.integer    :kind_id
-      t.boolean    :read,       default: false
 
       t.timestamps
     end
