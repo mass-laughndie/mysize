@@ -1,0 +1,14 @@
+<div class="notice-icon">
+  <%= link_to image_tag(image_url(comment.user), size: 40, alt: comment.user.name),
+          user_path(comment.user, display: "square"), class: "notice-image" %>
+</div>
+<div class="notice-text notice-comment-text">
+  <% if notice.kind == "comment" %>
+    <span><%= comment.user.name %></span>さんからコメントがあります。
+  <% else %>
+    <span><%= comment.user.name %></span>さんから返信があります。
+  <% end %>
+</div>
+<div class="comment-content notice-comment-content">
+  <span><%= comment.comment_content %></span>
+</div>
