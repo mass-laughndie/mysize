@@ -1,10 +1,10 @@
 <div class="c select-form kpost-select">
-  <div class="select-list kpost-list">
-    <%= link_to "写真", kickspost_url(@kickspost.user.mysize_id, @kickspost) %>
+  <div class="select-list kpost-list alist aline">
+    <%= link_to "写真", kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
   </div>
-  <div class="select-list kpost-list">
+  <div class="select-list kpost-list alist aline">
     <%= link_to "テキスト",
-                kickspost_url(@kickspost.user.mysize_id, @kickspost, display: "text")%>
+                kickspost_path(@kickspost.user.mysize_id, @kickspost, display: "text")%>
   </div>
 </div>
 <div class="post-main">

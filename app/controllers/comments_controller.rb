@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
 
-  before_action :logged_in_user, only: [:create, :destroy]
-  before_action :corrent_user,   only: :destroy
+  before_action :logged_in_user, only: [:post_create, :post_destroy]
+  before_action :corrent_user,   only: :post_destroy
 
-  def create
+  def post_create
     @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     if @comment.save
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
   end
 
-  def destroy
+  def post_destroy
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
     @kickspost.user.notice_delete("comment", @comment)
     @kickspost.user.notice_delete("reply", @comment)

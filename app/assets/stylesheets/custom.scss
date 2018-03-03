@@ -38,12 +38,9 @@ body {
 }
 
 a {
-  color: $main;
+  color: $base-grey;
   text-decoration: none;
 
-  .fa {
-    color: $base-grey;
-  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -203,7 +200,6 @@ header {
     width: 50%;
 
     a {
-      color: $base-grey;
       display: block;
       font-weight: 550;
       height: 100%;
@@ -469,10 +465,9 @@ nav {
 
 .home-select {
   height: 51px;
+  margin-bottom: 20px;
 
   .home-list {
-    font-size: 1.1em;
-
     a {
       line-height: 50px;
     }
@@ -981,7 +976,6 @@ nav {
     width: 150px;
     
     .fa {
-      color: $base;
       float: left;
       font-size: 30px;
       line-height: 24px;
@@ -1006,6 +1000,8 @@ nav {
   height: 51px;
 
   .kpost-list {
+    position: relative;
+
     a {
       line-height: 50px;
     }
@@ -1203,7 +1199,25 @@ nav {
   }
 }
 
+/* active */
 
+.active {
+  color: $waccent;
+}
+
+.aline {
+  position: relative;
+
+  .active:after {
+    background: $waccent;
+    content: "";
+    display: block;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+  }
+}
 
 /* error */
 
@@ -1423,6 +1437,10 @@ nav {
       }
     }
   }
+}
+
+.search-select {
+  margin-bottom: 20px;
 }
 
 /* comment */

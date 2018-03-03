@@ -114,3 +114,18 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+document.addEventListener('turbolinks:load', function(){
+  $(function(){
+    $('.alist').each(function(){
+      var
+        fullPath = location.pathname + location.search,
+        link = $(this).find('a'),
+        linkPath = link.attr("href");
+      console.log(linkPath);
+      if(fullPath == linkPath) {
+        link.addClass("active");
+      }
+    });
+  });
+});

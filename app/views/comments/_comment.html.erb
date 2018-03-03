@@ -13,7 +13,7 @@
         <% if current_user == comment.user || current_user == kickspost.user %>
           <span class="comment-act comment-delete">
             <%= link_to fa_icon("trash"),
-                comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
+                postcomment_url(comment.id, kickspost_id: comment.kickspost_id),
                 method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
           </span>
         <% end %>

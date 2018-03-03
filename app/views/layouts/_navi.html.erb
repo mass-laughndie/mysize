@@ -1,13 +1,13 @@
 <nav>
   <div class="wrapper container">
-    <div class="nav-link">
-      <%= link_to fa_icon("home"), latest_url %>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("home"), latest_path %>
     </div>
-    <div class="nav-link">
-      <%= link_to fa_icon("search"), search_url %>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("search"), search_path %>
     </div>
-    <div class="nav-link">
-      <%= link_to(notice_url) do %>
+    <div class="nav-link alist">
+      <%= link_to(notice_path) do %>
         <i class="fa fa-bell">
           <% if logged_in? && current_user.notice_count > 0 %>
             <span id="notice-count"><%= current_user.notice_count %></span>
@@ -15,8 +15,8 @@
         </i>
       <% end %>
     </div>
-    <div class="nav-link">
-      <%= link_to fa_icon("comment"), '#' %>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("comment"), comments_path %>
     </div>
   </div>
 </nav>
