@@ -465,6 +465,20 @@ nav {
   height: 70px;
 }
 
+/* home */
+
+.home-select {
+  height: 51px;
+
+  .home-list {
+    font-size: 1.1em;
+
+    a {
+      line-height: 50px;
+    }
+  }
+}
+
 /* profile */
 
 .profile-top {
