@@ -48,22 +48,22 @@
       </div>
       <div class="c kpost-right">
         <div class="kpost-act">
-          <% unless current_user == comment.user %>
-            <div class="kpost-alist">
-              <div class="comment-act" id="comment-reply-<%= comment.id %>">
-                <%= fa_icon('reply')%>
-              </div>
-            </div>
-            <div class="kpost-alist">
-              <%= fa_icon("thumbs-up") %>
-            </div>
-          <% end %>
           <% if current_user == comment.user || current_user == kickspost.user %>
             <div class="kpost-alist">
               <div class="comment-act comment-delete">
                 <%= link_to fa_icon("trash"),
                   comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
                   method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
+              </div>
+            </div>
+          <% end %>
+          <div class="kpost-alist">
+            <%= fa_icon("thumbs-up") %>
+          </div>
+          <% unless current_user == comment.user %>
+            <div class="kpost-alist">
+              <div class="comment-act" id="comment-reply-<%= comment.id %>">
+                <%= fa_icon('reply')%>
               </div>
             </div>
           <% end %>
