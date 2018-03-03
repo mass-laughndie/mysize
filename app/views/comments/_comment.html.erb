@@ -1,25 +1,27 @@
-<li id="comment-<%= comment.id %>" class="comment-list autolink">
-  <% if list == "normal" %>
-  <div class="comment-content">
-    <%= link_to comment.user.mysize_id, user_path(comment.user, display: "square"),
-                class: "content-name", id: "content-name-" + comment.id.to_s %>
-    <span><%= comment.comment_content %></span>
-    <% unless comment_disnum == "few" %>
-      <% unless current_user == comment.user %>
-        <span class="comment-act" id="comment-reply-<%= comment.id %>">
-          返信<%= fa_icon('reply')%>
-        </span>
+<% if list == "normal" %>
+  <li id="comment-<%= comment.id %>" class="comment-list autolink">
+    <div class="comment-content">
+      <%= link_to comment.user.mysize_id, user_path(comment.user, display: "square"),
+                  class: "content-name", id: "content-name-" + comment.id.to_s %>
+      <span><%= comment.comment_content %></span>
+      <% unless comment_disnum == "few" %>
+        <% unless current_user == comment.user %>
+         <span class="comment-act" id="comment-reply-<%= comment.id %>">
+            返信<%= fa_icon('reply')%>
+          </span>
+        <% end %>
+        <% if current_user == comment.user || current_user == kickspost.user %>
+          <span class="comment-act comment-delete">
+            <%= link_to fa_icon("trash"),
+                comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
+                method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
+          </span>
+        <% end %>
       <% end %>
-      <% if current_user == comment.user || current_user == kickspost.user %>
-        <span class="comment-act comment-delete">
-          <%= link_to fa_icon("trash"),
-              comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
-              method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
-        </span>
-      <% end %>
-    <% end %>
-  </div>
-  <% elsif list == "text" %>
+    </div>
+  </li>
+<% elsif list == "text" %>
+  <li id="comment-<%= comment.id %>" class="kcomment-list autolink">
     <div class="kpost-main clear">
       <div class="c index-left kpost-left">
         <div class="index-image kpost-icon">
@@ -68,5 +70,5 @@
         </div>
       </div>
     </div>
-  <% end %>
-</li>
+  </li>
+<% end %>

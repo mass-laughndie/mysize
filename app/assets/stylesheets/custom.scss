@@ -34,7 +34,7 @@ body {
   background: $back;
   font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   position: relative;
-  padding: 51px 0;
+  padding: 51px 0 121px;
 }
 
 a {
@@ -140,6 +140,7 @@ input, textarea, select {
 
 .content-sspace {
   background: $base;
+  border-bottom: 1px solid #eee;
   padding: 10px;
   position: relative;
 }
@@ -336,7 +337,7 @@ nav {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 23;
+  z-index: 101;
   border-top: 1px solid #eee;
   height: 51px;
 }
@@ -427,6 +428,41 @@ nav {
   a {
     color: $main;
   }
+}
+
+/* other fixed */
+
+.fixed {
+  background: #fff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99; 
+}
+
+.fixed-top {
+  top: 51px;
+}
+
+.fixed-bottom {
+  bottom: 51px;
+}
+
+.search-space {
+  height: 51px;
+}
+
+.search-height {
+  height: 50px;
+  padding: 10px;
+}
+
+.commemt-space {
+  height: 70px;
+}
+
+.comment-height {
+  height: 70px;
 }
 
 /* profile */
@@ -963,8 +999,6 @@ nav {
 }
 
 .kpost-main {
-  border-bottom: 1px solid $weak-grey;
-  padding: 10px 20px;
   position: relative;
   width: 100%;
 
@@ -1010,14 +1044,23 @@ nav {
       width: 100%;
     }
 
+    .kpost-act,
     .kpost-alist {
       cursor: pointer;
       height: 35px;
       line-height: 35px;
       margin-top: 10px;
+      position: relative;
       width: 100%;
+      z-index: 25;
     }
   }
+}
+
+.kcomment-list {
+  padding: 10px 20px 20px;
+  position: relative;
+  width: 100%;
 }
 
   /* material */
@@ -1238,7 +1281,7 @@ nav {
 
       .list-content {
         border-bottom: 1px solid $weak-grey;
-        padding: 10px 20px;
+        padding: 10px 20px 20px;
         position: relative;
         width: 100%;
         word-wrap: break-word;
@@ -1394,6 +1437,8 @@ nav {
 .com-link {
   color: rgba(0,53,105,0.85);
   font-weight: 550;
+  position: relative;
+  z-index: 25;
 }
 
 .comment-lead {

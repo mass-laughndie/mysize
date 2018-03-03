@@ -228,7 +228,9 @@ class User < ApplicationRecord
   end
 
   def notice_delete(kind, model)
-    notices.where(kind: kind, kind_id: model.id).destroy_all
+    notices.where(kind: kind, kind_id: model.id).each do |notice|
+      notice.destroy
+    end
   end
 
   #list系の更新or作成
@@ -277,7 +279,9 @@ class User < ApplicationRecord
     #存在する && 既読がある場合
     if cnotices.any? && readnum > 0
       #cnoticesの既読済みを抽出して削除
-      cnotices.last(readnum).destroy_all
+      cnotices.last(readnum).each do |notice|
+        notice.destroy
+      end
 
       #空になったlistも削除
       #削除ライン以前のlist系抽出
@@ -286,7 +290,7 @@ class User < ApplicationRecord
       if flnotices.any?
         #各list系通知の期間内の要素が空なら削除
         flnotices.each do |list|
-          self.week_notice_list_delete("follow", that_day(list.created_at))
+          self.week_notice_list_delete("follow", list.created_at.all_day)
         end
       end
     end

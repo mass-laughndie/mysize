@@ -24,6 +24,10 @@
     </ul>
   <% end %>
   <% if logged_in? %>
-    <%= render partial: 'comments/comment_form', locals: { kickspost: @kickspost } %>
+    <div class="comment-space">
+      <div class="fixed fixed-bottom comment-height">
+        <%= render partial: 'comments/comment_form', locals: { kickspost: @kickspost } %>
+      </div>
+    </div>
   <% end %>
 </div>

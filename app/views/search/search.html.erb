@@ -1,7 +1,9 @@
 <% provide(:title, "検索") %>
 
-<div class="content-sspace">
-  <%= render 'shared/search_form' %>
+<div class="content-sspace search-space">
+  <div class="fixed fixed-top search-height">
+    <%= render 'shared/search_form' %>
+  </div>
 </div>
 <% unless params[:keyword].nil? %>
   <div class="content-nspace">
@@ -23,15 +25,15 @@
           <div class="post-main">
             <div class="post-line clear">
               <ul>
-                <%= render @kicksposts, comment_disnum: "few" %>
+                <% @kicksposts.each do |kickspost| %>                
+                  <%= render partial: 'kicksposts/main_post',
+                             locals: { kickspost: kickspost,
+                             comment_disnum: nil } %>
+                <% end %>
               </ul>
             </div>
           </div>
         <% end %>
-      <% elsif params[:for] == 'mysizeids' %>
-        <ul>
-          <%= render @users %>
-        </ul>
       <% else %>
         <% if @users.blank? %>
           <%= render partial: 'shared/no_data',
