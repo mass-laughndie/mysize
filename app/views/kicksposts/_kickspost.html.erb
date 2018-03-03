@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="post-bottom">
-      <div class="post-content comment-content">
+      <div class="post-content autolink">
         <%= link_to kickspost.user.mysize_id,
                     user_path(kickspost.user, display: "square"),
                     class: 'content-name' %>
@@ -90,11 +90,13 @@
               <%= render partial: 'comments/comment',
                          locals: { kickspost: kickspost,
                                    comment: kickspost.comments.first,
-                                   comment_disnum: comment_disnum } %>
+                                   comment_disnum: comment_disnum,
+                                   list: "normal" } %>
             <% else %>
               <%= render partial: @comments,
                          locals: { kickspost: kickspost,
-                                   comment_disnum: comment_disnum } %>
+                                   comment_disnum: comment_disnum,
+                                   list: "normal" } %>
             <% end %>
           </ul>
         </div>

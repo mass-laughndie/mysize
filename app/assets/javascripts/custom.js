@@ -49,7 +49,7 @@ function indexId(){
 
 //comment返信ユーザーのリンク化
 function changeLink(_iid) {
-  $('.comment-content').each(function(){
+  $('.autolink').each(function(){
     var
       txt = $(this).html(),
       exp = txt.match(/@[a-zA-Z0-9_]+\s/g);               //全「@ID 」
@@ -80,7 +80,7 @@ iid = [];
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     //commentがある場合
-    if ($('.comment-content').length) {
+    if ($('.autolink').length) {
       //data未取得
       if (iid.length == 0) {
         indexId().done(function(data) {

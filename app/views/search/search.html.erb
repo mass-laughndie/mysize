@@ -5,11 +5,11 @@
 </div>
 <% unless params[:keyword].nil? %>
   <div class="content-nspace">
-    <div class="c search-select">
-      <div class="search-list">
+    <div class="c select-form search-select">
+      <div class="select-list search-list">
         <%= link_to "ユーザー", search_path(keyword: params[:keyword]) %>
       </div>
-      <div class="search-list">
+      <div class="select-list search-list">
         <%= link_to "投稿", search_path(keyword: params[:keyword], for: 'post') %>
       </div>
     </div>

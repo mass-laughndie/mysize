@@ -190,6 +190,26 @@ header {
   position: relative;
 }
 
+.select-form {
+  border-bottom: 1px solid $weak-grey;
+  height: 41px;
+  width: 100%;
+
+  .select-list {
+    background: #fff;
+    float: left;
+    height: 100%;
+    width: 50%;
+
+    a {
+      color: $base-grey;
+      display: block;
+      font-weight: 550;
+      height: 100%;
+      line-height: 40px;
+    }
+  }
+}
 
 .atention {
   margin: 0 auto;
@@ -616,22 +636,15 @@ nav {
 }
 
 .post-select {
-  background: $base;
-  border-top: 1px solid $back;
-  border-bottom: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 52px;
-  position: relative;
-}
 
-.post-list {
-  float: left;
-  font-size: 1.1em;
-  line-height: 50px;
-  position: relative;
-  width: 33.3%;
-
-  a {
-    display: block;
+  .post-list {
+    font-size: 1.1em;
+    width: 33.3%;
+    a {
+      line-height: 50px;
+    }
   }
 }
 
@@ -937,6 +950,75 @@ nav {
   }
 }
 
+/* kickspost show */
+
+.kpost-select {
+  height: 51px;
+
+  .kpost-list {
+    a {
+      line-height: 50px;
+    }
+  }
+}
+
+.kpost-main {
+  border-bottom: 1px solid $weak-grey;
+  padding: 10px 20px;
+  position: relative;
+  width: 100%;
+
+  .kpost-left {
+    .kpost-icon {
+      margin: 10px 0 20px;
+    }
+
+    .kpost-shoesize {
+    }
+  }
+
+  .kpost-center {
+    float: left;
+    margin: 0 3%;
+    width: 62%;
+
+    .kpost-name {
+      margin: 5px 0;
+      a {
+        font-weight: 550;
+      }
+    }
+  }
+
+  .kpost-right {
+    float: right;
+    width: 17%;
+
+    .kpost-picture {
+      margin: 10px 0 20px;
+      height: 50px;
+      position: relative;
+      width: 100%;
+    }
+
+    .kpost-size {
+      border: 1px solid $main;
+      border-radius: 5px;
+      height: 30px;
+      line-height: 30px;
+      margin-bottom: 5px;
+      width: 100%;
+    }
+
+    .kpost-alist {
+      cursor: pointer;
+      height: 35px;
+      line-height: 35px;
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
+}
 
   /* material */
 
@@ -1286,27 +1368,6 @@ nav {
   }
 }
 
-.search-select {
-  height: 40px;
-  position:relative;
-  width: 100%;
-
-  .search-list {
-    float: left;
-    height: 100%;
-    position:relative;
-    width: 50%;
-
-    a {
-      color: $base-grey;
-      display: block;
-      font-weight: 550;
-      height: 100%;
-      line-height: 40px;
-    }
-  }
-}
-
 /* comment */
 
 .post-comment {
@@ -1320,7 +1381,6 @@ nav {
 
     .comment-content {
       position: relative;
-      width: 100%;
       word-wrap: break-word;
     
       .comment-act {
@@ -1346,9 +1406,8 @@ nav {
 }
 
 .comment-form {
-  height: 50px;
-  margin-top: -10px;
-  padding-bottom: 20px;
+  height: 70px;
+  padding: 20px 0;
 /*
   form {
     background: $base;
@@ -1401,9 +1460,8 @@ nav {
   width: 15%;
 
   .index-image {
-    float: left;
     height: 50px;
-    margin: 5px 0;
+    margin: 5px 0 20px;
     position: relative;
     width: 100%;
   }
@@ -1411,10 +1469,8 @@ nav {
   .index-size {
     border: 1px solid $main;
     border-radius: 5px;
-    float: left;
     height: 30px;
     line-height: 30px;
-    margin: 15px 0;
     width: 100%;
   }
 }
