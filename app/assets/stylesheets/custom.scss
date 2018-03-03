@@ -1015,6 +1015,7 @@ nav {
     float: left;
     margin: 0 3%;
     width: 62%;
+    word-wrap: break-word;
 
     .kpost-name {
       margin: 5px 0;
@@ -1044,7 +1045,6 @@ nav {
       width: 100%;
     }
 
-    .kpost-act,
     .kpost-alist {
       cursor: pointer;
       height: 35px;

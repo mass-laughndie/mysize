@@ -37,13 +37,11 @@
           <div class="kpost-size">
             <%= kickspost.size %>
           </div>
-          <% unless current_user == kickspost.user %>
-            <div class="kpost-act">
-              <div class="kpost-memo">
-                <%= fa_icon("thumbs-up") %>
-              </div>
+          <div class="kpost-act">
+            <div class="kpost-alist">
+              <%= fa_icon("thumbs-up") %>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
