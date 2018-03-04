@@ -122,7 +122,6 @@ document.addEventListener('turbolinks:load', function(){
         fullPath = location.pathname + location.search,
         link = $(this).find('a'),
         linkPath = link.attr("href");
-      console.log(linkPath);
       if(fullPath == linkPath) {
         link.addClass("active");
       }
