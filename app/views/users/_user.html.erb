@@ -29,7 +29,7 @@
               <div class="abs-center">
                 <% unless current_user?(user) %>
                   <%= render partial: 'users/follow_form',
-                             locals: { user: user } if logged_in? %>
+                             locals: { user: user } %>
                 <% end %>
               </div>
             </div>

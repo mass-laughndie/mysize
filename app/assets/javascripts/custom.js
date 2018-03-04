@@ -115,6 +115,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+//現在位置ボタンの色変換
 document.addEventListener('turbolinks:load', function(){
   $(function(){
     $('.alist').each(function(){
@@ -125,6 +126,16 @@ document.addEventListener('turbolinks:load', function(){
       if(fullPath == linkPath) {
         link.addClass("active");
       }
+    });
+  });
+});
+
+//未ログインアラートボタン
+document.addEventListener('turbolinks:load', function(){
+  $(function(){
+    $('.ban').on('click', function(){
+      alert('登録またはログインしてください！');
+      return false;
     });
   });
 });
