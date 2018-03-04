@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180302062341) do
+ActiveRecord::Schema.define(version: 20180304064622) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_content"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 20180302062341) do
     t.index ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
     t.index ["user_id", "kickspost_id", "created_at"], name: "index_comments_on_user_id_and_kickspost_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "goods", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "kind_id"
+    t.string "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind_id", "kind"], name: "index_goods_on_kind_id_and_kind"
+    t.index ["user_id", "created_at"], name: "index_goods_on_user_id_and_created_at"
+    t.index ["user_id", "kind_id", "kind"], name: "index_goods_on_user_id_and_kind_id_and_kind", unique: true
+    t.index ["user_id"], name: "index_goods_on_user_id"
   end
 
   create_table "kicksposts", force: :cascade do |t|

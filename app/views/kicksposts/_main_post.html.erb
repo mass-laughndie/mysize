@@ -39,7 +39,9 @@
           </div>
           <div class="kpost-act">
             <div class="kpost-alist">
-              <%= fa_icon("thumbs-up") %>
+              <%= render partial: 'goods/good_form',
+                         locals: { kind_model: kickspost,
+                                   kind: "post" } %>
             </div>
           </div>
         </div>

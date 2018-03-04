@@ -58,7 +58,9 @@
             </div>
           <% end %>
           <div class="kpost-alist">
-            <%= fa_icon("thumbs-up") %>
+            <%= render partial: 'goods/good_form',
+                   locals: { kind_model: comment,
+                             kind: "comment" } %>
           </div>
           <% unless current_user == comment.user %>
             <div class="kpost-alist">

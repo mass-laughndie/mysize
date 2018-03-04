@@ -5,7 +5,8 @@ class User < ApplicationRecord
 
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
-  has_many :notices,   dependent: :destroy
+  has_many :notices,    dependent: :destroy
+  has_many :goods,      dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
@@ -138,25 +139,6 @@ class User < ApplicationRecord
     mail.deliver_now
   end
 
-=begin
-  def self.find_for_oauth(auth)
-    user = User.where(uid: auth.uid, provider: auth.provider).first
- 
-    unless user
-      user = User.create(
-        uid:      auth.uid,
-        provider: auth.provider,
-        email:    User.dummy_email(auth),
-        password: Devise.friendly_token[0, 20],
-        image: auth.info.image,
-        name: auth.info.name,
-        mysize_id: auth.info.nickname,
-      )
-    end 
-    user
-  end
-=end
-  
   def self.find_or_create_from_auth(auth)
     provider  = auth[:provider]
     uid       = auth[:uid]
@@ -294,6 +276,18 @@ class User < ApplicationRecord
         end
       end
     end
+  end
+
+  def good(kind, model)
+    goods.create(kind: kind, kind_id: model.id)
+  end
+
+  def ungood(kind, model)
+    goods.find_by(kind: kind, kind_id: model.id).destroy
+  end
+
+  def good?(model)
+    goods.include?(model)
   end
 
 
