@@ -49,7 +49,7 @@ function indexId(){
 
 //comment返信ユーザーのリンク化
 function changeLink(_iid) {
-  $('.comment-content').each(function(){
+  $('.autolink').each(function(){
     var
       txt = $(this).html(),
       exp = txt.match(/@[a-zA-Z0-9_]+\s/g);               //全「@ID 」
@@ -80,7 +80,7 @@ iid = [];
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     //commentがある場合
-    if ($('.comment-content').length) {
+    if ($('.autolink').length) {
       //data未取得
       if (iid.length == 0) {
         indexId().done(function(data) {
@@ -111,6 +111,21 @@ document.addEventListener('turbolinks:load', function() {
       $(this).height(height);
       //同長のリンクcover生成
       $(this).find(".content-link").css('padding-bottom', height);
+    });
+  });
+});
+
+document.addEventListener('turbolinks:load', function(){
+  $(function(){
+    $('.alist').each(function(){
+      var
+        fullPath = location.pathname + location.search,
+        link = $(this).find('a'),
+        linkPath = link.attr("href");
+      console.log(linkPath);
+      if(fullPath == linkPath) {
+        link.addClass("active");
+      }
     });
   });
 });

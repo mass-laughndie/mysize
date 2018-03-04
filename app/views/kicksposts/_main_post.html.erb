@@ -1,0 +1,49 @@
+<li class="link-list kpost-main clear">
+  <a class="content-link" href="<%= kickspost_url(kickspost.user.mysize_id, kickspost) %>"></a>
+  <div class="content-abs">
+    <div class="content-height">
+      <div class="list-content clear">
+        <div class="c index-left kpost-left">
+          <div class="index-image kpost-icon">
+            <div class="abs-center">
+              <%= link_to image_tag(image_url(kickspost.user), size: 40),
+                          user_path(kickspost.user, display: "square"),
+                          class: "list-image" %>
+            </div>
+          </div>
+          <div class="index-size kpost-shoesize">
+            <%= link_to kickspost.user.shoe_size,
+                        user_path(kickspost.user, display: "square") %>
+          </div>
+        </div>
+        <div class="kpost-center">
+          <div class="kpost-name">
+            <%= link_to kickspost.user.mysize_id,
+                        user_path(kickspost.user, display: "square") %>
+          </div>
+          <div class="kpost-content autolink">
+            <%= kickspost.content %>
+          </div>
+        </div>
+        <div class="c kpost-right">
+          <div class="kpost-picture">
+            <div class="abs-center">
+              <%= link_to image_tag(picture_url(kickspost),
+                                    alt: kickspost.content,
+                                    size: 50),
+                          kickspost_path(kickspost.user.mysize_id, kickspost) %>
+            </div>
+          </div>
+          <div class="kpost-size">
+            <%= kickspost.size %>
+          </div>
+          <div class="kpost-act">
+            <div class="kpost-alist">
+              <%= fa_icon("thumbs-up") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

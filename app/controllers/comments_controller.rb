@@ -1,15 +1,20 @@
 class CommentsController < ApplicationController
 
-  before_action :logged_in_user, only: [:create, :destroy]
-  before_action :corrent_user,   only: :destroy
+  before_action :logged_in_user, only: [:post_create, :post_destroy]
+  before_action :corrent_user,   only: :post_destroy
 
-  def create
+  def post_create
     @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     if @comment.save
-      #コメント通知作成
-      @kickspost.user.notice_from(params[:kind], @comment)
-      @kickspost.user.increment!(:notice_count, by = 1)
+
+      #自分のポストじゃないとき
+      unless current_user.kicksposts.include?(@kickspost)
+        #コメント通知作成
+        @kickspost.user.notice_from(params[:kind], @comment)
+        #通知カウント +1
+        @kickspost.user.increment!(:notice_count, by = 1)
+      end
       #返信通知作成
       msids = params[:comment][:comment_content].scan(/@[a-zA-Z0-9_]+\s/)
       if msids.any?
@@ -29,7 +34,7 @@ class CommentsController < ApplicationController
     redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
   end
 
-  def destroy
+  def post_destroy
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
     @kickspost.user.notice_delete("comment", @comment)
     @kickspost.user.notice_delete("reply", @comment)

@@ -1,5 +1,5 @@
 <div class="c inner-form comment-form">
-  <%= form_for(:comment, url: comments_url, remote: true) do |f| %>
+  <%= form_for(:comment, url: postcomments_url, remote: true) do |f| %>
     <div><%= f.hidden_field :kickspost_id, value: kickspost.id %></div>
     <div><%= f.hidden_field :user_id, value: current_user.id %></div>
     <div><%= hidden_field_tag :kind, "comment" %></div>

@@ -1,4 +1,5 @@
 <% if logged_in? %>
+  <%= render 'home_select' %>
   <div class="post-main">
     <% if @kicksposts.blank? %>
       <%= render partial: 'shared/no_data',

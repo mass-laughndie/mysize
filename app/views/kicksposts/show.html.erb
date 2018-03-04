@@ -1,8 +1,33 @@
+<div class="c select-form kpost-select">
+  <div class="select-list kpost-list alist aline">
+    <%= link_to "写真", kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
+  </div>
+  <div class="select-list kpost-list alist aline">
+    <%= link_to "テキスト",
+                kickspost_path(@kickspost.user.mysize_id, @kickspost, display: "text")%>
+  </div>
+</div>
 <div class="post-main">
-  <%= render partial: 'kicksposts/kickspost',
-             locals: { kickspost: @kickspost,
-                       comment_disnum: nil } %>
-  <% if logged_in? && @kickspost.user != current_user %>
-    <%= render partial: 'comments/comment_form', locals: { kickspost: @kickspost } %>
+  <% unless params[:display] == "text" %>
+    <%= render partial: 'kicksposts/kickspost',
+               locals: { kickspost: @kickspost,
+                         comment_disnum: nil } %>
+  <% else %>
+    <ul>
+      <%= render partial: 'kicksposts/main_post',
+                 locals: { kickspost: @kickspost,
+                           comment_disnum: nil } %>
+      <%= render partial: @comments,
+                 locals: { kickspost: @kickspost,
+                           comment_disnum: nil,
+                           list: "text" } %>
+    </ul>
+  <% end %>
+  <% if logged_in? %>
+    <div class="comment-space">
+      <div class="fixed fixed-bottom comment-height">
+        <%= render partial: 'comments/comment_form', locals: { kickspost: @kickspost } %>
+      </div>
+    </div>
   <% end %>
 </div>
