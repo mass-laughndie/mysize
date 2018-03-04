@@ -286,8 +286,8 @@ class User < ApplicationRecord
     goods.find_by(kind: kind, kind_id: model.id).destroy
   end
 
-  def good?(model)
-    goods.include?(model)
+  def good?(kind, model)
+    goods.where(kind: kind).pluck(:kind_id).include?(model.id)
   end
 
 

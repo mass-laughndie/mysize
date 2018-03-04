@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <div id="good-form-<%= kind %>-<%= kind_model.id %>" class="good-form">
-  <% if current_user.good?(kind_model) %>
+  <% if current_user.good?(kind, kind_model) %>
     <%= render partial: 'goods/ungood_button',
                locals: { kind_model: kind_model,
                          kind: kind } %>
