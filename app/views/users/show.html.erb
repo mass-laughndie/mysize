@@ -1,101 +1,12 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さん") %>
 
 <div class="content-mspace">
-  <div class="profile-top">
-    <div class="user_icon">
-      <%= image_tag(image_url(@user), alt: @user.name) %>
-    </div>
-    <div class="user_stats">
-      <a href="<%= search_path(keyword: @user.shoe_size) %>">
-        <div class="num">
-          <strong id="user_size" class="stat">
-            <% unless @user.shoe_size.nil? %>
-              <%= @user.shoe_size %>
-            <% else %>
-              0
-            <% end %>
-          </strong>
-        </div>
-        cm
-      </a>
-      <a href="<%= user_path(@user, display: "square") %>">
-        <div class="num">
-          <strong id="shoes" class="stat">
-            <%= @user.kicksposts.count %>
-          </strong>
-        </div>
-        キックス
-      </a>
-      <a href="#">
-        <div class="num">
-          <strong id="good-answer" class="stat">
-            0
-          </strong>
-        </div>
-        グッドアンサー
-      </a>
-    </div>
-  </div>
-  <div class="profile-middle clear">
-    <div class="user-text">
-      <div class="user-name">
-        <h1><%= @user.name %></h1>
-      </div>
-      <div class="user-mysizeid">
-        <%= "@" + @user.mysize_id %>
-      </div>
-    </div>
-    <% if current_user?(@user) %>
-      <div class="set-option">
-        <%= link_to fa_icon("cog"), option_settings_path %>
-      </div>
-      <div class="set-profile">
-        <%= link_to "プロフィール編集", profile_settings_path %>
-      </div>
-    <% else %>
-      <div class="set-follow">
-        <div class="profile-follow">
-          <%= render partial: 'follow_form', locals: { user: @user } %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  <div class="profile-bottom">
-    <div class="user-profile">
-      <% unless @user.profile_content.blank? %>
-        <%= @user.profile_content %>
-      <% else %>
-        プロフィールが未記入です。
-      <% end %>
-    </div>
-    <div class="follow-info">
-      <a href="<%= following_user_path(@user) %>">
-        <strong id="following">
-          <%= @user.following.count %>
-        </strong>
-        フォロー
-      </a>
-      <a href="<%= followers_user_path(@user) %>">
-        <strong id="followers">
-          <%= @user.followers.count %>
-        </strong>
-        フォロワー
-      </a>
-    </div>
-  </div>
+  <%= render partial: 'users/user_profile',
+             locals: { user: @user } %>
 </div>
 <div class="post">
-  <div class="c select-form post-select">
-    <div class="select-list post-list alist aline">
-      <%= link_to fa_icon("th"), user_path(@user, display: "square") %>
-    </div>
-    <div class="select-list post-list alist aline">
-      <%= link_to fa_icon("list-ul"), user_path(@user) %>
-    </div>
-    <div class="select-list post-list alist aline">
-      <%= link_to fa_icon("thumbs-up"), good_user_path(@user) %>
-    </div>
-  </div>
+  <%= render partial: 'users/post_select',
+             locals: { user: @user } %>
   <div class="post-main">
     <% if @user.kicksposts.blank? %>
       <%= render partial: 'shared/no_data',

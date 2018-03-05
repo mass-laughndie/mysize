@@ -1,15 +1,5 @@
 <div class="c index-left kpost-left">
-  <div class="index-image kpost-icon">
-    <div class="abs-center">
-      <%= link_to image_tag(image_url(kickspost.user), size: 40),
-                  user_path(kickspost.user, display: "square"),
-                  class: "list-image" %>
-    </div>
-  </div>
-  <div class="index-size kpost-shoesize">
-    <%= link_to kickspost.user.shoe_size,
-                user_path(kickspost.user, display: "square") %>
-  </div>
+  <%= render 'shared/index_left', user: kickspost.user %>
 </div>
 <div class="kpost-center">
   <div class="kpost-name">

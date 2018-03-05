@@ -1,15 +1,6 @@
 <div class="c index-left kpost-left">
-  <div class="index-image kpost-icon">
-    <div class="abs-center">
-      <%= link_to image_tag(image_url(comment.user), size: 40),
-                  user_path(comment.user, display: "square"),
-                  class: "list-image" %>
-    </div>
-  </div>
-  <div class="index-size kpost-shoesize">
-    <%= link_to comment.user.shoe_size,
-                user_path(comment.user, display: "square") %>
-  </div>
+  <%= render partial: 'shared/index_left',
+             locals: { user: comment.user } %>
 </div>
 <div class="kpost-center">
   <div class="kpost-name">
@@ -26,9 +17,7 @@
     <% if current_user == comment.user || current_user == comment.kickspost.user %>
       <div class="kpost-alist">
         <div class="comment-act comment-delete">
-          <%= link_to fa_icon("trash"),
-            comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
-            method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
+          <%= render 'comments/comment_delete', comment: comment %>
         </div>
       </div>
     <% end %>

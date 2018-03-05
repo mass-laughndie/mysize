@@ -18,7 +18,7 @@ class NoticesController < ApplicationController
     @followers = []                                         #フォロワー格納配列
     @follow_lists.each do |list|  #list=>各フォロー通知リスト
       #リストを作成した週のfollow通知
-      fnotice = @notices.where(kind: "follow", created_at: that_day(list.created_at))
+      fnotice = @notices.where(kind: "follow", created_at: that_week(list.created_at))
       #リストを作成した週のrelationship
       relation = Relationship.where(id: fnotice.pluck(:kind_id))
       #relationからフォロワーを検索して新しい順に並べた配列をフォロワー格納配列へ

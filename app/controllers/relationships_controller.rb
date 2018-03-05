@@ -24,7 +24,7 @@ class RelationshipsController < ApplicationController
 
     #通知アクション
     @user.notice_delete("follow", @relation)
-    @user.week_notice_list_delete("follow", that_day(Time.zone.now))
+    @user.week_notice_list_delete("follow", that_week(Time.zone.now))
 
     respond_to do |format|
       format.html { redirect_to @user }

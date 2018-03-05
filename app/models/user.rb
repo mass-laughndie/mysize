@@ -217,9 +217,9 @@ class User < ApplicationRecord
 
   #list系の更新or作成
   def week_notice_list(kind_list, model)
-    this_day = Time.zone.now.all_day
-    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice_list = self.notices.find_by(kind: kind_list, created_at: this_day)
+    # this_day = Time.zone.now.all_day
+    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    notice_list = self.notices.find_by(kind: kind_list, created_at: this_week)
     #今週のlistがある場合
     if notice_list
       #listのupdated_atを更新 => noticeビューの上段に持ってくる
@@ -250,7 +250,7 @@ class User < ApplicationRecord
   #notices = current_userの全通知
   def delete_past_notices_already_read(notices)
     #削除ライン([テスト]1.day.ago => [本番]10.week.ago)
-    deleteline = Time.new(2000,1,1)..1.day.ago
+    deleteline = Time.new(2000,1,1)..10.week.ago
     #list計以外の通知(要素通知)
     enotices = notices.where.not(kind: "follow_list")
     #既読数 = 要素通知数 - 未読通知数
@@ -272,7 +272,7 @@ class User < ApplicationRecord
       if flnotices.any?
         #各list系通知の期間内の要素が空なら削除
         flnotices.each do |list|
-          self.week_notice_list_delete("follow", list.created_at.all_day)
+          self.week_notice_list_delete("follow", list.created_at.beginning_of_week..list.created_at.end_of_week)
         end
       end
     end
