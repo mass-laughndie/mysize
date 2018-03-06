@@ -1,12 +1,23 @@
-<div class="notice-images clear">
-  <% gpcount = @gposters[@gpostnum].to_a.size %>
-  <% @gposters[@gpostnum].first(2).each do |user| %>
+<% gpcount = @gpcounts[@gpostnum] %>
+<div class="notice-main clear">
+<div class="notice-icon">
+  <% if gpcount >= 2 %>
+    <div class="abs-center2">
+      <% @gposters[@gpostnum].each_with_index do |user, i| %>
+        <div class="list-image-<%= i %>">
+          <%= image_tag(image_url(user), size: 34, alt: user.name) %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <% user = @gposters[@gpostnum][0] %>
+    <div class="abs-center">
     <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
-        user_path(user, display: "square"), class: "list-image" %>
+          user_path(user, display: "square"), class: "list-image" %>
+    </div>
   <% end %>
-  <%= fa_icon("ellipsis-h") if gpcount >= 6 %>
 </div>
-<div class="notice-text">
+<div class="notice-text notice-comment-text">
   <% if gpcount >= 2 %>
     <span><%= @gposters[@gpostnum][0].name %></span>さん, 他 <%= gpcount - 1 %>人があなたの投稿にグッドをしています。
   <% else %>
@@ -14,3 +25,5 @@
   <% end %>
 </div>
 <% @gpostnum -= 1 %>
+</div>
+<%= render 'notices/post_main', kickspost: kickspost %>

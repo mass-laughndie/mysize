@@ -23,6 +23,7 @@ class NoticesController < ApplicationController
     #期間ごとのフォロワーの２重配列作成
     @follow_lists = @notices.where(kind: "follow_list")     #フォロー通知リスト
     @followers = []                                         #フォロワー格納配列
+    @fcounts = []
     @follow_lists.each do |list|  #list=>各フォロー通知リスト
       #リストを作成した週のrelationship(最新順)
       relations = current_user.passive_relationships.where(created_at: that_week(list.created_at)).order(created_at: :desc)
@@ -31,8 +32,8 @@ class NoticesController < ApplicationController
         list.destroy  #list削除
       else
         #期間内のフォロワーを新しい順に並べた配列をフォロワー格納配列へ
-        follower = User.find(relations.pluck(:follower_id))
-        @followers << follower
+        @fcounts << relations.to_a.size
+        @followers << User.find(relations.pluck(:follower_id).first(2))
       end
     end
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
@@ -41,32 +42,34 @@ class NoticesController < ApplicationController
     #ポストごとのgoodの２重配列作成
     @gpost_lists = @notices.where(kind: "gpost_list")     #gpost通知リスト
     @gposters = []                                         #goodとした人を格納する配列
+    @gpcounts = []
     @gpost_lists.each do |list|
       #postへのgood
       postgood = Good.where(kind: "gpost", kind_id: list.kind_id).order(created_at: :desc)
       if postgood.blank?
         list.destroy
       else
-        gposter = User.find(postgood.pluck(:user_id))
-        @gposters << gposter
+        @gpcounts << postgood.to_a.size
+        @gposters << User.find(postgood.pluck(:user_id).first(2))
       end
     end
-    @gpostnum = @gposters.size - 1
+    @gpostnum = @gpcounts.size - 1
 
     #ポストごとのgoodの２重配列作成
     @gcom_lists = @notices.where(kind: "gcom_list")     #gpost通知リスト
     @gcomers = []                                         #goodとした人を格納する配列
+    @gccounts = []
     @gcom_lists.each do |list|
       #postへのgood
       comgood = Good.where(kind: "gcom", kind_id: list.kind_id).order(created_at: :desc)
       if comgood.blank?
         list.destroy
       else
-        gcomer = User.find(comgood.pluck(:user_id))
-        @gcomers << gcomer
+        @gccounts << comgood.to_a.size
+        @gcomers << User.find(comgood.pluck(:user_id).first(2))
       end
     end
-    @gcomnum = @gcomers.size - 1 
+    @gcomnum = @gccounts.size - 1 
   end
 
   def create

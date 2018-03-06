@@ -1,16 +1,29 @@
-<div class="notice-images clear">
-  <% gccount = @gcomers[@gcomnum].to_a.size %>
-  <% @gcomers[@gcomnum].first(2).each do |user| %>
-    <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
-        user_path(user, display: "square"), class: "list-image" %>
+<% gccount = @gccounts[@gcomnum] %>
+<div class="notice-main clear">
+<div class="notice-icon clear">
+  <% if gccount >= 2 %>
+    <div class="abs-center2">
+      <% @gcomers[@gcomnum].each_with_index do |user, i| %>
+        <div class="list-image-<%= i %>">
+          <%= image_tag(image_url(user), size: 34, alt: user.name) %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <% user = @gcomers[@gcomnum][0] %>
+    <div class="abs-center">
+      <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
+            user_path(user, display: "square"), class: "list-image" %>
+    </div>
   <% end %>
-  <%= fa_icon("ellipsis-h") if gccount >= 6 %>
 </div>
-<div class="notice-text">
+<div class="notice-text notice-comment-text">
   <% if gccount >= 2 %>
     <span><%= @gcomers[@gcomnum][0].name %></span>さん, 他 <%= gccount - 1 %>人があなたのコメントにグッドをしています。
   <% else %>
     <span><%= @gcomers[@gcomnum][0].name %></span>さんがあなたのコメントにグッドをしています。
   <% end %>
 </div>
+</div>
 <% @gcomnum -= 1 %>
+<%= render 'notices/com_main', comment: comment %>

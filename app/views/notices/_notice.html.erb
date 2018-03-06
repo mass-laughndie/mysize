@@ -1,5 +1,5 @@
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
-  <% if notice.kind == "comment" || notice.kind == "reply" || notice.kind == "gcomlist" %>
+  <% if notice.kind == "comment" || notice.kind == "reply" || notice.kind == "gcom_list" %>
     <% comment = Comment.find_by(id: notice.kind_id) %>
     <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
   <% elsif notice.kind == "follow_list" %>
