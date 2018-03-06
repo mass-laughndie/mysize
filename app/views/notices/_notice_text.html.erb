@@ -1,0 +1,23 @@
+<span><%= uname %></span>さん
+<% if count >= 2 %>
+  , 他 <%= count - 1 %>人
+  <% if nkind == "follow_list" %>
+    があなたをフォローしています。
+  <% elsif nkind == "gpost_list" %>
+    があなたの投稿にグッドをしています。
+  <% elsif nkind == "gcom_list" %>
+    があなたのコメントにグッドをしています。
+  <% end %>
+<% else %>
+  <% if nkind == "follow_list" %>
+    があなたをフォローしています。
+  <% elsif nkind == "gpost_list" %>
+    があなたの投稿にグッドをしています。
+  <% elsif nkind == "gcom_list" %>
+    があなたのコメントにグッドをしています。
+  <% elsif nkind == "comment" %>
+    からコメントがあります。
+  <% elsif nkind == "reply" %>
+    から返信があります。
+  <% end %>
+<% end %>

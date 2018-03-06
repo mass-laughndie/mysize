@@ -1,25 +1,50 @@
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
-  <% if notice.kind == "comment" || notice.kind == "reply" %>
+  <% if notice.kind == "comment" || notice.kind == "reply" || notice.kind == "gcom_list" %>
     <% comment = Comment.find_by(id: notice.kind_id) %>
-    <a class="content-link" href="<%= kickspost_url(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
+    <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
   <% elsif notice.kind == "follow_list" %>
     <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
+  <% elsif notice.kind == "gpost_list" %>
+    <% kickspost = Kickspost.find_by(id: notice.kind_id) %>
+    <a class="content-link" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>"></a>
   <% end %>
   <div class="content-abs">
     <div class="content-height">
       <div class="list-content clear">
         <% if notice.kind == "follow_list" %>
-          <%= render partial: 'notices/follow_notice' %>
+          <%= render partial: 'notices/notice_main',
+                     locals: { users: @followers,
+                               counts: @fcounts,
+                               num: @fnum,
+                               nkind: notice.kind } %>
         <% elsif notice.kind == "comment" %>
-          <%= render partial: 'notices/comment_notice',
-                     locals: {comment: comment,
-                              notice: notice } %>
+          <%= render partial: 'notices/notice_main',
+                     locals: { comment: comment,
+                               user: comment.user,
+                               count: 1,
+                               num: 0,
+                               nkind: notice.kind } %>
         <% elsif notice.kind == "reply" %>
-          <%= render partial: 'notices/comment_notice',
-                     locals: {comment: comment,
-                              notice: notice } %>
-        <% elsif notice.kind == "like" %>
-          <span>other</span>
+          <%= render partial: 'notices/notice_main',
+                     locals: { comment: comment,
+                               users: comment.user,
+                               count: 1,
+                               num: 0,
+                               nkind: notice.kind } %>
+        <% elsif notice.kind == "gpost_list" %>
+          <%= render partial: 'notices/notice_main',
+                     locals: { kickspost: kickspost,
+                               users: @gposters,
+                               counts: @gpcounts,
+                               num: @gpnum,
+                               nkind: notice.kind } %>
+        <% elsif notice.kind == "gcom_list" %>
+          <%= render partial: 'notices/notice_main',
+                     locals: { comment: comment,
+                               users: @gcomers,
+                               counts: @gccounts,
+                               num: @gcnum,
+                               nkind: notice.kind } %>
         <% end %>
       </div>
     </div>

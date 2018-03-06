@@ -1,7 +1,8 @@
 <% if list == "normal" %>
   <li id="comment-<%= comment.id %>" class="comment-list autolink">
     <div class="comment-content">
-      <%= link_to comment.user.mysize_id, user_path(comment.user, display: "square"),
+      <%= link_to comment.user.mysize_id,
+                  user_path(comment.user, display: "square"),
                   class: "content-name", id: "content-name-" + comment.id.to_s %>
       <span><%= comment.comment_content %></span>
       <% unless comment_disnum == "few" %>
@@ -12,9 +13,7 @@
         <% end %>
         <% if current_user == comment.user || current_user == kickspost.user %>
           <span class="comment-act comment-delete">
-            <%= link_to fa_icon("trash"),
-                postcomment_url(comment.id, kickspost_id: comment.kickspost_id),
-                method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
+            <%= render 'comments/comment_delete', comment: comment %>
           </span>
         <% end %>
       <% end %>
@@ -23,52 +22,8 @@
 <% elsif list == "text" %>
   <li id="comment-<%= comment.id %>" class="kcomment-list autolink">
     <div class="kpost-main clear">
-      <div class="c index-left kpost-left">
-        <div class="index-image kpost-icon">
-          <div class="abs-center">
-            <%= link_to image_tag(image_url(comment.user), size: 40),
-                        user_path(comment.user, display: "square"),
-                        class: "list-image" %>
-          </div>
-        </div>
-        <div class="index-size kpost-shoesize">
-          <%= link_to comment.user.shoe_size,
-                      user_path(comment.user, display: "square") %>
-        </div>
-      </div>
-      <div class="kpost-center">
-        <div class="kpost-name">
-          <%= link_to comment.user.mysize_id,
-                      user_path(comment.user, display: "square"),
-                      id: "content-name-" + comment.id.to_s %>
-        </div>
-        <div class="kpost-content autolink">
-          <%= comment.comment_content %>
-        </div>
-      </div>
-      <div class="c kpost-right">
-        <div class="kpost-act">
-          <% if current_user == comment.user || current_user == kickspost.user %>
-            <div class="kpost-alist">
-              <div class="comment-act comment-delete">
-                <%= link_to fa_icon("trash"),
-                  comment_url(comment.id.to_i, kickspost_id: comment.kickspost_id),
-                  method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>
-              </div>
-            </div>
-          <% end %>
-          <div class="kpost-alist">
-            <%= fa_icon("thumbs-up") %>
-          </div>
-          <% unless current_user == comment.user %>
-            <div class="kpost-alist">
-              <div class="comment-act" id="comment-reply-<%= comment.id %>">
-                <%= fa_icon('reply')%>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
+      <%= render partial: 'comments/comment_main',
+                 locals: { comment: comment } %>
     </div>
   </li>
 <% end %>

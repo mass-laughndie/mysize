@@ -618,7 +618,8 @@ nav {
   width: 50px;
 
   form,
-  button {
+  button,
+  a {
     color: $accent;
     display: block;
     font-size: 14px;
@@ -1309,7 +1310,7 @@ nav {
 
       .list-content {
         border-bottom: 1px solid $weak-grey;
-        padding: 10px 20px 20px;
+        padding: 20px;
         position: relative;
         width: 100%;
         word-wrap: break-word;
@@ -1331,6 +1332,33 @@ nav {
     border-radius: 5px;
     display: block;
   }
+}
+
+.list-image-0,
+.list-image-1 {
+  background: #fff;
+  border-radius: 5px;
+  height: 40px;
+  padding: 3px;
+  width: 40px;
+
+  img {
+    display: block;
+    border-radius: 5px;
+  }
+}
+
+.list-image-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.list-image-0 {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  z-index: 2;
 }
 
 /* settings */
@@ -1500,6 +1528,11 @@ nav {
 
 /* notice */
 
+.notice-main {
+  position:relative;
+  width: 100%; 
+}
+
 .notice-images {
   height: 50px;
   margin: 5px 10px 10px;
@@ -1513,6 +1546,8 @@ nav {
 
 .notice-icon {
   float: left;
+  height: 60px;
+  position: relative;
   width: 15%;
 }
 
@@ -1527,6 +1562,18 @@ nav {
   float: right;
   padding-left: 1.5%; 
   width: 83.5%;
+}
+
+.npost-main {
+  position: relative;
+  width: 100%;
+
+  .npost-picture {
+    height: 50px;
+    margin: 5px 0;
+    position: relative;
+    width: 100%;
+  }
 }
 
 /* user index */
@@ -1582,6 +1629,16 @@ nav {
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
+  a {
+  display: block;
+  }
+}
+
+.abs-center2 {
+  position: relative;
+  height: 60px;
+  margin: 0 auto;
+  width: 55px;
 }
 
 /* password_reset */

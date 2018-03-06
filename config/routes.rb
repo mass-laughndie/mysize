@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   end
 
   resource  :notice,   only: [:show, :create, :destroy]
+  resources  :goods,   only: [:create, :destroy]
   resources  :comments,   only: [:index, :show, :create, :destroy],
                        path: '/talk'
   
@@ -54,7 +55,8 @@ Rails.application.routes.draw do
     member do
       resources :kicksposts, except: [:new, :create, :index]
       get :following,
-          :followers
+          :followers,
+          :good
     end
   end
 
