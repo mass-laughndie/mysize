@@ -217,9 +217,9 @@ class User < ApplicationRecord
 
   #list系の更新or作成
   def create_follow_notice(kind_list, model)
-    # this_day = Time.zone.now.all_day
-    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice = self.notices.find_by(kind: kind_list, created_at: this_week)
+    this_day = Time.zone.now.all_day
+    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    notice = self.notices.find_by(kind: kind_list, created_at: this_day)
     #今週のlistがある場合
     if notice
       #listのupdated_atを更新 => noticeビューの上段に持ってくる

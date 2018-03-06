@@ -22,7 +22,7 @@ class RelationshipsController < ApplicationController
     @user = @relation.followed
     #通知アクション
     # @user.notice_delete("follow", @relation)
-    @user.delete_follow_notice("follow_list", that_week(@relation.created_at))
+    @user.delete_follow_notice("follow_list", that_day(@relation.created_at))
     current_user.unfollow(@user)
     
 
