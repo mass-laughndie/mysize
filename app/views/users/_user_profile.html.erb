@@ -1,8 +1,8 @@
 <div class="profile-top">
-  <div class="user_icon">
+  <div class="user-icon">
     <%= image_tag(image_url(user), alt: user.name) %>
   </div>
-  <div class="user_stats">
+  <div class="user-stats">
     <a href="<%= search_path(keyword: user.shoe_size) %>">
       <div class="num">
         <strong id="user_size" class="stat">

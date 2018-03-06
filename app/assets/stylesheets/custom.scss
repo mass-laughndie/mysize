@@ -482,7 +482,7 @@ nav {
   width: 100%;
 }
 
-.user_icon {
+.user-icon {
   float: left;
   height: 100%;
   position: relative;
@@ -506,7 +506,7 @@ nav {
 }
 */
 
-.user_stats {
+.user-stats {
   float: left;
   height: 100%;
   margin: 0 2%;
@@ -514,6 +514,7 @@ nav {
   width: 74%;
 
   a {
+    color: $main;
     display: block;
     float: left;
     font-size: 0.65em;
@@ -565,6 +566,7 @@ nav {
   width: 36%;
 
   a {
+    color: $main;
     display: block;
     line-height: 28px;
     text-align: center;
@@ -610,56 +612,6 @@ nav {
   width: 52px;
 }
 
-.form-follow {
-  background: #fff;
-  border: 1px solid $accent;
-  border-radius: 3px;
-  height: 30px;
-  width: 50px;
-
-  form,
-  button,
-  a {
-    color: $accent;
-    display: block;
-    font-size: 14px;
-    height: 100%;
-    width: 100%;
-
-    .fa {
-      margin: 1px;
-    }
-
-    .fa-plus {
-      font-size: 10px;
-    }
-  }
-}
-
-
-.form-unfollow {
-  background: $accent;
-  border-radius: 3px;
-  height: 30px;
-  width: 50px;
-
-  form,
-  button {
-    color: #fff;
-    display: block;
-    font-size: 14px;
-    height: 100%;
-    width: 100%;
-
-    .fa {
-      margin: 1px;
-    }
-
-    .fa-check {
-      font-size: 10px;
-    }
-  }
-}
 
 .profile-bottom {
 
@@ -755,13 +707,17 @@ nav {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+
+    a {
+      color: $main;
+    }
   }
 
   .post-mysizeid {
     font-size: 0.7em;
     line-height: 16px;
     a {
-      color: $base-grey;
+      color: $main;
     }
   }
 }
@@ -774,7 +730,7 @@ nav {
   right: 50px;
 
   a {
-    color: $base-grey;
+    color: $main;
     display: block;
     font-size: 12px;
     padding: 3px 7px;
@@ -908,17 +864,19 @@ nav {
     }
   }
 
-  .post-react {
+  .post-act {
     height: 40px;
-    padding: 3px;
-    a {
-      display: inline-block;
-      text-align: center;
+    padding: 3px 16px;
+    
+    .good-act {
+      height: 34px;
+      line-height: 34px;
       width: 34px;
-
-      i {
+      button {
         display: block;
-        line-height: 34px;
+        i {
+          font-size: 1.5em;
+        }
       }
     }
   }
@@ -929,9 +887,11 @@ nav {
   padding: 0 16px;
 
   .post-content {
+    color: $main;
     margin: 5px 0;
     word-wrap: break-word;
   }
+
   .post-time {
     color: $base-grey;
     font-size: 10px;
@@ -939,6 +899,7 @@ nav {
 }
 
 .content-name {
+  color: $main;
   float: left;
   font-weight: 600;
   margin-right: 0.3em;
@@ -977,6 +938,7 @@ nav {
     width: 150px;
     
     .fa {
+      color: $base;
       float: left;
       font-size: 30px;
       line-height: 24px;
@@ -1019,6 +981,9 @@ nav {
     }
 
     .kpost-shoesize {
+      a {
+        color: $main;
+      }
     }
   }
 
@@ -1031,6 +996,7 @@ nav {
     .kpost-name {
       margin: 5px 0;
       a {
+        color: $main;
         font-weight: 550;
       }
     }
@@ -1197,6 +1163,81 @@ nav {
     min-height: 8em;
     max-height: 16em;
     line-height: 1.2em;
+  }
+}
+
+.form-follow {
+  background: #fff;
+  border: 1px solid $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button,
+  a {
+    color: $accent;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-plus {
+      font-size: 10px;
+    }
+  }
+}
+
+
+.form-unfollow {
+  background: $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-check {
+      font-size: 10px;
+    }
+  }
+}
+
+.good-form {
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  .form-good,
+  .form-ungood {
+    height: 100%;
+    width: 100%;
+    form,
+    button {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .form-ungood {
+    form button .fa {
+      color: $accent;
+    }
   }
 }
 
@@ -1375,6 +1416,7 @@ nav {
   height: 61px;
 
   a {
+    color: $main;
     display: block;
     padding: 10px 3%;
     position: relative;
@@ -1390,7 +1432,7 @@ nav {
       .sss {
         font-size: 0.7em;
         font-weight: 400;
-        color: $twi-grey;
+        color: $base-grey;
       }
     }
 
@@ -1495,7 +1537,8 @@ nav {
 }
 
 .com-link {
-  color: rgba(0,53,105,0.85);
+  /*color: rgba(0,53,105,0.85);*/
+  color: $accent;
   font-weight: 550;
   position: relative;
   z-index: 25;

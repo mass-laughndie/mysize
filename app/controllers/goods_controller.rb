@@ -11,7 +11,9 @@ class GoodsController < ApplicationController
     @good = current_user.good(@kind, @model)
 
     @user = @model.user
-    @user.create_good_notice(@kind + "_list", @model)
+    unless @user == current_user
+      @user.create_good_notice(@kind + "_list", @model)
+    end
 
     respond_to do |format|
       format.html { redirect_to current_user }
@@ -30,7 +32,9 @@ class GoodsController < ApplicationController
     current_user.ungood(@kind, @model)
 
     @user = @model.user
-    @user.delete_good_notice(@kind, @model)
+    unless @user == current_user
+      @user.delete_good_notice(@kind, @model)
+    end
 
     respond_to do |format|
       format.html { redirect_to current_user }
