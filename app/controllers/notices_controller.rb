@@ -8,7 +8,7 @@ class NoticesController < ApplicationController
     #既読済みの過去通知の削除
     current_user.delete_past_notices_already_read(@notices)
 
-    urnotices = @notices.where.not(unread_count: 0)
+    urnotices = @notices.where.not(unread_count: 0).reorder(updated_at: :asc)
     if urnotices.any?
       urnotices.each do |urnotice|
         urnotice.update_attribute(:unread_count, 0)
@@ -69,12 +69,8 @@ class NoticesController < ApplicationController
         @gcomers << User.find(comgood.pluck(:user_id).first(2))
       end
     end
-    @gcnum = @gccounts.size - 1 
+    @gcnum = @gccounts.size - 1
+
   end
 
-  def create
-  end
-
-  def destroy
-  end
 end
