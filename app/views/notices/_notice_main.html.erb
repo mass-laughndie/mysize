@@ -37,12 +37,12 @@
   <% num -= 1 %>
 </div>
 <% if nkind == "gpost_list" %>
-  <%= render partial: 'notices/post_main',
+  <%= render partial: 'notices/notice_post',
              locals: { post: kickspost,
                        nkind: nkind,
                        content: kickspost.content } %>
 <% elsif nkind == "comment" || nkind == "reply" || nkind == "gcom_list" %>
-  <%= render partial: 'notices/post_main',
+  <%= render partial: 'notices/notice_post',
              locals: { nkind: nkind,
                        content: comment.comment_content } %>
 <% end %>
