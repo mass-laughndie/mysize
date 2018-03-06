@@ -5,15 +5,7 @@
     <div class="content-height">
       <div class="list-content clear">
         <div class="c index-left clear">
-          <div class="index-image">
-            <div class="abs-center">
-              <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
-                          user_path(user, display: "square"), class: "list-image" %>
-            </div>
-          </div>
-          <div class="index-size">
-            <%= user.shoe_size %>
-          </div>
+          <%= render  'shared/index_left', user: user %>
         </div>
         <div class="index-right">
           <div class="index-upper clear">

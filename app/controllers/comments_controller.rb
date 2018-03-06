@@ -11,9 +11,10 @@ class CommentsController < ApplicationController
       #自分のポストじゃないとき
       unless current_user.kicksposts.include?(@kickspost)
         #コメント通知作成
-        @kickspost.user.notice_from(params[:kind], @comment)
+        @user = @kickspost.user
+        @user.create_comment_notice(params[:kind], @comment)
         #通知カウント +1
-        @kickspost.user.increment!(:notice_count, by = 1)
+        @user.increment!(:notice_count, by = 1)
       end
       #返信通知作成
       msids = params[:comment][:comment_content].scan(/@[a-zA-Z0-9_]+\s/)
@@ -21,8 +22,8 @@ class CommentsController < ApplicationController
         msids.each do |msid|
           msid.delete!("@").delete!(" ")
           user = User.find_by(mysize_id: msid)
-          if user && user != @kickspost.user
-            user.notice_from("reply", @comment)
+          if user && user != @user
+            user.create_comment_notice("reply", @comment)
             user.increment!(:notice_count, by = 1)
           end
         end
@@ -31,7 +32,7 @@ class CommentsController < ApplicationController
     else
       flash[:danger] = "コメントを送信できませんでした"
     end
-    redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
+    redirect_to kickspost_path(@user.mysize_id, @kickspost)
   end
 
   def post_destroy

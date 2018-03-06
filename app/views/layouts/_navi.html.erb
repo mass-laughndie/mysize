@@ -9,8 +9,11 @@
     <div class="nav-link alist">
       <%= link_to(notice_path) do %>
         <i class="fa fa-bell">
-          <% if logged_in? && current_user.notice_count > 0 %>
-            <span id="notice-count"><%= current_user.notice_count %></span>
+          <% if logged_in? %>
+            <% ncount = current_user.notices.pluck(:unread_count).sum %>
+            <% if ncount > 0 %>
+              <span id="notice-count"><%= ncount %></span>
+            <% end %>
           <% end %>
         </i>
       <% end %>
