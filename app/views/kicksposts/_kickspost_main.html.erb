@@ -10,18 +10,18 @@
     <%= kickspost.content %>
   </div>
 </div>
-<div class="c kpost-right">
-  <div class="kpost-picture">
-    <div class="abs-center">
-      <%= link_to image_tag(picture_url(kickspost),
-                            alt: kickspost.content,
-                            size: 50),
-                  kickspost_path(kickspost.user.mysize_id, kickspost) %>
+<div class="c kpost-right-top">
+  <div class="kpost-picture abs-center">
+    <%= link_to image_tag(picture_url(kickspost),
+                          alt: kickspost.content,
+                          class: "cover"),
+                kickspost_path(kickspost.user.mysize_id, kickspost)  %>
+    <div class="kpost-size index-size">
+      <%= kickspost.size %>
     </div>
   </div>
-  <div class="kpost-size">
-    <%= kickspost.size %>
-  </div>
+</div>
+<div class="kpost-right-bottom">
   <div class="kpost-act">
     <div class="kpost-alist">
       <%= render partial: 'goods/good_form',

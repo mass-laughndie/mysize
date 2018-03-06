@@ -26,7 +26,7 @@
             <div class="post-line clear">
               <ul>
                 <% @kicksposts.each do |kickspost| %>                
-                  <%= render partial: 'kicksposts/main_post',
+                  <%= render partial: 'kicksposts/kickspost_text',
                              locals: { kickspost: kickspost,
                              comment_disnum: nil } %>
                 <% end %>

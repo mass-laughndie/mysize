@@ -17,6 +17,10 @@
         <%= link_to image_tag(image_url(kickspost.user), size: 34),
                     user_path(kickspost.user, display: "square") %>
       </div>
+      <div class="c post-shoesize">
+        <%= link_to kickspost.user.shoe_size,
+                    user_path(kickspost.user, display: "square") %>
+      </div>
       <div class="post-user">
         <div class="post-name">
           <%= link_to kickspost.user.name,
@@ -26,10 +30,6 @@
           <%= link_to fa_icon("at") + kickspost.user.mysize_id,
                       user_path(kickspost.user, display: "square") %>
         </div>
-      </div>
-      <div class="c post-shoesize">
-        <%= link_to kickspost.user.shoe_size,
-                    user_path(kickspost.user, display: "square") %>
       </div>
       <div class="c post-menu">
         <% if current_user == kickspost.user %>
@@ -55,7 +55,7 @@
             <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content),
                         kickspost_path(kickspost.user.mysize_id, kickspost) %>
           </div>
-          <div class="post-size">
+          <div class="c post-size">
             <%= kickspost.size %>
           </div>
         </div>
