@@ -1,0 +1,16 @@
+<div class="notice-images clear">
+  <% gccount = @gcomers[@gcomnum].to_a.size %>
+  <% @gcomers[@gcomnum].first(2).each do |user| %>
+    <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
+        user_path(user, display: "square"), class: "list-image" %>
+  <% end %>
+  <%= fa_icon("ellipsis-h") if gccount >= 6 %>
+</div>
+<div class="notice-text">
+  <% if gccount >= 2 %>
+    <span><%= @gcomers[@gcomnum][0].name %></span>さん, 他 <%= gccount - 1 %>人があなたのコメントにグッドをしています。
+  <% else %>
+    <span><%= @gcomers[@gcomnum][0].name %></span>さんがあなたのコメントにグッドをしています。
+  <% end %>
+</div>
+<% @gcomnum -= 1 %>

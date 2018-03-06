@@ -7,29 +7,66 @@ class NoticesController < ApplicationController
     @notices   = current_user.notices.includes(:user)
     #既読済みの過去通知の削除
     current_user.delete_past_notices_already_read(@notices)
-    if current_user.notice_count > 0
-      current_user.decrement!(:notice_count, by = current_user.notice_count)
+
+    urnotices = @notices.where.not(unread_count: 0)
+    if urnotices.any?
+      urnotices.each do |urnotice|
+        urnotice.update_attribute(:unread_count, 0)
+      end
     end
+
     #全通知リスト
-    @notice_lists = @notices.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "follow_list", "comment", "reply").reorder(updated_at: :desc)
+    @notice_lists = @notices.where("kind LIKE (?) OR kind IN (?) OR kind IN (?)",
+                                   "%_list%", "comment", "reply")
+                            .reorder(updated_at: :desc)
 
     #期間ごとのフォロワーの２重配列作成
     @follow_lists = @notices.where(kind: "follow_list")     #フォロー通知リスト
     @followers = []                                         #フォロワー格納配列
     @follow_lists.each do |list|  #list=>各フォロー通知リスト
-      #リストを作成した週のfollow通知
-      fnotice = @notices.where(kind: "follow", created_at: that_week(list.created_at))
-      #リストを作成した週のrelationship
-      relation = Relationship.where(id: fnotice.pluck(:kind_id))
-      #relationからフォロワーを検索して新しい順に並べた配列をフォロワー格納配列へ
-      @followers << User.where(id: relation.pluck(:follower_id)).order(created_at: :desc)
+      #リストを作成した週のrelationship(最新順)
+      relations = current_user.passive_relationships.where(created_at: that_week(list.created_at)).order(created_at: :desc)
+      #frelationshipがない場合(念のため、基本は事前にlistが削除されているためfalseになるはず)
+      if relations.blank?
+        list.destroy  #list削除
+      else
+        #期間内のフォロワーを新しい順に並べた配列をフォロワー格納配列へ
+        follower = User.find(relations.pluck(:follower_id))
+        @followers << follower
+      end
     end
-
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
-    @num = 0
+    @fnum = 0
 
-    # @comments  = Comment.where(id: @notices.where(kind: "comment").pluck(:kind_id)).order(created_at: :desc)
-    # @replies   = Comment.where(id: @notices.where(kind: "reply").pluck(:kind_id)).order(created_at: :desc)
+    #ポストごとのgoodの２重配列作成
+    @gpost_lists = @notices.where(kind: "gpost_list")     #gpost通知リスト
+    @gposters = []                                         #goodとした人を格納する配列
+    @gpost_lists.each do |list|
+      #postへのgood
+      postgood = Good.where(kind: "gpost", kind_id: list.kind_id).order(created_at: :desc)
+      if postgood.blank?
+        list.destroy
+      else
+        gposter = User.find(postgood.pluck(:user_id))
+        @gposters << gposter
+      end
+    end
+    @gpostnum = @gposters.size - 1
+
+    #ポストごとのgoodの２重配列作成
+    @gcom_lists = @notices.where(kind: "gcom_list")     #gpost通知リスト
+    @gcomers = []                                         #goodとした人を格納する配列
+    @gcom_lists.each do |list|
+      #postへのgood
+      comgood = Good.where(kind: "gcom", kind_id: list.kind_id).order(created_at: :desc)
+      if comgood.blank?
+        list.destroy
+      else
+        gcomer = User.find(comgood.pluck(:user_id))
+        @gcomers << gcomer
+      end
+    end
+    @gcomnum = @gcomers.size - 1 
   end
 
   def create

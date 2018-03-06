@@ -1,9 +1,12 @@
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
-  <% if notice.kind == "comment" || notice.kind == "reply" %>
+  <% if notice.kind == "comment" || notice.kind == "reply" || notice.kind == "gcomlist" %>
     <% comment = Comment.find_by(id: notice.kind_id) %>
-    <a class="content-link" href="<%= kickspost_url(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
+    <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
   <% elsif notice.kind == "follow_list" %>
     <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
+  <% elsif notice.kind == "gpost_list" %>
+    <% kickspost = Kickspost.find_by(id: notice.kind_id) %>
+    <a class="content-link" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>"></a>
   <% end %>
   <div class="content-abs">
     <div class="content-height">
@@ -18,8 +21,14 @@
           <%= render partial: 'notices/comment_notice',
                      locals: {comment: comment,
                               notice: notice } %>
-        <% elsif notice.kind == "like" %>
-          <span>other</span>
+        <% elsif notice.kind == "gpost_list" %>
+          <%= render partial: 'notices/gpost_notice',
+                     locals: {kickspost: kickspost,
+                              notice: notice } %>
+        <% elsif notice.kind == "gcom_list" %>
+          <%= render partial: 'notices/gcom_notice',
+                     locals: {comment: comment,
+                              notice: notice } %>
         <% end %>
       </div>
     </div>

@@ -1,15 +1,16 @@
 <div class="notice-images clear">
-  <% @followers[@num].first(5).each do |user| %>
+  <% fcount = @followers[@fnum].to_a.size  %>
+  <% @followers[@fnum].first(2).each do |user| %>
     <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
         user_path(user, display: "square"), class: "list-image" %>
   <% end %>
-  <%= fa_icon("ellipsis-h") if @followers[@num].count >= 6 %>
+  <%= fa_icon("ellipsis-h") if fcount >= 6 %>
 </div>
 <div class="notice-text">
-  <% if @followers[@num].count >= 2 %>
-    <span><%= @followers[@num][0].name %></span>さん, 他 <%= @followers[@num].count - 1 %>人にフォローされています。
+  <% if fcount >= 2 %>
+    <span><%= @followers[@fnum][0].name %></span>さん, 他 <%= fcount - 1 %>人にフォローされています。
   <% else %>
-    <span><%= @followers[@num][0].name %></span>さんにフォローされています。
+    <span><%= @followers[@fnum][0].name %></span>さんにフォローされています。
   <% end %>
 </div>
-<% @num += 1 %>
+<% @fnum += 1 %>

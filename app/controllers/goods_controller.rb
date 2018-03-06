@@ -2,16 +2,16 @@ class GoodsController < ApplicationController
   before_action :logged_in_user
 
   def create
-    if params[:kind] == "post"
+    @kind = params[:kind]
+    if @kind == "gpost"
       @model = Kickspost.find_by(id: params[:kind_id])
-      @kind = params[:kind]
-    else params[:kind] == "comment"
+    else @kind == "gcom"
       @model = Comment.find_by(id: params[:kind_id])
-      @kind = params[:kind]
     end
+    @good = current_user.good(@kind, @model)
 
     @user = @model.user
-    @good = current_user.good(@kind, @model)
+    @user.create_good_notice(@kind + "_list", @model)
 
     respond_to do |format|
       format.html { redirect_to current_user }
@@ -22,16 +22,16 @@ class GoodsController < ApplicationController
   def destroy
     @good = Good.find(params[:id])
     @kind = @good.kind
-
-    if @kind == "post"
+    if @kind == "gpost"
       @model = Kickspost.find_by(id: @good.kind_id)
-    elsif @kind == "comment"
+    elsif @kind == "gcom"
       @model = Comment.find_by(id: @good.kind_id)
     end
+    current_user.ungood(@kind, @model)
 
     @user = @model.user
-    current_user.ungood(@kind, @model)
-    
+    @user.delete_good_notice(@kind, @model)
+
     respond_to do |format|
       format.html { redirect_to current_user }
       format.js

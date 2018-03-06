@@ -205,25 +205,25 @@ class User < ApplicationRecord
     following.include?(other)
   end
 
-  def notice_from(kind, model)
+  def create_comment_notice(kind, model)
     notices.create(kind: kind, kind_id: model.id)
   end
 
-  def notice_delete(kind, model)
+  def delete_comment_notice(kind, model)
     notices.where(kind: kind, kind_id: model.id).each do |notice|
       notice.destroy
     end
   end
 
   #list系の更新or作成
-  def week_notice_list(kind_list, model)
+  def create_follow_notice(kind_list, model)
     # this_day = Time.zone.now.all_day
     this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice_list = self.notices.find_by(kind: kind_list, created_at: this_week)
+    notice = self.notices.find_by(kind: kind_list, created_at: this_week)
     #今週のlistがある場合
-    if notice_list
+    if notice
       #listのupdated_atを更新 => noticeビューの上段に持ってくる
-      notice_list.touch
+      notice.increment!(:unread_count, by = 1)
     #ない場合
     else
       #list作成(kind_idはlistの最初のnotice内のkind_idと同じ
@@ -232,48 +232,15 @@ class User < ApplicationRecord
     end
   end
 
-  #期間periodないのlist系通知の要素が空の場合に削除
-  def week_notice_list_delete(kind, period)
-    # this_day = Time.zone.now.all_day
-    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice = self.notices.where(kind: kind, created_at: period)
+  #期間period内のlist系通知の要素が空の場合に削除
+  def delete_follow_notice(kind_list, period)
+    #期間内のフォローされた履歴
+    relations = self.passive_relationships.where(created_at: period)
     #期間中に特定のnoticeが１つもない場合
-    if notice.blank?
-      #そのnoticeのlistがあれば削除
-      if notice_list = notices.find_by(kind: kind + "_list", created_at: period)
+    if relations.blank?
+      #その期間のlistがあれば削除(基本あるはず)
+      if notice_list = notices.find_by(kind: kind_list, created_at: period)
         notice_list.destroy
-      end
-    end
-  end
-
-  #既読済みの期間以前の通知を削除
-  #notices = current_userの全通知
-  def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]10.week.ago)
-    deleteline = Time.new(2000,1,1)..10.week.ago
-    #list計以外の通知(要素通知)
-    enotices = notices.where.not(kind: "follow_list")
-    #既読数 = 要素通知数 - 未読通知数
-    readnum = enotices.count - self.notice_count
-
-    #削除ライン以前の要素通知
-    cnotices = enotices.where(created_at: deleteline)
-    #存在する && 既読がある場合
-    if cnotices.any? && readnum > 0
-      #cnoticesの既読済みを抽出して削除
-      cnotices.last(readnum).each do |notice|
-        notice.destroy
-      end
-
-      #空になったlistも削除
-      #削除ライン以前のlist系抽出
-      flnotices = notices.where(kind: "follow_list", created_at: deleteline)
-      #存在する場合
-      if flnotices.any?
-        #各list系通知の期間内の要素が空なら削除
-        flnotices.each do |list|
-          self.week_notice_list_delete("follow", list.created_at.beginning_of_week..list.created_at.end_of_week)
-        end
       end
     end
   end
@@ -290,6 +257,79 @@ class User < ApplicationRecord
     goods.where(kind: kind).pluck(:kind_id).include?(model.id)
   end
 
+  def create_good_notice(kind_list, model)
+    notice = self.notices.find_by(kind: kind_list, kind_id: model.id)
+    #そのポストのlistがある場合
+    if notice
+      #listのupdated_atを更新 => noticeビューの上段に持ってくる
+      notice.increment!(:unread_count, by = 1)
+    #ない場合
+    else
+      #list作成(kind_idはmodelのidと同じ
+      notices.create(kind: kind_list, kind_id: model.id)
+    end
+  end
+
+  #postのlist系通知の要素が空の場合に削除
+  def delete_good_notice(kind, model)
+    goods = Good.where(kind: kind, kind_id: model.id)
+    #期間中に特定のnoticeが１つもない場合
+    if goods.blank?
+      #そのnoticeのlistがあれば削除
+      if notice_list = notices.find_by(kind: kind + "_list", kind_id: model.id)
+        notice_list.destroy
+      end
+    end
+  end
+
+  #既読済みの期間以前の通知を削除
+  #notices = current_userの全通知
+  def delete_past_notices_already_read(notices)
+    #削除ライン([テスト]1.day.ago => [本番]10.week.ago)
+    deleteline = Time.new(2000,1,1)..25.week.ago
+    #削除ライン以前に更新された未読0の通知
+    exnotices = notices.where(unread_count: 0, updated_at: deleteline)
+    exnotices.destroy_all
+=begin
+    #既読数 = 要素通知数 - 未読通知数
+    readnum = enotices.count - self.notice_count
+
+    #削除ライン以前の要素通知
+    cnotices = enotices.where(created_at: deleteline)
+    #存在する && 既読がある場合
+    if cnotices.any? && readnum > 0
+      #cnoticesの既読済みを抽出して削除
+      cnotices.last(readnum).each do |notice|
+        notice.destroy
+      end
+
+      #空になったlistも削除
+      #削除ライン以前のlist系抽出
+      list_notices = notices
+                      .where('kind LIKE ?', '%_list%')
+                      .where(created_at: deleteline)
+      #存在する場合
+      if list_notices.any?
+        #各list系通知の期間内の要素が空なら削除
+        list_notices.each do |list|
+          #listの要素kind名抽出
+          lkind = list.kind.sub(/_list/, '')
+          if lkind == "follow"
+            list_week = list.created_at.beginning_of_week..list.created_at.end_of_week
+            self.week_follow_notice_delete(lkind, list_week)
+          else
+            if lkind == "gpost"
+              post = Kickspost.find_by(id: list.kind_id)
+            elsif lkind == "gcom"
+              post = Comment.find_by(id: list.kind_id)
+            end
+            self.post_notice_list_delete(lkind, post)
+          end
+        end
+      end
+    end
+=end
+  end
 
   private
 

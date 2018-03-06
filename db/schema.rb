@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180304064622) do
+ActiveRecord::Schema.define(version: 20180305120132) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_content"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180304064622) do
     t.integer "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "unread_count", default: 1
     t.index ["user_id", "created_at"], name: "index_notices_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_notices_on_user_id"
   end

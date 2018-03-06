@@ -1,19 +1,19 @@
 <li id="good-list-<%= good.id %>" class="good-list kpost-main link-list">
-  <% if good.kind == "comment" %>
+  <% if good.kind == "gcom" %>
     <% comment = Comment.find_by(id: good.kind_id) %>
     <a class="content-link" href="<%= kickspost_url(comment.kickspost.user.mysize_id, comment.kickspost, display: 'text') %>"></a>
-  <% elsif good.kind == "post" %>
+  <% elsif good.kind == "gpost" %>
     <% kickspost = Kickspost.find_by(id: good.kind_id) %>
     <a class="content-link" href="<%= kickspost_url(kickspost.user.mysize_id, kickspost, display: 'text') %>"></a>
   <% end %>
   <div class="content-abs">
     <div class="content-height">
       <div class="list-content clear">
-        <% if good.kind == "comment" %>
+        <% if good.kind == "gcom" %>
           <%= render partial: 'comments/comment_main',
                      locals: { comment: comment,
                                good: good } %>
-        <% elsif good.kind == "post" %>
+        <% elsif good.kind == "gpost" %>
           <%= render partial: 'kicksposts/kickspost_main',
                      locals: { kickspost: kickspost,
                                good: good } %>
