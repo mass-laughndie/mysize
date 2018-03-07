@@ -1,5 +1,5 @@
 <div class="c inner-form search-form">
-  <%= form_tag(search_path,
+  <%= form_tag(yield(:search_url),
                method: "get",
                enforce_utf8: false) do %>
     <%= text_field_tag :keyword, params[:keyword],

@@ -27,7 +27,7 @@
         <% elsif notice.kind == "reply" %>
           <%= render partial: 'notices/notice_main',
                      locals: { comment: comment,
-                               users: comment.user,
+                               user: comment.user,
                                count: 1,
                                num: 0,
                                nkind: notice.kind } %>
