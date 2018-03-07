@@ -1,4 +1,4 @@
-<% unless nkind == "comment" || nkind == "reply" %>
+<% unless nkind.in?(["comment", "reply"]) %>
   <% count = counts[num] %>
 <% end %>
 <div class="notice-main clear">
@@ -12,7 +12,7 @@
         <% end %>
       </div>
     <% else %>
-      <% unless nkind == "comment" || nkind == "reply" %>
+      <% unless nkind.in?(["comment", "reply"]) %>
         <% user = users[num][0] %>
       <% end %>
       <div class="abs-center">
@@ -22,7 +22,7 @@
     <% end %>
   </div>
   <div class="notice-text notice-comment-text">
-    <% unless nkind == "comment" || nkind == "reply" %>
+    <% unless nkind.in?(["comment", "reply"]) %>
       <%= render partial: 'notices/notice_text',
                  locals: { uname: users[num][0].name,
                            count: count,
@@ -41,7 +41,7 @@
              locals: { post: kickspost,
                        nkind: nkind,
                        content: kickspost.content } %>
-<% elsif nkind == "comment" || nkind == "reply" || nkind == "gcom_list" %>
+<% elsif nkind.in?(["comment", "reply", "gcom_list"]) %>
   <%= render partial: 'notices/notice_post',
              locals: { nkind: nkind,
                        content: comment.comment_content } %>

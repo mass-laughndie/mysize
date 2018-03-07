@@ -11,7 +11,7 @@
             返信<%= fa_icon('reply')%>
           </span>
         <% end %>
-        <% if current_user == comment.user || current_user == kickspost.user %>
+        <% if current_user.in?([comment.user, kickspost.user]) %>
           <span class="comment-act comment-delete">
             <%= render 'comments/comment_delete', comment: comment %>
           </span>

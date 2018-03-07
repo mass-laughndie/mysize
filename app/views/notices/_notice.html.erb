@@ -1,5 +1,5 @@
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
-  <% if notice.kind == "comment" || notice.kind == "reply" || notice.kind == "gcom_list" %>
+  <% if notice.kind.in?(["comment", "reply", "gcom_list"]) %>
     <% comment = Comment.find_by(id: notice.kind_id) %>
     <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
   <% elsif notice.kind == "follow_list" %>
@@ -17,14 +17,7 @@
                                counts: @fcounts,
                                num: @fnum,
                                nkind: notice.kind } %>
-        <% elsif notice.kind == "comment" %>
-          <%= render partial: 'notices/notice_main',
-                     locals: { comment: comment,
-                               user: comment.user,
-                               count: 1,
-                               num: 0,
-                               nkind: notice.kind } %>
-        <% elsif notice.kind == "reply" %>
+        <% elsif notice.kind.in?(["comment", "reply"]) %>
           <%= render partial: 'notices/notice_main',
                      locals: { comment: comment,
                                user: comment.user,

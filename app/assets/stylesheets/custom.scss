@@ -1548,7 +1548,9 @@ nav {
 }
 
 .search-select {
-  margin-bottom: 20px;
+  .search-list {
+    width: 33.3%;
+  }
 }
 
 /* comment */
