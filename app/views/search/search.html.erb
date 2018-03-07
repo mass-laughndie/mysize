@@ -30,8 +30,7 @@
               <ul>
                 <% @kicksposts.each do |kickspost| %>                
                   <%= render partial: 'kicksposts/kickspost_text',
-                             locals: { kickspost: kickspost,
-                             comment_disnum: nil } %>
+                             locals: { kickspost: kickspost } %>
                 <% end %>
               </ul>
             </div>
@@ -47,9 +46,8 @@
             <div class="post-line clear">
               <ul>
                 <% @comments.each do |comment| %>
-                  <%= render partial: 'comments/comment',
-                             locals: { comment: comment,
-                                       list: "text" } %>
+                  <%= render partial: 'comments/comment_text',
+                             locals: { comment: comment } %>
                 <% end %>
               </ul>
             </div>
