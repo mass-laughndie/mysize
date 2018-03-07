@@ -8,6 +8,7 @@ $accent: #ff0000;  /* red */
 $waccent: #ff6666; /* week red*/
 $test: #e6e6fa;
 $back: #fafafa;
+$weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
@@ -33,16 +34,13 @@ body {
   background: $back;
   font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   position: relative;
-  padding: 51px 0;
+  padding: 51px 0 121px;
 }
 
 a {
-  color: $main;
+  color: $base-grey;
   text-decoration: none;
 
-  .fa {
-    color: $base-grey;
-  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -139,6 +137,7 @@ input, textarea, select {
 
 .content-sspace {
   background: $base;
+  border-bottom: 1px solid #eee;
   padding: 10px;
   position: relative;
 }
@@ -189,6 +188,25 @@ header {
   position: relative;
 }
 
+.select-form {
+  border-bottom: 1px solid $weak-grey;
+  height: 41px;
+  width: 100%;
+
+  .select-list {
+    background: #fff;
+    float: left;
+    height: 100%;
+    width: 50%;
+
+    a {
+      display: block;
+      font-weight: 550;
+      height: 100%;
+      line-height: 40px;
+    }
+  }
+}
 
 .atention {
   margin: 0 auto;
@@ -315,7 +333,7 @@ nav {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 23;
+  z-index: 101;
   border-top: 1px solid #eee;
   height: 51px;
 }
@@ -339,7 +357,26 @@ nav {
     .fa-05x {
      font-size: 0.5em;
     }
+
+    .fa-bell {
+      position: relative;
+    }
   }
+}
+
+#notice-count {
+  background: $accent;
+  border-radius: 50%;
+  color: #fff;
+  display: block;
+  font-size: 0.5em;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: 15px;
+  line-height: 15px;
+  width: 15px;
+  z-index: 25;
 }
 
 /* footer */
@@ -389,6 +426,54 @@ nav {
   }
 }
 
+/* other fixed */
+
+.fixed {
+  background: #fff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99; 
+}
+
+.fixed-top {
+  top: 51px;
+}
+
+.fixed-bottom {
+  bottom: 51px;
+}
+
+.search-space {
+  height: 51px;
+}
+
+.search-height {
+  height: 50px;
+  padding: 10px;
+}
+
+.commemt-space {
+  height: 70px;
+}
+
+.comment-height {
+  height: 70px;
+}
+
+/* home */
+
+.home-select {
+  height: 51px;
+  margin-bottom: 20px;
+
+  .home-list {
+    a {
+      line-height: 50px;
+    }
+  }
+}
+
 /* profile */
 
 .profile-top {
@@ -397,7 +482,7 @@ nav {
   width: 100%;
 }
 
-.user_icon {
+.user-icon {
   float: left;
   height: 100%;
   position: relative;
@@ -421,7 +506,7 @@ nav {
 }
 */
 
-.user_stats {
+.user-stats {
   float: left;
   height: 100%;
   margin: 0 2%;
@@ -429,6 +514,7 @@ nav {
   width: 74%;
 
   a {
+    color: $main;
     display: block;
     float: left;
     font-size: 0.65em;
@@ -452,6 +538,7 @@ nav {
 
 .user-text {
   float: left;
+  padding-left: 2%;
   position: relative;
   width: 50%;
 }
@@ -472,13 +559,14 @@ nav {
   border-radius: 5px;
   font-size: 0.7em;
   font-weight: 600;
-  float: left;
+  float: right;
   height: 30px;
   margin: 8px 2% 12px;
   position: relative;
   width: 36%;
 
   a {
+    color: $main;
     display: block;
     line-height: 28px;
     text-align: center;
@@ -490,7 +578,7 @@ nav {
   border: 1px solid $twi-grey;
   border-radius: 5px;
   font-size: 0.9em;
-  float: left;
+  float: right;
   height: 30px;
   margin: 8px 0 12px;
   position: relative;
@@ -515,65 +603,15 @@ nav {
   width: 50%;
 }
 
-.follow-form {
+.profile-follow {
   font-size: 0.7em;
-  float: left;
   height: 32px;
   margin: 7px auto 11px;
   position: absolute;
-  right: 5%;
+  right: 13%;
   width: 52px;
 }
 
-.form-follow {
-  background: #fff;
-  border: 1px solid $accent;
-  border-radius: 3px;
-  height: 30px;
-  width: 50px;
-
-  form,
-  button {
-    color: $accent;
-    display: block;
-    font-size: 14px;
-    height: 100%;
-    width: 100%;
-
-    .fa {
-      margin: 1px;
-    }
-
-    .fa-plus {
-      font-size: 10px;
-    }
-  }
-}
-
-
-.form-unfollow {
-  background: $accent;
-  border-radius: 3px;
-  height: 30px;
-  width: 50px;
-
-  form,
-  button {
-    color: #fff;
-    display: block;
-    font-size: 14px;
-    height: 100%;
-    width: 100%;
-
-    .fa {
-      margin: 1px;
-    }
-
-    .fa-check {
-      font-size: 10px;
-    }
-  }
-}
 
 .profile-bottom {
 
@@ -596,22 +634,15 @@ nav {
 }
 
 .post-select {
-  background: $base;
-  border-top: 1px solid $back;
-  border-bottom: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 52px;
-  position: relative;
-}
 
-.post-list {
-  float: left;
-  font-size: 1.1em;
-  line-height: 50px;
-  position: relative;
-  width: 33.3%;
-
-  a {
-    display: block;
+  .post-list {
+    font-size: 1.1em;
+    width: 33.3%;
+    a {
+      line-height: 50px;
+    }
   }
 }
 
@@ -648,9 +679,10 @@ nav {
 
 .post-icon {
   float: left;
-  margin-right: 10px;
+  margin-right: 40px;
   position: relative;
   width: 34px;
+  z-index: 20;
 
   a {
     display: block;
@@ -664,9 +696,8 @@ nav {
 
 .post-user {
   float: left;
-  margin-right: 16px;
   position: relative;
-  width: 63%;
+  width: 70%;
 
   .post-name {
     font-size: 0.8em;
@@ -676,29 +707,38 @@ nav {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+
+    a {
+      color: $main;
+      display: inline-block;
+      width: 100%;
+    }
   }
 
   .post-mysizeid {
     font-size: 0.7em;
     line-height: 16px;
     a {
-      color: $base-grey;
+      color: $main;
     }
   }
 }
 
 .post-shoesize {
-  border: 1px solid $base-grey;
-  border-radius: 5px;
-  margin: 3px 0;
+  background: rgba(255,0,0,0.40);
+  border-radius: 50%;
+  height: 30px;
+  line-height: 30px;
+  margin: 2px;
   position: absolute;
-  right: 50px;
+  left: 38px;
+  width: 30px;
 
   a {
-    color: $base-grey;
+    color: $base;
     display: block;
-    font-size: 12px;
-    padding: 3px 7px;
+    font-size: 0.60em;
+    letter-spacing: 0.4px;
   }
 }
 
@@ -707,6 +747,7 @@ nav {
   position: absolute;
   right: 12px;
   width: 24px;
+  z-index: 20;
 
   .post-nav {
     display: block;
@@ -768,12 +809,6 @@ nav {
       left: 0;
       width: 100%;
 
-      .cover {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
     }
   }
 
@@ -784,12 +819,20 @@ nav {
   }
 }
 
+.cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .kicks-size {
   background: rgba(0,0,0,0.2);
   border-radius: 5px;
   color: #fff;
-  font-size: 13px;
-  padding: 4px 7px;
+  font-size: 0.65em;;
+  letter-spacing: 0.5px;
+  padding: 3px 6px;
   pointer-events: none;
   position: absolute;
   right: 3px;
@@ -815,34 +858,39 @@ nav {
         }
       }
     }
-
-    .post-size {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-      color: #fff;
-      font-size: 13px;
-      padding: 4px 7px;
-      pointer-events: none;
-      position: absolute;
-      right: 6px;
-      bottom: 6px;
-    }
   }
 
-  .post-react {
+  .post-act {
     height: 40px;
-    padding: 3px;
-    a {
-      display: inline-block;
-      text-align: center;
+    padding: 3px 16px;
+    
+    .good-act {
+      height: 34px;
+      line-height: 34px;
       width: 34px;
-
-      i {
+      button {
         display: block;
-        line-height: 34px;
+        i {
+          font-size: 1.5em;
+        }
       }
     }
   }
+}
+
+.post-size {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  color: $base;
+  font-size: 0.9em;
+  height: 40px;
+  letter-spacing: 0.5px;
+  line-height: 40px;
+  pointer-events: none;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 40px;
 }
 
 .post-bottom {
@@ -850,22 +898,29 @@ nav {
   padding: 0 16px;
 
   .post-content {
+    color: $main;
     margin: 5px 0;
     word-wrap: break-word;
-    a {
-      font-weight: 600;
-      margin-right: 0.3em;
-    }
   }
+
   .post-time {
     color: $base-grey;
     font-size: 10px;
   }
 }
 
+.content-name {
+  color: $main;
+  float: left;
+  font-weight: 600;
+  margin-right: 0.3em;
+  position: relative;
+  z-index: 10;
+}
+
 .no-post {
   background: $back;
-  margin: 75px 0;
+  padding: 75px 0;
 
   i {
     color: $base-grey;
@@ -911,6 +966,116 @@ nav {
       width: 67%;
     }
   }
+}
+
+/* kickspost show */
+
+.kpost-select {
+  height: 51px;
+
+  .kpost-list {
+    position: relative;
+
+    a {
+      line-height: 50px;
+    }
+  }
+}
+
+.kpost-main {
+  position: relative;
+  width: 100%;
+
+  .kpost-left {
+    .kpost-icon {
+      margin-top: 10px;
+    }
+
+    .kpost-shoesize {
+      a {
+        color: $main;
+      }
+    }
+  }
+
+  .kpost-center {
+    float: left;
+    margin: 0 3%;
+    width: 62%;
+    word-wrap: break-word;
+
+    .kpost-name {
+      margin: 5px 0;
+      a {
+        color: $main;
+        font-weight: 550;
+      }
+    }
+  }
+
+  .kpost-right {
+    float: right;
+    position: relative;
+    width: 17%;
+
+    .kpost-right-top {
+      position: relative;
+      width: 100%;
+
+      .kpost-picture {
+        margin: 10px 0 40px;
+        position: relative;
+        height: 55px;
+        width: 55px;
+  
+        a {
+          display: block;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 10;
+        }
+      }
+  
+      .kpost-picture:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+
+      .kpost-size {
+        background: rgba(0,0,0,0.30);
+        color: #fff;
+        bottom: -26px;
+        right: -5px;
+      }
+    }
+  }
+}
+
+.kpost-right-bottom {
+  position: relative;
+  width: 100%;
+
+  .kpost-act {
+    .kpost-alist {
+      cursor: pointer;
+      height: 35px;
+      line-height: 35px;
+      margin-top: 10px;
+      position: relative;
+      width: 100%;
+      z-index: 25;
+    }
+  }
+}
+
+.kcomment-list {
+  padding: 10px 20px 20px;
+  position: relative;
+  width: 100%;
 }
 
   /* material */
@@ -1039,7 +1204,100 @@ nav {
   }
 }
 
+.form-follow {
+  background: #fff;
+  border: 1px solid $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
 
+  form,
+  button,
+  a {
+    color: $accent;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-plus {
+      font-size: 10px;
+    }
+  }
+}
+
+
+.form-unfollow {
+  background: $accent;
+  border-radius: 3px;
+  height: 30px;
+  width: 50px;
+
+  form,
+  button {
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+
+    .fa {
+      margin: 1px;
+    }
+
+    .fa-check {
+      font-size: 10px;
+    }
+  }
+}
+
+.good-form {
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  .form-good,
+  .form-ungood {
+    height: 100%;
+    width: 100%;
+    form,
+    button {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .form-ungood {
+    form button .fa {
+      color: $waccent;
+    }
+  }
+}
+
+/* active */
+
+.active {
+  color: $waccent;
+}
+
+.aline {
+  position: relative;
+
+  .active:after {
+    background: $waccent;
+    content: "";
+    display: block;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+  }
+}
 
 /* error */
 
@@ -1106,6 +1364,82 @@ nav {
   }
 }
 
+/* link-list */
+
+.link-list {
+  position: relative;
+  width: 100%; 
+
+  .content-link {
+    display: block;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 5;
+  }
+
+  .content-abs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  
+    .content-height {
+      width: 100%;
+
+      .list-content {
+        border-bottom: 1px solid $weak-grey;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
+
+.list-image {
+  display: block;
+  float: left;
+  height: 40px;
+  margin: 5px;
+  position: relative;
+  width: 40px;
+  z-index: 10;
+
+  img {
+    border-radius: 17.5%;
+    display: block;
+  }
+}
+
+.list-image-0,
+.list-image-1 {
+  background: #fff;
+  border-radius: 5px;
+  height: 40px;
+  padding: 3px;
+  width: 40px;
+
+  img {
+    display: block;
+    border-radius: 5px;
+  }
+}
+
+.list-image-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.list-image-0 {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  z-index: 2;
+}
+
 /* settings */
 
 .setting-select {
@@ -1120,6 +1454,7 @@ nav {
   height: 61px;
 
   a {
+    color: $main;
     display: block;
     padding: 10px 3%;
     position: relative;
@@ -1135,7 +1470,7 @@ nav {
       .sss {
         font-size: 0.7em;
         font-weight: 400;
-        color: $twi-grey;
+        color: $base-grey;
       }
     }
 
@@ -1164,80 +1499,244 @@ nav {
   }
 }
 
-/* user index */
 
-.user-list {
-  border-bottom: 1px solid $back;
+/* search, comment */
+
+.inner-form {
   display: block;
-  height: 100%;
-  position: relative;
-}
+  height: 30px;
+  width: 100%;
 
-.index-data {
-  display: block;
-  height: 140px;
-  padding: 2%;
-}
+  form {
+    background: $weak-grey;
+    border-radius: 5px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    width: 90%;
 
-.index-left {
-  height: 100%;
-  float: left;
-  width: 20%;
-}
+    input {
+      background: $weak-grey;
+      border-radius: 5px;
+      border: none;
+      color: #000;
+      font-size: 12px;
+      height: 100%;
+      padding: 5px 30px 5px 15px;
+      position: relative;
+      width: 100%;
+    }
 
-.index-image {
-  height: 60%;
-}
+    input:focus {
+      outline: none;
+    }
 
-.index-size {
-  height: 40%;
-}
+    .inner-button {
+      height: 100%;
+      position:absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
 
-.index-center {
-  float: left;
-  height: 30%;
-  width: 76%;
-}
-
-.index-name {
-  height: 50%;
-}
-
-.index-mysizeid {
-  height: 50%;
-  font-size: 0.8em;
-  color: $base-grey;
-}
-
-.index-profile {
-  float: left;
-  height: 66%;
-  line-height: 1em;
-  margin: 2% 0;
-  width: 76%;
-}
-
-.act-form {
-  position: absolute;
-  top: 8%;
-  right: 4%;
-  z-index: 10;
-
-  a {
-    border: 1px solid $accent;
-    border-radius: 4px;
-    color: $accent;
-    display: block;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    padding: 1px 8px;
-
-    .fa-plus {
-      font-size: 0.7em;
-      margin: 2px auto;
+      button {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
     }
   }
 }
+
+.search-select {
+  margin-bottom: 20px;
+}
+
+/* comment */
+
+.post-comment {
+  font-size: 14px;
+  position: relative;
+  width: 100%;
+
+  .comment-list {
+    padding-bottom: 5px;
+    width: 100%;
+
+    .comment-content {
+      position: relative;
+      word-wrap: break-word;
+    
+      .comment-act {
+        height: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.com-link {
+  /*color: rgba(0,53,105,0.85);*/
+  color: $accent;
+  font-weight: 550;
+  position: relative;
+  z-index: 25;
+}
+
+.comment-lead {
+  margin-bottom: 5px;
+  a {
+    color: $waccent;
+    font-size: 13px;
+    font-weight: 550;
+  }
+}
+
+.comment-form {
+  height: 70px;
+  padding: 20px 0;
+/*
+  form {
+    background: $base;
+  }
+
+  form input {
+    background: $base;
+    border: 1px solid $twi-grey;
+    border-radius: 8px;
+  }
+*/
+}
+
+/* notice */
+
+.notice-main {
+  position:relative;
+  width: 100%; 
+}
+
+.notice-images {
+  height: 50px;
+  margin: 5px 10px 10px;
+}
+
+.notice-text {
+  span {
+    font-weight: 600;
+  }
+}
+
+.notice-icon {
+  float: left;
+  height: 60px;
+  position: relative;
+  width: 15%;
+}
+
+.notice-comment-text {
+  float: right;
+  margin:  5px 0;
+  padding-left: 1.5%; 
+  width: 83.5%;
+}
+
+.notice-comment-content {
+  float: right;
+  padding-left: 1.5%; 
+  width: 83.5%;
+}
+
+.npost-main {
+  position: relative;
+  width: 100%;
+
+  .npost-picture {
+    height: 50px;
+    margin: 10px 0;
+    position: relative;
+    width: 100%;
+  }
+}
+
+/* user index */
+
+.index-left {
+  float: left;
+  position: relative;
+  width: 15%;
+
+  .index-image {
+    height: 50px;
+    margin-top: 5px;
+    position: relative;
+    width: 50px;
+  }
+
+}
+
+.index-size {
+  background: rgba(255,0,0,0.45);
+  border-radius: 50%;
+  font-size: 0.60em;
+  height: 30px;
+  letter-spacing: 0.4px;
+  line-height: 32px;
+  text-align: center;
+  position: absolute;
+  bottom: -21px;
+  right: -0.5px;
+  width: 30px;
+  a {
+    color: #fff !important;
+  }
+}
+
+.index-right {
+  float: right;
+  margin-left: 3%;
+  width: 82%;
+
+  .index-upper {
+    margin: 5px 0 10px;
+    width: 100%;
+
+    .index-text {
+      float: left;
+      margin-right: 2%;
+      width: 79%;
+    }
+
+    .index-follow {
+      float: right;
+      height: 30px;
+      margin-top: 10px;
+      position: relative;
+      width: 19%;
+    }
+  }
+}
+
+.abs-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 100%;
+  z-index: 20;
+  a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  }
+}
+
+.abs-center2 {
+  position: relative;
+  height: 60px;
+  margin: 0 auto;
+  width: 55px;
+}
+
+/* password_reset */
 
 .reset-text {
   p {

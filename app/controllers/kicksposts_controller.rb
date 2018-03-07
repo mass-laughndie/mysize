@@ -5,6 +5,7 @@ class KickspostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
+    @comments = @kickspost.comments.includes(:user).all
   end
 
   def new
@@ -36,7 +37,7 @@ class KickspostsController < ApplicationController
   def destroy
     @kickspost.destroy
     flash[:danger] = "投稿を削除しました"
-    redirect_to request.referrer || current_user
+    redirect_to user_path(current_user, display: "square")
   end
 
   private

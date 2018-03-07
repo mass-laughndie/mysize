@@ -1,14 +1,55 @@
 <% provide(:title, '管理者ページ') %>
 
-<div class="content-nspace">
-  <div class="ns-page-title">
-    <h1 class="title-text">管理者ページ</h1>
-  </div>
-  <div class="setting-select">
-    <ul>
-      <% @ausers.each do |user| %>
-        <%= render partial: 'users/auser', object: user %>
-      <% end %>
-    </ul>
+<div class="content-sspace search-space">
+  <div class="fixed fixed-top search-height">
+    <%= render 'shared/search_form' %>
   </div>
 </div>
+<% unless params[:keyword].nil? %>
+  <div class="content-nspace">
+    <div class="c select-form search-select">
+      <div class="select-list search-list alist aline">
+        <%= link_to "ユーザー", admusrind_path(keyword: params[:keyword]) %>
+      </div>
+      <div class="select-list search-list alist aline">
+        <%= link_to "投稿", admusrind_path(keyword: params[:keyword], for: 'post') %>
+      </div>
+    </div>
+    <div class="search-result">
+      <% if params[:for] == 'post' %>
+        <% if @kicksposts.blank? %>
+          <%= render partial: 'shared/no_data',
+                     locals: { user: current_user,
+                               target: nil } %>
+        <% else %>
+          <div class="post-main">
+            <div class="post-line clear">
+              <ul>
+                <% @kicksposts.each do |kickspost| %>                
+                  <%= render partial: 'kicksposts/akickspost_text',
+                             locals: { kickspost: kickspost,
+                                       comment_disnum: nil } %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <% if @users.blank? %>
+          <%= render partial: 'shared/no_data',
+                     locals: { user: current_user,
+                               target: nil } %>
+        <% else %>
+          <div class="setting-select">
+            <ul>
+              <% @users.each do |user| %>
+                <%= render partial: 'users/auser',
+                           locals: { user: user } %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,5 +1,7 @@
 class Kickspost < ApplicationRecord
   belongs_to :user
+  has_many :comments, dependent: :destroy
+
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
 
@@ -7,7 +9,8 @@ class Kickspost < ApplicationRecord
   validates :content, presence: { message: "内容を入力してください" },
                       length:   { maximum: 500,
                                   massage: "500文字まで入力できます" }
-  validates :picture, presence: { message: "ファイルを選択してください"}
+  validates :picture, presence: { message: "ファイルを選択してください",
+                                  on: :create }
   validate  :picture_size
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 

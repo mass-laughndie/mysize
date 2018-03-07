@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180217074234) do
+ActiveRecord::Schema.define(version: 20180305120132) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text "comment_content"
+    t.integer "user_id"
+    t.integer "kickspost_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kickspost_id"], name: "index_comments_on_kickspost_id"
+    t.index ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
+    t.index ["user_id", "kickspost_id", "created_at"], name: "index_comments_on_user_id_and_kickspost_id_and_created_at"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "goods", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "kind_id"
+    t.string "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind_id", "kind"], name: "index_goods_on_kind_id_and_kind"
+    t.index ["user_id", "created_at"], name: "index_goods_on_user_id_and_created_at"
+    t.index ["user_id", "kind_id", "kind"], name: "index_goods_on_user_id_and_kind_id_and_kind", unique: true
+    t.index ["user_id"], name: "index_goods_on_user_id"
+  end
 
   create_table "kicksposts", force: :cascade do |t|
     t.text "content"
@@ -21,6 +45,17 @@ ActiveRecord::Schema.define(version: 20180217074234) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_kicksposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_kicksposts_on_user_id"
+  end
+
+  create_table "notices", force: :cascade do |t|
+    t.string "kind"
+    t.integer "user_id"
+    t.integer "kind_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "unread_count", default: 1
+    t.index ["user_id", "created_at"], name: "index_notices_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_notices_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -50,6 +85,7 @@ ActiveRecord::Schema.define(version: 20180217074234) do
     t.string "reset_digest"
     t.string "e_token"
     t.datetime "reset_sent_at"
+    t.integer "notice_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mysize_id"], name: "index_users_on_mysize_id", unique: true
   end

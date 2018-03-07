@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get  '/signup',   to: 'users#new'
   post '/signup',   to: 'users#create'
   get '/admusrind', to: 'users#admusrind'
+  get '/index',     to: 'users#index'
 
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
@@ -23,17 +24,30 @@ Rails.application.routes.draw do
   patch '/welcome',    to: 'settings#welcome_update'
   put   '/welcome',    to: 'settings#welcome_update'
 
-  get '/upload',  to: 'kicksposts#new'
+  get  '/upload', to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
 
   get '/search', to: 'search#search'
 
+  post   '/postcomments',    to: 'comments#post_create'
+  delete '/postcomment/:id', to: 'comments#post_destroy',
+                             as: 'postcomment'
+
+=begin
+  get  '/question', to: 'comments#new'
+  post '/question', to: 'comments#create'
+=end
   resource :password_reset, except: [:show, :destroy],
                             path_names: {new: '' } do
     collection do
       get :confirm
     end
   end
+
+  resource  :notice,   only: [:show, :create, :destroy]
+  resources  :goods,   only: [:create, :destroy]
+  resources  :comments,   only: [:index, :show, :create, :destroy],
+                       path: '/talk'
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
@@ -41,7 +55,8 @@ Rails.application.routes.draw do
     member do
       resources :kicksposts, except: [:new, :create, :index]
       get :following,
-          :followers
+          :followers,
+          :good
     end
   end
 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/meta_data' %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+    <% if params[:key] == 'mysizeid' %>
+      <div id="index111">
+        <p id="index-id" style="color: #fff;">
+          <%= render @users %>
+        </p>
+      </div>
+    <% end %>
+  </body>
+</html>

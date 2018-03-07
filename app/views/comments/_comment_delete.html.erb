@@ -1,0 +1,3 @@
+<%= link_to fa_icon("trash"),
+            postcomment_url(comment.id, kickspost_id: comment.kickspost_id),
+            method: :delete, data: { confirm: "本当に削除してよろしいですか？" } %>

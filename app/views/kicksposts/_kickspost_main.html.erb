@@ -1,0 +1,34 @@
+<div class="c index-left kpost-left">
+  <%= render 'shared/index_left', user: kickspost.user %>
+</div>
+<div class="kpost-center">
+  <div class="kpost-name">
+    <%= link_to kickspost.user.mysize_id,
+                user_path(kickspost.user, display: "square") %>
+  </div>
+  <div class="kpost-content autolink">
+    <%= kickspost.content %>
+  </div>
+</div>
+<div class="kpost-right">
+  <div class="c kpost-right-top">
+    <div class="kpost-picture abs-center">
+      <%= link_to image_tag(picture_url(kickspost),
+                            alt: kickspost.content,
+                            class: "cover"),
+                  kickspost_path(kickspost.user.mysize_id, kickspost)  %>
+      <div class="kpost-size index-size">
+        <%= kickspost.size %>
+      </div>
+    </div>
+  </div>
+  <div class="kpost-right-bottom">
+    <div class="kpost-act">
+      <div class="kpost-alist">
+        <%= render partial: 'goods/good_form',
+                   locals: { kind_model: kickspost,
+                             kind: "gpost" } %>
+      </div>
+    </div>
+  </div>
+</div>

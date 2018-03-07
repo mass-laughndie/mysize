@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if current_user == @user
       no_name
     end
-    @kicksposts = @user.kicksposts
+    @kicksposts = @user.kicksposts.includes(:comments)
   end
 
   def new
@@ -16,7 +16,13 @@ class UsersController < ApplicationController
   end
 
   def admusrind
-    @ausers = User.all
+    @users = User.search(params[:keyword])
+    @kicksposts = Kickspost.search(params[:keyword]).includes(:user, {comments: :user})
+  end
+
+  def index
+    @users = User.all
+    render layout: false
   end
 
   def destroy
@@ -43,16 +49,22 @@ class UsersController < ApplicationController
   def following
     @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.following
+    @users = @user.following.order(updated_at: :desc)#.includes(:passive_relationships)
     render 'show_follow'
   end
 
   def followers
     @title = "フォロワー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.followers
+    @users = @user.followers.order(updated_at: :desc)#.includes(:active_relationships)
     render 'show_follow'
   end
+
+  def good
+    @user = User.find_by(mysize_id: params[:mysize_id])
+    @goods = @user.goods.order(updated_at: :desc)
+  end
+
   
   private
 

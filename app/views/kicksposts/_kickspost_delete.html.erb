@@ -1,0 +1,4 @@
+<%= link_to fa_icon("trash"),
+            kickspost_path(kickspost.user.mysize_id, kickspost),
+            method: :delete,
+            data: { confirm: "本当に削除してよろしいですか？" } %>

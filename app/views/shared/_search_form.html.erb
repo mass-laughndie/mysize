@@ -1,0 +1,11 @@
+<div class="c inner-form search-form">
+  <%= form_tag(yield(:search_url),
+               method: "get",
+               enforce_utf8: false) do %>
+    <%= text_field_tag :keyword, params[:keyword],
+                        placeholder: "キーワード検索" %>
+    <div class="inner-button search-button">
+      <%= button_tag fa_icon("search"), name: nil %>
+    </div>
+  <% end %>
+</div>
