@@ -1013,47 +1013,51 @@ nav {
     }
   }
 
-  .kpost-right-top {
+  .kpost-right {
     float: right;
     position: relative;
     width: 17%;
 
-    .kpost-picture {
-      margin: 10px 0 30px;
+    .kpost-right-top {
       position: relative;
-      height: 55px;
-      width: 55px;
+      width: 100%;
 
-      a {
-        display: block;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 10;
+      .kpost-picture {
+        margin: 10px 0 40px;
+        position: relative;
+        height: 55px;
+        width: 55px;
+  
+        a {
+          display: block;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 10;
+        }
       }
-    }
+  
+      .kpost-picture:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
 
-    .kpost-picture:before {
-      content: "";
-      display: block;
-      padding-top: 100%;
-    }
-
-    .kpost-size {
-      background: rgba(0,0,0,0.30);
-      color: #fff;
-      bottom: -26px;
-      right: -5px;
+      .kpost-size {
+        background: rgba(0,0,0,0.30);
+        color: #fff;
+        bottom: -26px;
+        right: -5px;
+      }
     }
   }
 }
 
 .kpost-right-bottom {
-  float: right;
   position: relative;
-  width: 17%;
+  width: 100%;
 
   .kpost-act {
     .kpost-alist {

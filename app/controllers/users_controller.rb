@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   end
 
   def admusrind
-    @ausers = User.all
+    @users = User.search(params[:keyword])
+    @kicksposts = Kickspost.search(params[:keyword]).includes(:user, {comments: :user})
   end
 
   def index

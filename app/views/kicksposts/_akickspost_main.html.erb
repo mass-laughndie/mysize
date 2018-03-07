@@ -24,10 +24,9 @@
   </div>
   <div class="kpost-right-bottom">
     <div class="kpost-act">
-      <div class="kpost-alist">
-        <%= render partial: 'goods/good_form',
-                   locals: { kind_model: kickspost,
-                             kind: "gpost" } %>
+      <div class="c kpost-alist">
+        <%= render partial: 'kicksposts/kickspost_delete',
+                   locals: { kickspost: kickspost } %>
       </div>
     </div>
   </div>
