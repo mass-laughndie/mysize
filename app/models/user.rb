@@ -90,8 +90,8 @@ class User < ApplicationRecord
       if search
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
-        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
-               "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0].sub(/^@/, '')}%", "%#{keyword_arys[0]}%", "#{size_search}"])
+        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
+               "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
           cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
