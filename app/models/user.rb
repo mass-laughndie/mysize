@@ -169,15 +169,15 @@ class User < ApplicationRecord
 =end
 
   def validate_name?
-    validate_name == 'true' || validate_name == true
+    validate_name.in?(['true', true])
   end
 
   def validate_shoesize?
-    validate_shoesize == 'true' || validate_shoesize == true
+    validate_shoesize.in?(['true', true])
   end
 
   def validate_password?
-    validate_password == 'true' || validate_password == true
+    validate_password.in?(['true', true])
   end
 
   def current_user_upload

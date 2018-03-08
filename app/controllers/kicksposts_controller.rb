@@ -35,6 +35,15 @@ class KickspostsController < ApplicationController
   end
 
   def destroy
+=begin
+    @kickspost.comments.all.each do |comment|
+      Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
+            .where(kind_id: comment.id).destroy_all
+      Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+    end
+    Notice.where(kind: "gpost_list", kind_id: @kickspost.id).destroy_all
+    Good.where(kind: "gpost", kind_id: @kickspost.id).destroy_all
+=end
     @kickspost.destroy
     flash[:danger] = "投稿を削除しました"
     redirect_to user_path(current_user, display: "square")
@@ -61,7 +70,7 @@ class KickspostsController < ApplicationController
     end
 
     def ensure_correct_user
-      if @kickspost.user_id != current_user.id
+      unless @kickspost.user_id == current_user.id || current_user.admin?
         flash[:danger] = "権限がありません"
         redirect_to root_url
       end

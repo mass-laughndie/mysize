@@ -14,6 +14,9 @@
       <div class="select-list search-list alist aline">
         <%= link_to "投稿", search_path(keyword: params[:keyword], for: 'post') %>
       </div>
+      <div class="select-list search-list alist aline">
+        <%= link_to "コメント", search_path(keyword: params[:keyword], for: 'com') %>
+      </div>
     </div>
     <div class="search-result">
       <% if params[:for] == 'post' %>
@@ -27,8 +30,24 @@
               <ul>
                 <% @kicksposts.each do |kickspost| %>                
                   <%= render partial: 'kicksposts/kickspost_text',
-                             locals: { kickspost: kickspost,
-                             comment_disnum: nil } %>
+                             locals: { kickspost: kickspost } %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% elsif params[:for] == 'com' %>
+        <% if @comments.blank? %>
+          <%= render partial: 'shared/no_data',
+                     locals: { user: current_user,
+                               target: nil } %>
+        <% else %>
+          <div class="post-main">
+            <div class="post-line clear">
+              <ul>
+                <% @comments.each do |comment| %>
+                  <%= render partial: 'comments/comment_text',
+                             locals: { comment: comment } %>
                 <% end %>
               </ul>
             </div>

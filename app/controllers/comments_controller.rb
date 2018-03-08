@@ -6,12 +6,12 @@ class CommentsController < ApplicationController
   def post_create
     @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
+    @user = @kickspost.user
     if @comment.save
 
       #自分のポストじゃないとき
       unless current_user.kicksposts.include?(@kickspost)
         #コメント通知作成
-        @user = @kickspost.user
         @user.create_comment_notice(params[:kind], @comment)
         #通知カウント +1
         @user.increment!(:notice_count, by = 1)
@@ -37,8 +37,13 @@ class CommentsController < ApplicationController
 
   def post_destroy
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
-    @kickspost.user.notice_delete("comment", @comment)
-    @kickspost.user.notice_delete("reply", @comment)
+    @kickspost.user.delete_comment_notice("comment", @comment)
+    @kickspost.user.delete_comment_notice("reply", @comment)
+=begin
+    Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
+          .where(kind_id: @comment.id).destroy_all
+    Good.where(kind: "gcom", kind_id: @comment.id).destroy_all
+=end
     @comment.destroy
     flash[:success] = "コメントを削除しました"
     redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
@@ -52,9 +57,13 @@ class CommentsController < ApplicationController
     end
 
     def corrent_user
-      #自分のコメントor自分のポストへのコメントのみ
-      @comment = current_user.comments.find_by(id: params[:id]) || current_user.kicksposts.find_by(id: params[:kickspost_id]).comments.find_by(id: params[:id])
-      redirect_to root_url if @comment.nil?
+      if current_user.admin?
+        @comment = Comment.find_by(id: params[:id])
+      else
+        #自分のコメントor自分のポストへのコメントのみ
+        @comment = current_user.comments.find_by(id: params[:id]) || current_user.kicksposts.find_by(id: params[:kickspost_id]).comments.find_by(id: params[:id])
+        redirect_to root_url if @comment.nil?
+      end
     end
 
 end

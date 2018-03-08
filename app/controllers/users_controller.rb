@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def admusrind
     @users = User.search(params[:keyword])
     @kicksposts = Kickspost.search(params[:keyword]).includes(:user, {comments: :user})
+    @comments = Comment.search(params[:keyword]).includes(:user)
   end
 
   def index
@@ -26,7 +27,29 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find_by(mysize_id: params[:mysize_id]).destroy
+    @user = User.find_by(mysize_id: params[:mysize_id])
+=begin
+    @user.comments.each do |comment|
+      Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
+            .where(kind_id: comment.id).destroy_all
+      Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+    end
+
+    @user.kicksposts.each do |kickspost|
+      kickspost.comments.each do |comment|
+        Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
+              .where(kind_id: comment.id).destroy_all
+        Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+      end
+      Notice.where(kind: "gpost_list", kind_id: kickspost.id).destroy_all
+      Good.where(kind: "gpost", kind_id: kickspost.id).destroy_all
+    end
+    @user.goods.each do |good|
+      Notice.find_by(kind: good.kind + "_list", kind_id: good.kind_id).destroy
+    end
+    Notice.where(kind: "follow_list", kind_id: @user.active_relationships.ids).destroy_all
+=end
+    @user.destroy
     flash[:success] = "削除が完了しました"
     redirect_to admusrind_url
   end

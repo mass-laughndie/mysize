@@ -1,6 +1,7 @@
 class NoticesController < ApplicationController
 
   before_action :logged_in_user
+  before_action :no_name
 
   def show
     #全通知
@@ -45,7 +46,8 @@ class NoticesController < ApplicationController
     @gpcounts = []
     gpost_lists.each do |list|
       #postへのgood
-      postgood = Good.where(kind: "gpost", kind_id: list.kind_id).order(created_at: :desc)
+      postgood = Good.where(kind: "gpost", kind_id: list.kind_id)
+                     .where.not(user_id: current_user.id).order(created_at: :desc)
       if postgood.blank?
         list.destroy
       else
@@ -61,7 +63,8 @@ class NoticesController < ApplicationController
     @gccounts = []
     gcom_lists.each do |list|
       #postへのgood
-      comgood = Good.where(kind: "gcom", kind_id: list.kind_id).order(created_at: :desc)
+      comgood = Good.where(kind: "gcom", kind_id: list.kind_id)
+                    .where.not(user_id: current_user.id).order(created_at: :desc)
       if comgood.blank?
         list.destroy
       else

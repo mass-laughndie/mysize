@@ -22,12 +22,14 @@
       </div>
     </div>
   </div>
-  <div class="kpost-right-bottom">
-    <div class="kpost-act">
-      <div class="c kpost-alist">
-        <%= render partial: 'kicksposts/kickspost_delete',
-                   locals: { kickspost: kickspost } %>
+  <% if current_user.admin? %>
+    <div class="kpost-right-bottom">
+      <div class="kpost-act">
+        <div class="c kpost-alist">
+          <%= render partial: 'kicksposts/kickspost_delete',
+                     locals: { kickspost: kickspost } %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
