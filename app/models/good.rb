@@ -1,4 +1,5 @@
 class Good < ApplicationRecord
+
   belongs_to :user
   belongs_to :post, polymorphic: true, optional: true
   belongs_to :comment,   class_name: 'Comment',
@@ -13,4 +14,5 @@ class Good < ApplicationRecord
   validates :user_id,   presence: { message: "ユーザーを特定できません"}
   validates :post_id,   presence: { message: "投稿を特定できません"}
   validates :post_type, presence: { message: "投稿タイプを特定できません"}
+  
 end

@@ -16,6 +16,7 @@ class KickspostsController < ApplicationController
   def create
     @kickspost = current_user.kicksposts.build(kicksposts_params)
     if @kickspost.save
+      @kickspost.check_and_create_notice_to_others_and(current_user)
       flash[:success] = "投稿に成功しました"
       redirect_to root_url
     else
@@ -36,6 +37,7 @@ class KickspostsController < ApplicationController
   end
 
   def destroy
+    @kickspost.check_and_delete_notice_form_others_and(current_user)
 =begin
     @kickspost.comments.all.each do |comment|
       Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")

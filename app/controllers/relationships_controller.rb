@@ -8,9 +8,7 @@ class RelationshipsController < ApplicationController
     @relation = current_user.follow(@user)
 
     #通知アクション
-    # @user.notice_from(params[:kind], @relation)
-    # @user.increment!(:notice_count, by = 1)
-    # @user.create_follow_notice("follow_list", @relation)
+    @user.create_or_update_follow_notice
 
     respond_to do |format|
       format.html { redirect_to @user }

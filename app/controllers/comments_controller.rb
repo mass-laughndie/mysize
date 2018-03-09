@@ -5,27 +5,28 @@ class CommentsController < ApplicationController
   before_action :corrent_user,   only: :destroy
 
   def create
-    @kickspost = Kickspost.find(params[:comment][:kickspost_id])
+    @kickspost = Kickspost.find_by(id: params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     @user = @kickspost.user
     if @comment.save
+      @comment.check_and_create_notice_to_others_and(@user, current_user)
+
 =begin
       #自分のポストじゃないとき
-      unless current_user.kicksposts.include?(@kickspost)
+      unless current_user?(@user)
         #コメント通知作成
-        @user.create_comment_notice(params[:kind], @comment)
-        #通知カウント +1
-        @user.increment!(:notice_count, by = 1)
+        @user.receive_notice_of("Reply", @comment)
       end
+=end
+=begin
       #返信通知作成
-      msids = params[:comment][:comment_content].scan(/@[a-zA-Z0-9_]+\s/)
+      msids = params[:comment][:content].scan(/@[a-zA-Z0-9_]+\s/)
       if msids.any?
         msids.each do |msid|
           msid.delete!("@").delete!(" ")
           user = User.find_by(mysize_id: msid)
           if user && user != @user
-            user.create_comment_notice("reply", @comment)
-            user.increment!(:notice_count, by = 1)
+            user.receive_notice_of("Reply", @comment)
           end
         end
       end
@@ -39,16 +40,34 @@ class CommentsController < ApplicationController
 
   def destroy
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
+    @user = @kickspost.user
+
+    @comment.check_and_delete_notice_form_others_and(@user, current_user)
+    
 =begin
-    @kickspost.user.delete_comment_notice("comment", @comment)
-    @kickspost.user.delete_comment_notice("reply", @comment)
+    unless current_user?(@user)
+      @user.lose_notice_of("Reply", @comment)
+    end
+    msids = @comment.content.scan(/@[a-zA-Z0-9_]+\s/)
+    if msids.any?
+      msids.each do |msid|
+        msid.delete!("@").delete!(" ")
+        user = User.find_by(mysize_id: msid)
+        if user && user != @user
+          user.lose_notice_of("Reply", @comment)
+        end
+      end
+    end
+=end
+=begin
     Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
           .where(kind_id: @comment.id).destroy_all
     Good.where(kind: "gcom", kind_id: @comment.id).destroy_all
 =end
+
     @comment.destroy
     flash[:success] = "コメントを削除しました"
-    redirect_to kickspost_path(@kickspost.user.mysize_id, @kickspost)
+    redirect_to kickspost_path(@user.mysize_id, @kickspost)
   end
 
 

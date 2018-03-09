@@ -7,7 +7,9 @@ class Kickspost < ApplicationRecord
   has_many   :gooders,  class_name: "User",
                         through:   :goods,
                         source:    :user
-  has_one    :notice,   as:        :kind
+  has_one    :notice,   as:        :kind,
+                        dependent: :destroy,
+                        class_name: 'Notice'
 
   default_scope -> { order(created_at: :desc) }
 
@@ -41,6 +43,7 @@ class Kickspost < ApplicationRecord
 
   end
 
+=begin
   def gooded(user)
     goods.create(user_id: user.id)
   end
@@ -51,6 +54,50 @@ class Kickspost < ApplicationRecord
 
   def gooded?(user)
     gooders.include?(user)
+  end
+=end
+  
+  def good_notice_create_or_update
+    if self.notice.nil?
+      create_notice(user_id: self.user.id)
+    else
+      notice.increment!(:unread_count, by = 1)
+    end
+  end
+
+  def good_notice_check_or_delete
+    if self.goods.blank?
+      notice.find_by(user_id: self.user.id).destroy
+    end
+  end
+
+  #返信通知の作成(cuser = current_user)
+  def check_and_create_notice_to_others_and(cuser)
+    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)   #コメントに含まれる「@<mysize_id> 」の配列
+    #配列が空でない場合(=返信である場合)
+    if ids.any?
+      ids.each do |msid|
+        msid.delete!("@").delete!(" ")            #「@<mysize_id> 」 => 「<mysize_id>」
+        other = User.find_by(mysize_id: msid)
+        if other && other != cuser
+          other.receive_notice_of("ReplyPost", self)     #cuser以外へのreply通知作成
+        end
+      end
+    end
+  end
+
+  #返信通知の削除(cuser = current_user)
+  def check_and_delete_notice_form_others_and(cuser)
+    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)
+    if ids.any?
+      ids.each do |msid|
+        msid.delete!("@").delete!(" ")
+        other = User.find_by(mysize_id: msid)
+        if other && other != cuser
+          other.lose_notice_of("ReplyPost", self)     #cuser以外へのreply通知削除
+        end
+      end
+    end
   end
 
   private

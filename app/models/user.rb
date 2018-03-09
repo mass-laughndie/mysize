@@ -6,17 +6,19 @@ class User < ApplicationRecord
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
 
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
-                                  dependent: :destroy
-  has_many :following, through: :active_relationships, source: :followed
+  has_many :active_relationships,  class_name: "Relationship",
+                                   foreign_key: "follower_id",
+                                   dependent: :destroy
+  has_many :following,             through: :active_relationships,
+                                   source: :followed
 
   has_many :passive_relationships, class_name: "Relationship",
                                    foreign_key: "followed_id",
                                    dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :followers,             through: :passive_relationships,
+                                   source: :follower
 
-  has_many :goods, dependent: :destroy
+  has_many :goods,         dependent: :destroy
   has_many :good_posts,    class_name: "Kickspost",
                            through:   :goods,
                            source: :post,
@@ -190,10 +192,6 @@ class User < ApplicationRecord
     validate_password.in?(['true', true])
   end
 
-  def current_user_upload
-    current_user = @user
-  end
-
   def feed
     following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
     Kickspost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
@@ -215,13 +213,16 @@ class User < ApplicationRecord
     following.include?(other)
   end
 
-  def create_comment_notice(kind, model)
-    notices.create(kind: kind, kind_id: model.id)
+  def receive_notice_of(type, kind)
+    notices.create(kind_type: type, kind_id: kind.id)
   end
 
-  def delete_comment_notice(kind, model)
-    notices.where(kind: kind, kind_id: model.id).each do |notice|
-      notice.destroy
+  def lose_notice_of(type, kind)
+    post_notices = self.notices.where(kind_type: type, kind_id: kind.id)
+    if post_notices.any?
+      post_notices.each do |notice|
+        notice.destroy
+      end
     end
   end
 
@@ -267,7 +268,7 @@ class User < ApplicationRecord
     goods.where(post_type: type).pluck(:post_id).include?(post.id)
   end
 
-
+=begin
   def create_good_notice(kind_list, model)
     notice = self.notices.find_by(kind: kind_list, kind_id: model.id)
     #そのポストのlistがある場合
@@ -292,6 +293,7 @@ class User < ApplicationRecord
       end
     end
   end
+=end
 
   #既読済みの期間以前の通知を削除
   #notices = current_userの全通知

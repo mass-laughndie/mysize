@@ -30,7 +30,8 @@ class GoodInterfaceTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'shoulc good a comment with Ajax' do
+  #要noticeへの対応
+  test 'should good a comment with Ajax' do
     assert_difference '@user.goods.count', 1 do
       post goods_path, xhr: true, params: { post_id: @comment.id,
                                               post_type: "Comment" }
