@@ -1,11 +1,19 @@
 class Kickspost < ApplicationRecord
+
   belongs_to :user
-  has_many :comments, dependent: :destroy
+  has_many   :comments, dependent: :destroy
+  has_many   :goods,    as:        :post,
+                        dependent: :destroy
+  has_many   :gooders,  class_name: "User",
+                        through:   :goods,
+                        source:    :user
+  has_one    :notice,   as:        :kind
 
   default_scope -> { order(created_at: :desc) }
+
   mount_uploader :picture, PictureUploader
 
-  validates :user_id, presence: true
+  validates :user_id, presence: { message: "ユーザーを特定できません"}
   validates :content, presence: { message: "内容を入力してください" },
                       length:   { maximum: 500,
                                   massage: "500文字まで入力できます" }
@@ -31,6 +39,18 @@ class Kickspost < ApplicationRecord
       end
     end
 
+  end
+
+  def gooded(user)
+    goods.create(user_id: user.id)
+  end
+
+  def ungooded(user)
+    goods.find_by(user_id: user.id).destroy
+  end
+
+  def gooded?(user)
+    gooders.include?(user)
   end
 
   private

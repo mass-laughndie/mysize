@@ -39,10 +39,9 @@
 <% if nkind == "gpost_list" %>
   <%= render partial: 'notices/notice_post',
              locals: { post: kickspost,
-                       nkind: nkind,
-                       content: kickspost.content } %>
+                       nkind: nkind } %>
 <% elsif nkind.in?(["comment", "reply", "gcom_list"]) %>
   <%= render partial: 'notices/notice_post',
-             locals: { nkind: nkind,
-                       content: comment.comment_content } %>
+             locals: { post: comment,
+                       nkind: nkind } %>
 <% end %>

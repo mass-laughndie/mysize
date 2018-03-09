@@ -9,7 +9,7 @@
   <div class="content-nspace">
     <div class="c select-form search-select">
       <div class="select-list search-list alist aline">
-        <%= link_to "ユーザー", search_path(keyword: params[:keyword]) %>
+        <%= link_to "ユーザー", search_path(keyword: params[:keyword], for: 'user') %>
       </div>
       <div class="select-list search-list alist aline">
         <%= link_to "投稿", search_path(keyword: params[:keyword], for: 'post') %>
@@ -53,7 +53,7 @@
             </div>
           </div>
         <% end %>
-      <% else %>
+      <% elsif params[:for] == 'user' || params[:for].blank? %>
         <% if @users.blank? %>
           <%= render partial: 'shared/no_data',
                      locals: { user: current_user,

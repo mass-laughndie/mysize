@@ -1,14 +1,15 @@
 class CommentsController < ApplicationController
 
-  before_action :logged_in_user, only: [:post_create, :post_destroy]
-  before_action :corrent_user,   only: :post_destroy
+  before_action :logged_in_user
+  before_action :no_name
+  before_action :corrent_user,   only: :destroy
 
-  def post_create
+  def create
     @kickspost = Kickspost.find(params[:comment][:kickspost_id])
     @comment = @kickspost.comments.build(post_comment_params)
     @user = @kickspost.user
     if @comment.save
-
+=begin
       #自分のポストじゃないとき
       unless current_user.kicksposts.include?(@kickspost)
         #コメント通知作成
@@ -28,6 +29,7 @@ class CommentsController < ApplicationController
           end
         end
       end
+=end
       flash[:success] = "コメントを送信しました"
     else
       flash[:danger] = "コメントを送信できませんでした"
@@ -35,11 +37,11 @@ class CommentsController < ApplicationController
     redirect_to kickspost_path(@user.mysize_id, @kickspost)
   end
 
-  def post_destroy
+  def destroy
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
+=begin
     @kickspost.user.delete_comment_notice("comment", @comment)
     @kickspost.user.delete_comment_notice("reply", @comment)
-=begin
     Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
           .where(kind_id: @comment.id).destroy_all
     Good.where(kind: "gcom", kind_id: @comment.id).destroy_all
@@ -53,7 +55,7 @@ class CommentsController < ApplicationController
   private
 
     def post_comment_params
-      params.require(:comment).permit(:user_id, :comment_content)
+      params.require(:comment).permit(:user_id, :content)
     end
 
     def corrent_user

@@ -1,2 +1,37 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+apple:
+  content: "I just ate an apple!"
+  created_at: <%= 9.minutes.ago %>
+  user: mysize1
+  kickspost: orange
 
+tau:
+  content: "Check out the @tauday site by @mhartl: http://tauday.com !"
+  created_at: <%= 1.years.ago %>
+  user: mysize1
+  kickspost: ants
+
+video:
+  content: "Sad cats are sad: http://youtu.be/PKffm2uI4dk !"
+  created_at: <%= 1.hours.ago %>
+  user: mysize2
+  kickspost: cat_video
+
+forzone:
+  content: "Danger zone!"
+  created_at: <%= 2.days.ago %>
+  user: mysize3
+  kickspost: zone
+
+recent_com:
+  content: "Writing a short test!"
+  created_at: <%= Time.zone.now %>
+  user: mysize1
+  kickspost: most_recent
+
+<% 5.times do |n| %>
+kickspost_<%= n %>:
+  content: <%= Faker::Lorem.paragraph(2, false, 4) %>
+  created_at: <%= 41.days.ago %>
+  user: mysize1
+  kickspost: van
+<% end %>

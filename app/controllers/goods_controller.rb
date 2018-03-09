@@ -3,18 +3,14 @@ class GoodsController < ApplicationController
   before_action :no_name
 
   def create
-    @kind = params[:kind]
-    if @kind == "gpost"
-      @model = Kickspost.find_by(id: params[:kind_id])
-    else @kind == "gcom"
-      @model = Comment.find_by(id: params[:kind_id])
+    @type = params[:post_type]
+    if @type == "Kickspost"
+      @post = Kickspost.find_by(id: params[:post_id])
+    elsif @type == "Comment"
+      @post = Comment.find_by(id: params[:post_id])
     end
-    @good = current_user.good(@kind, @model)
+    @good = current_user.good(@type, @post)
 
-    @user = @model.user
-    unless @user == current_user
-      @user.create_good_notice(@kind + "_list", @model)
-    end
 
     respond_to do |format|
       format.html { redirect_to current_user }
@@ -24,19 +20,22 @@ class GoodsController < ApplicationController
 
   def destroy
     @good = Good.find(params[:id])
-    @kind = @good.kind
-    if @kind == "gpost"
-      @model = Kickspost.find_by(id: @good.kind_id)
-    elsif @kind == "gcom"
-      @model = Comment.find_by(id: @good.kind_id)
+    @type = @good.post_type
+    @post = @good.post
+=begin
+    if @type == "Kickspost"
+      @post = Kickspost.find_by(id: @good.post_id)
+    elsif @type == "Comment"
+      @post = Comment.find_by(id: @good.post_id)
     end
-    current_user.ungood(@kind, @model)
-
-    @user = @model.user
+=end
+    current_user.ungood(@type, @post)
+=begin
+    @user = @post.user
     unless @user == current_user
       @user.delete_good_notice(@kind, @model)
     end
-
+=end
     respond_to do |format|
       format.html { redirect_to current_user }
       format.js

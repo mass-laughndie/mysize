@@ -9,7 +9,7 @@
                 id: "content-name-" + comment.id.to_s %>
   </div>
   <div class="kpost-content autolink">
-    <%= comment.comment_content %>
+    <%= comment.content %>
   </div>
 </div>
 <div class="kpost-right">
@@ -24,8 +24,8 @@
       <% end %>
       <div class="kpost-alist">
         <%= render partial: 'goods/good_form',
-                   locals: { kind_model: comment,
-                             kind: "gcom" } %>
+                   locals: { post: comment,
+                             type: "Comment" } %>
       </div>
       <% unless current_user == comment.user %>
         <div class="kpost-alist">

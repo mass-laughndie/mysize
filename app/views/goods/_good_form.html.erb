@@ -1,13 +1,13 @@
 <% if logged_in? %>
-  <div id="good-form-<%= kind %>-<%= kind_model.id %>" class="good-form">
-  <% if current_user.good?(kind, kind_model) %>
+  <div id="good-form-<%= type.downcase %>-<%= post.id %>" class="good-form">
+  <% if current_user.good?(type, post) %>
     <%= render partial: 'goods/ungood_button',
-               locals: { kind_model: kind_model,
-                         kind: kind } %>
+               locals: { post: post,
+                         type: type } %>
   <% else %>
     <%= render partial: 'goods/good_button',
-               locals: { kind_model: kind_model,
-                         kind: kind } %>
+               locals: { post: post,
+                         type: type } %>
   <% end %>
   </div>
 <% elsif  !logged_in? %>

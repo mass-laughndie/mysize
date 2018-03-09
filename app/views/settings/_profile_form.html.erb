@@ -5,8 +5,8 @@
     <%= f.text_field :name, placeholder: "ユーザー名" %>
   </div>
   <div class="label-form">
-    <%= f.label :shoe_size, "*スニーカーのベースサイズ" %>
-    <%= f.select(:shoe_size, options_for_select(size_array, @user.shoe_size),
+    <%= f.label :size, "*スニーカーのベースサイズ" %>
+    <%= f.select(:size, options_for_select(size_array, @user.size),
                   prompt: "選択してください") %>
   </div>
   <div class="label-form">
@@ -15,8 +15,8 @@
     <%= f.hidden_field :image_cache %>
   </div>
   <div class="label-form">
-    <%= f.label :profile_content, "プロフィール" %>
-    <%= f.text_area :profile_content, placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
+    <%= f.label :content, "プロフィール" %>
+    <%= f.text_area :content, placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
 (例)Jordan1(27cm)/StanSmith(26.5cm)/...|(どういったスニーカーが好きかなど...)" %>
   </div>
   <div class="c button button-mini accent">

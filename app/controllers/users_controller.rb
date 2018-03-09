@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:admusrind, :following, :followers]
+  before_action :logged_in_user, only: [:destroy, :admusrind,
+                                        :following, :followers, :good]
   before_action :admin_user,     only: :admusrind
 
   def show

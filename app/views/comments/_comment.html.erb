@@ -4,7 +4,7 @@
       <%= link_to comment.user.mysize_id,
                   user_path(comment.user, display: "square"),
                   class: "content-name", id: "content-name-" + comment.id.to_s %>
-      <span><%= comment.comment_content %></span>
+      <span><%= comment.content %></span>
       <% unless comment_disnum == "few" %>
         <% unless current_user == comment.user %>
          <span class="comment-act" id="comment-reply-<%= comment.id %>">

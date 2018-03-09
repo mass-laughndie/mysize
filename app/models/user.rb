@@ -5,8 +5,6 @@ class User < ApplicationRecord
 
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
-  has_many :notices,    dependent: :destroy
-  has_many :goods,      dependent: :destroy
 
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
@@ -17,6 +15,18 @@ class User < ApplicationRecord
                                    foreign_key: "followed_id",
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
+
+  has_many :goods, dependent: :destroy
+  has_many :good_posts,    class_name: "Kickspost",
+                           through:   :goods,
+                           source: :post,
+                           source_type: 'Kickspost'
+  has_many :good_comments, class_name: "Comment",
+                           through:   :goods,
+                           source: :post,
+                           source_type: 'Comment'
+
+  has_many :notices, dependent: :destroy
 
   before_save :downcase_email
   before_save :downcase_mysizeid
@@ -61,11 +71,11 @@ class User < ApplicationRecord
     validates :password_confirmation,  presence: { message: "Password確認を入力してください" }
   end
 
-  validates :profile_content, length: { maximum: 160,
-                                        massage: "プロフィールは160字以内で入力してください" }
+  validates :content, length: { maximum: 160,
+                                massage: "プロフィールは160字以内で入力してください" }
 
-  validates :shoe_size, presence: { message: "スニーカーのサイズを選択してください",
-                                    if: :validate_shoesize? }
+  validates :size, presence: { message: "スニーカーのサイズを選択してください",
+                               if: :validate_shoesize? }
 
   validate :image_size
 
@@ -90,11 +100,11 @@ class User < ApplicationRecord
       if search
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
-        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
+        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
                "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
-          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
+          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
                "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
         end
         cond
@@ -245,17 +255,18 @@ class User < ApplicationRecord
     end
   end
 
-  def good(kind, model)
-    goods.create(kind: kind, kind_id: model.id)
+  def good(type, post)
+    goods.create(post_type: type, post_id: post.id)
   end
 
-  def ungood(kind, model)
-    goods.find_by(kind: kind, kind_id: model.id).destroy
+  def ungood(type, post)
+    goods.find_by(post_type: type, post_id: post.id).destroy
   end
 
-  def good?(kind, model)
-    goods.where(kind: kind).pluck(:kind_id).include?(model.id)
+  def good?(type, post)
+    goods.where(post_type: type).pluck(:post_id).include?(post.id)
   end
+
 
   def create_good_notice(kind_list, model)
     notice = self.notices.find_by(kind: kind_list, kind_id: model.id)

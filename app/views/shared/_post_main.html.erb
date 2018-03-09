@@ -1,0 +1,54 @@
+<div class="c index-left kpost-left">
+  <%= render partial: 'shared/index_left',
+             locals: { user: post.user } %>
+</div>
+<div class="kpost-center">
+  <div class="kpost-name">
+    <%= link_to post.user.mysize_id,
+                user_path(post.user, display: "square"),
+                id: "content-name-" + post.id.to_s %>
+  </div>
+  <div class="kpost-content autolink">
+    <%= post.content %>
+  </div>
+</div>
+<div class="kpost-right">
+  <% if type == "Kickspost" %>
+  <div class="c kpost-right-top">
+    <div class="kpost-picture abs-center">
+      <%= link_to image_tag(picture_url(post),
+                            alt: post.content,
+                            class: "cover"),
+                  kickspost_path(post.user.mysize_id, post)  %>
+      <div class="kpost-size index-size">
+        <%= post.size %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <div class="c kpost-right-bottom">
+    <div class="kpost-act">
+      <% if current_user.in?([post.user, main_post.user]) %>
+        <div class="kpost-alist">
+          <div class="comment-act comment-delete">
+            <%= render partial: 'shared/post_delete',
+                       locals: { post: post,
+                                 type: type } %>
+          </div>
+        </div>
+      <% end %>
+      <div class="kpost-alist">
+        <%= render partial: 'goods/good_form',
+                   locals: { post: post,
+                             type: type } %>
+      </div>
+      <% if current_user != post.user && type == "Comment" %>
+        <div class="kpost-alist">
+          <div class="comment-act" id="comment-reply-<%= post.id %>">
+            <%= fa_icon('reply')%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
