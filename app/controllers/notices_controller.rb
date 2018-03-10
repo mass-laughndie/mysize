@@ -7,7 +7,9 @@ class NoticesController < ApplicationController
     #全通知
     @notices   = current_user.notices.includes(:user)
     #既読済みの過去通知の削除
-    current_user.delete_past_notices_already_read(@notices)
+    if Time.zone.now.wday == 0
+      current_user.delete_past_notices_already_read(@notices)
+    end
 
     #未読数リセット
     urnotices = @notices.where.not(unread_count: 0)
