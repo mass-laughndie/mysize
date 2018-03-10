@@ -57,17 +57,25 @@ class Kickspost < ApplicationRecord
   end
 =end
   
+  #good通知の作成および更新
   def good_notice_create_or_update
+    #ポストの通知が作られていない(=good1つ目の)場合
     if self.notice.nil?
+      #通知作成
       create_notice(user_id: self.user.id)
+    #既に通知がある場合
     else
+      #未読数+1
       notice.increment!(:unread_count, by = 1)
     end
   end
 
+  #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    if self.goods.blank? && !self.notice.nil? && good_notice = self.notice.find_by(user_id: self.user.id)
-      good_notice.destroy
+    #ポストのgood数が0 && noticeが見つかった　場合
+    if self.goods.blank? &&  good_notice = self.notice
+        #通知削除
+        good_notice.destroy
     end
   end
 

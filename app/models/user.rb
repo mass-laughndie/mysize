@@ -226,32 +226,38 @@ class User < ApplicationRecord
     end
   end
 
-  #list系の更新or作成
-  def create_follow_notice(kind_list, model)
+  #follow通知の作成or更新
+  def create_or_update_follow_notice
     this_day = Time.zone.now.all_day
     # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice = self.notices.find_by(kind: kind_list, created_at: this_day)
-    #今週のlistがある場合
-    if notice
-      #listのupdated_atを更新 => noticeビューの上段に持ってくる
+    #今週の通知がある場合
+    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_day)
+      #未読数+1
       notice.increment!(:unread_count, by = 1)
     #ない場合
     else
-      #list作成(kind_idはlistの最初のnotice内のkind_idと同じ
-      #         => 期間内削除時[=最初のnotice削除時]に使用)
-      notices.create(kind: kind_list, kind_id: model.id)
+      #最新のフォロー通知がある場合
+      if latest_notice = self.notices.where(kind_type: "Follow").first
+        #新しい通知のkind_id = 最新通知のkind_id + 1
+        notice_num = latest_notice.kind_id + 1
+        #フォロー通知作成(kind_idは通し番号)
+        notices.create(kind_type: "Follow", kind_id: notice_num)
+      #ない(初通知の)場合
+      else
+        notices.create(kind_type: "Follow", kind_id: 1)
+      end
     end
   end
 
-  #期間period内のlist系通知の要素が空の場合に削除
-  def delete_follow_notice(kind_list, period)
-    #期間内のフォローされた履歴
+  #フォロー通知のチェックと削除
+  def check_or_delete_follow_notice(period)
+    #期間period内のフォローされた履歴
     relations = self.passive_relationships.where(created_at: period)
-    #期間中に特定のnoticeが１つもない場合
+    #履歴がない && その期間の通知がある 場合
     if relations.blank?
-      #その期間のlistがあれば削除(基本あるはず)
-      if notice_list = notices.find_by(kind: kind_list, created_at: period)
-        notice_list.destroy
+      if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
+        #通知削除
+        follow_notice.destroy
       end
     end
   end

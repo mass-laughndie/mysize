@@ -6,10 +6,10 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:followed_id])
     @relation = current_user.follow(@user)
-=begin
+
     #通知アクション
     @user.create_or_update_follow_notice
-=end
+
     respond_to do |format|
       format.html { redirect_to @user }
       format.js
@@ -23,6 +23,7 @@ class RelationshipsController < ApplicationController
     # @user.notice_delete("follow", @relation)
     # @user.delete_follow_notice("follow_list", that_day(@relation.created_at))
     current_user.unfollow(@user)
+    @user.check_or_delete_follow_notice(that_day(@relation.created_at))
     
 
     respond_to do |format|
