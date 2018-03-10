@@ -16,12 +16,7 @@ class NoticesController < ApplicationController
         urnotice.decrement!(:unread_count, urnotice.unread_count)
       end
     end
-=begin
-    #全通知リスト
-    @notice_lists = @notices.where("kind LIKE (?) OR kind IN (?) OR kind IN (?)",
-                                   "%_list%", "comment", "reply")
-                            .reorder(updated_at: :desc)
-=end
+
     #期間ごとのフォロワーの２重配列作成
     follow_notices = @notices.where(kind_type: "Follow")     #フォロー通知リスト
     @followers = []                                         #フォロワー格納配列
@@ -40,41 +35,55 @@ class NoticesController < ApplicationController
     end
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
     @fnum = @fcounts.size - 1 
-=begin
-    #ポストごとのgoodの２重配列作成
-    gpost_lists = @notices.where(kind: "gpost_list")     #gpost通知リスト
-    @gposters = []                                         #goodとした人を格納する配列
-    @gpcounts = []
-    gpost_lists.each do |list|
-      #postへのgood
-      postgood = Good.where(kind: "gpost", kind_id: list.kind_id)
-                     .where.not(user_id: current_user.id).order(created_at: :desc)
-      if postgood.blank?
-        list.destroy
-      else
-        @gpcounts << postgood.to_a.size
-        @gposters << User.find(postgood.pluck(:user_id).first(2))
-      end
-    end
-    @gpnum = @gpcounts.size - 1
 
-    #ポストごとのgoodの２重配列作成
-    gcom_lists = @notices.where(kind: "gcom_list")     #gpost通知リスト
-    @gcomers = []                                         #goodとした人を格納する配列
-    @gccounts = []
-    gcom_lists.each do |list|
-      #postへのgood
-      comgood = Good.where(kind: "gcom", kind_id: list.kind_id)
-                    .where.not(user_id: current_user.id).order(created_at: :desc)
-      if comgood.blank?
-        list.destroy
-      else
-        @gccounts << comgood.to_a.size
-        @gcomers << User.find(comgood.pluck(:user_id).first(2))
+    @posts = []
+    @gcommers = []
+    @gposters = []
+    @pnum  = 0
+    @gcnum = 0
+    @gpnum = 0
+    @notices.each do |notice|
+      ntype = notice.kind_type
+      if ntype.in?(["ReplyCom", "NormalCom"])
+        unless post = Comment.find_by(id: notice.kind_id)
+          notice.destroy
+        else
+          @posts << post
+        end
+      elsif ntype == "Comment"
+        unless post = notice.kind
+          notice.destroy
+        else
+          gooder = notice.kind.gooders.where.not(id: current_user.id)
+          if gooder.blank?
+            notice.destroy
+          else
+            @gcommers << gooder
+            @posts << post
+          end
+        end
+      elsif ntype == "ReplyPost"
+        unless post = Kickspost.find_by(id: notice.kind_id)
+          notice.destroy
+        else
+          @posts << post
+        end
+      elsif ntype == "Kickspost"
+        unless post = notice.kind
+          notice.destroy
+        else
+          gooder = notice.kind.gooders.includes(:notices).where.not(id: current_user.id)
+          if gooder.blank?
+            notice.destroy
+          else
+            @gposters << gooder
+            @posts << post
+          end
+        end
       end
     end
-    @gcnum = @gccounts.size - 1
-=end
-  end
   
+    @notices.reload
+  end
+
 end

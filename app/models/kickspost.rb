@@ -3,13 +3,14 @@ class Kickspost < ApplicationRecord
   belongs_to :user
   has_many   :comments, dependent: :destroy
   has_many   :goods,    as:        :post,
-                        dependent: :destroy
+                        dependent: :destroy,
+                        class_name: "Good"
   has_many   :gooders,  class_name: "User",
                         through:   :goods,
                         source:    :user
   has_one    :notice,   as:        :kind,
                         dependent: :destroy,
-                        class_name: 'Notice'
+                        class_name: "Notice"
 
   default_scope -> { order(created_at: :desc) }
 

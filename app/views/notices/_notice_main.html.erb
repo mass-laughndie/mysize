@@ -20,16 +20,12 @@
   </div>
   <div class="notice-text notice-comment-text">
     <% if ntype.in?(["Follow", "Comment", "Kickspost"]) %>
-      <%= render partial: 'notices/notice_text',
-                 locals: { uname: users[0].name,
-                           count: count,
-                           ntype: ntype } %>
-    <% else %>
-      <%= render partial: 'notices/notice_text',
-                 locals: { uname: user.name,
-                           count: count,
-                           ntype: ntype } %>
+      <% user = users[0] %>
     <% end %>
+    <%= render partial: 'notices/notice_text',
+               locals: { uname: user.name,
+                         count: count,
+                         ntype: ntype } %>
   </div>
 </div>
 <% unless ntype == "Follow" %>

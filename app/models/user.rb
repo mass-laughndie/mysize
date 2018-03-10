@@ -18,15 +18,16 @@ class User < ApplicationRecord
   has_many :followers,             through: :passive_relationships,
                                    source: :follower
 
-  has_many :goods,         dependent: :destroy
+  has_many :goods,         dependent: :destroy,
+                           class_name: "Good"
   has_many :good_posts,    class_name: "Kickspost",
                            through:   :goods,
                            source: :post,
-                           source_type: 'Kickspost'
+                           source_type: "Kickspost"
   has_many :good_comments, class_name: "Comment",
                            through:   :goods,
                            source: :post,
-                           source_type: 'Comment'
+                           source_type: "Comment"
 
   has_many :notices, dependent: :destroy
 

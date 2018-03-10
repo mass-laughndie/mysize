@@ -37,16 +37,12 @@ class KickspostsController < ApplicationController
   end
 
   def destroy
-    @kickspost.check_and_delete_notice_form_others_and(current_user)
-=begin
-    @kickspost.comments.all.each do |comment|
-      Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
-            .where(kind_id: comment.id).destroy_all
-      Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+    @kickspost.comments.each do |comment|
+      comment.check_and_delete_notice_form_others_and(current_user, current_user)
     end
-    Notice.where(kind: "gpost_list", kind_id: @kickspost.id).destroy_all
-    Good.where(kind: "gpost", kind_id: @kickspost.id).destroy_all
-=end
+
+    @kickspost.check_and_delete_notice_form_others_and(current_user)
+
     @kickspost.destroy
     flash[:danger] = "投稿を削除しました"
     redirect_to user_path(current_user, display: "square")

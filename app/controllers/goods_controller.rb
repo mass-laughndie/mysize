@@ -11,7 +11,9 @@ class GoodsController < ApplicationController
     end
     @good = current_user.good(@type, @post)
 
-    @post.good_notice_create_or_update
+    unless current_user?(@post.user)
+      @post.good_notice_create_or_update
+    end
 
     respond_to do |format|
       format.html { redirect_to current_user }
@@ -25,7 +27,9 @@ class GoodsController < ApplicationController
     @post = @good.post
     current_user.ungood(@type, @post)
 
-    @post.good_notice_check_or_delete
+    unless current_user?(@post.user)
+      @post.good_notice_check_or_delete
+    end
 
     respond_to do |format|
       format.html { redirect_to current_user }

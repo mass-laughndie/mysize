@@ -2,13 +2,12 @@
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
   <% if ntype == "Follow" %>
     <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
-  <% else %>
-    <% if ntype.in?(["ReplyCom", "NormalCom", "Comment"]) %>
-      <% linkpost = @posts[@pnum].kickspost %>
-    <% else %>
-      <% linkpost = @posts[@pnum] %>
-    <% end %>
-    <a class="content-link" href="<%= kickspost_path(linkpost.user.mysize_id, linkpost) %>"></a>
+  <% elsif ntype.in?(["ReplyCom", "NormalCom", "Comment"]) %>
+    <% comment = Comment.find_by(id: notice.kind_id) %>
+    <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
+  <% elsif ntype.in?(["ReplyPost", "Kickspost"]) %>
+    <% kickspost = Kickspost.find_by(id: notice.kind_id) %>
+    <a class="content-link" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>"></a>
   <% end %>
   <div class="content-abs">
     <div class="content-height">
@@ -21,34 +20,28 @@
           <% @fnum -= 1 %>
         <% elsif ntype.in?(["ReplyCom", "NormalCom"]) %>
           <%= render partial: 'notices/notice_main',
-                     locals: { post:  @posts[@pnum],
-                               user:  @posts[@pnum].user,
+                     locals: { post:  comment,
+                               user:  comment.user,
                                count: 1,
                                ntype: ntype } %>
-          <% @pnum += 1 %>
         <% elsif ntype == "Comment" %>
           <%= render partial: 'notices/notice_main',
-                     locals: { post:  @posts[@pnum],
-                               users: @gcommers[@gcnum].first(2),
-                               count: @gcommers[@gcnum].to_a.size,
+                     locals: { post:  comment,
+                               users: comment.gooders.where.not(id: current_user.id).first(2),
+                               count: comment.gooders.where.not(id: current_user.id).to_a.size,
                                ntype: ntype } %>
-          <% @pnum += 1 %>
-          <% @gcnum += 1 %>
         <% elsif ntype == "ReplyPost" %>
           <%= render partial: 'notices/notice_main',
-                     locals: { post:  @posts[@pnum],
-                               user:  @posts[@pnum].user,
+                     locals: { post:  kickspost,
+                               user:  kickspost.user,
                                count: 1,
                                ntype: ntype } %>
-          <% @pnum += 1 %>
         <% elsif ntype == "Kickspost" %>
           <%= render partial: 'notices/notice_main',
-                     locals: { post:  @posts[@pnum],
-                               users: @gposters[@gpnum].first(2),
-                               count: @gposters[@gcnum].to_a.size,
+                     locals: { post:  kickspost,
+                               users: kickspost.gooders.where.not(id: current_user.id).first(2),
+                               count: kickspost.gooders.where.not(id: current_user.id).to_a.size,
                                ntype: ntype } %>
-          <% @pnum += 1 %>
-          <% @gpnum += 1 %>
         <% end %>
       </div>
     </div>
