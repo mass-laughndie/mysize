@@ -66,8 +66,8 @@ class Kickspost < ApplicationRecord
   end
 
   def good_notice_check_or_delete
-    if self.goods.blank?
-      notice.find_by(user_id: self.user.id).destroy
+    if self.goods.blank? && !self.notice.nil? && good_notice = self.notice.find_by(user_id: self.user.id)
+      good_notice.destroy
     end
   end
 

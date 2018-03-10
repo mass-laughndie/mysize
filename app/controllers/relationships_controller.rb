@@ -6,10 +6,10 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:followed_id])
     @relation = current_user.follow(@user)
-
+=begin
     #通知アクション
     @user.create_or_update_follow_notice
-
+=end
     respond_to do |format|
       format.html { redirect_to @user }
       format.js

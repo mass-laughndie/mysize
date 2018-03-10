@@ -65,10 +65,10 @@ class Comment < ApplicationRecord
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    #ポストのgood数が0の場合
-    if self.goods.blank?
+    #ポストのgood数が0 && noticeが見つかった　場合
+    if self.goods.blank? && !self.notice.nil? && good_notice = self.notice.find_by(user_id: self.user.id)
       #通知削除
-      notice.find_by(user_id: self.user.id).destroy
+      good_notice.destroy
     end
   end
 
