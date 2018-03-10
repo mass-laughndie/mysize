@@ -234,6 +234,7 @@ class User < ApplicationRecord
     if notice = self.notices.find_by(kind_type: "Follow", created_at: this_day)
       #未読数+1
       notice.increment!(:unread_count, by = 1)
+      notice.touch
     #ない場合
     else
       #最新のフォロー通知がある場合
@@ -304,8 +305,8 @@ class User < ApplicationRecord
   #既読済みの期間以前の通知を削除
   #notices = current_userの全通知
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]10.week.ago)
-    deleteline = Time.new(2000,1,1)..25.week.ago
+    #削除ライン([テスト]1.day.ago => [本番]25.weeks.ago)
+    deleteline = Time.new(2000,1,1)..2.days.ago
     #削除ライン以前に更新された未読0の通知
     exnotices = notices.where(unread_count: 0, updated_at: deleteline)
     exnotices.destroy_all

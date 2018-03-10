@@ -9,28 +9,29 @@ class NoticesController < ApplicationController
     #既読済みの過去通知の削除
     current_user.delete_past_notices_already_read(@notices)
 
-    urnotices = @notices.where.not(unread_count: 0).reorder(updated_at: :asc)
+    #未読数リセット
+    urnotices = @notices.where.not(unread_count: 0)
     if urnotices.any?
       urnotices.each do |urnotice|
-        urnotice.update_attribute(:unread_count, 0)
+        urnotice.decrement!(:unread_count, urnotice.unread_count)
       end
     end
-
+=begin
     #全通知リスト
     @notice_lists = @notices.where("kind LIKE (?) OR kind IN (?) OR kind IN (?)",
                                    "%_list%", "comment", "reply")
                             .reorder(updated_at: :desc)
-
+=end
     #期間ごとのフォロワーの２重配列作成
-    follow_lists = @notices.where(kind: "follow_list")     #フォロー通知リスト
+    follow_notices = @notices.where(kind_type: "Follow")     #フォロー通知リスト
     @followers = []                                         #フォロワー格納配列
     @fcounts = []
-    follow_lists.each do |list|  #list=>各フォロー通知リスト
+    follow_notices.each do |notice|  #notice=>各フォロー通知リスト
       #リストを作成した週のrelationship(最新順)
-      relations = current_user.passive_relationships.where(created_at: that_day(list.created_at)).order(created_at: :desc)
-      #frelationshipがない場合(念のため、基本は事前にlistが削除されているためfalseになるはず)
+      relations = current_user.passive_relationships.where(created_at: that_day(notice.created_at)).order(created_at: :desc)
+      #frelationshipがない場合(念のため、基本は事前にnoticeが削除されているためfalseになるはず)
       if relations.blank?
-        list.destroy  #list削除
+        notice.destroy  #list削除
       else
         #期間内のフォロワーを新しい順に並べた配列をフォロワー格納配列へ
         @fcounts.unshift(relations.to_a.size)
@@ -39,7 +40,7 @@ class NoticesController < ApplicationController
     end
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
     @fnum = @fcounts.size - 1 
-
+=begin
     #ポストごとのgoodの２重配列作成
     gpost_lists = @notices.where(kind: "gpost_list")     #gpost通知リスト
     @gposters = []                                         #goodとした人を格納する配列
@@ -73,7 +74,7 @@ class NoticesController < ApplicationController
       end
     end
     @gcnum = @gccounts.size - 1
-
+=end
   end
-
+  
 end

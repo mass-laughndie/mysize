@@ -1,23 +1,23 @@
 <span><%= uname %></span>さん
 <% if count >= 2 %>
   , 他 <%= count - 1 %>人
-  <% if nkind == "follow_list" %>
+  <% if ntype == "Follow" %>
     があなたをフォローしています。
-  <% elsif nkind == "gpost_list" %>
+  <% elsif ntype == "Kickspost" %>
     があなたの投稿にグッドをしています。
-  <% elsif nkind == "gcom_list" %>
+  <% elsif ntype == "Comment" %>
     があなたのコメントにグッドをしています。
   <% end %>
 <% else %>
-  <% if nkind == "follow_list" %>
+  <% if ntype == "Follow" %>
     があなたをフォローしています。
-  <% elsif nkind == "gpost_list" %>
+  <% elsif ntype == "Kickspost" %>
     があなたの投稿にグッドをしています。
-  <% elsif nkind == "gcom_list" %>
+  <% elsif ntype == "Comment" %>
     があなたのコメントにグッドをしています。
-  <% elsif nkind == "comment" %>
+  <% elsif ntype == "NormalCom" %>
     からコメントがあります。
-  <% elsif nkind == "reply" %>
+  <% elsif ntype.in?(["ReplyCom", "ReplyPost"]) %>
     から返信があります。
   <% end %>
 <% end %>

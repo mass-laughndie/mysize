@@ -1,10 +1,10 @@
 <div class="npost-main clear">
-  <% if nkind == "gpost_list" %>
+  <% if ntype.in?(["ReplyPost", "Kickspost"]) %>
     <div class="c index-left kpost-left">
       <div class="npost-picture">
         <div class="abs-center">
           <%= link_to image_tag(picture_url(post),
-                                alt: content,
+                                alt: post.content,
                                 size: 50),
                       kickspost_path(post.user.mysize_id, post) %>
         </div>

@@ -67,6 +67,7 @@ class Kickspost < ApplicationRecord
     else
       #未読数+1
       notice.increment!(:unread_count, by = 1)
+      notice.touch
     end
   end
 
