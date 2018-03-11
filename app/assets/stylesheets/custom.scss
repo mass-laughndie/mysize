@@ -33,6 +33,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 body {
   background: $back;
   font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-size: 1.0em;
   position: relative;
   padding: 51px 0 121px;
 }
@@ -201,6 +202,7 @@ header {
 
     a {
       display: block;
+      font-size: 14px;
       font-weight: 550;
       height: 100%;
       line-height: 40px;
@@ -464,14 +466,8 @@ nav {
 /* home */
 
 .home-select {
-  height: 51px;
   margin-bottom: 20px;
 
-  .home-list {
-    a {
-      line-height: 50px;
-    }
-  }
 }
 
 /* profile */
@@ -701,7 +697,8 @@ nav {
 
   .post-name {
     font-size: 0.8em;
-    font-weight: 450;
+    font-weight: 500;
+    letter-spacing: 0.15px;
     line-height: 18px;
     white-space: nowrap;
     overflow: hidden;
@@ -894,7 +891,7 @@ nav {
 }
 
 .post-bottom {
-  font-size: 14px;
+  font-size: 12px;
   padding: 0 16px;
 
   .post-content {
@@ -930,6 +927,7 @@ nav {
   }
 
   .no-text {
+    font-size: 14px;
     font-weight: 500;
     line-height: 30px;
   }
@@ -971,14 +969,9 @@ nav {
 /* kickspost show */
 
 .kpost-select {
-  height: 51px;
-
   .kpost-list {
     position: relative;
 
-    a {
-      line-height: 50px;
-    }
   }
 }
 
@@ -1010,6 +1003,10 @@ nav {
         color: $main;
         font-weight: 550;
       }
+    }
+
+    .kpost-content {
+      font-size: 12.5px;
     }
   }
 
@@ -1367,6 +1364,7 @@ nav {
 /* link-list */
 
 .link-list {
+  font-size: 12.5px;
   position: relative;
   width: 100%; 
 
@@ -1449,6 +1447,7 @@ nav {
 
 .set-list {
   border-bottom: 1px solid $back;
+  font-size: 15px;
   list-style: none;
   position: relative;
   height: 61px;
@@ -1556,7 +1555,6 @@ nav {
 /* comment */
 
 .post-comment {
-  font-size: 14px;
   position: relative;
   width: 100%;
 
@@ -1622,8 +1620,10 @@ nav {
 }
 
 .notice-text {
+  font-size: 12.5px;
   span {
-    font-weight: 600;
+    font-weight: 570;
+    letter-spacing: 0.2px;
   }
 }
 
