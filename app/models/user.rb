@@ -5,18 +5,31 @@ class User < ApplicationRecord
 
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
-  has_many :notices,    dependent: :destroy
-  has_many :goods,      dependent: :destroy
 
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
-                                  dependent: :destroy
-  has_many :following, through: :active_relationships, source: :followed
+  has_many :active_relationships,  class_name: "Relationship",
+                                   foreign_key: "follower_id",
+                                   dependent: :destroy
+  has_many :following,             through: :active_relationships,
+                                   source: :followed
 
   has_many :passive_relationships, class_name: "Relationship",
                                    foreign_key: "followed_id",
                                    dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :followers,             through: :passive_relationships,
+                                   source: :follower
+
+  has_many :goods,         dependent: :destroy,
+                           class_name: "Good"
+  has_many :good_posts,    class_name: "Kickspost",
+                           through:   :goods,
+                           source: :post,
+                           source_type: "Kickspost"
+  has_many :good_comments, class_name: "Comment",
+                           through:   :goods,
+                           source: :post,
+                           source_type: "Comment"
+
+  has_many :notices, dependent: :destroy
 
   before_save :downcase_email
   before_save :downcase_mysizeid
@@ -61,11 +74,11 @@ class User < ApplicationRecord
     validates :password_confirmation,  presence: { message: "Password確認を入力してください" }
   end
 
-  validates :profile_content, length: { maximum: 160,
-                                        massage: "プロフィールは160字以内で入力してください" }
+  validates :content, length: { maximum: 160,
+                                massage: "プロフィールは160字以内で入力してください" }
 
-  validates :shoe_size, presence: { message: "スニーカーのサイズを選択してください",
-                                    if: :validate_shoesize? }
+  validates :size, presence: { message: "スニーカーのサイズを選択してください",
+                               if: :validate_shoesize? }
 
   validate :image_size
 
@@ -90,11 +103,11 @@ class User < ApplicationRecord
       if search
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
-        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
+        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
                "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
-          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR profile_content LIKE (?) OR shoe_size IN (?)",
+          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
                "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
         end
         cond
@@ -169,19 +182,15 @@ class User < ApplicationRecord
 =end
 
   def validate_name?
-    validate_name == 'true' || validate_name == true
+    validate_name.in?(['true', true])
   end
 
   def validate_shoesize?
-    validate_shoesize == 'true' || validate_shoesize == true
+    validate_shoesize.in?(['true', true])
   end
 
   def validate_password?
-    validate_password == 'true' || validate_password == true
-  end
-
-  def current_user_upload
-    current_user = @user
+    validate_password.in?(['true', true])
   end
 
   def feed
@@ -205,58 +214,69 @@ class User < ApplicationRecord
     following.include?(other)
   end
 
-  def create_comment_notice(kind, model)
-    notices.create(kind: kind, kind_id: model.id)
+  def receive_notice_of(type, kind)
+    notices.create(kind_type: type, kind_id: kind.id)
   end
 
-  def delete_comment_notice(kind, model)
-    notices.where(kind: kind, kind_id: model.id).each do |notice|
-      notice.destroy
-    end
-  end
-
-  #list系の更新or作成
-  def create_follow_notice(kind_list, model)
-    this_day = Time.zone.now.all_day
-    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    notice = self.notices.find_by(kind: kind_list, created_at: this_day)
-    #今週のlistがある場合
-    if notice
-      #listのupdated_atを更新 => noticeビューの上段に持ってくる
-      notice.increment!(:unread_count, by = 1)
-    #ない場合
-    else
-      #list作成(kind_idはlistの最初のnotice内のkind_idと同じ
-      #         => 期間内削除時[=最初のnotice削除時]に使用)
-      notices.create(kind: kind_list, kind_id: model.id)
-    end
-  end
-
-  #期間period内のlist系通知の要素が空の場合に削除
-  def delete_follow_notice(kind_list, period)
-    #期間内のフォローされた履歴
-    relations = self.passive_relationships.where(created_at: period)
-    #期間中に特定のnoticeが１つもない場合
-    if relations.blank?
-      #その期間のlistがあれば削除(基本あるはず)
-      if notice_list = notices.find_by(kind: kind_list, created_at: period)
-        notice_list.destroy
+  def lose_notice_of(type, kind)
+    post_notices = self.notices.where(kind_type: type, kind_id: kind.id)
+    if post_notices.any?
+      post_notices.each do |notice|
+        notice.destroy
       end
     end
   end
 
-  def good(kind, model)
-    goods.create(kind: kind, kind_id: model.id)
+  #follow通知の作成or更新
+  def create_or_update_follow_notice
+    this_day = Time.zone.now.all_day
+    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    #今週の通知がある場合
+    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_day)
+      #未読数+1
+      notice.increment!(:unread_count, by = 1)
+      notice.touch
+    #ない場合
+    else
+      #最新のフォロー通知がある場合
+      if latest_notice = self.notices.where(kind_type: "Follow").first
+        #新しい通知のkind_id = 最新通知のkind_id + 1
+        notice_num = latest_notice.kind_id + 1
+        #フォロー通知作成(kind_idは通し番号)
+        notices.create(kind_type: "Follow", kind_id: notice_num)
+      #ない(初通知の)場合
+      else
+        notices.create(kind_type: "Follow", kind_id: 1)
+      end
+    end
   end
 
-  def ungood(kind, model)
-    goods.find_by(kind: kind, kind_id: model.id).destroy
+  #フォロー通知のチェックと削除
+  def check_or_delete_follow_notice(period)
+    #期間period内のフォローされた履歴
+    relations = self.passive_relationships.where(created_at: period)
+    #履歴がない && その期間の通知がある 場合
+    if relations.blank?
+      if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
+        #通知削除
+        follow_notice.destroy
+      end
+    end
   end
 
-  def good?(kind, model)
-    goods.where(kind: kind).pluck(:kind_id).include?(model.id)
+  def good(type, post)
+    goods.create(post_type: type, post_id: post.id)
   end
 
+  def ungood(type, post)
+    goods.find_by(post_type: type, post_id: post.id).destroy
+  end
+
+  def good?(type, post)
+    goods.where(post_type: type).pluck(:post_id).include?(post.id)
+  end
+
+=begin
   def create_good_notice(kind_list, model)
     notice = self.notices.find_by(kind: kind_list, kind_id: model.id)
     #そのポストのlistがある場合
@@ -281,12 +301,13 @@ class User < ApplicationRecord
       end
     end
   end
+=end
 
   #既読済みの期間以前の通知を削除
   #notices = current_userの全通知
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]10.week.ago)
-    deleteline = Time.new(2000,1,1)..25.week.ago
+    #削除ライン([テスト]1.day.ago => [本番]25.weeks.ago)
+    deleteline = Time.new(2000,1,1)..2.days.ago
     #削除ライン以前に更新された未読0の通知
     exnotices = notices.where(unread_count: 0, updated_at: deleteline)
     exnotices.destroy_all

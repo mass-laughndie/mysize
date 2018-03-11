@@ -1,9 +1,9 @@
-<% provide(title: "通知") %>
+<% provide(:title, current_user.name + " 通知") %>
 
 <% if logged_in? %>
 <div class="content-nspace">
   <ul>
-    <%= render @notice_lists %>
+    <%= render @notices %>
   </ul>
 </div>
 <% else %>

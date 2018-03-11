@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:admusrind, :following, :followers]
+  before_action :logged_in_user, only: [:destroy, :admusrind,
+                                        :following, :followers, :good]
   before_action :admin_user,     only: :admusrind
 
   def show
@@ -18,6 +19,7 @@ class UsersController < ApplicationController
   def admusrind
     @users = User.search(params[:keyword])
     @kicksposts = Kickspost.search(params[:keyword]).includes(:user, {comments: :user})
+    @comments = Comment.search(params[:keyword]).includes(:user)
   end
 
   def index
@@ -26,7 +28,27 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find_by(mysize_id: params[:mysize_id]).destroy
+    @user = User.find_by(mysize_id: params[:mysize_id])
+
+    @user.comments.each do |comment|
+      comment.check_and_create_notice_to_others_and(current_user, current_user)
+      # Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+    end
+
+    @user.kicksposts.each do |kickspost|
+      kickspost.comments.each do |comment|
+        comment.check_and_delete_notice_form_others_and(current_user, current_user)
+        # Good.where(post_type: "Comment", post_id: comment.id).destroy_all
+      end
+      kickspost.check_and_delete_notice_form_others_and(current_user)
+      # Good.where(post_type: "Kickspost", post_id: kickspost.id).destroy_all
+    end
+=begin
+    @user.goods.each do |good|
+      Notice.find_by(kind: good.kind + "_list", kind_id: good.kind_id).destroy
+    end
+=end
+    @user.destroy
     flash[:success] = "削除が完了しました"
     redirect_to admusrind_url
   end

@@ -1,5 +1,5 @@
 <div class="form-ungood">
-  <%= form_for(current_user.goods.find_by(kind_id: kind_model.id),
+  <%= form_for(current_user.goods.find_by(post_type: type, post_id: post.id),
                html: { method: :delete },
                remote: true) do |f| %>
     <% button_tag fa_icon("thumbs-up") %>

@@ -1,0 +1,13 @@
+  <% if ntype == "Follow" %>
+    <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
+  <% elsif ntype.in?(["ReplyCom", "NormalCom", "Comment"]) %>
+    <% unless comment = Comment.find_by(id: notice.kind_id) %>
+      <% notice.destroy %><% break %>
+    <% end %>
+    <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
+  <% elsif ntype.in?(["ReplyPost", "Kickspost"]) %>
+    <% unless kickspost = Kickspost.find_by(id: notice.kind_id) %>
+      <% notice.destroy %><% break %>
+    <% end %>
+    <a class="content-link" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>"></a>
+  <% end %>

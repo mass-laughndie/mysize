@@ -1,50 +1,54 @@
+<% ntype = notice.kind_type %>
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
-  <% if notice.kind == "comment" || notice.kind == "reply" || notice.kind == "gcom_list" %>
-    <% comment = Comment.find_by(id: notice.kind_id) %>
-    <a class="content-link" href="<%= kickspost_path(comment.kickspost.user.mysize_id, comment.kickspost) %>"></a>
-  <% elsif notice.kind == "follow_list" %>
+  <% if ntype == "Follow" %>
     <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
-  <% elsif notice.kind == "gpost_list" %>
-    <% kickspost = Kickspost.find_by(id: notice.kind_id) %>
-    <a class="content-link" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>"></a>
+  <% else %>
+    <% if ntype.in?(["ReplyCom", "NormalCom", "Comment"]) %>
+      <% linkpost = @posts[@pnum].kickspost %>
+    <% else %>
+      <% linkpost = @posts[@pnum] %>
+    <% end %>
+    <a class="content-link" href="<%= kickspost_path(linkpost.user.mysize_id, linkpost) %>"></a>
   <% end %>
   <div class="content-abs">
     <div class="content-height">
       <div class="list-content clear">
-        <% if notice.kind == "follow_list" %>
+        <% if ntype == "Follow" %>
           <%= render partial: 'notices/notice_main',
-                     locals: { users: @followers,
-                               counts: @fcounts,
-                               num: @fnum,
-                               nkind: notice.kind } %>
-        <% elsif notice.kind == "comment" %>
+                     locals: { users: @followers[@fnum],
+                               count: @fcounts[@fnum],
+                               ntype: ntype } %>
+          <% @fnum -= 1 %>
+        <% elsif ntype.in?(["ReplyCom", "NormalCom"]) %>
           <%= render partial: 'notices/notice_main',
-                     locals: { comment: comment,
-                               user: comment.user,
+                     locals: { post:  @posts[@pnum],
+                               user:  @posts[@pnum].user,
                                count: 1,
-                               num: 0,
-                               nkind: notice.kind } %>
-        <% elsif notice.kind == "reply" %>
+                               ntype: ntype } %>
+          <% @pnum += 1 %>
+        <% elsif ntype == "Comment" %>
           <%= render partial: 'notices/notice_main',
-                     locals: { comment: comment,
-                               user: comment.user,
+                     locals: { post:  @posts[@pnum],
+                               users: @gcommers[@gcnum].first(2),
+                               count: @gcommers[@gcnum].to_a.size,
+                               ntype: ntype } %>
+          <% @pnum += 1 %>
+          <% @gcnum += 1 %>
+        <% elsif ntype == "ReplyPost" %>
+          <%= render partial: 'notices/notice_main',
+                     locals: { post:  @posts[@pnum],
+                               user:  @posts[@pnum].user,
                                count: 1,
-                               num: 0,
-                               nkind: notice.kind } %>
-        <% elsif notice.kind == "gpost_list" %>
+                               ntype: ntype } %>
+          <% @pnum += 1 %>
+        <% elsif ntype == "Kickspost" %>
           <%= render partial: 'notices/notice_main',
-                     locals: { kickspost: kickspost,
-                               users: @gposters,
-                               counts: @gpcounts,
-                               num: @gpnum,
-                               nkind: notice.kind } %>
-        <% elsif notice.kind == "gcom_list" %>
-          <%= render partial: 'notices/notice_main',
-                     locals: { comment: comment,
-                               users: @gcomers,
-                               counts: @gccounts,
-                               num: @gcnum,
-                               nkind: notice.kind } %>
+                     locals: { post:  @posts[@pnum],
+                               users: @gposters[@gpnum].first(2),
+                               count: @gposters[@gcnum].to_a.size,
+                               ntype: ntype } %>
+          <% @pnum += 1 %>
+          <% @gpnum += 1 %>
         <% end %>
       </div>
     </div>

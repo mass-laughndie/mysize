@@ -9,29 +9,31 @@
                 id: "content-name-" + comment.id.to_s %>
   </div>
   <div class="kpost-content autolink">
-    <%= comment.comment_content %>
+    <%= comment.content %>
   </div>
 </div>
-<div class="c kpost-right-bottom">
-  <div class="kpost-act">
-    <% if current_user == comment.user || current_user == comment.kickspost.user %>
-      <div class="kpost-alist">
-        <div class="comment-act comment-delete">
-          <%= render 'comments/comment_delete', comment: comment %>
+<div class="kpost-right">
+  <div class="c kpost-right-bottom">
+    <div class="kpost-act">
+      <% if current_user.in?([comment.user, comment.kickspost.user]) %>
+        <div class="kpost-alist">
+          <div class="comment-act comment-delete">
+            <%= render 'comments/comment_delete', comment: comment %>
+          </div>
         </div>
+      <% end %>
+      <div class="kpost-alist">
+        <%= render partial: 'goods/good_form',
+                   locals: { post: comment,
+                             type: "Comment" } %>
       </div>
-    <% end %>
-    <div class="kpost-alist">
-      <%= render partial: 'goods/good_form',
-             locals: { kind_model: comment,
-                       kind: "gcom" } %>
+      <% unless current_user == comment.user %>
+        <div class="kpost-alist">
+          <div class="comment-act" id="comment-reply-<%= comment.id %>">
+            <%= fa_icon('reply')%>
+          </div>
+        </div>
+      <% end %>
     </div>
-    <% unless current_user == comment.user %>
-      <div class="kpost-alist">
-        <div class="comment-act" id="comment-reply-<%= comment.id %>">
-          <%= fa_icon('reply')%>
-        </div>
-      </div>
-    <% end %>
   </div>
 </div>
