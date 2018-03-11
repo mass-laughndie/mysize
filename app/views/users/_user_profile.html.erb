@@ -3,11 +3,11 @@
     <%= image_tag(image_url(user), alt: user.name) %>
   </div>
   <div class="user-stats">
-    <a href="<%= search_path(keyword: user.shoe_size) %>">
+    <a href="<%= search_path(for: 'user', keyword: user.size) %>">
       <div class="num">
         <strong id="user_size" class="stat">
-          <% unless user.shoe_size.nil? %>
-            <%= user.shoe_size %>
+          <% unless user.size.nil? %>
+            <%= user.size %>
           <% else %>
             0
           <% end %>
@@ -58,9 +58,9 @@
   <% end %>
 </div>
 <div class="profile-bottom">
-  <div class="user-profile">
-    <% unless user.profile_content.blank? %>
-      <%= user.profile_content %>
+  <div class="user-profile autolink">
+    <% unless user.content.blank? %>
+      <%= user.content %>
     <% else %>
       プロフィールが未記入です。
     <% end %>

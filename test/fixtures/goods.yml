@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
-  kind: one
-
-two:
-  user: two
-  kind: two
+good1:
+  user: user1
+  post: tau

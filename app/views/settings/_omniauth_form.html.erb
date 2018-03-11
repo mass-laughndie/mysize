@@ -9,8 +9,8 @@
     <%= f.text_field :mysize_id, placeholder: "a-z,0-9,_ 15文字以内" %>
   </div>
   <div class="label-form">
-    <%= f.label :shoe_size, "*スニーカーのベースサイズ" %>
-    <%= f.select(:shoe_size, options_for_select(size_array, @user.shoe_size),
+    <%= f.label :size, "*スニーカーのベースサイズ" %>
+    <%= f.select(:size, options_for_select(size_array, @user.size),
                   prompt: "選択してください") %>
   </div>
   <div class="label-form">

@@ -1,10 +1,10 @@
 class CreateKicksposts < ActiveRecord::Migration[5.1]
   def change
     create_table :kicksposts do |t|
-      t.text :content
-      t.string :picture
-      t.float :size
-      t.references :user, foreign_key: true
+      t.references :user,       foreign_key: true
+      t.text       :content
+      t.string     :picture
+      t.float      :size
 
       t.timestamps
     end

@@ -29,8 +29,8 @@ Rails.application.routes.draw do
 
   get '/search', to: 'search#search'
 
-  post   '/postcomments',    to: 'comments#post_create'
-  delete '/postcomment/:id', to: 'comments#post_destroy',
+  post   '/postcomments',    to: 'comments#create'
+  delete '/postcomment/:id', to: 'comments#destroy',
                              as: 'postcomment'
 
 =begin
@@ -46,8 +46,8 @@ Rails.application.routes.draw do
 
   resource  :notice,   only: [:show, :create, :destroy]
   resources  :goods,   only: [:create, :destroy]
-  resources  :comments,   only: [:index, :show, :create, :destroy],
-                       path: '/talk'
+  resources  :comments,   only: [:index, :show],
+                          path: '/talk'
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],

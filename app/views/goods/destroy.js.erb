@@ -1,3 +1,2 @@
-$("#good-form-<%= @kind %>-<%= @model.id %>")
-  .html("<%= escape_javascript(render partial: 'goods/good_button', locals: { kind_model: @model, kind: @kind }) %>");
-// $("#followers").html('<%= @user.followers.count %>');
+$("#good-form-<%= @type.downcase %>-<%= @post.id %>")
+  .html("<%= escape_javascript(render partial: 'goods/good_button', locals: { post: @post, type: @type }) %>");
