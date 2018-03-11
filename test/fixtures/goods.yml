@@ -1,31 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 good1:
-  user: mysize1
-  post: orange
-  post_type: "Kickspost"
-  created_at: <%= 5.minutes.ago %>
-
-good2:
-  user: mysize2
-  post: ants
-  post_type: "Kickspost"
-  created_at: <%= 1.years.ago %>
-
-good3:
-  user: mysize3
-  post: ants
-  post_type: "Kickspost"
-  created_at: <%= 11.months.ago %>
-
-good4:
-  user: mysize2
+  user: user1
   post: tau
-  post_type: "Comment"
-  created_at: <%= 9.months.ago %>
-
-good5:
-  user: mysize3
-  post: tau
-  post_type: "Comment"
-  created_at: <%= 8.months.ago %>
