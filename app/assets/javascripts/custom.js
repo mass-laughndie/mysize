@@ -2,12 +2,21 @@
 
 
 //flash非表示
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    setTimeout( function(){
+      $("#flash").css('display', 'none');
+    }, 3000);
+  });
+});
+
+/*
 function clearBox() {
   $("#temp3").css('display', 'none');
 }
 
 setTimeout( clearBox, 3000 );
-
+*/
 
 //post-menuスライドバー
 document.addEventListener('turbolinks:load', function() {
@@ -43,7 +52,8 @@ function indexId(){
   return $.ajax({
     type: 'GET',
     url: '/index?for=mysizeid&key=mysizeid',
-    dataType: 'html'
+    dataType: 'html',
+    timeout: 20000
   })
 }
 
@@ -89,7 +99,7 @@ document.addEventListener('turbolinks:load', function() {
           iid.pop();
           changeLink(iid);
         }).fail(function(data) {
-          console.log('failed loading data!!!');
+          alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
           return false;
         })
       //data取得済み

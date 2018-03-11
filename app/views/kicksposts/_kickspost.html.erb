@@ -80,10 +80,10 @@
             <div class="comment-lead">
               <% if current_user == kickspost.user %>
                 <%= link_to "コメントを見る・返信する",
-                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                    kickspost_path(kickspost.user.mysize_id, kickspost, display: "text") %>
               <% else %>
                 <%= link_to "コメントを見る・書く",
-                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                    kickspost_path(kickspost.user.mysize_id, kickspost, display: "text") %>
               <% end %>
             </div>
           <% end %>
@@ -106,7 +106,7 @@
         <% if comment_disnum == "few" && current_user != kickspost.user %>
             <div class="comment-lead">
               <%= link_to "コメントを書く",
-                          kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                  kickspost_path(kickspost.user.mysize_id, kickspost, display: "text") %>
             </div>
           <% end %>
       <% end %>

@@ -28,27 +28,11 @@
   <% end %>
   <div class="c kpost-right-bottom">
     <div class="kpost-act">
-      <% if current_user.in?([post.user, main_post.user]) %>
-        <div class="kpost-alist">
-          <div class="comment-act comment-delete">
-            <%= render partial: 'shared/post_delete',
-                       locals: { post: post,
-                                 type: type } %>
-          </div>
-        </div>
-      <% end %>
       <div class="kpost-alist">
         <%= render partial: 'goods/good_form',
                    locals: { post: post,
                              type: type } %>
       </div>
-      <% if current_user != post.user && type == "Comment" %>
-        <div class="kpost-alist">
-          <div class="comment-act" id="comment-reply-<%= post.id %>">
-            <%= fa_icon('reply')%>
-          </div>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>

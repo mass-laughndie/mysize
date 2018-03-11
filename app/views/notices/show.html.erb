@@ -1,11 +1,12 @@
-<% provide(:title, current_user.name + " 通知") %>
+<% provide(:title, "通知") %>
 
-<% if logged_in? %>
+<% if logged_in? && @notices.any? %>
 <div class="content-nspace">
   <ul>
     <%= render @notices %>
   </ul>
 </div>
 <% else %>
-  <p>ログインしてください</p>
+  <%= render partial: 'shared/no_data',
+                 locals: { target: "notice" } %>
 <% end %>

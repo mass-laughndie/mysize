@@ -35,7 +35,12 @@ class CommentsController < ApplicationController
     else
       flash[:danger] = "コメントを送信できませんでした"
     end
-    redirect_to kickspost_path(@user.mysize_id, @kickspost)
+
+    if params[:display]
+      redirect_to kickspost_path(@user.mysize_id, @kickspost, display: params[:display])
+    else
+      redirect_to kickspost_path(@user.mysize_id, @kickspost)
+    end
   end
 
   def destroy
@@ -67,7 +72,12 @@ class CommentsController < ApplicationController
 
     @comment.destroy
     flash[:success] = "コメントを削除しました"
-    redirect_to kickspost_path(@user.mysize_id, @kickspost)
+
+    if params[:display]
+      redirect_to kickspost_path(@user.mysize_id, @kickspost, display: params[:display])
+    else
+      redirect_to kickspost_path(@user.mysize_id, @kickspost)
+    end
   end
 
 
