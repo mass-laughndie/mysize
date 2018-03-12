@@ -273,6 +273,12 @@ header {
   }
 }
 
+.poricy {
+  p {
+    font-size: 14.5px;
+  }
+}
+
 /* header */
 
 .header {
@@ -302,8 +308,12 @@ header {
     width: 50px;
 
     .fa-sign-in,
-    .fa-chevron-left {
+    .fa-angle-left {
       color: $main;
+    }
+
+    .fa-angle-left {
+      font-size: 24px;
     }
 
     img {
@@ -336,6 +346,14 @@ header {
       float: left;
       font-size: 40px;
       margin-bottom: 5px;
+    }
+  }
+
+  .center-header {
+    line-height: 50px;
+    h1 {
+      font-size: 1.1em;
+      letter-spacing: 0.15px;
     }
   }
 }
@@ -1184,6 +1202,7 @@ nav {
   .select-icon {
     height: 40px;
     line-height: 40px;
+    pointer-events: none;
     position: absolute;
     top: 0;
     right: 0;
@@ -1814,10 +1833,36 @@ nav {
   background-color: $accent;
 }
 
+
+
+
 @media only screen and (max-width: 767px) {
   
 }
 
 @media only screen and (min-width: 768px) {
   
+}
+
+
+/* firefox */
+@-moz-document url-prefix() {
+  h1, h2, h3, h4, h5, h6, p, label {
+    transform: rotate(0.001deg);
+  }
+}
+
+/* Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    _::-webkit-full-page-media, _:future, :root h1, h2, h3, h4, h5, h6, p, label {
+    transform: rotate(0.001deg);
+  }
+}
+
+/* Chrome || Opera */
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+  h1, h2, h3, h4, h5, h6, p, label {
+    transform: rotate(0.05deg);
+    text-shadow: 0 0 0.1px rgba(0,0,0,0.1);
+  }
 }

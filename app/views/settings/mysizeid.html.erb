@@ -1,10 +1,8 @@
 <% provide(:title, "MysizeID編集") %>
 <%= render 'layouts/back', back_path: "#{account_settings_path}" %>
+<%= render 'layouts/center_header', header_text: "MysizeID編集" %>
 
-<div class="content-fspace">
-  <div class="page-title">
-    <h1 class="title-text">MysizeID編集</h1>
-  </div>
+<div class="content">
   <div class="set-form">
     <%= form_for(@user, url: mysizeid_settings_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>

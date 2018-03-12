@@ -144,7 +144,7 @@ class SettingsController < ApplicationController
     end
 
     def no_access
-      unless current_user.name.nil?
+      unless current_user.name.nil? || current_user.size.nil?
         flash[:danger] = "そのページにはアクセスできません"
         return_back
       end

@@ -1,4 +1,6 @@
-<% provide(:title, "キックスポスト投稿") %>
+<% provide(:title, "投稿作成") %>
+<%= render 'layouts/back', back_path: "#{user_path(current_user)}" %>
+<%= render 'layouts/center_header', header_text: "投稿作成" %>
 
 <div class="content-fspace">
   <div class="post-form">

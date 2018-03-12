@@ -16,10 +16,14 @@
       <% end %>
     </div>
     <div class="header header-center">
+      <% if content_for?(:center_header) %>
+        <%= yield(:center_header) %>
+      <% else %>
         <a class="logo-text" href="<%= root_path %>">
           <%= image_tag("/images/apps_icon5.png", size: 24) %>
           <span class="logo-font">Mysize</span>
         </a>
+      <% end %>
     </div>
     <div class="header header-right alist">
       <% if content_for?(:right_header) %>
