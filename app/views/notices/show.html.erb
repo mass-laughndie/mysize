@@ -1,4 +1,5 @@
 <% provide(:title, "通知") %>
+<%= render 'layouts/center_header', header_text: "通 知" %>
 
 <% if logged_in? && @notices.any? %>
 <div class="content-nspace">

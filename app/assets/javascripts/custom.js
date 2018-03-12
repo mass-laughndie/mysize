@@ -149,3 +149,38 @@ document.addEventListener('turbolinks:load', function(){
     });
   });
 });
+
+//画像ファイルプレビュー
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    //from内の該当要素を選択されたら(ファイルを選択しないときは発火しない)
+    $('form').on('change', 'input[type="file"]', function(e) {
+      var
+        file = e.target.files[0],   //ファイルオブジェクト
+        reader = new FileReader(),
+        $preview = $('.preview');
+
+      //fileタイプがimageでないとき => 実効終了
+      if ( file.type.indexOf('image') < 0){
+        return false;
+      }
+
+      //読み込み成功して完了(onload)
+      reader.onload = (function(file) {
+        return function(e) {
+          //既存のプレビュー削除
+          $preview.empty();
+          //プレビュー挿入
+          $preview.append($('<img>').attr({
+            src: e.target.result,
+            width: "35%",
+            class: "preview cover",
+            title: file.name
+          }));
+        };
+      })(file);
+      //ファイルをURLとして読み込む
+      reader.readAsDataURL(file);
+    });
+  });
+});

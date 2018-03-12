@@ -2,20 +2,40 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="label-form">
     <%= f.label :name, "*ユーザー名" %>
+  </div>
+  <div class="base-form">
     <%= f.text_field :name, placeholder: "ユーザー名" %>
   </div>
-  <div class="label-form">
-    <%= f.label :size, "*スニーカーのベースサイズ" %>
-    <%= f.select(:size, options_for_select(size_array, @user.size),
-                  prompt: "選択してください") %>
-  </div>
-  <div class="label-form">
-    <%= f.label :image, "アイコン" %>
-    <%= f.file_field :image %>
-    <%= f.hidden_field :image_cache %>
+  <div class="set-form clear">
+    <div class="upload-form">
+      <div class="label-form file-label">
+        <%= f.label :image, "アイコン" %>
+      </div>
+      <div class="file-form">
+        <%= f.label :image, class: "c upload-button" do %>
+          <%= fa_icon("plus") %>
+        <% end %>
+        <div class="preview"></div>
+      </div>
+      <div class="base-form hidden-form">
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+    </div>
+    <div class="size-form">
+      <div class="label-form select-label font-mini">
+        <%= f.label :size, "スニーカーのベースサイズ" %>
+      </div>
+      <div class="base-form select-form">
+        <%= f.select(:size, options_for_select(size_array), prompt: "選 択") %>
+        <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
+      </div>
+    </div>
   </div>
   <div class="label-form">
     <%= f.label :content, "プロフィール" %>
+  </div>
+  <div class="base-form base-form-area">
     <%= f.text_area :content, placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
 (例)Jordan1(27cm)/StanSmith(26.5cm)/...|(どういったスニーカーが好きかなど...)" %>
   </div>

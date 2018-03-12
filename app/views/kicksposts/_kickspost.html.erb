@@ -37,13 +37,17 @@
             <%= fa_icon("ellipsis-h") %>
           </div>
           <ul id="nav-list-<%= kickspost.id %>" class="nav-list">
-            <li><%= link_to "削除",
-                    kickspost_path(kickspost.user.mysize_id, kickspost),
-                    method: :delete,
-                    data: { confirm: "本当に削除してよろしいですか？" } %></li>
+            <li>
+              <span><%= fa_icon("trash") %></span>
+              <%= link_to " 投稿を削除する",
+                  kickspost_path(kickspost.user.mysize_id, kickspost),
+                  method: :delete,
+                  data: { confirm: "本当に削除してよろしいですか？" } %></li>
             <li class="bar"></li>
-            <li><%= link_to "編集",
-                    edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
+            <li>
+              <span><%= fa_icon("pencil-square-o") %></span>
+              <%= link_to " 投稿を編集する",
+                  edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
           </ul>
         <% end %>
       </div>
