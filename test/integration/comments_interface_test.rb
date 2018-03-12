@@ -34,7 +34,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match content, response.body
     assert_match @comment.content, response.body
     #削除
-    assert_select 'i.fa-trash', count: 2
+    assert_select 'i.fa-trash', count: 3
     latest_comment = @user.comments.last
     assert_difference 'Comment.count', -1 do
       delete postcomment_path(latest_comment.id, kickspost_id: @kickspost.id)
@@ -43,7 +43,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to kickspost_path(@user, @kickspost)
     follow_redirect!
     assert_match @comment.content, response.body
-    assert_select 'i.fa-trash', count: 1
+    assert_select 'i.fa-trash', count: 2
     assert_no_match content, response.body
   end
 end
