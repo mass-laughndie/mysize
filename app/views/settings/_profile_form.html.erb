@@ -6,20 +6,31 @@
   <div class="base-form">
     <%= f.text_field :name, placeholder: "ユーザー名" %>
   </div>
-  <div class="label-form">
-    <%= f.label :size, "*スニーカーのベースサイズ" %>
-  </div>
-  <div class="base-form">
-    <%= f.select(:size, options_for_select(size_array, @user.size),
-                  prompt: "選択してください") %>
-    <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
-  </div>
-  <div class="label-form">
-    <%= f.label :image, "アイコン" %>
-  </div>
-  <div class="base-form">
-    <%= f.file_field :image %>
-    <%= f.hidden_field :image_cache %>
+  <div class="set-form clear">
+    <div class="upload-form">
+      <div class="label-form file-label">
+        <%= f.label :image, "アイコン" %>
+      </div>
+      <div class="file-form">
+        <%= f.label :image, class: "c upload-button" do %>
+          <%= fa_icon("plus") %>
+        <% end %>
+        <div class="preview"></div>
+      </div>
+      <div class="base-form hidden-form">
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+    </div>
+    <div class="size-form">
+      <div class="label-form select-label font-mini">
+        <%= f.label :size, "スニーカーのベースサイズ" %>
+      </div>
+      <div class="base-form select-form">
+        <%= f.select(:size, options_for_select(size_array), prompt: "選 択") %>
+        <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
+      </div>
+    </div>
   </div>
   <div class="label-form">
     <%= f.label :content, "プロフィール" %>

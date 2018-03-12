@@ -1182,7 +1182,8 @@ nav {
 
   input,
   select,
-  textarea {
+  textarea,
+  label {
     background: $weak-grey;
     border-radius: 5px;
     color: $main;
@@ -1224,6 +1225,96 @@ nav {
     max-width: 100%;
     padding: 10px 20px;
   }
+}
+
+.set-form {
+  width: 100%;
+  margin-bottom: 30px;
+
+  .upload-form {
+    width: 39%;
+    float: left;
+  }
+
+  .size-form {
+    margin-left: 4%;
+    width: 57%;
+    float: left;
+  }
+}
+
+.file-form {
+  background: $weak-grey;
+  border-radius: 10px;
+  position: relative;
+  height: auto;
+  width: 100%;
+
+  .upload-button {
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    i {
+      font-size: 1.5em;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .preview {
+    height: 92%;
+    margin: 4%;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 92%;
+    z-index: 10;
+  }
+}
+
+.file-form:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.file-label {
+  width: 100%;
+}
+
+.select-form {
+  border-radius: 10px;
+  height: 111px;
+  margin: 0;
+
+  select,
+  .select-icon {
+    line-height: 111px;
+    font-size: 26px;
+
+    option {
+      font-size: 14px;
+    }
+  }
+}
+
+.select-label {
+  width: 100%;
+}
+
+.font-mini label {
+  font-size: 0.8em !important;
+  line-height: 26px;
+}
+
+.hidden-form {
+  display: none;
 }
 
 .mb {
