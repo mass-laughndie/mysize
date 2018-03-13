@@ -184,3 +184,30 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+//textareaの高さ自動変更
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    $('.autoheight').on('input', function(e){
+      var
+        $textarea = $(e.target),
+        allHeight = e.target.scrollHeight,    //スクロールを含めた全体の高さ
+        areaHeight = e.target.offsetHeight;    //要素(textarea)の高さ
+      
+      if(allHeight > areaHeight){
+        $textarea.height(allHeight);
+      } else {
+        //line-heightの値を取得
+        var lineHeight = Number($textarea.css('lineHeight').split('px')[0]);
+        while (true) {
+          //1行分ずつ縮小する
+          $textarea.height($textarea.height() - lineHeight);
+          if(allHeight > areaHeight){
+            $textarea.height(allHeight);
+          }
+          break;
+        }
+      }
+    });
+  });
+});
