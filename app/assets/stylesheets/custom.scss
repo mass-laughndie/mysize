@@ -203,7 +203,7 @@ header {
   position: relative;
 }
 
-.select-form {
+.select {
   border-bottom: 1px solid $weak-grey;
   height: 41px;
   width: 100%;
@@ -1212,18 +1212,16 @@ nav {
 }
 
 .base-form-area {
-  height: 200px;
+  display: table;
   margin: 0 auto 30px;
   position: relative;
   width: 100%;
 
   textarea {
-    line-height: 24px;
+    line-height: 20px;
     min-height: 200px;
-    max-height: 300px;
-    min-width: 100%;
-    max-width: 100%;
     padding: 10px 20px;
+    resize: vertical;
   }
 }
 
@@ -1296,7 +1294,7 @@ nav {
   select,
   .select-icon {
     line-height: 111px;
-    font-size: 26px;
+    font-size: 24px;
 
     option {
       font-size: 14px;
@@ -1670,7 +1668,8 @@ nav {
     position: relative;
     width: 90%;
 
-    input {
+    input,
+    textarea {
       background: $weak-grey;
       border-radius: 5px;
       border: none;
@@ -1680,6 +1679,7 @@ nav {
       padding: 5px 30px 5px 15px;
       position: relative;
       width: 100%;
+      word-wrap: break-word;
     }
 
     input:focus {

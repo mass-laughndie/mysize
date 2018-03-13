@@ -37,7 +37,8 @@
       </div>
       <div class="base-form base-form-area">
         <%= f.text_area :content,
-          placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
+          placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)",
+          class: "autoheight" %>
       </div>
       <div class="c button button-mini accent">
         <%= f.submit "投稿する", data: { disable_with: "処理中..."} %>

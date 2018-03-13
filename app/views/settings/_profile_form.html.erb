@@ -36,7 +36,8 @@
     <%= f.label :content, "プロフィール" %>
   </div>
   <div class="base-form base-form-area">
-    <%= f.text_area :content, placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
+    <%= f.text_area :content, class: "autoheight",
+        placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
 (例)Jordan1(27cm)/StanSmith(26.5cm)/...|(どういったスニーカーが好きかなど...)" %>
   </div>
   <div class="c button button-mini accent">
