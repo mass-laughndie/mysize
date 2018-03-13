@@ -9,6 +9,9 @@
   <div class="kpost-content autolink">
     <%= kickspost.content %>
   </div>
+  <div class="kpost-time">
+    <%= time_ago_in_words(kickspost.created_at) %>前
+  </div>
 </div>
 <div class="kpost-right">
   <div class="c kpost-right-top">

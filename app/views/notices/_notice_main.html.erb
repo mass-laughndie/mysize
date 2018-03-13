@@ -26,6 +26,9 @@
                locals: { uname: user.name,
                          count: count,
                          ntype: ntype } %>
+    <div class="notice-time kpost-time">
+      <%= time_ago_in_words(ntime) %>前
+    </div>
   </div>
 </div>
 <% unless ntype == "Follow" %>

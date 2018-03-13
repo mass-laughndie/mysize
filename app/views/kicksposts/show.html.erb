@@ -25,11 +25,9 @@
                          comment_disnum: nil } %>
   <% end %>
   <% if logged_in? %>
-    <div class="comment-space">
-      <div class="fixed fixed-bottom comment-height">
-        <%= render partial: 'comments/comment_form',
-                   locals: { kickspost: @kickspost } %>
-      </div>
+    <div class="fixed fixed-bottom">
+      <%= render partial: 'comments/comment_form',
+                 locals: { kickspost: @kickspost } %>
     </div>
   <% end %>
 </div>

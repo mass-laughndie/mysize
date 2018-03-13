@@ -11,6 +11,9 @@
   <div class="kpost-content autolink">
     <%= post.content %>
   </div>
+  <div class="kpost-time">
+    <%= time_ago_in_words(post.created_at) %>前
+  </div>
 </div>
 <div class="kpost-right">
   <% if type == "Kickspost" %>
@@ -32,6 +35,11 @@
         <%= render partial: 'goods/good_form',
                    locals: { post: post,
                              type: type } %>
+      </div>
+      <div class="kpost-num">
+        <div class="kpost-good-num" id="good-num-<%= post.class.to_s.underscore %>-<%= post.id %>">
+          <%= post.goods.to_a.size %>
+        </div>
       </div>
     </div>
   </div>

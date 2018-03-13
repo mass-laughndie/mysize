@@ -4,7 +4,7 @@
     <div><%= f.hidden_field :user_id, value: current_user.id %></div>
     <div><%= hidden_field_tag :display, params[:display] %></div>
     <%= f.text_area :content, placeholder: "コメントをする",
-                      class: "comment-text-form autoheight" %>
+                      class: "comment-text-form" %>
     <div class="inner-button comment-button">
       <%= f.button fa_icon("reply") %>
     </div>
