@@ -12,10 +12,20 @@
         <%= f.label :image, "アイコン" %>
       </div>
       <div class="file-form">
-        <%= f.label :image, class: "c upload-button" do %>
-          <%= fa_icon("plus") %>
+        <%= f.label :image, class: "upload-button" do %>
+          <div class="upload-icon">
+            <% if @user.image.blank? %>
+              <%= fa_icon("plus") %>
+            <% else %>
+              <%= fa_icon("refresh") %>
+            <% end %>
+          </div>
+          <% if @user.image.blank? %>
+            <div class="preview"></div>
+          <% else %>
+            <div class="preview"><%= image_tag(image_url(@user), alt: @user.name, class: "cover") %></div>
+          <% end %>
         <% end %>
-        <div class="preview"></div>
       </div>
       <div class="base-form hidden-form">
         <%= f.file_field :image %>
@@ -24,7 +34,7 @@
     </div>
     <div class="size-form">
       <div class="label-form select-label font-mini">
-        <%= f.label :size, "スニーカーのベースサイズ" %>
+        <%= f.label :size, "*スニーカーのベースサイズ" %>
       </div>
       <div class="base-form select-form">
         <%= f.select(:size, options_for_select(size_array), prompt: "選 択") %>
@@ -38,7 +48,7 @@
   <div class="base-form base-form-area">
     <%= f.text_area :content, class: "autoheight",
         placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
-(例)Jordan1(27cm)/StanSmith(26.5cm)/...|(どういったスニーカーが好きかなど...)" %>
+(例)Jordan1(27cm)/StanSmith(26.5cm)/...(好きなブランドなど)" %>
   </div>
   <div class="c button button-mini accent">
     <%= f.submit yield(:button_text), data: { disable_with: "処理中..."} %>

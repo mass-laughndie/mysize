@@ -12,10 +12,12 @@
             <%= f.label :picture, "画像" %>
           </div>
           <div class="file-form">
-            <%= f.label :picture, class: "c upload-button" do %>
-              <%= fa_icon("plus") %>
+            <%= f.label :picture, class: "upload-button" do %>
+              <div class="upload-icon">
+                <%= fa_icon("plus") %>
+              </div>
+              <div class="preview"></div>
             <% end %>
-            <div class="preview"></div>
           </div>
           <div class="base-form hidden-form">
             <%= f.file_field :picture %>

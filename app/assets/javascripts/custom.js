@@ -1,6 +1,5 @@
 
 
-
 //flash非表示
 document.addEventListener('turbolinks:load', function() {
   $(function(){
@@ -10,13 +9,6 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/*
-function clearBox() {
-  $("#temp3").css('display', 'none');
-}
-
-setTimeout( clearBox, 3000 );
-*/
 
 //post-menuスライドバー
 document.addEventListener('turbolinks:load', function() {
@@ -62,7 +54,7 @@ function changeLink(_iid) {
   $('.autolink').each(function(){
     var
       txt = $(this).html(),
-      exp = txt.match(/@[a-zA-Z0-9_]+\s/g);               //全「@ID 」
+      exp = txt.match(/@[a-zA-Z0-9_]+\s/g);                //全「@ID 」
     if(exp != null){
       for(var i = 0; i < exp.length; i++){
         var
@@ -89,7 +81,7 @@ iid = [];
 //comment送信先ユーザーリンク化
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    //commentがある場合
+    //.autolinkがある場合
     if ($('.autolink').length) {
       //data未取得
       if (iid.length == 0) {
@@ -125,6 +117,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+
 //現在位置ボタンの色変換
 document.addEventListener('turbolinks:load', function(){
   $(function(){
@@ -140,6 +133,7 @@ document.addEventListener('turbolinks:load', function(){
   });
 });
 
+
 //未ログインアラートボタン
 document.addEventListener('turbolinks:load', function(){
   $(function(){
@@ -149,6 +143,7 @@ document.addEventListener('turbolinks:load', function(){
     });
   });
 });
+
 
 //画像ファイルプレビュー
 document.addEventListener('turbolinks:load', function() {
@@ -160,8 +155,8 @@ document.addEventListener('turbolinks:load', function() {
         reader = new FileReader(),
         $preview = $('.preview');
 
-      //fileタイプがimageでないとき => 実効終了
-      if ( file.type.indexOf('image') < 0){
+      //fileが選択されなかった || fileタイプがimageでないとき => 実効終了
+      if ( file == undefined || file.type.indexOf('image') < 0){
         return false;
       }
 
@@ -174,9 +169,11 @@ document.addEventListener('turbolinks:load', function() {
           $preview.append($('<img>').attr({
             src: e.target.result,
             width: "35%",
-            class: "preview cover",
+            class: "cover",
             title: file.name
           }));
+          $('.upload-icon').empty();
+          $('.upload-icon').append($('<i>').attr('class', 'fa fa-refresh'));
         };
       })(file);
       //ファイルをURLとして読み込む
@@ -185,18 +182,18 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-//textareaの高さ自動変更
+//textareaの高さ自動変更(要縮小対応[※/**/のはカクつく])
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    $('.autoheight').on('input', function(e){
+    $('.autoheight').on('keyup', function(e){
       var
         $textarea = $(e.target),
-        allHeight = e.target.scrollHeight,    //スクロールを含めた全体の高さ
+        allHeight = e.target.scrollHeight,     //スクロールを含めた全体の高さ
         areaHeight = e.target.offsetHeight;    //要素(textarea)の高さ
-      
-      if(allHeight > areaHeight){
+
+      if(allHeight > areaHeight) {
         $textarea.height(allHeight);
-      } else {
+      }/*else {
         //line-heightの値を取得
         var lineHeight = Number($textarea.css('lineHeight').split('px')[0]);
         while (true) {
@@ -207,7 +204,8 @@ document.addEventListener('turbolinks:load', function() {
           }
           break;
         }
-      }
+        console.log("!!!!");
+      }*/
     });
   });
 });

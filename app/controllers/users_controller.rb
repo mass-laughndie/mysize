@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [:destroy, :admusrind,
                                         :following, :followers, :good]
-  before_action :admin_user,     only: :admusrind
+  before_action :admin_user,     only: [:admusrind, :destroy]
 
   def show
     @user = User.find_by(mysize_id: params[:mysize_id])
