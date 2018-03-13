@@ -23,18 +23,42 @@ document.addEventListener('turbolinks:load', function() {
 });
 
 
-//comment返信
+//comment返信(自動focus)
 document.addEventListener('turbolinks:load', function() {
-  $(function(){
+  $(function() {
     //同じ要素内でautolink化しているためclick発火には静的な親要素で仕込む必要あり
-    $('body').on('click', '[id^=comment-reply]', function(){
+    $('body').on('click', '[id^=comment-reply]', function() {
       var
-        cid = $(this).attr("id"),
-        num = cid.match(/\d/g).join("");
-        //返信先のIDを取得
-        str = $('#content-name-' + num).text();
-      //コメントフォームに「@ID 」を挿入しカーソル移動
-      $('.comment-text-form').val("@" + str + " ").focus();
+        cid = $(this).attr('id'),
+        num = cid.match(/\d/g).join(''),
+        uids = '@' + $('#content-name-' + num).text(),           //返信先の親@IDを取得
+        comLink = $('#comment-' + num).find('.com-link'),       //親の返信相手オブジェクト
+        myid = '@' + $('#my-icon').attr('alt');                 //自分の@ID
+      //親の返信相手がいる場合
+      if ( comLink.length ) {
+        var pid = uids;               //親@iD複製(uids更新のため)
+        //各返信相手において
+        comLink.each(function(){
+          var rid = $(this).text();   //  返信相手の@ID
+          //@IDが親と自分と違う場合
+          if ( rid != pid && rid != myid ) {
+            uids = uids + ' ' + $(this).text();   //@ID連結
+          }
+        });
+      }
+      //コメントフォームに「@ID (@ID ...)」を挿入しカーソル移動
+      $('.comment-text-form').val(uids + " ").focus();
+    });
+  });
+});
+
+//コメントフォーム自動拡張&格納
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.comment-text-form').focus( function() {
+      $('.comment-form').css('height', '180px');
+    }).blur( function() {
+      $('.comment-form').css('height', '70px');
     });
   });
 });
@@ -103,7 +127,7 @@ document.addEventListener('turbolinks:load', function() {
 });
 
 
-//高さ自動調整リンク
+//indexリンクの高さ自動調整
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     $('.link-list').each(function() {
@@ -185,27 +209,30 @@ document.addEventListener('turbolinks:load', function() {
 //textareaの高さ自動変更(要縮小対応[※/**/のはカクつく])
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    $('.autoheight').on('keyup', function(e){
-      var
-        $textarea = $(e.target),
-        allHeight = e.target.scrollHeight,     //スクロールを含めた全体の高さ
-        areaHeight = e.target.offsetHeight;    //要素(textarea)の高さ
+    if ($('.autoheight').length) {
+      var maxHeight = $('.autoheight').css('maxHeight').split('px')[0];
+      $('.autoheight').on('keyup', function(e){
+        var
+          $textarea = $(e.target),
+          allHeight = e.target.scrollHeight,     //スクロールを含めた全体の高さ
+          areaHeight = e.target.offsetHeight;    //要素(textarea)の高さ
 
-      if(allHeight > areaHeight) {
-        $textarea.height(allHeight);
-      }/*else {
-        //line-heightの値を取得
-        var lineHeight = Number($textarea.css('lineHeight').split('px')[0]);
-        while (true) {
-          //1行分ずつ縮小する
-          $textarea.height($textarea.height() - lineHeight);
-          if(allHeight > areaHeight){
-            $textarea.height(allHeight);
+        if(allHeight < maxHeight && allHeight > areaHeight) {
+          $textarea.height(allHeight);
+        }/*else {
+          //line-heightの値を取得
+          var lineHeight = Number($textarea.css('lineHeight').split('px')[0]);
+          while (true) {
+            //1行分ずつ縮小する
+            $textarea.height($textarea.height() - lineHeight);
+            if(allHeight > areaHeight){
+              $textarea.height(allHeight);
+            }
+            break;
           }
-          break;
-        }
-        console.log("!!!!");
-      }*/
-    });
+          console.log("!!!!");
+        }*/
+      });
+    }
   });
 });
