@@ -56,9 +56,9 @@ document.addEventListener('turbolinks:load', function() {
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     $('.comment-text-form').focus( function() {
-      $('.comment-form').css('height', '180px');
+      $('.comment-form').css('height', '181px');
     }).blur( function() {
-      $('.comment-form').css('height', '70px');
+      $('.comment-form').css('height', '71px');
     });
   });
 });

@@ -9,6 +9,9 @@
   <div class="kpost-content autolink">
     <%= kickspost.content %>
   </div>
+  <div class="kpost-time">
+    <%= time_ago_in_words(kickspost.created_at) %>前
+  </div>
 </div>
 <div class="kpost-right">
   <div class="c kpost-right-top">
@@ -22,12 +25,17 @@
       </div>
     </div>
   </div>
-  <div class="kpost-right-bottom">
+  <div class="c kpost-right-bottom">
     <div class="kpost-act">
       <div class="kpost-alist">
         <%= render partial: 'goods/good_form',
                    locals: { post: kickspost,
                              type: "Kickspost" } %>
+      </div>
+      <div class="kpost-num">
+        <div class="kpost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
+          <%= kickspost.goods.to_a.size %>
+        </div>
       </div>
     </div>
   </div>

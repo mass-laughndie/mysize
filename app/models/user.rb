@@ -276,80 +276,13 @@ class User < ApplicationRecord
     goods.where(post_type: type).pluck(:post_id).include?(post.id)
   end
 
-=begin
-  def create_good_notice(kind_list, model)
-    notice = self.notices.find_by(kind: kind_list, kind_id: model.id)
-    #そのポストのlistがある場合
-    if notice
-      #listのupdated_atを更新 => noticeビューの上段に持ってくる
-      notice.increment!(:unread_count, by = 1)
-    #ない場合
-    else
-      #list作成(kind_idはmodelのidと同じ
-      notices.create(kind: kind_list, kind_id: model.id)
-    end
-  end
-
-  #postのlist系通知の要素が空の場合に削除
-  def delete_good_notice(kind, model)
-    goods = Good.where(kind: kind, kind_id: model.id)
-    #期間中に特定のnoticeが１つもない場合
-    if goods.blank?
-      #そのnoticeのlistがあれば削除
-      if notice_list = notices.find_by(kind: kind + "_list", kind_id: model.id)
-        notice_list.destroy
-      end
-    end
-  end
-=end
-
-  #既読済みの期間以前の通知を削除
-  #notices = current_userの全通知
+  #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
     #削除ライン([テスト]1.day.ago => [本番]25.weeks.ago)
     deleteline = Time.new(2000,1,1)..2.days.ago
     #削除ライン以前に更新された未読0の通知
     exnotices = notices.where(unread_count: 0, updated_at: deleteline)
     exnotices.destroy_all
-=begin
-    #既読数 = 要素通知数 - 未読通知数
-    readnum = enotices.count - self.notice_count
-
-    #削除ライン以前の要素通知
-    cnotices = enotices.where(created_at: deleteline)
-    #存在する && 既読がある場合
-    if cnotices.any? && readnum > 0
-      #cnoticesの既読済みを抽出して削除
-      cnotices.last(readnum).each do |notice|
-        notice.destroy
-      end
-
-      #空になったlistも削除
-      #削除ライン以前のlist系抽出
-      list_notices = notices
-                      .where('kind LIKE ?', '%_list%')
-                      .where(created_at: deleteline)
-      #存在する場合
-      if list_notices.any?
-        #各list系通知の期間内の要素が空なら削除
-        list_notices.each do |list|
-          #listの要素kind名抽出
-          lkind = list.kind.sub(/_list/, '')
-          if lkind == "follow"
-            list_week = list.created_at.beginning_of_week..list.created_at.end_of_week
-            self.week_follow_notice_delete(lkind, list_week)
-          else
-            if lkind == "gpost"
-              post = Kickspost.find_by(id: list.kind_id)
-            elsif lkind == "gcom"
-              post = Comment.find_by(id: list.kind_id)
-            end
-            self.post_notice_list_delete(lkind, post)
-          end
-        end
-      end
-    end
-=end
   end
 
   private

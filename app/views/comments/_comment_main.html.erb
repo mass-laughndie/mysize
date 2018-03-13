@@ -11,6 +11,9 @@
   <div class="kpost-content autolink">
     <%= comment.content %>
   </div>
+  <div class="kpost-time">
+    <%= time_ago_in_words(comment.created_at) %>前
+  </div>
 </div>
 <div class="kpost-right">
   <div class="c kpost-right-bottom">
@@ -26,6 +29,9 @@
         <%= render partial: 'goods/good_form',
                    locals: { post: comment,
                              type: "Comment" } %>
+      </div>
+      <div class="kpost-good-num" id="good-num-comment-<%= comment.id %>">
+        <%= comment.goods.to_a.size %>
       </div>
       <% unless current_user == comment.user %>
         <div class="kpost-alist">
