@@ -14,8 +14,8 @@ class Contact < ApplicationRecord
                       length:   { maximum: 2000,
                                   message: "お問い合わせ内容は2000文字以内まで有効です" }
 
-  def send_receive_message_email
-    mail = ContactMailer.receive_message(self)
+  def send_received_message_email
+    mail = ContactMailer.received_message(self)
     mail.transport_encoding = "8bit"
     mail.deliver_now
   end
