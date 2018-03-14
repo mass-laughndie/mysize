@@ -57,7 +57,7 @@ class User < ApplicationRecord
                     length:     { maximum: 255,
                                   message: "メールアドレスは255文字以内まで有効です" },
                     format:     { with: VALID_EMAIL_REGEX,
-                                  message: "メールアドレスは不正な値です",
+                                  message: "そのメールアドレスは不正な値を含んでいます",
                                   allow_blank: true },
                     uniqueness: { case_sensitive: false,
                                   message: "そのメールアドレスは既に登録されています" }
