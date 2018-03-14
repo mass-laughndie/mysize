@@ -1,0 +1,11 @@
+<% provide(:title, "プロフィール編集") %>
+<% provide(:button_text, "更新") %>
+<% provide(:post_url, profile_settings_path) %>
+<%= render 'layouts/back', back_path: "#{user_path(@user)}" %>
+<%= render 'layouts/center_header', header_text: "プロフィール編集" %>
+
+<div class="content-fspace">
+  <div class="set-form">
+    <%= render 'profile_form' %>
+  </div>
+</div>

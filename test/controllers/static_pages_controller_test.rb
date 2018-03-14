@@ -27,7 +27,6 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   test "should get contact" do
     get contact_path
     assert_response :success
-    assert_select "title", "お問い合わせ | #{@base_title}"
   end
 
   test "should get terms" do
@@ -40,6 +39,12 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     get privacy_path
     assert_response :success
     assert_select "title", "プライバシーポリシー | #{@base_title}"
+  end
+
+  test "should get latest" do
+    get latest_path
+    assert_response :success
+    assert_select "title", "新着 | #{@base_title}"
   end
 
 end

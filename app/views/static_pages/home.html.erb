@@ -1,20 +1,24 @@
-<div class="content">
-  <div class="page-title c">
-    <h1 class="title-text" style="max-width: 100%">Mysize</h1>
+<% if logged_in? %>
+  <%= render 'static_pages/home_logged_in' %>
+<% else %>
+  <div class="content">
+    <div class="page-title c">
+      <div class="top-text">
+        <%= image_tag("/images/apps_icon5.png", size: 90) %>
+        <span class="logo-font">Mysize</span>
+      </div>
+    </div>
+    <h2 class="c">～開発中～</h2>
+    <div class="c button twitter-color">
+      <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", 'auth/twitter' %>
+    </div>
+    <div class="c button accent">
+      <%= link_to "MysizeIDで登録する", signup_path %>
+    </div>
+    <div class="c atention">
+      <p>
+        <%= link_to "MysizeIDでログインする", login_path %>
+      </p>
+    </div>
   </div>
-
-  <h2 class="c">
-    ～開発中～
-  </h2>
-  <div class="c button twitter-color">
-    <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '#' %>
-  </div>
-  <div class="c button accent">
-    <%= link_to "MysizeIDで登録する", signup_path %>
-  </div>
-  <div class="c atention">
-    <p>
-      <%= link_to "MysizeIDでログインする", login_path %>
-    </p>
-  </div>
-</div>
+<% end %>

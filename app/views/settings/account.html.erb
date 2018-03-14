@@ -1,0 +1,47 @@
+<% provide(:title, "アカウント設定") %>
+<%= render 'layouts/back', back_path: "#{option_settings_path}" %>
+<%= render 'layouts/center_header', header_text: "アカウント設定" %>
+
+<div class="content-nspace">
+  <div class="setting-select">
+    <ul>
+      <li class="set-list">
+        <a href="<%= mysizeid_settings_path %>">
+          <div class="set-text">
+            <p>MysizeID</p>
+            <div class="sss"><%= "@" + @user.mysize_id %></div>
+          </div>
+          <div class="set-icon">
+            <%= fa_icon("angle-right") %>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= email_settings_path %>">
+          <div class="set-text">
+            <p>メールアドレス</p>
+            <div class="sss"><%= @user.email %></div>
+          </div>
+          <div class="set-icon">
+            <%= fa_icon("angle-right") %>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= password_settings_path %>">
+          <div class="set-text set-text1">
+            <p>パスワード</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <% unless current_user.admin? %>
+    <div class="set-leave">
+      <%= link_to "退会する", leave_settings_path %>
+    </div>
+  <% end %>
+</div>

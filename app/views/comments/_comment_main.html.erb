@@ -1,0 +1,45 @@
+<div class="c index-left kpost-left">
+  <%= render partial: 'shared/index_left',
+             locals: { user: comment.user } %>
+</div>
+<div class="kpost-center">
+  <div class="kpost-name">
+    <%= link_to comment.user.mysize_id,
+                user_path(comment.user, display: "square"),
+                id: "content-name-" + comment.id.to_s %>
+  </div>
+  <div class="kpost-content autolink">
+    <%= comment.content %>
+  </div>
+  <div class="kpost-time">
+    <%= time_ago_in_words(comment.created_at) %>前
+  </div>
+</div>
+<div class="kpost-right">
+  <div class="c kpost-right-bottom">
+    <div class="kpost-act">
+      <% if current_user.in?([comment.user, comment.kickspost.user]) %>
+        <div class="kpost-alist">
+          <div class="comment-act comment-delete">
+            <%= render 'comments/comment_delete', comment: comment %>
+          </div>
+        </div>
+      <% end %>
+      <div class="kpost-alist">
+        <%= render partial: 'goods/good_form',
+                   locals: { post: comment,
+                             type: "Comment" } %>
+      </div>
+      <div class="kpost-good-num" id="good-num-comment-<%= comment.id %>">
+        <%= comment.goods.to_a.size %>
+      </div>
+      <% unless current_user == comment.user %>
+        <div class="kpost-alist">
+          <div class="comment-act" id="comment-reply-<%= comment.id %>">
+            <%= fa_icon('reply')%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

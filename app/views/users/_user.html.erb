@@ -1,0 +1,39 @@
+<% unless params[:for] == 'mysizeid' %>
+<li class="link-list">
+  <a class="content-link" href="<%= user_path(user, display: 'square') %>"></a>
+  <div class="content-abs">
+    <div class="content-height">
+      <div class="list-content clear">
+        <div class="c index-left clear">
+          <%= render  'shared/index_left', user: user %>
+        </div>
+        <div class="index-right">
+          <div class="index-upper clear">
+            <div class="index-text">
+              <div class="index-name">
+                <%= user.name %>
+              </div>
+              <div class="index-mysizeid">
+                <%= "@" + user.mysize_id %>
+              </div>
+            </div>
+            <div class="index-follow">
+              <div class="abs-center">
+                <% unless current_user?(user) %>
+                  <%= render partial: 'users/follow_form',
+                             locals: { user: user } %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="index-profile">
+            <%= user.content %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+<% else %>
+  <%= user.mysize_id %>
+<% end %>

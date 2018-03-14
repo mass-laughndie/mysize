@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+mysize1:
+  name: Mysize Example1
+  email: user1@example.com
+  mysize_id: user1
+  password_digest: <%= User.digest('password') %>
+  size: 26.5
+  image: <%= open("#{Rails.root}/db/data/icon1.jpg") %>
+  content: <% Faker::Lorem.sentence(5) %>
+
+mysize2:
+  name: Mysize Example2
+  email: user2@example.com
+  mysize_id: user2
+  password_digest: <%= User.digest('password') %>
+  size: 25.0
+  image: <%= open("#{Rails.root}/db/data/icon2.jpg") %>
+  content: <% Faker::Lorem.sentence(5) %>
+
+mysize3:
+  name: Mysize Example3
+  email: user3@example.com
+  mysize_id: user3
+  password_digest: <%= User.digest('password') %>
+  size: 29.5
+  image: <%= open("#{Rails.root}/db/data/icon3.jpg") %>
+  content: <% Faker::Lorem.sentence(5) %>
+
+mysize4:
+  name: Mysize Example4
+  email: user4@example.com
+  mysize_id: user4
+  password_digest: <%= User.digest('password') %>
+  size: 22.0
+  image: <%= open("#{Rails.root}/db/data/icon4.jpg") %>
+  content: <% Faker::Lorem.sentence(5) %>
+
+admin:
+  name: Mysize Admin
+  email: admin@example.com
+  mysize_id: admin
+  password_digest: <%= User.digest('password') %>
+  size: 28.0
+  image: <%= open("#{Rails.root}/db/data/icon4.jpg") %>
+  content: <% Faker::Lorem.sentence(5) %>
+  admin: true

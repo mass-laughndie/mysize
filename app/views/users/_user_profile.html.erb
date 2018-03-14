@@ -1,0 +1,82 @@
+<div class="profile-top">
+  <div class="user-icon">
+    <%= image_tag(image_url(user), alt: user.name) %>
+  </div>
+  <div class="user-stats">
+    <a href="<%= search_path(for: 'user', keyword: user.size) %>">
+      <div class="num">
+        <strong id="user_size" class="stat">
+          <% unless user.size.nil? %>
+            <%= user.size %>
+          <% else %>
+            0
+          <% end %>
+        </strong>
+      </div>
+      cm
+    </a>
+    <a href="<%= user_path(user, display: "square") %>">
+      <div class="num">
+        <strong id="shoes" class="stat">
+          <%= user.kicksposts.count %>
+        </strong>
+      </div>
+      キックス
+    </a>
+    <a href="#">
+      <div class="num">
+        <strong id="good-answer" class="stat">
+          0
+        </strong>
+      </div>
+      グッドアンサー
+    </a>
+  </div>
+</div>
+<div class="profile-middle clear">
+  <div class="user-text">
+    <div class="user-name">
+      <h1><%= user.name %></h1>
+    </div>
+    <div class="user-mysizeid">
+      <%= "@" + user.mysize_id %>
+    </div>
+  </div>
+  <% if current_user?(user) %>
+    <div class="set-option">
+      <%= link_to fa_icon("cog"), option_settings_path %>
+    </div>
+    <div class="set-profile">
+      <%= link_to "プロフィール編集", profile_settings_path %>
+    </div>
+  <% else %>
+    <div class="set-follow">
+      <div class="profile-follow">
+        <%= render partial: 'follow_form', locals: { user: user } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="profile-bottom">
+  <div class="user-profile autolink">
+    <% unless user.content.blank? %>
+      <%= user.content %>
+    <% else %>
+      プロフィールが未記入です。
+    <% end %>
+  </div>
+  <div class="follow-info">
+    <a href="<%= following_user_path(user) %>">
+      <strong id="following">
+        <%= user.following.count %>
+      </strong>
+      フォロー
+    </a>
+    <a href="<%= followers_user_path(user) %>">
+      <strong id="followers">
+        <%= user.followers.count %>
+      </strong>
+      フォロワー
+    </a>
+  </div>
+</div>

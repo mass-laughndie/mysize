@@ -1,0 +1,64 @@
+<%= form_for(@user, url: yield(:post_url), multipart: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="label-form">
+    <%= f.label :name, "*ユーザー名" %>
+  </div>
+  <div class="base-form">
+    <%= f.text_field :name, placeholder: "ユーザー名" %>
+  </div>
+  <div class="set-form clear">
+    <div class="upload-form">
+      <div class="label-form file-label">
+        <%= f.label :image, "アイコン" %>
+      </div>
+      <div class="file-form">
+        <%= f.label :image, class: "upload-button" do %>
+          <div class="upload-icon">
+            <% if @user.image.blank? %>
+              <%= fa_icon("plus") %>
+            <% else %>
+              <%= fa_icon("refresh") %>
+            <% end %>
+          </div>
+          <% if @user.image.blank? %>
+            <div class="preview"></div>
+          <% else %>
+            <div class="preview"><%= image_tag(image_url(@user), alt: @user.name, class: "cover") %></div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="base-form hidden-form">
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+    </div>
+    <div class="size-form">
+      <div class="label-form select-label font-mini">
+        <%= f.label :size, "*スニーカーのベースサイズ" %>
+      </div>
+      <div class="base-form select-form">
+        <%= f.select(:size, options_for_select(size_array, @user.size), prompt: "選 択") %>
+        <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
+      </div>
+    </div>
+  </div>
+  <div class="label-form">
+    <%= f.label :content, "プロフィール" %>
+  </div>
+  <div class="base-form base-form-area">
+    <%= f.text_area :content, class: "autoheight",
+        placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
+(例)Jordan1(27cm)/StanSmith(26.5cm)/...(好きなブランドなど)" %>
+  </div>
+  <div class="c button button-mini accent">
+    <%= f.submit yield(:button_text), data: { disable_with: "処理中..."} %>
+  </div>
+  <script type="text/javascript">
+    $('#user_image').bind('change', function() {
+      var size_in_megabytes = this.file[0].size/1024/1024;
+      if (size_in_megabytes > 10) {
+        alert('ファイルは最大10MBまでとなります。');
+      }
+    });
+  </script>
+<% end %>

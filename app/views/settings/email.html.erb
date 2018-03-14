@@ -1,0 +1,17 @@
+<% provide(:title, "メールアドレス編集") %>
+<%= render 'layouts/back', back_path: "#{account_settings_path}" %>
+<%= render 'layouts/center_header', header_text: "メールアドレス編集" %>
+
+<div class="content">
+  <div class="set-form">
+    <%= form_for(@user, url: email_settings_path) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="c base-form">
+        <%= f.email_field :email, placeholder: "メールアドレス" %>
+      </div>
+      <div class="c button button-mini accent">
+        <%= f.submit "保存", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>

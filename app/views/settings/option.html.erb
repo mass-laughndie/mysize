@@ -1,0 +1,92 @@
+<% provide(:title, "オプション") %>
+<%= render 'layouts/back', back_path: "#{user_path(current_user)}" %>
+<%= render 'layouts/center_header', header_text: "オプション" %>
+
+<div class="content-nspace">
+  <div class="setting-select">
+    <ul>
+      <li class="set-list">
+        <a href="<%= account_settings_path %>">
+          <div class="set-text set-text1">
+            <p>アカウント設定</p>
+          </div>
+          <div class="set-icon">
+            <%= fa_icon("angle-right") %>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= help_path %>">
+          <div class="set-text set-text1">
+            <p>ヘルプ</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= terms_path %>">
+          <div class="set-text set-text1">
+            <p>利用規約</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= privacy_path %>">
+          <div class="set-text set-text1">
+            <p>プライバシーポリシー</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= about_path %>">
+          <div class="set-text set-text1">
+            <p>Mysizeについて</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="#">
+          <div class="set-text set-text1">
+            <p>公式ツイッター</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+      <% if current_user.admin? %>
+        <li class="set-list">
+          <a href="<%= admusrind_url %>">
+            <div class="set-text set-text1">
+              <p>管理者ページ</p>
+            </div>
+            <div class="set-icon">
+              <span><%= fa_icon("angle-right") %></span>
+            </div>
+          </a>
+        </li>
+      <% end %>
+      <li class="set-list">
+        <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
+          <div class="set-text set-text1">
+            <p>ログアウト</p>
+          </div>
+          <div class="set-icon">
+            <%= fa_icon("angle-right") %>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
