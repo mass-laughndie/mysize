@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   get '/latest',    to: 'static_pages#latest'
   get '/help',    to: 'static_pages#help'
   get '/about',   to: 'static_pages#about'
-  get '/contact', to: 'static_pages#contact'
   get '/terms',   to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
 
@@ -38,14 +37,24 @@ Rails.application.routes.draw do
   post '/question', to: 'comments#create'
 =end
   resource :password_reset, except: [:show, :destroy],
-                            path_names: {new: '' } do
+                            path_names: { new: '' } do
     collection do
       get :confirm
     end
   end
 
-  resource  :notice,   only: [:show, :create, :destroy]
-  resources  :goods,   only: [:create, :destroy]
+  resource :contact, only: [:new],
+                     path_names: { new: '' } do
+    collection do
+      post '/confirm', to: 'contacts#sub_create'
+      post '/',        to: 'contacts#create'
+      get  :confirm,
+           :thanks
+    end
+  end
+
+  resource   :notice,     only: [:show, :create, :destroy]
+  resources  :goods,      only: [:create, :destroy]
   resources  :comments,   only: [:index, :show],
                           path: '/talk'
   

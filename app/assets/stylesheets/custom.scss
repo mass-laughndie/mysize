@@ -5,7 +5,7 @@
 $base: #fff;  /* white */
 $main: #000;  /* black */
 $accent: #ff0000;  /* red */
-$waccent: #ff6666; /* week red*/
+$waccent: #ff6666; /* weak red*/
 $test: #e6e6fa;
 $back: #fafafa;
 $weak-grey: #f2f2f2;
@@ -86,17 +86,6 @@ select {
 .content {
   padding: 45px;
   background: $base;
-
-  p {
-    font-size: 16px;
-    line-height: 30px;
-    padding-bottom: 20px;
-  }
-
-  h2 {
-    font-size: 20px;
-    padding: 30px 0;
-  }
 }
 
 .page-title {
@@ -172,6 +161,28 @@ select {
   background: $base;
   padding: 10px 40px;
   position: relative;
+}
+
+.text {
+  margin: 0 auto 30px;
+  word-wrap: break-word;
+
+  p {
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 10px;
+  }
+
+  .sfont {
+    font-size: 0.8em;
+    line-height: 16px;
+  }
+}
+
+.back-accent {
+  background: rgba(255,0,0,0.05);
+  border-radius: 5px;
+  padding: 5px 20px;
 }
 
 header {
@@ -276,6 +287,13 @@ header {
 .poricy {
   p {
     font-size: 14.5px;
+    line-height: 30px;
+    padding-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+    padding: 30px 0;
   }
 }
 
@@ -1193,17 +1211,72 @@ nav {
   }
 }
 
+.buttons {
+  width: 100%;
+  font-size: 1em;
+  height: 40px;
+  margin: 25px auto;
+
+  .button {
+    float: left;
+    margin: 0 7%;
+    width: 34%;
+  }
+
+
+}
+
+.button-back {
+  border: 1px solid $base-grey;
+  border-radius: 5px;
+  height: 40px;
+  margin: 0 auto;
+
+  a,
+  input,
+  button {
+    color: $base-grey;
+    display: block;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+
+    i {
+      display: block;
+      float: left;
+      line-height: 38px;
+      width: 25%;
+    }
+
+    span {
+      display: block;
+      float: left;
+      font-weight: 550;
+      line-height: 38px;
+      margin-right: 22%;
+      width: 53%;
+    }
+  }
+}
+
 .accent {
   background: $accent;
 
-  input {
+  input,
+  button {
     background: $accent;
+    color: #fff;
   }
 
   a {
     display: block;
-    color: #ffffff;
+    color: #fff;
   }
+}
+
+.form {
+  position: relative;
+  width: 100%;
 }
 
 .base-form {
@@ -1386,6 +1459,7 @@ nav {
 .label-form {
   margin-bottom: 5px;
 
+  p,
   label {
     display: block;
     font-weight: 550;
@@ -1962,17 +2036,6 @@ nav {
   width: 55px;
 }
 
-/* password_reset */
-
-.reset-text {
-  p {
-    margin-bottom: 10px;
-  }
-  .sfont {
-    font-size: 0.8em;
-    line-height: 16px;
-  }
-}
 
 /* 読み込みバー */
 .turbolinks-progress-bar{

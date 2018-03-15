@@ -5,8 +5,9 @@ class CommentTest < ActiveSupport::TestCase
   def setup
     @user = users(:mysize1)
     @kickspost = kicksposts(:orange)
-    @comment = @kickspost.comments.build(user_id: @user.id,
-                                         content: "Nice shoes!!!")
+    @comment = @user.comments.build( kickspost_id: @kickspost.id,
+                                     reply_id: 0,
+                                     content: "Nice shoes!!!" )
   end
 
   test 'should be valid' do

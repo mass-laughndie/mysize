@@ -1,29 +1,30 @@
+<% replies = comment.replies %>
 <% if list == "normal" %>
-  <li id="comment-<%= comment.id %>" class="comment-list autolink">
-    <div class="comment-content">
-      <%= link_to comment.user.mysize_id,
-                  user_path(comment.user, display: "square"),
-                  class: "content-name", id: "content-name-" + comment.id.to_s %>
-      <span><%= comment.content %></span>
-      <% unless comment_disnum == "few" %>
-        <% unless current_user == comment.user %>
-         <span class="comment-act" id="comment-reply-<%= comment.id %>">
-            返信<%= fa_icon('reply')%>
-          </span>
-        <% end %>
-        <% if current_user.in?([comment.user, kickspost.user]) %>
-          <span class="comment-act comment-delete">
-            <%= render 'comments/comment_delete', comment: comment %>
-          </span>
-        <% end %>
-      <% end %>
-    </div>
-  </li>
+  <%= render partial: 'comments/comment_line',
+             locals: { comment: comment,
+                       comment_disnum: comment_disnum } %>
+  <% if replies.any? %>
+    <% replies.each do|reply| %>
+      <%= render partial: 'comments/comment_line',
+                 locals: { comment: reply,
+                           comment_disnum: comment_disnum } %>
+    <% end %>
+  <% end %>
 <% elsif list == "text" %>
-  <li id="comment-<%= comment.id %>" class="kcomment-list autolink">
+  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> kcomment-list autolink">
     <div class="kpost-main clear">
       <%= render partial: 'comments/comment_main',
                  locals: { comment: comment } %>
     </div>
   </li>
+  <% if replies.any? %>
+    <% replies.each do|reply| %>
+      <li id="comment-<%= reply.id %>" class="reply-<%= reply.reply_id %> kcomment-list autolink">
+        <div class="kpost-main clear">
+          <%= render partial: 'comments/comment_main',
+                     locals: { comment: reply } %>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
 <% end %>
