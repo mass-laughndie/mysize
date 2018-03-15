@@ -1120,6 +1120,22 @@ nav {
   }
 }
 
+.reply-main {
+  .kpost-reply-icon {
+    float: left;
+    width: 5%;
+
+    i {
+      color: #fff;
+      font-size: 18px;
+    }
+  }
+
+  .kpost-center {
+    width: 57%;
+  }
+}
+
 .kpost-right-bottom {
   position: relative;
   width: 100%;
@@ -1289,11 +1305,11 @@ nav {
     border-radius: 5px;
     color: $main;
     display: block;
-    font-size: 0.8em;
+    font-size: 13px;
     font-weight: 550;
     letter-spacing: 0.2px;
-    line-height: 40px;
-    padding: 0 20px;
+    line-height: 20px;
+    padding: 10px 20px;
     width: 100%;
   }
 
