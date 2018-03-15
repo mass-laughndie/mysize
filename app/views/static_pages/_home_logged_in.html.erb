@@ -1,9 +1,7 @@
 <%= render 'home_select' %>
 <div class="post-main">
   <% if @kicksposts.blank? %>
-    <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "post" } %>
+    <%= render partial: 'shared/no_data' %>
   <% else %>
     <div class="post-line clear">
       <ul>
