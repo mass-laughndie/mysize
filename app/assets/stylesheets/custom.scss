@@ -495,12 +495,8 @@ nav {
 }
 
 .search-space {
+  background: $back;
   height: 51px;
-}
-
-.search-height {
-  height: 50px;
-  padding: 10px;
 }
 
 .commemt-space {
@@ -1836,6 +1832,12 @@ nav {
       }
     }
   }
+}
+
+.search-form {
+  background: $base;
+  height: 50px;
+  padding: 10px 0 ;
 }
 
 .search-select {
