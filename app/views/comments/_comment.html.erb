@@ -3,7 +3,7 @@
   <%= render partial: 'comments/comment_line',
              locals: { comment: comment,
                        comment_disnum: comment_disnum } %>
-  <% if replies.any? %>
+  <% if comment_disnum != "few" && replies.any? %>
     <% replies.each do|reply| %>
       <%= render partial: 'comments/comment_line',
                  locals: { comment: reply,
