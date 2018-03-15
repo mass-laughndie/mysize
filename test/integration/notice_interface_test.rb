@@ -58,8 +58,8 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
     content = "Good!!!!!!!!"
     assert_difference '@user.notices.count', 1 do
       assert_difference '@other.comments.count', 1 do
-        post postcomments_path, params: { comment: { user_id: @other.id,
-                                                     kickspost_id: @kickspost.id,
+        post postcomments_path, params: { comment: { kickspost_id: @kickspost.id,
+                                                     reply_id: 0,
                                                      content: content } }
       end
     end
@@ -73,8 +73,8 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
     content = "@user1 My favorite!"
     assert_difference '@user.notices.count', 1 do
       assert_difference '@other.comments.count', 1 do
-        post postcomments_path, params: { comment: { user_id: @other.id,
-                                                     kickspost_id: kicksposts(:van).id,
+        post postcomments_path, params: { comment: { kickspost_id: kicksposts(:van).id,
+                                                     reply_id: 0,
                                                      content: content } }
       end
     end
