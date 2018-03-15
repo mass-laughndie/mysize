@@ -1869,7 +1869,7 @@ nav {
   width: 100%;
 
   .comment-list {
-    padding-bottom: 5px;
+    padding-bottom: 8px;
     width: 100%;
 
     .comment-content {
@@ -1881,6 +1881,10 @@ nav {
         cursor: pointer;
       }
     }
+  }
+
+  .reply-line {
+    padding-left: 3.3%;
   }
 }
 
