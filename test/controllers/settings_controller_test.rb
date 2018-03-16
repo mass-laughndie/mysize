@@ -5,6 +5,7 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:mysize1)
     log_in_as(@user)
+
   end
   
   test "should get account" do

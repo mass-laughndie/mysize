@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
+  
   def setup
     @user = users(:mysize1)
     @kickspost = kicksposts(:orange)
@@ -60,11 +61,11 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
                                                                     content: "" } }
     assert_select 'div.error'
     assert_template 'kicksposts/edit'
-    # patch kickspost_path(@user.mysize_id, @kickspost.id), params: { kickspost: { size: 7,
-    #                                                                content: content } }
-    #assert_not flash.empty?
-    #assert_redirected_to root_url
-    #follow_redirect!
-    #assert_match content, response.body
+    patch kickspost_path(@user.mysize_id, @kickspost.id), params: { kickspost: { size: 7,
+                                                                    content: content } }
+    assert_not flash.empty?
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_match content, response.body
   end
 end

@@ -5,7 +5,7 @@
 $base: #fff;  /* white */
 $main: #000;  /* black */
 $accent: #ff0000;  /* red */
-$waccent: #ff6666; /* week red*/
+$waccent: #ff6666; /* weak red*/
 $test: #e6e6fa;
 $back: #fafafa;
 $weak-grey: #f2f2f2;
@@ -33,6 +33,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 body {
   background: $back;
   font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-size: 1.0em;
   position: relative;
   padding: 51px 0 121px;
 }
@@ -52,7 +53,9 @@ li {
 }
 
 button,
-input[type="submit"] {
+input,
+select,
+textarea {
   background-color: transparent;
   border: none;
   box-shadow: none;
@@ -61,9 +64,12 @@ input[type="submit"] {
   padding: 0;
   appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -73,21 +79,13 @@ input, textarea, select {
   text-align: center;
 }
 
+.logo-font {
+  font-family: 'Chathura', sans-serif;
+}
+
 .content {
-  /*margin: 20px;*/
   padding: 45px;
   background: $base;
-
-  p {
-    font-size: 16px;
-    line-height: 30px;
-    padding-bottom: 20px;
-  }
-
-  h2 {
-    font-size: 20px;
-    padding: 30px 0;
-  }
 }
 
 .page-title {
@@ -137,7 +135,7 @@ input, textarea, select {
 
 .content-sspace {
   background: $base;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $back;
   padding: 10px;
   position: relative;
 }
@@ -153,10 +151,38 @@ input, textarea, select {
   position: relative;
 }
 
+.content-fspace {
+  background: $base;
+  padding: 20px 45px;
+  position: relative;
+}
+
 .content-pspace {
   background: $base;
   padding: 10px 40px;
   position: relative;
+}
+
+.text {
+  margin: 0 auto 30px;
+  word-wrap: break-word;
+
+  p {
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 10px;
+  }
+
+  .sfont {
+    font-size: 0.8em;
+    line-height: 16px;
+  }
+}
+
+.back-accent {
+  background: rgba(255,0,0,0.05);
+  border-radius: 5px;
+  padding: 5px 20px;
 }
 
 header {
@@ -166,7 +192,7 @@ header {
   left: 0;
   right: 0;
   z-index: 100;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -188,7 +214,7 @@ header {
   position: relative;
 }
 
-.select-form {
+.select {
   border-bottom: 1px solid $weak-grey;
   height: 41px;
   width: 100%;
@@ -201,6 +227,7 @@ header {
 
     a {
       display: block;
+      font-size: 14px;
       font-weight: 550;
       height: 100%;
       line-height: 40px;
@@ -209,12 +236,17 @@ header {
 }
 
 .atention {
-  margin: 0 auto;
+  font-size: 14px;
+  margin: 0 auto 30px;
   width: 85%;
 
-  p a {
-    color: #3599f0;
-    text-decoration: underline;
+  p {
+    font-size: 14px;
+
+    a {
+      color: #3599f0;
+      text-decoration: underline;
+    }
   }
 }
 
@@ -252,56 +284,75 @@ header {
   }
 }
 
+.poricy {
+  p {
+    font-size: 14.5px;
+    line-height: 30px;
+    padding-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+    padding: 30px 0;
+  }
+}
+
 /* header */
 
-.header-link {
+.header {
   position: relative;
   float: left;
   height: 50px;
-  line-height: 50px;
-  width: 33.3%;
 
   a {
     display: block;
-    font-size: 1.25em;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
 
-    .fa {
-      padding: 10px;
+    i {
+      font-size: 1.25em;
     }
   }
 }
 
-.left-header {
-  margin: 0 57% 0 7%;
-  height: 50px;
+.header-right,
+.header-left {
+  width: 17%;
 
-  i {
-    color: $main;
-  }
-/*
-  i {
-    background: $accent;
-    border-radius: 17.5%;
-    color: $base;
-  }
-*/
-  img {
-    background: $back;
-    border-radius: 17.5%;
-    margin: 5px 0;
+  .right-header,
+  .left-header {
+    margin: 0 auto;
+    width: 50px;
+
+    .fa-sign-in,
+    .fa-angle-left {
+      color: $main;
+    }
+
+    .fa-angle-left {
+      font-size: 24px;
+    }
+
+    img {
+      background: $back;
+      border-radius: 17.5%;
+      margin: 5px 0;
+    }
   }
 }
 
-.logo {
-  margin: 10px 0;
+.header-center {
+  width: 66%;
 
   .logo-text {
     color: $accent;
     display: block;
-    height: 30px;
+    height: 50px;
     line-height: 30px;
     margin: 0 auto;
-    width: 90px;
+    padding: 10px;
+    width: 110px;
 
     img {
       display: inline-block;
@@ -311,18 +362,18 @@ header {
     span {
       display: inline-block;
       float: left;
-      font-size: 2.0em;
+      font-size: 40px;
       margin-bottom: 5px;
     }
   }
-}
 
-.logo-font {
-  font-family: 'Chathura', sans-serif;
-}
-
-.right-header {
-  margin: 0 5% 0 57%;
+  .center-header {
+    line-height: 50px;
+    h1 {
+      font-size: 1.1em;
+      letter-spacing: 0.15px;
+    }
+  }
 }
 
 /* navigation */
@@ -334,7 +385,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 101;
-  border-top: 1px solid #eee;
+  border-top: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -418,7 +469,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 101;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $back;
   width: 100%
 
   a {
@@ -429,7 +480,6 @@ nav {
 /* other fixed */
 
 .fixed {
-  background: #fff;
   position: fixed;
   left: 0;
   right: 0;
@@ -445,12 +495,8 @@ nav {
 }
 
 .search-space {
+  background: $back;
   height: 51px;
-}
-
-.search-height {
-  height: 50px;
-  padding: 10px;
 }
 
 .commemt-space {
@@ -464,14 +510,8 @@ nav {
 /* home */
 
 .home-select {
-  height: 51px;
   margin-bottom: 20px;
 
-  .home-list {
-    a {
-      line-height: 50px;
-    }
-  }
 }
 
 /* profile */
@@ -701,7 +741,8 @@ nav {
 
   .post-name {
     font-size: 0.8em;
-    font-weight: 450;
+    font-weight: 500;
+    letter-spacing: 0.15px;
     line-height: 18px;
     white-space: nowrap;
     overflow: hidden;
@@ -764,27 +805,30 @@ nav {
 .nav-list {
   background: $base;
   border: 1px solid $base-grey;
-  color: $main;
   display: none;
-  height: 63px;
+  height: 93px;
   overflow: hidden;
   position: absolute;
   left: auto;
   right: 0;
-  width: 62px;
-  z-index: 90;
+  width: 132px;
+  z-index: 50;
 
   li {
     background: $base;
     font-size: 0.8em;
     font-weight: 450;
-    line-height: 30px;
-    color: $main;
-    z-index: 90;
+    line-height: 45px;
+    z-index: 60;
+
+    a,
+    span {
+      color: $main;
+    }
   }
 
   .bar {
-    border-top: 1px solid $base-grey;
+    border-top: 1px solid $weak-grey;
     height: 0;
   }
 }
@@ -865,14 +909,27 @@ nav {
     padding: 3px 16px;
     
     .good-act {
+      float: left;
       height: 34px;
       line-height: 34px;
       width: 34px;
+
       button {
         display: block;
         i {
           font-size: 1.5em;
         }
+      }
+    }
+
+    .post-num {
+      float: left;
+      height: 34px;
+      line-height: 38px;
+      margin-left: 5px;
+
+      .kpost-good-num {
+        font-size: 16px;
       }
     }
   }
@@ -894,7 +951,7 @@ nav {
 }
 
 .post-bottom {
-  font-size: 14px;
+  font-size: 12px;
   padding: 0 16px;
 
   .post-content {
@@ -930,6 +987,7 @@ nav {
   }
 
   .no-text {
+    font-size: 14px;
     font-weight: 500;
     line-height: 30px;
   }
@@ -971,14 +1029,9 @@ nav {
 /* kickspost show */
 
 .kpost-select {
-  height: 51px;
-
   .kpost-list {
     position: relative;
 
-    a {
-      line-height: 50px;
-    }
   }
 }
 
@@ -1000,6 +1053,7 @@ nav {
 
   .kpost-center {
     float: left;
+    height: 100%;
     margin: 0 3%;
     width: 62%;
     word-wrap: break-word;
@@ -1010,6 +1064,17 @@ nav {
         color: $main;
         font-weight: 550;
       }
+    }
+
+    .kpost-content {
+      color: $main;
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+
+    .kpost-time {
+      color: $base-grey;
+      font-size: 10.5px;
     }
   }
 
@@ -1055,11 +1120,29 @@ nav {
   }
 }
 
+.reply-main {
+  .kpost-reply-icon {
+    float: left;
+    width: 5%;
+
+    i {
+      color: #fff;
+      font-size: 18px;
+    }
+  }
+
+  .kpost-center {
+    width: 57%;
+  }
+}
+
 .kpost-right-bottom {
   position: relative;
   width: 100%;
 
   .kpost-act {
+    font-size: 17px;
+
     .kpost-alist {
       cursor: pointer;
       height: 35px;
@@ -1068,8 +1151,18 @@ nav {
       position: relative;
       width: 100%;
       z-index: 25;
+
+      .good-form div form button i {
+        font-size: 17px;
+      }
     }
   }
+}
+
+.kpost-good-num {
+  color: rgba(0,0,0,0.90);
+  font-size: 10px;
+  font-weight: 550;
 }
 
 .kcomment-list {
@@ -1083,25 +1176,19 @@ nav {
 /* button, form */
 
 .button {
-  width: 85%;
-  font-size: 1rem;
-  font-weight: 550;
-  display: block;
-  line-height: 40px;
-  letter-spacing: 0.2px;
+  width: 100%;
+  font-size: 1em;
+  height: 40px;
   border-radius: 5px;
   margin: 25px auto;
 
-  input {
-    border: 0px;
+  input,
+  a {
     border-radius: 5px;
     color: #fff;
-    font-size: 1rem;
     font-weight: 650;
-    letter-spacing: 0.3rem;
+    letter-spacing: 0.1px;
     line-height: 40px;
-    margin: 0 auto;
-    padding: 0;
     width: 100%;
   }
 }
@@ -1111,7 +1198,7 @@ nav {
 }
 
 .button-mini {
-  width: 30%;
+  width: 40%;
 }
 
 .button-middle {
@@ -1136,30 +1223,238 @@ nav {
   }
 }
 
+.buttons {
+  width: 100%;
+  font-size: 1em;
+  height: 40px;
+  margin: 25px auto;
+
+  .button {
+    float: left;
+    margin: 0 7%;
+    width: 34%;
+  }
+
+
+}
+
+.button-back {
+  border: 1px solid $base-grey;
+  border-radius: 5px;
+  height: 40px;
+  margin: 0 auto;
+
+  a,
+  input,
+  button {
+    color: $base-grey;
+    display: block;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+
+    i {
+      display: block;
+      float: left;
+      line-height: 38px;
+      width: 25%;
+    }
+
+    span {
+      display: block;
+      float: left;
+      font-weight: 550;
+      line-height: 38px;
+      margin-right: 22%;
+      width: 53%;
+    }
+  }
+}
+
 .accent {
   background: $accent;
 
-  input {
+  input,
+  button {
     background: $accent;
+    color: #fff;
   }
 
   a {
     display: block;
-    color: #ffffff;
+    color: #fff;
   }
 }
 
-.base-form input {
-  border-radius: 5px;
-  border: 1px solid rgba(36, 36, 36, 0.30);
-  color: rgba(0, 0, 0, 0.85);
+.form {
+  position: relative;
+  width: 100%;
+}
+
+.base-form {
+  height: 40px;
+  margin: 0 auto 30px;
+  position: relative;
+  width: 100%;
+
+  input,
+  select,
+  textarea,
+  label {
+    background: $weak-grey;
+    border-radius: 5px;
+    color: $main;
+    display: block;
+    font-size: 13px;
+    font-weight: 550;
+    letter-spacing: 0.2px;
+    line-height: 20px;
+    padding: 10px 20px;
+    width: 100%;
+  }
+
+  select {
+    padding: 0 40px 0 20px;
+  }
+
+  .select-icon {
+    height: 40px;
+    line-height: 40px;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+  }
+}
+
+.base-form-area {
+  display: table;
+  margin: 0 auto 30px;
+  position: relative;
+  width: 100%;
+
+  textarea {
+    line-height: 20px;
+    min-height: 200px;
+    max-height: 400px;
+    padding: 5px 20px;
+    resize: vertical;
+  }
+}
+
+.set-form {
+  width: 100%;
+  margin-bottom: 30px;
+
+  .upload-form {
+    width: 39%;
+    float: left;
+  }
+
+  .size-form {
+    margin-left: 4%;
+    width: 57%;
+    float: left;
+  }
+}
+
+.file-form {
+  background: $weak-grey;
+  border-radius: 10px;
+  position: relative;
+  height: auto;
+  width: 100%;
+
+  .upload-button {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    .upload-icon {
+      height: 100%;
+      position: relative;
+      width: 100%;
+      z-index: 15;
+
+      .fa-plus {
+        font-size: 1.5em;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .fa-refresh {
+        background: rgba(255,255,255,0.40);
+        border-radius: 17.5%;
+        color: rgba(0,0,0,0.80);
+        display: block;
+        font-size: 1.5em;
+        height: 34px;
+        line-height: 34px;
+        position: absolute;
+        bottom: 8%;
+        right: 8%;
+        text-align: center;
+        width: 34px;
+        z-index: 20;
+      }
+    }
+  }
+
+  .preview {
+    height: 88%;
+    margin: 6%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 88%;
+    z-index: 10;
+  }
+}
+
+.file-form:before {
+  content: "";
   display: block;
-  font-size: 0.8em;
-  letter-spacing: 0.06rem;
-  line-height: 1.3em;
-  margin: 25px auto;
-  padding: 0.7em 1em;
-  width: 85%;
+  padding-top: 100%;
+}
+
+.file-label {
+  width: 100%;
+}
+
+.select-form {
+  border-radius: 10px;
+  height: 111px;
+  margin: 0;
+
+  select,
+  .select-icon {
+    line-height: 111px;
+    font-size: 24px;
+
+    option {
+      font-size: 14px;
+    }
+  }
+}
+
+.select-label {
+  width: 100%;
+}
+
+.font-mini label {
+  font-size: 0.8em !important;
+  line-height: 26px;
+}
+
+.hidden-form {
+  display: none;
 }
 
 .mb {
@@ -1174,12 +1469,13 @@ nav {
 }
 
 .label-form {
-  margin-bottom: 1em;
+  margin-bottom: 5px;
 
+  p,
+  span,
   label {
     display: block;
     font-weight: 550;
-    margin-bottom: 0.4em;
   }
 
   input,
@@ -1305,9 +1601,8 @@ nav {
   background: #fff6f6;
   border: 1.5px solid #ebccd1;
   border-radius: 5px;
-  margin: 0 auto;
+  margin-bottom: 20px;
   padding: 15px;
-  position: relative;
   width: 100%;
 
   .error-title {
@@ -1335,7 +1630,7 @@ nav {
 
 .flash-base {
   background: rgba(0,0,0,0);
-  font-size: 1.1em;
+  font-size: 16px;
   font-weight: 550;
   height: 50px;
   line-height: 50px;
@@ -1352,9 +1647,9 @@ nav {
   }
 
   .flash-danger {
-    background: rgba(255,246,246,0.85);
+    background: rgba(255,246,246,0.9);
     color: #e5171f;
-    font-size: 0.7em;
+    font-size: 16px;
   }
 
   .flash-info {
@@ -1367,6 +1662,7 @@ nav {
 /* link-list */
 
 .link-list {
+  font-size: 12.5px;
   position: relative;
   width: 100%; 
 
@@ -1388,7 +1684,7 @@ nav {
       width: 100%;
 
       .list-content {
-        border-bottom: 1px solid $weak-grey;
+        border-bottom: 1px solid $back;
         padding: 20px;
         position: relative;
         width: 100%;
@@ -1449,6 +1745,7 @@ nav {
 
 .set-list {
   border-bottom: 1px solid $back;
+  font-size: 15px;
   list-style: none;
   position: relative;
   height: 61px;
@@ -1515,7 +1812,8 @@ nav {
     position: relative;
     width: 90%;
 
-    input {
+    input,
+    textarea {
       background: $weak-grey;
       border-radius: 5px;
       border: none;
@@ -1525,6 +1823,7 @@ nav {
       padding: 5px 30px 5px 15px;
       position: relative;
       width: 100%;
+      word-wrap: break-word;
     }
 
     input:focus {
@@ -1532,19 +1831,30 @@ nav {
     }
 
     .inner-button {
-      height: 100%;
+      height: 30px;
       position:absolute;
-      top: 0;
+      bottom: 0;
       right: 0;
       width: 30px;
 
       button {
+        background: $weak-grey;
+        border-radius: 5px;
+        bottom: 0;
         display: block;
         height: 100%;
+        position: relative;
         width: 100%;
+        z-index: 10;
       }
     }
   }
+}
+
+.search-form {
+  background: $base;
+  height: 50px;
+  padding: 10px 0 ;
 }
 
 .search-select {
@@ -1553,15 +1863,18 @@ nav {
   }
 }
 
+.match {
+  font-weight: 650;
+}
+
 /* comment */
 
 .post-comment {
-  font-size: 14px;
   position: relative;
   width: 100%;
 
   .comment-list {
-    padding-bottom: 5px;
+    padding-bottom: 8px;
     width: 100%;
 
     .comment-content {
@@ -1573,6 +1886,10 @@ nav {
         cursor: pointer;
       }
     }
+  }
+
+  .reply-line {
+    padding-left: 3.5%;
   }
 }
 
@@ -1594,19 +1911,12 @@ nav {
 }
 
 .comment-form {
-  height: 70px;
+  background: $base;
+  border-top: 1px solid $back;
+  height: 71px;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 20px 0;
-/*
-  form {
-    background: $base;
-  }
-
-  form input {
-    background: $base;
-    border: 1px solid $twi-grey;
-    border-radius: 8px;
-  }
-*/
 }
 
 /* notice */
@@ -1622,8 +1932,10 @@ nav {
 }
 
 .notice-text {
+  font-size: 12.5px;
   span {
-    font-weight: 600;
+    font-weight: 570;
+    letter-spacing: 0.2px;
   }
 }
 
@@ -1655,7 +1967,23 @@ nav {
     height: 50px;
     margin: 10px 0;
     position: relative;
-    width: 100%;
+    width: 50px;
+
+    a {
+      display: block;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+    }
+  }
+
+  .npost-picture:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
   }
 }
 
@@ -1705,6 +2033,10 @@ nav {
       float: left;
       margin-right: 2%;
       width: 79%;
+
+      .index-name {
+        font-weight: 550;
+      }
     }
 
     .index-follow {
@@ -1721,13 +2053,10 @@ nav {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  height: 100%;
-  width: 100%;
   z-index: 20;
+
   a {
   display: block;
-  height: 100%;
-  width: 100%;
   }
 }
 
@@ -1738,22 +2067,14 @@ nav {
   width: 55px;
 }
 
-/* password_reset */
-
-.reset-text {
-  p {
-    margin-bottom: 10px;
-  }
-  .sfont {
-    font-size: 0.8em;
-    line-height: 16px;
-  }
-}
 
 /* 読み込みバー */
 .turbolinks-progress-bar{
   background-color: $accent;
 }
+
+
+
 
 @media only screen and (max-width: 767px) {
   
@@ -1761,4 +2082,27 @@ nav {
 
 @media only screen and (min-width: 768px) {
   
+}
+
+
+/* firefox */
+@-moz-document url-prefix() {
+  h1, h2, h3, h4, h5, h6, p, label {
+    transform: rotate(0.001deg);
+  }
+}
+
+/* Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    _::-webkit-full-page-media, _:future, :root h1, h2, h3, h4, h5, h6, p, label {
+    transform: rotate(0.001deg);
+  }
+}
+
+/* Chrome || Opera */
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+  h1, h2, h3, h4, h5, h6, p, label {
+    transform: rotate(0.05deg);
+    text-shadow: 0 0 0.1px rgba(0,0,0,0.1);
+  }
 }

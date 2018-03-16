@@ -1,11 +1,12 @@
 class KickspostsController < ApplicationController
+  
   before_action :logged_in_user
   before_action :no_name
   before_action :set_and_check_kickspost, only: [:show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
-    @comments = @kickspost.comments.includes(:user).all
+    @comments = @kickspost.comments.includes(:user).where(reply_id: 0)
   end
 
   def new
@@ -15,6 +16,7 @@ class KickspostsController < ApplicationController
   def create
     @kickspost = current_user.kicksposts.build(kicksposts_params)
     if @kickspost.save
+      @kickspost.check_and_create_notice_to_others_and(current_user)
       flash[:success] = "投稿に成功しました"
       redirect_to root_url
     else
@@ -35,15 +37,12 @@ class KickspostsController < ApplicationController
   end
 
   def destroy
-=begin
-    @kickspost.comments.all.each do |comment|
-      Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
-            .where(kind_id: comment.id).destroy_all
-      Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+    @kickspost.comments.each do |comment|
+      comment.check_and_delete_notice_form_others_and(current_user, current_user)
     end
-    Notice.where(kind: "gpost_list", kind_id: @kickspost.id).destroy_all
-    Good.where(kind: "gpost", kind_id: @kickspost.id).destroy_all
-=end
+
+    @kickspost.check_and_delete_notice_form_others_and(current_user)
+
     @kickspost.destroy
     flash[:danger] = "投稿を削除しました"
     redirect_to user_path(current_user, display: "square")

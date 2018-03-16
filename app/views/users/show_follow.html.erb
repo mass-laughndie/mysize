@@ -1,9 +1,8 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの" + @title) %>
+<%= render 'layouts/back', back_path: "#{user_path(@user)}" %>
+<%= render 'layouts/center_header', header_text: @title %>
 <% unless @users.blank? %>
   <div class="content-nspace">
-    <div class="ns-page-title">
-      <h1 class="title-text"><%= @title %></h1>
-    </div>
     <div class="setting-select">
       <ul>
         <%= render @users %>

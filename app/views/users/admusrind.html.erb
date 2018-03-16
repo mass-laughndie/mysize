@@ -7,15 +7,15 @@
 </div>
 <% unless params[:keyword].nil? %>
   <div class="content-nspace">
-    <div class="c select-form search-select">
+    <div class="c select search-select">
       <div class="select-list search-list alist aline">
-        <%= link_to "ユーザー", admusrind_path(keyword: params[:keyword]) %>
+        <%= link_to "ユーザー", admusrind_path(for: 'user', keyword: params[:keyword]) %>
       </div>
       <div class="select-list search-list alist aline">
-        <%= link_to "投稿", admusrind_path(keyword: params[:keyword], for: 'post') %>
+        <%= link_to "投稿", admusrind_path(for: 'post', keyword: params[:keyword]) %>
       </div>
       <div class="select-list search-list alist aline">
-        <%= link_to "コメント", admusrind_path(keyword: params[:keyword], for: 'com') %>
+        <%= link_to "コメント", admusrind_path(for: 'com', keyword: params[:keyword]) %>
       </div>
     </div>
     <div class="search-result">

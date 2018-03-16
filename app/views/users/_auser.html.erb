@@ -19,14 +19,14 @@
             <div class="index-follow">
               <div class="c abs-center">
                 <% if current_user.admin? && !current_user?(user) %>
-                    <%= link_to "削除", user, method: :delete,
-                                data: { confirm: "本当にいいですか??" } %>
+                  <%= link_to "削除", user, method: :delete,
+                              data: { confirm: "本当にいいですか??" } %>
                 <% end %>
               </div>
             </div>
           </div>
-          <div class="index-profile">
-            <%= user.profile_content %>
+          <div class="index-profile autolink">
+            <%= user.content %>
           </div>
         </div>
       </div>

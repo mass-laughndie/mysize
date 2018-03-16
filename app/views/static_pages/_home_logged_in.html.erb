@@ -1,0 +1,12 @@
+<%= render 'home_select' %>
+<div class="post-main">
+  <% if @kicksposts.blank? %>
+    <%= render partial: 'shared/no_data' %>
+  <% else %>
+    <div class="post-line clear">
+      <ul>
+        <%= render @kicksposts, comment_disnum: "few" %>
+      </ul>
+    </div>
+  <% end %>
+</div>

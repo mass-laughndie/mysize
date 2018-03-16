@@ -1,12 +1,13 @@
 
 
-
 //flash非表示
-function clearBox() {
-  $("#temp3").css('display', 'none');
-}
-
-setTimeout( clearBox, 3000 );
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    setTimeout( function(){
+      $("#flash").css('display', 'none');
+    }, 3000);
+  });
+});
 
 
 //post-menuスライドバー
@@ -22,18 +23,82 @@ document.addEventListener('turbolinks:load', function() {
 });
 
 
-//comment返信
+//comment返信(reply_idの設定,自動focus)
 document.addEventListener('turbolinks:load', function() {
-  $(function(){
+  $(function() {
     //同じ要素内でautolink化しているためclick発火には静的な親要素で仕込む必要あり
-    $('body').on('click', '[id^=comment-reply]', function(){
+    $('body').on('click', '[id^=comment-reply]', function() {
       var
-        cid = $(this).attr("id"),
-        num = cid.match(/\d/g).join("");
-        //返信先のIDを取得
-        str = $('#content-name-' + num).text();
-      //コメントフォームに「@ID 」を挿入しカーソル移動
-      $('.comment-text-form').val("@" + str + " ").focus();
+        cid = $(this).attr('id'),
+        comID = cid.match(/\d/g).join(''),                     //comment.id
+        forIDs = '@' + $('#content-name-' + comID).text(),     //返信先の親@IDを取得(返信相手全@ID配列)
+        comLink = $('#comment-' + comID).find('.com-link'),    //親の返信相手オブジェクト
+        myID = '@' + $('#my-icon').attr('alt'),                //自分の@ID
+        rclass = $('#comment-' + comID).attr('class'),
+        replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
+
+      //reply_id　== 0(返信先がコメントの場合)
+      if (replyID == 0 ) {
+        $('#reply-id').attr('value', comID);          //返信先のIDを挿入(=>reply_id)
+      //それ以外(返信先がリプライの場合)
+      } else {
+        $('#reply-id').attr('value', replyID);        //元のコメントのIDを挿入(=>reply_id)
+      }
+
+
+      //親の返信相手がいる場合
+      if ( comLink.length ) {
+        var parentID = forIDs;               //親@iD複製(forIDs更新のため)
+        //各返信相手において
+        comLink.each(function(){
+          var rid = $(this).text();   //  返信相手の@ID
+          //@IDが親と自分と違う場合
+          if ( rid != parentID && rid != myID ) {
+            forIDs = forIDs + ' ' + $(this).text();   //@ID連結
+          }
+        });
+      }
+      //コメントフォームに「@ID (@ID ...)」を挿入しカーソル移動
+      $('.comment-text-form').val(forIDs + " ").focus();
+    });
+  });
+});
+
+//ポスト内容の改行挿入
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.post-text').each(function() {
+      var txt = $(this).text();
+
+      txt = txt.replace(/\r\n|\r/g, '\n').replace(/\n/g, '<br>');
+      $(this).html(txt);
+    });
+  });
+});
+
+//reply_idチェック(@IDがない場合 => reply_id:　0　に変える)
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('#comment-button').on('click', function() {
+      var
+        content = $('#comment_content').val(),
+        uid = content.match(/@[a-zA-Z0-9_]+\s/g);
+      console.log(uid);
+      if ( uid == null ) {
+        $('#reply-id').attr('value', 0);
+      }
+    });
+  });
+});
+
+
+//コメントフォーム自動拡張&格納
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.comment-text-form').focus( function() {
+      $('.comment-form').css('height', '181px');
+    }).blur( function() {
+      $('.comment-form').css('height', '71px');
     });
   });
 });
@@ -43,7 +108,8 @@ function indexId(){
   return $.ajax({
     type: 'GET',
     url: '/index?for=mysizeid&key=mysizeid',
-    dataType: 'html'
+    dataType: 'html',
+    timeout: 20000
   })
 }
 
@@ -52,11 +118,11 @@ function changeLink(_iid) {
   $('.autolink').each(function(){
     var
       txt = $(this).html(),
-      exp = txt.match(/@[a-zA-Z0-9_]+\s/g);               //全「@ID 」
+      exp = txt.match(/@[a-zA-Z0-9_]+\s/g);                //全「@ID 」
     if(exp != null){
       for(var i = 0; i < exp.length; i++){
         var
-          elength = exp[i].length;                         //文字数
+          elength = exp[i].length,                         //文字数
           msid = exp[i].substring(1, elength - 1);         //「ID」
         //indexid内のものと一致する場合リンク化
         if (iid.indexOf(msid) >= 0){
@@ -79,7 +145,7 @@ iid = [];
 //comment送信先ユーザーリンク化
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    //commentがある場合
+    //.autolinkがある場合
     if ($('.autolink').length) {
       //data未取得
       if (iid.length == 0) {
@@ -89,7 +155,7 @@ document.addEventListener('turbolinks:load', function() {
           iid.pop();
           changeLink(iid);
         }).fail(function(data) {
-          console.log('failed loading data!!!');
+          alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
           return false;
         })
       //data取得済み
@@ -101,7 +167,7 @@ document.addEventListener('turbolinks:load', function() {
 });
 
 
-//高さ自動調整リンク
+//indexリンクの高さ自動調整
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     $('.link-list').each(function() {
@@ -114,6 +180,7 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
 
 //現在位置ボタンの色変換
 document.addEventListener('turbolinks:load', function(){
@@ -130,6 +197,7 @@ document.addEventListener('turbolinks:load', function(){
   });
 });
 
+
 //未ログインアラートボタン
 document.addEventListener('turbolinks:load', function(){
   $(function(){
@@ -137,5 +205,99 @@ document.addEventListener('turbolinks:load', function(){
       alert('登録またはログインしてください！');
       return false;
     });
+  });
+});
+
+
+//画像ファイルプレビュー
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    //from内の該当要素を選択されたら(ファイルを選択しないときは発火しない)
+    $('form').on('change', 'input[type="file"]', function(e) {
+      var
+        file = e.target.files[0],   //ファイルオブジェクト
+        reader = new FileReader(),
+        $preview = $('.preview');
+
+      //fileが選択されなかった || fileタイプがimageでないとき => 実効終了
+      if ( file == undefined || file.type.indexOf('image') < 0){
+        return false;
+      }
+
+      //読み込み成功して完了(onload)
+      reader.onload = (function(file) {
+        return function(e) {
+          //既存のプレビュー削除
+          $preview.empty();
+          //プレビュー挿入
+          $preview.append($('<img>').attr({
+            src: e.target.result,
+            width: "35%",
+            class: "cover",
+            title: file.name
+          }));
+          $('.upload-icon').empty();
+          $('.upload-icon').append($('<i>').attr('class', 'fa fa-refresh'));
+        };
+      })(file);
+      //ファイルをURLとして読み込む
+      reader.readAsDataURL(file);
+    });
+  });
+});
+
+//textareaの高さ自動変更(要縮小対応[※/**/のはカクつく])
+document.addEventListener('turbolinks:load', function() {
+  $(function(){
+    if ($('.autoheight').length) {
+      var maxHeight = $('.autoheight').css('maxHeight').split('px')[0];
+      $('.autoheight').on('keyup', function(e){
+        var
+          $textarea = $(e.target),
+          allHeight = e.target.scrollHeight,     //スクロールを含めた全体の高さ
+          areaHeight = e.target.offsetHeight;    //要素(textarea)の高さ
+
+        if(allHeight < maxHeight && allHeight > areaHeight) {
+          $textarea.height(allHeight);
+        }/*else {
+          //line-heightの値を取得
+          var lineHeight = Number($textarea.css('lineHeight').split('px')[0]);
+          while (true) {
+            //1行分ずつ縮小する
+            $textarea.height($textarea.height() - lineHeight);
+            if(allHeight > areaHeight){
+              $textarea.height(allHeight);
+            }
+            break;
+          }
+          console.log("!!!!");
+        }*/
+      });
+    }
+  });
+});
+
+//searchの該当文字を太文字に変更(要com-link内検索対応)
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#keyword').length ) {
+      var
+        keyword = $('#keyword').val(),            //フォーム入力文字
+        keywords = keyword.split(/ |　/g);         //空白(全||半)で区切って配列ｌ化
+
+      keywords = keywords.filter(v => v);         //空文字を配列から削除
+      //keywordsがある場合
+      if ( keywords.length ){
+        $('.key').each(function() {
+          //各keywordにおいて
+          for( var i = 0; i < keywords.length; i++ ) {
+            var
+              txt = $(this).html(),
+              replaceText = txt.replace(keywords[i], '<span class="match">' + keywords[i] + '</span>');
+            $(this).html(replaceText);
+          }
+        });
+      }
+    }
   });
 });

@@ -18,7 +18,7 @@
                     user_path(kickspost.user, display: "square") %>
       </div>
       <div class="c post-shoesize">
-        <%= link_to kickspost.user.shoe_size,
+        <%= link_to kickspost.user.size,
                     user_path(kickspost.user, display: "square") %>
       </div>
       <div class="post-user">
@@ -37,13 +37,17 @@
             <%= fa_icon("ellipsis-h") %>
           </div>
           <ul id="nav-list-<%= kickspost.id %>" class="nav-list">
-            <li><%= link_to "削除",
-                    kickspost_path(kickspost.user.mysize_id, kickspost),
-                    method: :delete,
-                    data: { confirm: "本当に削除してよろしいですか？" } %></li>
+            <li>
+              <span><%= fa_icon("trash") %></span>
+              <%= link_to " 投稿を削除する",
+                  kickspost_path(kickspost.user.mysize_id, kickspost),
+                  method: :delete,
+                  data: { confirm: "本当に削除してよろしいですか？" } %></li>
             <li class="bar"></li>
-            <li><%= link_to "編集",
-                    edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
+            <li>
+              <span><%= fa_icon("pencil-square-o") %></span>
+              <%= link_to " 投稿を編集する",
+                  edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
           </ul>
         <% end %>
       </div>
@@ -63,8 +67,13 @@
       <div class="post-act">
         <div class="c good-act">
           <%= render partial: 'goods/good_form',
-                     locals: { kind_model: kickspost,
-                               kind: "gpost" } %>
+                     locals: { post: kickspost,
+                               type: "Kickspost" } %>
+      </div>
+      <div class="c post-num">
+        <div class="kpost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
+          <%= kickspost.goods.to_a.size %>
+        </div>
       </div>
     </div>
     <div class="post-bottom">
@@ -72,7 +81,7 @@
         <%= link_to kickspost.user.mysize_id,
                     user_path(kickspost.user, display: "square"),
                     class: 'content-name' %>
-        <%= kickspost.content %>
+        <span class="post-text"><%= kickspost.content %></span>
       </div>
       <% unless kickspost.comments.blank? %>
         <div class="post-comment">
@@ -80,10 +89,10 @@
             <div class="comment-lead">
               <% if current_user == kickspost.user %>
                 <%= link_to "コメントを見る・返信する",
-                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                    kickspost_path(kickspost.user.mysize_id, kickspost, display: "text") %>
               <% else %>
                 <%= link_to "コメントを見る・書く",
-                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                    kickspost_path(kickspost.user.mysize_id, kickspost, display: "text") %>
               <% end %>
             </div>
           <% end %>
@@ -106,7 +115,7 @@
         <% if comment_disnum == "few" && current_user != kickspost.user %>
             <div class="comment-lead">
               <%= link_to "コメントを書く",
-                          kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                  kickspost_path(kickspost.user.mysize_id, kickspost, display: "text") %>
             </div>
           <% end %>
       <% end %>
