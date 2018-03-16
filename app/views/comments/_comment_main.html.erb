@@ -1,3 +1,8 @@
+<% if reply_on %>
+  <div class="c kpost-reply-icon">
+    <%= fa_icon("caret-right") %>
+  </div>
+<% end %>
 <div class="c index-left kpost-left">
   <%= render partial: 'shared/index_left',
              locals: { user: comment.user } %>

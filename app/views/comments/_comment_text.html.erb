@@ -4,7 +4,8 @@
     <div class="content-height">
       <div class="list-content clear">
         <%= render partial: 'comments/comment_main',
-                   locals: { comment: comment } %>
+                   locals: { comment: comment,
+                             reply_on: false } %>
       </div>
     </div>
   </div>

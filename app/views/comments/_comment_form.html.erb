@@ -8,7 +8,7 @@
     <%= f.text_area :content, placeholder: "コメントをする",
                       class: "comment-text-form" %>
     <div class="inner-button comment-button">
-      <%= f.button fa_icon("reply") %>
+      <%= f.button fa_icon("reply"), id: "comment-button" %>
     </div>
   <% end %>
 </div>

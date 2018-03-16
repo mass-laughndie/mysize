@@ -192,7 +192,7 @@ header {
   left: 0;
   right: 0;
   z-index: 100;
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -215,7 +215,7 @@ header {
 }
 
 .select {
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   height: 41px;
   width: 100%;
 
@@ -385,7 +385,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 101;
-  border-top: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -495,12 +495,8 @@ nav {
 }
 
 .search-space {
+  background: $back;
   height: 51px;
-}
-
-.search-height {
-  height: 50px;
-  padding: 10px;
 }
 
 .commemt-space {
@@ -678,7 +674,7 @@ nav {
 }
 
 .post-select {
-  border-top: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 52px;
 
   .post-list {
@@ -1124,6 +1120,22 @@ nav {
   }
 }
 
+.reply-main {
+  .kpost-reply-icon {
+    float: left;
+    width: 5%;
+
+    i {
+      color: #fff;
+      font-size: 18px;
+    }
+  }
+
+  .kpost-center {
+    width: 57%;
+  }
+}
+
 .kpost-right-bottom {
   position: relative;
   width: 100%;
@@ -1293,11 +1305,11 @@ nav {
     border-radius: 5px;
     color: $main;
     display: block;
-    font-size: 0.8em;
+    font-size: 13px;
     font-weight: 550;
     letter-spacing: 0.2px;
-    line-height: 40px;
-    padding: 0 20px;
+    line-height: 20px;
+    padding: 10px 20px;
     width: 100%;
   }
 
@@ -1838,6 +1850,12 @@ nav {
   }
 }
 
+.search-form {
+  background: $base;
+  height: 50px;
+  padding: 10px 0 ;
+}
+
 .search-select {
   .search-list {
     width: 33.3%;
@@ -1851,7 +1869,7 @@ nav {
   width: 100%;
 
   .comment-list {
-    padding-bottom: 5px;
+    padding-bottom: 8px;
     width: 100%;
 
     .comment-content {
@@ -1863,6 +1881,10 @@ nav {
         cursor: pointer;
       }
     }
+  }
+
+  .reply-line {
+    padding-left: 3.5%;
   }
 }
 

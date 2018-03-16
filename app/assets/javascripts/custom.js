@@ -35,14 +35,14 @@ document.addEventListener('turbolinks:load', function() {
         comLink = $('#comment-' + comID).find('.com-link'),    //親の返信相手オブジェクト
         myID = '@' + $('#my-icon').attr('alt'),                //自分の@ID
         rclass = $('#comment-' + comID).attr('class'),
-        replyID = rclass.match(/\d/g).join('');                //comment.reply_id
-        console.log(comID);
-        console.log('!' + replyID);
+        replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
 
+      //reply_id　== 0(返信先がコメントの場合)
       if (replyID == 0 ) {
-        $('#reply-id').attr('value', comID);
+        $('#reply-id').attr('value', comID);          //返信先のIDを挿入(=>reply_id)
+      //それ以外(返信先がリプライの場合)
       } else {
-        $('#reply-id').attr('value', replyID);
+        $('#reply-id').attr('value', replyID);        //元のコメントのIDを挿入(=>reply_id)
       }
 
 
@@ -63,6 +63,34 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+//ポスト内容の改行挿入
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.post-text').each(function() {
+      var txt = $(this).text();
+
+      txt = txt.replace(/\r\n|\r/g, '\n').replace(/\n/g, '<br>');
+      $(this).html(txt);
+    });
+  });
+});
+
+//reply_idチェック(@IDがない場合 => reply_id:　0　に変える)
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('#comment-button').on('click', function() {
+      var
+        content = $('#comment_content').val(),
+        uid = content.match(/@[a-zA-Z0-9_]+\s/g);
+      console.log(uid);
+      if ( uid == null ) {
+        $('#reply-id').attr('value', 0);
+      }
+    });
+  });
+});
+
 
 //コメントフォーム自動拡張&格納
 document.addEventListener('turbolinks:load', function() {

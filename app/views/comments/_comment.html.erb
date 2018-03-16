@@ -1,28 +1,34 @@
-<% replies = comment.replies %>
+<% replies = comment.replies.includes(:user) %>
 <% if list == "normal" %>
-  <%= render partial: 'comments/comment_line',
-             locals: { comment: comment,
-                       comment_disnum: comment_disnum } %>
-  <% if replies.any? %>
+  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> comment-list autolink">
+    <%= render partial: 'comments/comment_line',
+               locals: { comment: comment,
+                         comment_disnum: comment_disnum } %>
+  </li>
+  <% if comment_disnum != "few" && replies.any? %>
     <% replies.each do|reply| %>
-      <%= render partial: 'comments/comment_line',
-                 locals: { comment: reply,
-                           comment_disnum: comment_disnum } %>
+      <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> comment-list autolink reply-line">
+        <%= render partial: 'comments/comment_line',
+                   locals: { comment: reply,
+                             comment_disnum: comment_disnum } %>
+      </li>
     <% end %>
   <% end %>
 <% elsif list == "text" %>
   <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> kcomment-list autolink">
     <div class="kpost-main clear">
       <%= render partial: 'comments/comment_main',
-                 locals: { comment: comment } %>
+                 locals: { comment: comment,
+                           reply_on: false } %>
     </div>
   </li>
   <% if replies.any? %>
     <% replies.each do|reply| %>
-      <li id="comment-<%= reply.id %>" class="reply-<%= reply.reply_id %> kcomment-list autolink">
-        <div class="kpost-main clear">
+      <li id="comment-<%= reply.id %>" class="reply-<%= reply.reply_id %> kcomment-list autolink clear">
+        <div class="kpost-main reply-main clear">
           <%= render partial: 'comments/comment_main',
-                     locals: { comment: reply } %>
+                     locals: { comment: reply,
+                               reply_on: true } %>
         </div>
       </li>
     <% end %>

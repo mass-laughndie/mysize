@@ -81,7 +81,7 @@
         <%= link_to kickspost.user.mysize_id,
                     user_path(kickspost.user, display: "square"),
                     class: 'content-name' %>
-        <%= kickspost.content %>
+        <span class="post-text"><%= kickspost.content %></span>
       </div>
       <% unless kickspost.comments.blank? %>
         <div class="post-comment">
