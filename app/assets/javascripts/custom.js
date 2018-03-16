@@ -122,7 +122,7 @@ function changeLink(_iid) {
     if(exp != null){
       for(var i = 0; i < exp.length; i++){
         var
-          elength = exp[i].length;                         //文字数
+          elength = exp[i].length,                         //文字数
           msid = exp[i].substring(1, elength - 1);         //「ID」
         //indexid内のものと一致する場合リンク化
         if (iid.indexOf(msid) >= 0){
@@ -281,14 +281,21 @@ document.addEventListener('turbolinks:load', function() {
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     if ( $('#keyword').length ) {
-      var keyword = $('#keyword').val();
-      if (keyword != '' ){
+      var
+        keyword = $('#keyword').val(),            //フォーム入力文字
+        keywords = keyword.split(/ |　/g);         //空白(全||半)で区切って配列ｌ化
+
+      keywords = keywords.filter(v => v);         //空文字を配列から削除
+      //keywordsがある場合
+      if ( keywords.length ){
         $('.key').each(function() {
-          var
-            txt = $(this).text(),
-            replaceText = txt.replace(keyword, '<span class="match">' + keyword + '</span>');
-          console.log(replaceText);
-          $(this).html(replaceText);
+          //各keywordにおいて
+          for( var i = 0; i < keywords.length; i++ ) {
+            var
+              txt = $(this).html(),
+              replaceText = txt.replace(keywords[i], '<span class="match">' + keywords[i] + '</span>');
+            $(this).html(replaceText);
+          }
         });
       }
     }
