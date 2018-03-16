@@ -192,7 +192,7 @@ header {
   left: 0;
   right: 0;
   z-index: 100;
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -215,7 +215,7 @@ header {
 }
 
 .select {
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   height: 41px;
   width: 100%;
 
@@ -385,7 +385,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 101;
-  border-top: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -674,7 +674,7 @@ nav {
 }
 
 .post-select {
-  border-top: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 52px;
 
   .post-list {
@@ -1884,7 +1884,7 @@ nav {
   }
 
   .reply-line {
-    padding-left: 3.3%;
+    padding-left: 3.5%;
   }
 }
 

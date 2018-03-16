@@ -2,15 +2,22 @@
 
 <div class="content-sspace">
   <div class="post-form">
-    <%= form_for(@kickspost, url: kickspost_path(@kickspost.user.mysize_id, @kickspost), multipart: true) do |f| %>
+    <%= form_for(@kickspost,
+                 url: kickspost_path(@kickspost.user.mysize_id, @kickspost),
+                 multipart: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="label-form">
         <%= f.label :size, "スニーカーのサイズ" %>
+      </div>
+      <div class="base-form">
         <%= f.select(:size, options_for_select(size_array), prompt: "選択してください") %>
       </div>
       <div class="label-form">
         <%= f.label :content, "投稿フォーム" %>
-        <%= f.text_area :content, placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
+      </div>
+      <div class="base-form base-form-area">
+        <%= f.text_area :content, class: "autoheight text-area",
+                        placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
       </div>
       <div class="c button button-mini accent">
         <%= f.submit "更新", data: { disable_with: "処理中..."} %>

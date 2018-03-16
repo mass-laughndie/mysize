@@ -7,7 +7,7 @@
                 user_path(kickspost.user, display: "square") %>
   </div>
   <div class="kpost-content autolink">
-    <%= kickspost.content %>
+    <span class="post-text"><%= kickspost.content %></span>
   </div>
   <div class="kpost-time">
     <%= time_ago_in_words(kickspost.created_at) %>前

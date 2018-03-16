@@ -64,6 +64,18 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+//ポスト内容の改行挿入
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.post-text').each(function() {
+      var txt = $(this).text();
+
+      txt = txt.replace(/\r\n|\r/g, '\n').replace(/\n/g, '<br>');
+      $(this).html(txt);
+    });
+  });
+});
+
 //reply_idチェック(@IDがない場合 => reply_id:　0　に変える)
 document.addEventListener('turbolinks:load', function() {
   $(function() {
