@@ -276,3 +276,21 @@ document.addEventListener('turbolinks:load', function() {
     }
   });
 });
+
+//searchの該当文字を太文字に変更(要com-link内検索対応)
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#keyword').length ) {
+      var keyword = $('#keyword').val();
+      if (keyword != '' ){
+        $('.key').each(function() {
+          var
+            txt = $(this).text(),
+            replaceText = txt.replace(keyword, '<span class="match">' + keyword + '</span>');
+          console.log(replaceText);
+          $(this).html(replaceText);
+        });
+      }
+    }
+  });
+});
