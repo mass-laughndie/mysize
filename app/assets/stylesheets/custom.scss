@@ -1863,8 +1863,9 @@ nav {
   }
 }
 
-.match {
-  font-weight: 650;
+.match,
+.match a {
+  font-weight: 700;
 }
 
 /* comment */
@@ -1893,7 +1894,8 @@ nav {
   }
 }
 
-.com-link {
+.id-link,
+.tag-link {
   /*color: rgba(0,53,105,0.85);*/
   color: $accent;
   font-weight: 550;
