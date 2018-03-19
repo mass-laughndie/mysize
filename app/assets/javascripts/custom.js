@@ -1,4 +1,23 @@
 
+//escape
+function escapeHtml(string) {
+  if (typeof string !== 'string' ) {
+    return string;
+  }
+
+  return string.replace(/[&'`"<>=\/]/g, function(match) {
+    return {
+      '&': '&amp;',
+      "'": '&#x39;',
+      '`': '&#x60;',
+      '"': '&quot;',
+      '/': '&#x2F;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '=': '&#x3D;'
+    }[match]
+  });
+}
 
 //flash非表示
 document.addEventListener('turbolinks:load', function() {
@@ -68,8 +87,7 @@ document.addEventListener('turbolinks:load', function() {
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     $('.post-text').each(function() {
-      var txt = $(this).text();
-
+      var txt = escapeHtml($(this).text());
       txt = txt.replace(/\r\n|\r/g, '\n').replace(/\n/g, '<br>');
       $(this).html(txt);
     });
@@ -83,7 +101,6 @@ document.addEventListener('turbolinks:load', function() {
       var
         content = $('#comment_content').val(),
         uid = content.match(/@[a-zA-Z0-9_]+\s/g);
-      console.log(uid);
       if ( uid == null ) {
         $('#reply-id').attr('value', 0);
       }
@@ -137,7 +154,7 @@ function changeLink(_iid) {
             txt = $(this).html(),             //新たに定義しないと複数置換できない
             //new RegExp(exp[i], 'g')で重複を一括replace
             //exp[i]は重複(=完全一致)以外は一意の文字列のため、exp[i]でreplaceして削られるoptionを後から追加
-            replaceText = txt.replace(new RegExp(exp[i], 'g'), "<a class='id-link' href=" + url + ">" + str + "</a>" + option);
+            replaceText = txt.replace(new RegExp(exp[i], 'g'), "<a class='id-link' href=" + escapeHtml(url) + ">" + escapeHtml(str) + "</a>" + option);
           $(this).html(replaceText);
         }
       }
@@ -252,7 +269,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-//textareaの高さ自動変更(要縮小対応[※/**/のはカクつく])
+//textareaの高さ自動変更(要縮小対応[※のはカクつく])
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     if ($('.autoheight').length) {
@@ -276,7 +293,6 @@ document.addEventListener('turbolinks:load', function() {
             }
             break;
           }
-          console.log("!!!!");
         }*/
       });
     }
@@ -324,14 +340,12 @@ document.addEventListener('turbolinks:load', function() {
           elength = exp[i].length,                          //文字数
           word = exp[i].replace(/\s|<br>|<\/span>/g, ''),   //「#(任意の文字列)」
           option = exp[i].replace(word, ''),                //wordの後続
-          key = "%23" + word.slice(1)                       //「#」削除
-          url = window.location.protocol + "//"
-                + window.location.host
-                + '/search?for=post&keyword=' + key,        //リンクURL
-          txt = $(this).html(),             //新たに定義しないと複数置換できない
+          key = "%23" + word.slice(1),                       //「#」削除
+          url = '/search?for=post&keyword=' + key,        //リンクURL
+          txt = $(this).html();             //新たに定義しないと複数置換できない
           //new RegExp(exp[i], 'g')で重複を一括replace
           //exp[i]は重複(=完全一致)以外は一意の文字列のため、exp[i]でreplaceして削られるoptionを後から追加
-          replaceText = txt.replace(new RegExp(exp[i], 'g'), "<a class='tag-link' href=" + url + ">" + word + "</a>" + option);
+        var replaceText = txt.replace(new RegExp(exp[i], 'g'), "<a class='tag-link' href=" + url + ">" + word + "</a>" + option);
         $(this).html(replaceText);
         }
       }
