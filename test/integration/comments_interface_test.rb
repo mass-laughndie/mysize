@@ -10,7 +10,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
   end
 
   test "create comment interface" do
-    get kickspost_path(@user, @kickspost, display: "text", display: "text")
+    get kickspost_path(@user, @kickspost, display: "text")
     assert_redirected_to login_url
     log_in_as(@user)
     get kickspost_path(@user, @kickspost, display: "text")
