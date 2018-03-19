@@ -1,0 +1,38 @@
+<div class="notice-main clear">
+  <div class="notice-icon">
+    <% if count >= 2 %>
+      <div class="abs-center2">
+        <% users.each_with_index do |user, i| %>
+          <div class="list-image-<%= i %>">
+            <%= image_tag(image_url(user), size: 34, alt: user.name) %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <% if ntype.in?(["Follow", "Comment", "Kickspost"]) %>
+        <% user = users[0] %>
+      <% end %>
+      <div class="abs-center">
+        <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
+            user_path(user, display: "square"), class: "list-image" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="notice-text notice-comment-text">
+    <% if ntype.in?(["Follow", "Comment", "Kickspost"]) %>
+      <% user = users[0] %>
+    <% end %>
+    <%= render partial: 'notices/notice_text',
+               locals: { uname: user.name,
+                         count: count,
+                         ntype: ntype } %>
+    <div class="notice-time kpost-time">
+      <%= time_ago_in_words(ntime) %>前
+    </div>
+  </div>
+</div>
+<% unless ntype == "Follow" %>
+  <%= render partial: 'notices/notice_post',
+             locals: { post:  post,
+                       ntype: ntype } %>
+<% end %>

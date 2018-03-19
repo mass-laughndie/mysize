@@ -1,0 +1,31 @@
+<% provide(:title, "お問い合わせ") %>
+<%= render 'layouts/center_header', header_text: "お問い合わせ" %>
+
+<div class="content-fspace">
+  <div class="form">
+    <%= form_for(@contact, url: confirm_contact_path) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="label-form">
+        <%= f.label :name, "件名" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :name %>
+      </div>
+      <div class="label-form">
+        <%= f.label :email, "メールアドレス" %>
+      </div>
+      <div class="base-form">
+        <%= f.email_field :email %>
+      </div>
+      <div class="label-form">
+        <%= f.label :message, "お問い合わせ内容" %>
+      </div>
+      <div class="base-form base-form-area">
+        <%= f.text_area :message, class: "autoheight" %>
+      </div>
+      <div class="button button-mini accent">
+        <%= f.submit "送信する", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>

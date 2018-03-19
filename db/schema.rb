@@ -10,25 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227081756) do
+ActiveRecord::Schema.define(version: 20180314034222) do
 
   create_table "comments", force: :cascade do |t|
-    t.text "comment_content"
     t.integer "user_id"
     t.integer "kickspost_id"
+    t.integer "reply_id"
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["kickspost_id"], name: "index_comments_on_kickspost_id"
+    t.index ["reply_id"], name: "index_comments_on_reply_id"
     t.index ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
     t.index ["user_id", "kickspost_id", "created_at"], name: "index_comments_on_user_id_and_kickspost_id_and_created_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "goods", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "post_type"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_type", "post_id"], name: "index_goods_on_post_type_and_post_id"
+    t.index ["user_id", "created_at"], name: "index_goods_on_user_id_and_created_at"
+    t.index ["user_id", "post_id", "post_type"], name: "index_goods_on_user_id_and_post_id_and_post_type", unique: true
+    t.index ["user_id"], name: "index_goods_on_user_id"
+  end
+
   create_table "kicksposts", force: :cascade do |t|
+    t.integer "user_id"
     t.text "content"
     t.string "picture"
     t.float "size"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_kicksposts_on_user_id_and_created_at"
@@ -36,12 +58,13 @@ ActiveRecord::Schema.define(version: 20180227081756) do
   end
 
   create_table "notices", force: :cascade do |t|
-    t.string "kind"
     t.integer "user_id"
+    t.string "kind_type"
     t.integer "kind_id"
-    t.boolean "read", default: false
+    t.integer "unread_count", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["kind_type", "kind_id"], name: "index_notices_on_kind_type_and_kind_id"
     t.index ["user_id", "created_at"], name: "index_notices_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_notices_on_user_id"
   end
@@ -60,12 +83,10 @@ ActiveRecord::Schema.define(version: 20180227081756) do
     t.string "name"
     t.string "email"
     t.string "mysize_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "image"
-    t.float "shoe_size"
-    t.string "profile_content"
+    t.float "size"
+    t.string "content"
     t.string "remember_digest"
     t.boolean "admin", default: false
     t.string "uid"
@@ -73,6 +94,8 @@ ActiveRecord::Schema.define(version: 20180227081756) do
     t.string "reset_digest"
     t.string "e_token"
     t.datetime "reset_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mysize_id"], name: "index_users_on_mysize_id", unique: true
   end

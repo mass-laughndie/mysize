@@ -4,18 +4,18 @@
   <div class="ps-page-title">
     <h1 class="title-text">パスワード再設定</h1>
   </div>
-  <div class="reset-text">
+  <div class="text">
     <p>新しいパスワードを設定してください。</p>
   </div>
-  <div class="set-form">
+  <div class="form">
     <%= form_for(@user, url: password_reset_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-      <%= hidden_field_tag :e_token, @user.e_token %>
-      <%= hidden_field_tag :rst, params[:rst] %>
-      <div class="c base-form">
+      <div><%= hidden_field_tag :e_token, @user.e_token %></div>
+      <div><%= hidden_field_tag :rst, params[:rst] %></div>
+      <div class="base-form">
         <%= f.password_field :password, placeholder: "新しいPassword" %>
       </div>
-      <div class="c base-form">
+      <div class="base-form">
         <%= f.password_field :password_confirmation, placeholder: "Password確認" %>
       </div>
       <div class="c button accent nls">

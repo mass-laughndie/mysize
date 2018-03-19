@@ -1,7 +1,13 @@
-<div class="form-follow">
-  <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
-    <div><%= hidden_field_tag :followed_id, user.id %></div>
-    <div><%= hidden_field_tag :kind, "follow" %></div>
-    <%= button_tag fa_icon("user") + fa_icon("plus") %>
-  <% end %>
-</div>
+<% if logged_in? %>
+  <div class="form-follow">
+    <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+      <div><%= hidden_field_tag :followed_id, user.id %></div>
+      <!--<div><%= hidden_field_tag :kind, "follow" %></div>-->
+      <%= button_tag fa_icon("user") + fa_icon("plus") %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="c form-follow">
+    <%= link_to fa_icon("user") + fa_icon("plus"), '#', class: 'ban' %>
+  </div>
+<% end %>

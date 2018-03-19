@@ -1,13 +1,3 @@
-<div class="post-main">
-  <% if @kicksposts.blank? %>
-    <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "post" } %>
-  <% else %>
-    <div class="post-line clear">
-      <ul>
-        <%= render @kicksposts, comment_disnum: "few" %>
-      </ul>
-    </div>
-  <% end %>
-</div>
+<%= provide(:title, "新着") %>
+
+<%= render 'static_pages/home_logged_in' %>

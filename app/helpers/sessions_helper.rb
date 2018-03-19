@@ -8,9 +8,9 @@ module SessionsHelper
     #remember_tokenを発行し、userのDBにrember_digest(tokenのハッシュ化)を保存
     user.remember
     #cookiesにidを保存
-    cookies.permanent.signed[:msuid] = user.id
+    cookies.permanent.signed[:msuid] = { value: user.id, httponly: true }
     #cookiesにremeber_tokenを保存
-    cookies.permanent[:remember_token] = user.remember_token
+    cookies.permanent[:remember_token] = { value: user.remember_token, httponly: true }
   end
 
   def current_user?(user)
