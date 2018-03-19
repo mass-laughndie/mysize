@@ -13,13 +13,12 @@
   <% elsif target == "new" %>
     <%= fa_icon("image") %>
     <div class="no-text">表示できるデータがありません</div>
-      <div class="no-text">まずはあなたと同じサイズの人を探して<br>フォローしましょう！</div>
-      <div class="no-link">
-        <a href="<%= search_path(for: 'user', keyword: user.size ) %>">
-          <%= fa_icon("search") %><span>検索する</span>
-        </a>
-      </div>
-    <% end %>
+    <div class="no-text">まずはあなたと同じサイズの人を探して<br>フォローしましょう！</div>
+    <div class="no-link">
+      <a href="<%= search_path(for: 'user', keyword: user.size ) %>">
+        <%= fa_icon("search") %><span>検索する</span>
+      </a>
+    </div>
   <% elsif target == "notice" %>
     <%= fa_icon("bell-o") %>
     <div class="no-text">１件もありません</div>
