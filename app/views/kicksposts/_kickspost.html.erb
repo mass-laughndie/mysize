@@ -1,10 +1,9 @@
 <% if params[:display] == "square" %>
   <li id="postsquare-<%= kickspost.id %>" class="postsquare-list">
     <div class="square-picture">
-      <%= link_to image_tag(picture_url(kickspost),
-                            alt: kickspost.content,
-                            class: 'cover'),
-                  kickspost_path(kickspost.user.mysize_id, kickspost) %>
+      <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
+                        class: 'cover lazyload', data: { src: picture_url(kickspost) } ),
+                        kickspost_path(kickspost.user.mysize_id, kickspost) %>
     </div>
     <div class="kicks-size">
       <%= kickspost.size %>
@@ -56,7 +55,8 @@
       <% unless kickspost.picture.nil? %>
         <div class="post-link">
           <div class="post-picture">
-            <%= link_to image_tag(picture_url(kickspost)),
+            <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
+                        class: 'lazyload', data: { src: picture_url(kickspost) } ),
                         kickspost_path(kickspost.user.mysize_id, kickspost) %>
           </div>
           <div class="c post-size">

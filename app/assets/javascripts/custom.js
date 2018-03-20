@@ -352,3 +352,16 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+/*
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('img.lazyload').lazyload({
+      threshold: 0,
+      effect: 'fadeIn',
+      effect_speed: 10000,
+      placeholder: "/images/grey.gif",
+    });
+  });
+});
+*/
