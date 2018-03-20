@@ -37,12 +37,7 @@ class CommentsController < ApplicationController
 
     @comment.destroy
     flash[:success] = "コメントを削除しました"
-
-    if params[:display]
-      redirect_to kickspost_path(@user.mysize_id, @kickspost, display: params[:display])
-    else
-      redirect_to kickspost_path(@user.mysize_id, @kickspost)
-    end
+    redirect_to kickspost_path(@user.mysize_id, @kickspost, display: "text")
   end
 
 

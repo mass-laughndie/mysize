@@ -229,10 +229,10 @@ class User < ApplicationRecord
 
   #follow通知の作成or更新
   def create_or_update_follow_notice
-    this_day = Time.zone.now.all_day
-    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    #this_day = Time.zone.now.all_day
+    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
     #今週の通知がある場合
-    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_day)
+    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
       #未読数+1
       notice.increment!(:unread_count, by = 1)
       notice.touch
@@ -278,8 +278,8 @@ class User < ApplicationRecord
 
   #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]25.weeks.ago)
-    deleteline = Time.new(2000,1,1)..2.days.ago
+    #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
+    deleteline = Time.new(2000,1,1)..10.weeks.ago
     #削除ライン以前に更新された未読0の通知
     exnotices = notices.where(unread_count: 0, updated_at: deleteline)
     exnotices.destroy_all

@@ -1472,6 +1472,7 @@ nav {
   margin-bottom: 5px;
 
   p,
+  span,
   label {
     display: block;
     font-weight: 550;
@@ -1862,6 +1863,11 @@ nav {
   }
 }
 
+.match,
+.match a {
+  font-weight: 700;
+}
+
 /* comment */
 
 .post-comment {
@@ -1888,7 +1894,8 @@ nav {
   }
 }
 
-.com-link {
+.id-link,
+.tag-link {
   /*color: rgba(0,53,105,0.85);*/
   color: $accent;
   font-weight: 550;
@@ -2028,6 +2035,10 @@ nav {
       float: left;
       margin-right: 2%;
       width: 79%;
+
+      .index-name {
+        font-weight: 550;
+      }
     }
 
     .index-follow {
