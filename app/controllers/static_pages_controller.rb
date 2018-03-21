@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def home
     if logged_in?
       @user = current_user
-      @kicksposts = current_user.feed.includes(:user, {comments: :user}).reorder(updated_at: :desc)
+      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :user}).reorder(updated_at: :desc)
     end
   end
 

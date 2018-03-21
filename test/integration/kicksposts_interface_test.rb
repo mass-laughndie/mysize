@@ -41,13 +41,11 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     # assert_match picture, response.body
     #投稿を削除
     get user_path(@user)
-    assert_select 'i.fa-ellipsis-h'
     first_kickspost = @user.kicksposts.first
     assert_difference 'Kickspost.count', -1 do
       delete kickspost_path(first_kickspost.user, first_kickspost)
     end
     get user_path(users(:mysize2))
-    assert_select 'i.fa-ellipsis-h', count: 0
   end
 
   test "update kickspost interface" do

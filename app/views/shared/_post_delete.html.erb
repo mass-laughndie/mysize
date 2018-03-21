@@ -4,7 +4,7 @@
   <% post_delete_url =  kickspost_url(post.user.mysize_id, post) %>
 <% end %>
 
-<%= link_to fa_icon("trash"),
+<%= link_to fa_icon("trash") + " 投稿を削除する",
             post_delete_url,
             method: :delete,
             data: { confirm: "本当に削除してよろしいですか？" } %>

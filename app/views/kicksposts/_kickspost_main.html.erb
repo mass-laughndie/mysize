@@ -3,18 +3,46 @@
 </div>
 <div class="kpost-center">
   <div class="kpost-name">
-    <%= link_to kickspost.user.mysize_id,
-                user_path(kickspost.user, display: "square") %>
+    <%= link_to user_path(kickspost.user, display: "square") do %>
+      <%= kickspost.user.name %>
+      <span> @<%= kickspost.user.mysize_id %></span>
+    <% end %>
   </div>
   <div class="kpost-content autolink key">
     <span class="post-text"><%= kickspost.content %></span>
   </div>
+</div>
+<div class="kpost-act clear">
   <div class="kpost-time">
     <%= time_ago_in_words(kickspost.created_at) %>前
+  </div>
+  <div class="kpost-alist">
+    <div class="kpost-aicon">
+      <%= render partial: 'goods/good_form',
+                 locals: { post: kickspost,
+                           type: "Kickspost" } %>
+    </div>
+    <div class="kpost-num" id="good-num-kickspost-<%= kickspost.id %>">
+      <%= kickspost.goods.to_a.size %>
+    </div>
+  </div>
+  <div class="kpost-alist alist-last">
+    <div class="kpost-aicon">
+      <%= link_to fa_icon("comment"),
+                  kickspost_path(kickspost.user.mysize_id, kickspost) %>
+    </div>
+    <div class="kpost-num">
+      <%= kickspost.comments.to_a.size %>
+    </div>
   </div>
 </div>
 <div class="kpost-right">
   <div class="c kpost-right-top">
+    <div class="kpost-menu clear">
+      <% if current_user == kickspost.user %>
+        <%= render 'kicksposts/kickspost_menu', kickspost: kickspost %>
+      <% end %>
+    </div>
     <div class="kpost-picture abs-center">
       <%= link_to image_tag(picture_url(kickspost),
                             alt: kickspost.content,
@@ -22,20 +50,6 @@
                   kickspost_path(kickspost.user.mysize_id, kickspost)  %>
       <div class="kpost-size index-size">
         <%= kickspost.size %>
-      </div>
-    </div>
-  </div>
-  <div class="c kpost-right-bottom">
-    <div class="kpost-act">
-      <div class="kpost-alist">
-        <%= render partial: 'goods/good_form',
-                   locals: { post: kickspost,
-                             type: "Kickspost" } %>
-      </div>
-      <div class="kpost-num">
-        <div class="kpost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
-          <%= kickspost.goods.to_a.size %>
-        </div>
       </div>
     </div>
   </div>
