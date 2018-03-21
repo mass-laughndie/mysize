@@ -7,43 +7,48 @@
   <%= render partial: 'shared/index_left',
              locals: { user: comment.user } %>
 </div>
-<div class="kpost-center">
+<div class="kpost-center comment-center">
   <div class="kpost-name">
-    <%= link_to comment.user.mysize_id,
-                user_path(comment.user, display: "square"),
-                id: "content-name-" + comment.id.to_s %>
+    <%= link_to user_path(comment.user, display: "square") do %>
+      <%= comment.user.name %>
+      <span id="content-name-<%= comment.id %>"> @<%= comment.user.mysize_id %></span>
+    <% end %>
   </div>
   <div class="kpost-content autolink key">
     <%= comment.content %>
   </div>
+</div>
+<% if reply_on %>
+<div class="kpost-act comment-act reply-act clear">
+<% else %>
+<div class="kpost-act comment-act clear">
+<% end %>
   <div class="kpost-time">
     <%= time_ago_in_words(comment.created_at) %>前
   </div>
+  <div class="kpost-alist">
+    <div class="kpost-aicon">
+      <%= render partial: 'goods/good_form',
+                 locals: { post: comment,
+                           type: "Comment" } %>
+    </div>
+    <div class="kpost-num" id="good-num-comment-<%= comment.id %>">
+      <%= comment.goods.to_a.size %>
+    </div>
+  </div>
+  <% unless current_user == comment.user %>
+    <div class="kpost-alist alist-last">
+      <div class="kpost-aicon" id="comment-reply-<%= comment.id %>">
+        <%= fa_icon('reply')%>
+      </div>
+    </div>
+  <% end %>
 </div>
-<div class="kpost-right">
-  <div class="c kpost-right-bottom">
-    <div class="kpost-act">
-      <% if current_user.in?([comment.user, comment.kickspost.user]) %>
-        <div class="kpost-alist">
-          <div class="comment-act comment-delete">
-            <%= render 'comments/comment_delete', comment: comment %>
-          </div>
-        </div>
-      <% end %>
-      <div class="kpost-alist">
-        <%= render partial: 'goods/good_form',
-                   locals: { post: comment,
-                             type: "Comment" } %>
-      </div>
-      <div class="kpost-good-num" id="good-num-comment-<%= comment.id %>">
-        <%= comment.goods.to_a.size %>
-      </div>
-      <% unless current_user == comment.user %>
-        <div class="kpost-alist">
-          <div class="comment-act" id="comment-reply-<%= comment.id %>">
-            <%= fa_icon('reply')%>
-          </div>
-        </div>
+<div class="kpost-right comment-right">
+  <div class="c kpost-right-top">
+    <div class="kpost-menu comment-menu clear">
+      <% if current_user == comment.user %>
+        <%= render 'kicksposts/comment_menu', comment: comment %>
       <% end %>
     </div>
   </div>

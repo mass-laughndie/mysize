@@ -512,6 +512,9 @@ nav {
 .home-select {
   margin-bottom: 20px;
 
+  .home-list {
+    width: 33.3%;
+  }
 }
 
 /* profile */
@@ -586,6 +589,7 @@ nav {
 .user-name {
   position: relative;
   font-size: 0.9em;
+  word-wrap: break-word;
 }
 
 .user-mysizeid {
@@ -806,7 +810,6 @@ nav {
   background: $base;
   border: 1px solid $base-grey;
   display: none;
-  height: 93px;
   overflow: hidden;
   position: absolute;
   left: auto;
@@ -816,10 +819,14 @@ nav {
 
   li {
     background: $base;
-    font-size: 0.8em;
+    font-size: 13px;
     font-weight: 450;
     line-height: 45px;
     z-index: 60;
+
+    a {
+      display: block;
+    }
 
     a,
     span {
@@ -1054,15 +1061,31 @@ nav {
   .kpost-center {
     float: left;
     height: 100%;
-    margin: 0 3%;
+    margin: 0 3% 30px;
+    position: relative;
     width: 62%;
     word-wrap: break-word;
 
     .kpost-name {
-      margin: 5px 0;
+      padding: 5px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+
       a {
         color: $main;
+        display: inline-block;
+        font-size: 12.5px;
         font-weight: 550;
+        position: relative;
+        width: 100%;
+        z-index: 20;
+
+        span {
+          color: $base-grey;
+        }
       }
     }
 
@@ -1071,11 +1094,71 @@ nav {
       font-size: 12.5px;
       font-weight: 500;
     }
+  }
+
+  .comment-center {
+    margin-right: 0;
+    width: 72%;
+  }
+
+  .kpost-act {
+    font-size: 17px;
+    height: 20px;
+    margin-left: 16.5%;
+    position: absolute;
+    bottom: 20px;
 
     .kpost-time {
       color: $base-grey;
       font-size: 10.5px;
+      float: left;
+      line-height: 20px;
+      margin-right: 25px;
     }
+
+    .kpost-alist {
+      float: left;
+      height: 20px;
+      line-height: 20px;
+      margin-right: 25px;
+      position: relative;
+      z-index: 25;
+
+      .kpost-aicon {
+        cursor: pointer;
+        float: left;
+        height: 100%;
+        line-height: 20px;
+        margin-right: 10px;
+        padding: 0 5px;
+        width: 30px;
+
+        a,
+        i,
+        .good-form div form button i {
+          font-size: 15px;
+        }
+      }
+
+      .kpost-num {
+        float: left;
+        font-size: 15px;
+        line-height: 25px;
+      }
+    }
+
+    .alist-last {
+      margin: 0;
+    }
+  }
+
+  .comment-act {
+    bottom: 0;
+    margin-left: 18%;
+  }
+
+  .reply-act {
+    margin-left: 23%;
   }
 
   .kpost-right {
@@ -1087,8 +1170,20 @@ nav {
       position: relative;
       width: 100%;
 
+      .kpost-menu {
+        margin-left: 50%;
+        padding: 5px 0;
+        position: relative;
+        width: 50%;
+        z-index: 60;
+
+        .post-nav i {
+          font-size: 14px;
+        }
+      }
+
       .kpost-picture {
-        margin: 10px 0 40px;
+        margin: 5px 0 30px;
         position: relative;
         height: 55px;
         width: 55px;
@@ -1118,6 +1213,17 @@ nav {
       }
     }
   }
+
+  .comment-right {
+    width: 10%;
+
+    .kpost-right-top {
+      .comment-menu {
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
 }
 
 .reply-main {
@@ -1134,28 +1240,9 @@ nav {
   .kpost-center {
     width: 57%;
   }
-}
 
-.kpost-right-bottom {
-  position: relative;
-  width: 100%;
-
-  .kpost-act {
-    font-size: 17px;
-
-    .kpost-alist {
-      cursor: pointer;
-      height: 35px;
-      line-height: 35px;
-      margin-top: 10px;
-      position: relative;
-      width: 100%;
-      z-index: 25;
-
-      .good-form div form button i {
-        font-size: 17px;
-      }
-    }
+  .comment-center {
+    width: 67%
   }
 }
 
@@ -1685,7 +1772,7 @@ nav {
 
       .list-content {
         border-bottom: 1px solid $back;
-        padding: 20px;
+        padding: 5%;
         position: relative;
         width: 100%;
         word-wrap: break-word;
@@ -1898,7 +1985,7 @@ nav {
 .tag-link {
   /*color: rgba(0,53,105,0.85);*/
   color: $accent;
-  font-weight: 550;
+  font-weight: 450;
   position: relative;
   z-index: 25;
 }

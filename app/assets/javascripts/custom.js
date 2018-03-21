@@ -32,11 +32,18 @@ document.addEventListener('turbolinks:load', function() {
 //post-menuスライドバー
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    $("[id^=post-nav]").on('click', function(){
+    $("[id^=post-nav-comment]").on('click', function(){
       var
         str = $(this).attr("id"),
         num = str.match(/\d/g).join("");
-      $('#nav-list-' + num).slideToggle('fast');
+      $('#nav-list-comment-' + num).slideToggle('fast');
+    });
+
+    $("[id^=post-nav-kickspost]").on('click', function(){
+      var
+        str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $('#nav-list-kickspost-' + num).slideToggle('fast');
     });
   });
 });
@@ -50,8 +57,8 @@ document.addEventListener('turbolinks:load', function() {
       var
         cid = $(this).attr('id'),
         comID = cid.match(/\d/g).join(''),                     //comment.id
-        forIDs = '@' + $('#content-name-' + comID).text(),     //返信先の親@IDを取得(返信相手全@ID配列)
-        comLink = $('#comment-' + comID).find('.com-link'),    //親の返信相手オブジェクト
+        forIDs = $('#content-name-' + comID).text(),           //返信先の親@IDを取得(返信相手全@ID配列)
+        comLink = $('#comment-' + comID).find('.id-link'),    //親の返信相手オブジェクト
         myID = '@' + $('#my-icon').attr('alt'),                //自分の@ID
         rclass = $('#comment-' + comID).attr('class'),
         replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
