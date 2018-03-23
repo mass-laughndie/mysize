@@ -15,8 +15,10 @@
     <div class="content-abs">
       <div class="content-height">
         <div class="list-content clear">
-          <%= render partial: 'kicksposts/kickspost_main',
-                     locals: { kickspost: kickspost } %>
+          <%= render partial: 'shared/post_main',
+                     locals: { post: kickspost,
+                               type: 'Kickspost',
+                               reply_on: false } %>
         </div>
       </div>
     </div>

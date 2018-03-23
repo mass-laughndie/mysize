@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if current_user == @user
       no_name
     end
-    @kicksposts = @user.kicksposts.includes(:comments)
+    @kicksposts = @user.kicksposts.includes(:comments, :goods)
   end
 
   def new
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
 
   def good
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @goods = @user.goods.order(updated_at: :desc)
+    @goods = @user.goods.includes(:user).order(updated_at: :desc)
   end
 
   

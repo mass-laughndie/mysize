@@ -6,7 +6,7 @@ class KickspostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
-    @comments = @kickspost.comments.includes(:user).where(reply_id: 0)
+    @comments = @kickspost.comments.includes(:user, :goods, :replies).where(reply_id: 0)
   end
 
   def new

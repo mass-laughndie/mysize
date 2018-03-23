@@ -15,21 +15,19 @@
     <% end %>
   <% end %>
 <% elsif list == "text" %>
-  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> kcomment-list">
-    <div class="kpost-main clear">
-      <%= render partial: 'comments/comment_main',
-                 locals: { comment: comment,
-                           reply_on: false } %>
-    </div>
+  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> kcomment-list kpost-main clear">
+    <%= render partial: 'shared/post_main',
+               locals: { post: comment,
+                         type: 'Comment',
+                         reply_on: false } %>
   </li>
   <% if replies.any? %>
     <% replies.each do|reply| %>
-      <li id="comment-<%= reply.id %>" class="reply-<%= reply.reply_id %> kcomment-list clear">
-        <div class="kpost-main reply-main clear">
-          <%= render partial: 'comments/comment_main',
-                     locals: { comment: reply,
-                               reply_on: true } %>
-        </div>
+      <li id="comment-<%= reply.id %>" class="reply-<%= reply.reply_id %> kcomment-list kpost-main reply-main clear">
+        <%= render partial: 'shared/post_main',
+                   locals: { post: reply,
+                             type: 'Comment',
+                             reply_on: true } %>
       </li>
     <% end %>
   <% end %>

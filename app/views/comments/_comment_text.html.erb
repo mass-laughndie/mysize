@@ -3,8 +3,9 @@
   <div class="content-abs">
     <div class="content-height">
       <div class="list-content clear">
-        <%= render partial: 'comments/comment_main',
-                   locals: { comment: comment,
+        <%= render partial: 'shared/post_main',
+                   locals: { post: comment,
+                             type: 'Comment',
                              reply_on: false } %>
       </div>
     </div>
