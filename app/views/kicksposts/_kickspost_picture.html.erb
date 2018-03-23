@@ -78,12 +78,12 @@
                      locals: { kickspost: kickspost,
                                comment: kickspost.comments.first,
                                comment_disnum: comment_disnum,
-                               list: "normal" } %>
+                               list: "line" } %>
         <% else %>
           <%= render partial: @comments,
                      locals: { kickspost: kickspost,
                                comment_disnum: comment_disnum,
-                               list: "normal" } %>
+                               list: "line" } %>
         <% end %>
       </ul>
     </div>
