@@ -15,7 +15,9 @@
     <% else %>
       <div class="post-line clear">
         <ul>
-          <%= render @kicksposts, comment_disnum: "few" %>
+          <%= render partial: @kicksposts,
+                     locals: { comment_disnum: nil,
+                               post_page: false } %>
         </ul>
       </div>
     <% end %>

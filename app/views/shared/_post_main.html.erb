@@ -56,19 +56,26 @@
         </div>
         <% if type == "Kickspost" %>
           <div class="kpost-alist alist-last">
-            <div class="kpost-aicon">
-              <%= link_to fa_icon("comment-o"),
-                          kickspost_path(post.user.mysize_id, post) %>
-            </div>
-            <div class="kpost-num">
-              <%= post.comments.to_a.size %>
-            </div>
+            <%= link_to kickspost_path(post.user.mysize_id, post), class: "kpost-alink" do %>
+              <div class="kpost-aicon">
+                <%= fa_icon("comment-o") %>
+              </div>
+              <div class="kpost-num">
+                <%= post.comments.to_a.size %>
+              </div>
+            <% end %>
           </div>
         <% end %>
         <% if type == "Comment" && current_user != post.user %>
           <div class="kpost-alist alist-last">
             <div class="kpost-aicon" id="comment-reply-<%= post.id %>">
-              <%= fa_icon('reply')%>
+              <% if post_page %>
+                <%= fa_icon('reply')%>
+              <% else %>
+                <a class="kpost-alink jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost. user, post.kickspost, reply: 'on') %>#<%= type.downcase %>-<%= post.id %>">
+                  <%= fa_icon('reply')%>
+                </a>
+              <% end %>
             </div>
           </div>
         <% end %>
