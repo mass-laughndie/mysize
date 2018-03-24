@@ -1,11 +1,10 @@
 <% if type == 'Kickspost' %>
-  <% post_url = kickspost_path(post.user, post) %>
+<li id="kickspost-<%= post.id %>" class="link-list kpost-main clear">
+  <a class="content-link" href="<%= kickspost_path(post.user, post) %>"></a>
 <% elsif type == 'Comment' %>
-  <% post_url = kickspost_path(post.kickspost.user, post.kickspost) + "#comment-" + post.id.to_s %>
+<li id="comment-<%= post.id %>" class="reply-<%= post.reply_id %> link-list kpost-main clear">
+  <a class="content-link jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost.user, post.kickspost) %>#<%= type.downcase %>-<%= post.id %>"></a>
 <% end %>
-
-<li id="<%= type.downcase %>-<%= post.id %>" class="link-list kpost-main clear" name="<%= type.downcase %>-<%= post.id %>">
-  <a class="content-link" href="<%= post_url %>"></a>
   <div class="content-abs">
     <div class="content-height">
       <% unless reply_on %>

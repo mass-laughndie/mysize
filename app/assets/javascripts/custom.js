@@ -372,3 +372,58 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 */
+
+function jumpScroll(_this, _point){
+  var target = $(_point == '#' || _point == '' ? $('html') : _point );
+  if ( target.length == '0' ) target = $('html');
+  var
+    position = target.offset().top,
+    move = _this.data('scroll');
+  if ( move !== undefined ) position = position + Number(move);
+  if ( position <= 0 ) position = 1;
+  $("html, body").animate( { scrollTop : position }, 500, 'swing');
+}
+
+//ページ遷移 or アンカーポイントへジャンプ
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('body').on('click', '.jump', function(e) {
+      var
+        _this = $(this);
+        link = _this.attr('href'),
+        index = link.indexOf('#comment'),
+        point = link.slice(index),
+        linkPath = link.replace(point, ''),
+        nowPath = window.location.pathname;
+      if ( linkPath != nowPath ) {
+        window.location.href = linkPath + escapeHtml(point);
+        var id = point.match(/\d/g).join('');
+        $('#comment-' + id).css('background', 'rgba(255, 0, 0, 0.05)');
+        return false;
+      }
+
+      if ( point.match(/#comment/) != null ) {
+        e.preventDefault();          //リクエストキャンセル
+        jumpScroll(_this, point);
+      }
+      return false;
+    });
+  });
+});
+
+//ページ遷移後、アンカーポイントへジャンプ
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('.jump').length != '0' ) {
+      var
+        _hash = escapeHtml(window.location.hash);
+
+      console.log(_hash);
+      if ( _hash !== '' ) {
+        $(_hash).css('background', 'rgba(255, 0, 0, 0.03)');
+        jumpScroll($('.jump'), _hash);
+      }
+    }
+    return false;
+  });
+});
