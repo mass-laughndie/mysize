@@ -3,22 +3,15 @@
     <div class="square-picture">
       <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
                         class: 'cover lazyload', data: { src: picture_url(kickspost) } ),
-                        kickspost_path(kickspost.user.mysize_id, kickspost) %>
+                        kickspost_path(kickspost.user, kickspost) %>
     </div>
     <div class="kicks-size">
       <%= kickspost.size %>
     </div>
   </li>
 <% else %>
-  <li class="link-list kpost-main kpost-list-<%= kickspost.id %> clear">
-    <a class="content-link" href="<%= kickspost_url(kickspost.user.mysize_id, kickspost) %>"></a>
-    <div class="content-abs">
-      <div class="content-height">
-        <div class="list-content clear">
-          <%= render partial: 'kicksposts/kickspost_main',
-                     locals: { kickspost: kickspost } %>
-        </div>
-      </div>
-    </div>
-  </li>
+  <%= render partial: 'shared/post_main',
+             locals: { post: kickspost,
+                       type: 'Kickspost',
+                       reply_on: false } %>
 <% end %>

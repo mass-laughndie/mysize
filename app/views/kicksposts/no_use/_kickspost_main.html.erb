@@ -1,5 +1,6 @@
 <div class="c index-left kpost-left">
-  <%= render 'shared/index_left', user: kickspost.user %>
+  <%= render partial: 'shared/index_left',
+             locals: { user: kickspost.user } %>
 </div>
 <div class="kpost-center">
   <div class="kpost-name">

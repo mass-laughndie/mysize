@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if current_user == @user
       no_name
     end
-    @kicksposts = @user.kicksposts.includes(:comments)
+    @kicksposts = @user.kicksposts.includes(:comments, :goods)
   end
 
   def new
@@ -71,20 +71,20 @@ class UsersController < ApplicationController
   def following
     @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.following.order(updated_at: :desc)#.includes(:passive_relationships)
+    @users = @user.following.order(updated_at: :desc)#.includes(active_relationships: :followed)
     render 'show_follow'
   end
 
   def followers
     @title = "フォロワー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.followers.order(updated_at: :desc)#.includes(:active_relationships)
+    @users = @user.followers.order(updated_at: :desc)#.includes(passive_relationships: :follower)
     render 'show_follow'
   end
 
   def good
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @goods = @user.goods.order(updated_at: :desc)
+    @goods = @user.goods.includes(:user).order(updated_at: :desc)
   end
 
   

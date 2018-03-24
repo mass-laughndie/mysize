@@ -15,7 +15,7 @@
       <%= render partial: @comments,
                  locals: { kickspost: @kickspost,
                            comment_disnum: nil,
-                           list: "text" } %>
+                           list: nil } %>
     </ul>
   <% else %>
     <%= render partial: 'kicksposts/kickspost_picture',

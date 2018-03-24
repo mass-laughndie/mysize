@@ -1,0 +1,15 @@
+<div id="post-nav-<%= type.underscore %>-<%= post.id %>" class="post-nav">
+  <%= fa_icon("angle-down") %>
+</div>
+<ul id="nav-list-<%= type.underscore %>-<%= post.id %>" class="nav-list">
+  <li>
+    <%= render partial: 'shared/post_delete',
+               locals: { post: post,
+                         type: type } %>
+  <% if type == "Kickspost" %>
+  <li class="bar"></li>
+  <li>
+    <%= link_to fa_icon("pencil-square-o") + " 投稿を編集する",
+                edit_kickspost_path(post.user.mysize_id, post) %></li>
+  <% end %>
+</ul>

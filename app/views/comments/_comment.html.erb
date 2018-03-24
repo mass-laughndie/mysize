@@ -1,5 +1,5 @@
 <% replies = comment.replies.includes(:user) %>
-<% if list == "normal" %>
+<% if list == "line" %>
   <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> comment-list">
     <%= render partial: 'comments/comment_line',
                locals: { comment: comment,
@@ -14,23 +14,17 @@
       </li>
     <% end %>
   <% end %>
-<% elsif list == "text" %>
-  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> kcomment-list">
-    <div class="kpost-main clear">
-      <%= render partial: 'comments/comment_main',
-                 locals: { comment: comment,
-                           reply_on: false } %>
-    </div>
-  </li>
+<% else %>
+  <%= render partial: 'shared/post_main',
+             locals: { post: comment,
+                       type: 'Comment',
+                       reply_on: false } %>
   <% if replies.any? %>
     <% replies.each do|reply| %>
-      <li id="comment-<%= reply.id %>" class="reply-<%= reply.reply_id %> kcomment-list clear">
-        <div class="kpost-main reply-main clear">
-          <%= render partial: 'comments/comment_main',
-                     locals: { comment: reply,
-                               reply_on: true } %>
-        </div>
-      </li>
+      <%= render partial: 'shared/post_main',
+                 locals: { post: reply,
+                           type: 'Comment',
+                           reply_on: true } %>
     <% end %>
   <% end %>
 <% end %>

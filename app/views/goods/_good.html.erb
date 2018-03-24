@@ -1,20 +1,4 @@
-<% type = good.post_type %>
-<% if type == "Kickspost" %>
-  <% main_post = good.post %>
-<% elsif type == "Comment" %>
-  <% main_post = good.post.kickspost %>
-<% end %>
-
-<li id="good-list-<%= good.id %>" class="good-list kpost-main link-list">
-  <a class="content-link" href="<%= kickspost_url(main_post.user.mysize_id, main_post, display: 'text') %>"></a>
-  <div class="content-abs">
-    <div class="content-height">
-      <div class="list-content clear">
-        <%= render partial: 'shared/post_main',
-                   locals: { post: good.post,
-                             main_post: main_post,
-                             type: type } %>
-      </div>
-    </div>
-  </div>
-</li>
+<%= render partial: 'shared/post_main',
+           locals: { post: good.post,
+                     type: good.post_type,
+                     reply_on: false } %>

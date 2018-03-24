@@ -13,11 +13,9 @@
                  locals: { user: @user,
                            target: "good" } %>
     <% else %>
-      <div class="post-line clear">
-        <ul>
-          <%= render @goods %>
-        </ul>
-      </div>
+      <ul>
+        <%= render @goods %>
+      </ul>
     <% end %>
   </div>
 </div>

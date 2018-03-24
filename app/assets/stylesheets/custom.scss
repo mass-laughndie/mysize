@@ -537,18 +537,6 @@ nav {
   }
 }
 
-/* background表示ver
-.icon1 {
-  background: no-repeat center;
-  height: 75px;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 75px;
-}
-*/
-
 .user-stats {
   float: left;
   height: 100%;
@@ -690,16 +678,13 @@ nav {
   }
 }
 
+/* kickspost */
+
 .post-main {
   background: $base;
   margin: 0 auto;
   max-width: 600px;
   position: relative;
-  width: 100%;
-}
-
-.post-line {
-  display: block;
   width: 100%;
 }
 
@@ -714,76 +699,78 @@ nav {
   padding-bottom: 30px;
 }
 
-.post-top {
+  /* picture post */
+
+.ppost-top {
   height: 50px;
   padding: 8px;
   position: relative;
   width: 100%;
-}
 
-.post-icon {
-  float: left;
-  margin-right: 40px;
-  position: relative;
-  width: 34px;
-  z-index: 20;
-
-  a {
-    display: block;
-    height: 34px;
-
-    img {
-      border-radius: 17.5%;
-    }
-  }
-}
-
-.post-user {
-  float: left;
-  position: relative;
-  width: 70%;
-
-  .post-name {
-    font-size: 0.8em;
-    font-weight: 500;
-    letter-spacing: 0.15px;
-    line-height: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
+  .ppost-icon {
+    float: left;
+    margin-right: 40px;
+    width: 34px;
+    z-index: 20;
 
     a {
-      color: $main;
-      display: inline-block;
-      width: 100%;
+      display: block;
+      height: 34px;
+
+      img {
+        border-radius: 17.5%;
+      }
     }
   }
 
-  .post-mysizeid {
-    font-size: 0.7em;
-    line-height: 16px;
+  .ppost-usize {
+    background: rgba(255,0,0,0.40);
+    border-radius: 50%;
+    height: 30px;
+    line-height: 30px;
+    margin: 2px;
+    position: absolute;
+    left: 38px;
+    width: 30px;
+
     a {
-      color: $main;
+      color: $base;
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.4px;
     }
   }
-}
 
-.post-shoesize {
-  background: rgba(255,0,0,0.40);
-  border-radius: 50%;
-  height: 30px;
-  line-height: 30px;
-  margin: 2px;
-  position: absolute;
-  left: 38px;
-  width: 30px;
+  .ppost-prof {
+    float: left;
+    position: relative;
+    width: 70%;
 
-  a {
-    color: $base;
-    display: block;
-    font-size: 0.60em;
-    letter-spacing: 0.4px;
+    .ppost-name {
+      font-size: 0.8em;
+      font-weight: 500;
+      letter-spacing: 0.15px;
+      line-height: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+
+      a {
+        color: $main;
+        display: inline-block;
+        width: 100%;
+      }
+    }
+
+    .ppost-msid {
+      font-size: 0.7em;
+      line-height: 16px;
+    
+      a {
+        color: $main;
+      }
+    }
   }
 }
 
@@ -802,8 +789,100 @@ nav {
 
     &:hover {
       background: lighten($base, 3%);
+    }
   }
+}
+
+.ppost-middle {
+  width: 100%;
+
+  .ppost-main {
+    position: relative;
+
+    .ppost-picture {
+      width: 100%;
+
+      a {
+        display: block;
+
+        img {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
   }
+
+  .ppost-ksize {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    color: $base;
+    font-size: 0.9em;
+    height: 40px;
+    letter-spacing: 0.5px;
+    line-height: 40px;
+    pointer-events: none;
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 40px;
+  }
+
+  .ppost-act {
+    height: 40px;
+    padding: 3px 16px;
+    
+    .good-act {
+      float: left;
+      height: 34px;
+      line-height: 34px;
+      width: 34px;
+
+      button {
+        display: block;
+        i {
+          font-size: 1.5em;
+        }
+      }
+    }
+
+    .ppost-num {
+      float: left;
+      height: 34px;
+      line-height: 38px;
+      margin-left: 5px;
+
+      .kpost-good-num {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.ppost-bottom {
+  font-size: 12px;
+  padding: 0 16px;
+
+  .ppost-content {
+    color: $main;
+    margin: 5px 0;
+    word-wrap: break-word;
+  }
+
+  .ppost-time {
+    color: $base-grey;
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.content-name {
+  color: $main;
+  float: left;
+  font-weight: 600;
+  margin-right: 0.3em;
+  position: relative;
+  z-index: 10;
 }
 
 .nav-list {
@@ -888,98 +967,6 @@ nav {
   position: absolute;
   right: 3px;
   bottom: 3px;
-}
-
-.post-middle {
-  position:relative;
-  width: 100%;
-
-  .post-link {
-    position: relative;
-
-    .post-picture {
-      width: 100%;
-
-      a {
-        display: block;
-
-        img {
-          display: block;
-          width: 100%;
-        }
-      }
-    }
-  }
-
-  .post-act {
-    height: 40px;
-    padding: 3px 16px;
-    
-    .good-act {
-      float: left;
-      height: 34px;
-      line-height: 34px;
-      width: 34px;
-
-      button {
-        display: block;
-        i {
-          font-size: 1.5em;
-        }
-      }
-    }
-
-    .post-num {
-      float: left;
-      height: 34px;
-      line-height: 38px;
-      margin-left: 5px;
-
-      .kpost-good-num {
-        font-size: 16px;
-      }
-    }
-  }
-}
-
-.post-size {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  color: $base;
-  font-size: 0.9em;
-  height: 40px;
-  letter-spacing: 0.5px;
-  line-height: 40px;
-  pointer-events: none;
-  position: absolute;
-  right: 6px;
-  bottom: 6px;
-  width: 40px;
-}
-
-.post-bottom {
-  font-size: 12px;
-  padding: 0 16px;
-
-  .post-content {
-    color: $main;
-    margin: 5px 0;
-    word-wrap: break-word;
-  }
-
-  .post-time {
-    color: $base-grey;
-    font-size: 10px;
-  }
-}
-
-.content-name {
-  color: $main;
-  float: left;
-  font-weight: 600;
-  margin-right: 0.3em;
-  position: relative;
-  z-index: 10;
 }
 
 .no-post {
@@ -1153,7 +1140,6 @@ nav {
   }
 
   .comment-act {
-    bottom: 0;
     margin-left: 18%;
   }
 
@@ -1208,8 +1194,8 @@ nav {
       .kpost-size {
         background: rgba(0,0,0,0.30);
         color: #fff;
-        bottom: -26px;
-        right: -5px;
+        bottom: -28px;
+        right: 11px;
       }
     }
   }
@@ -1256,6 +1242,11 @@ nav {
   padding: 10px 20px 20px;
   position: relative;
   width: 100%;
+}
+
+.jump-space {
+  /*margin-top: -72px;*/
+  /*padding-top: 72px;*/
 }
 
   /* material */
@@ -1784,10 +1775,10 @@ nav {
 .list-image {
   display: block;
   float: left;
-  height: 40px;
-  margin: 5px;
+  height: 50px;
+  padding: 5px;
   position: relative;
-  width: 40px;
+  width: 50px;
   z-index: 10;
 
   img {
@@ -2095,16 +2086,18 @@ nav {
 .index-size {
   background: rgba(255,0,0,0.45);
   border-radius: 50%;
-  font-size: 0.60em;
+  font-size: 10px;
   height: 30px;
   letter-spacing: 0.4px;
   line-height: 32px;
   text-align: center;
+  pointer-events: none;
   position: absolute;
-  bottom: -21px;
-  right: -0.5px;
+  bottom: -23px;
+  right: 9px;
   width: 30px;
-  a {
+
+  span {
     color: #fff !important;
   }
 }
