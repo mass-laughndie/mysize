@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       flash[:success] = "ログインに成功しました！"
       redirect_back_or @user
     else
-      flash.now[:danger] = "Mysize_id/メールアドレスかPasswordが間違っています。"
+      flash.now[:danger] = "Mysize_id/メールアドレス<br>またはPasswordが間違っています。"
       render 'new'
     end
   end

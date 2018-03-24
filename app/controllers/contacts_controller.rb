@@ -29,7 +29,7 @@ class ContactsController < ApplicationController
       @contact.send_received_message_email
       redirect_to thanks_contact_path
     else
-      flash.now[:danger] = "送信できませんでした。通信環境などをご確認ください。"
+      flash.now[:danger] = "送信できませんでした。<br>通信環境などをご確認ください。"
       render 'new'
     end
   end
