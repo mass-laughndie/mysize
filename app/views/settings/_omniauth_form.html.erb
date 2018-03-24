@@ -2,23 +2,34 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="label-form">
     <%= f.label :name, "*ユーザー名" %>
+  </div>
+  <div class="base-form">
     <%= f.text_field :name, placeholder: "ユーザー名" %>
   </div>
   <div class="label-form">
     <%= f.label :mysize_id, "*Mysize ID" %>
+  </div>
+  <div class="base-form">
     <%= f.text_field :mysize_id, placeholder: "a-z,0-9,_ 15文字以内" %>
   </div>
   <div class="label-form">
-    <%= f.label :shoe_size, "*スニーカーのベースサイズ" %>
-    <%= f.select(:shoe_size, options_for_select(size_array, @user.shoe_size),
+    <%= f.label :size, "*スニーカーのベースサイズ" %>
+  </div>
+  <div class="base-form">
+    <%= f.select(:size, options_for_select(size_array, @user.size),
                   prompt: "選択してください") %>
+    <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
   </div>
   <div class="label-form">
     <%= f.label :password, "*Password" %>
+  </div>
+  <div class="base-form">
     <%= f.password_field :password, placeholder: "6文字以上" %>
   </div>
   <div class="label-form">
     <%= f.label :password_confirmation, "*Password確認" %>
+  </div>
+  <div class="base-form">
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="c button button-mini label-button accent">

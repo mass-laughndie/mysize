@@ -1,11 +1,8 @@
-<div class="index-image kpost-icon">
-  <div class="abs-center">
-    <%= link_to image_tag(image_url(user), size: 40),
-                user_path(user, display: "square"),
-                class: "list-image" %>
+<div class="index-image kpost-icon abs-center">
+  <%= link_to image_tag(image_url(user), size: 40, alt: user.mysize_id),
+              user_path(user),
+              class: "list-image" %>
+  <div class="index-size kpost-shoesize">
+    <span><%= user.size %></span>
   </div>
-</div>
-<div class="index-size kpost-shoesize">
-  <%= link_to user.shoe_size,
-              user_path(user, display: "square") %>
 </div>

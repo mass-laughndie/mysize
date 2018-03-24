@@ -11,13 +11,11 @@
     <% if @goods.blank? %>
       <%= render partial: 'shared/no_data',
                  locals: { user: @user,
-                           target: "post" } %>
+                           target: "good" } %>
     <% else %>
-      <div class="post-line clear">
-        <ul>
-          <%= render @goods %>
-        </ul>
-      </div>
+      <ul>
+        <%= render @goods %>
+      </ul>
     <% end %>
   </div>
 </div>

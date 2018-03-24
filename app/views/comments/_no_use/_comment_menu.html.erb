@@ -1,0 +1,10 @@
+<div id="post-nav-comment-<%= comment.id %>" class="post-nav">
+  <%= fa_icon("angle-down") %>
+</div>
+<ul id="nav-list-comment-<%= comment.id %>" class="nav-list nav-list-comment">
+  <li>
+    <%= render partial: 'shared/post_delete',
+               locals: { post: comment,
+                         type: 'Comment' } %>
+  </li>
+</ul>

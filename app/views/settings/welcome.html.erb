@@ -1,5 +1,5 @@
 <% provide(:title, "Welcomeページ") %>
-<% provide(:button_text, "登録") %>
+<% provide(:button_text, "登録する") %>
 <% provide(:post_url, welcome_path) %>
 <%= render 'layouts/no_left_header' %>
 <%= render 'layouts/no_right_header' %>
@@ -17,7 +17,7 @@
       <p><small>(*:必須項目)</small></p>
     <% end %>
   </div>
-  <div class="set-form">
+  <div class="form">
     <% if current_user.uid.nil? %>
       <%= render 'profile_form' %>
     <% else %>

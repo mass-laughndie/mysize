@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
+  
   def setup
     @user = users(:mysize1)
     @kickspost = kicksposts(:orange)
@@ -40,13 +41,11 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     # assert_match picture, response.body
     #投稿を削除
     get user_path(@user)
-    assert_select 'i.fa-ellipsis-h'
     first_kickspost = @user.kicksposts.first
     assert_difference 'Kickspost.count', -1 do
       delete kickspost_path(first_kickspost.user, first_kickspost)
     end
     get user_path(users(:mysize2))
-    assert_select 'i.fa-ellipsis-h', count: 0
   end
 
   test "update kickspost interface" do
@@ -60,11 +59,11 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
                                                                     content: "" } }
     assert_select 'div.error'
     assert_template 'kicksposts/edit'
-    # patch kickspost_path(@user.mysize_id, @kickspost.id), params: { kickspost: { size: 7,
-    #                                                                content: content } }
-    #assert_not flash.empty?
-    #assert_redirected_to root_url
-    #follow_redirect!
-    #assert_match content, response.body
+    patch kickspost_path(@user.mysize_id, @kickspost.id), params: { kickspost: { size: 7,
+                                                                    content: content } }
+    assert_not flash.empty?
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_match content, response.body
   end
 end

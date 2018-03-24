@@ -11,7 +11,3 @@ two:
 three:
   follower: mysize3
   followed: mysize1
-
-four:
-  follower: mysize2
-  followed: mysize1

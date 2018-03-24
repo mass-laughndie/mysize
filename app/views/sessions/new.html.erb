@@ -7,13 +7,13 @@
   </div>
   <div class="d">
     <%= form_tag('/login', method: "post") do %>
-      <div class="c base-form">
+      <div class="base-form">
         <%= text_field_tag :mysize_id, nil, placeholder: "MysizeIDまたはメールアドレス" %>
       </div>
-      <div class="c base-form">
+      <div class="base-form">
         <%= password_field_tag :password, nil, placeholder: "Password" %>
       </div>
-      <div class="c button accent">
+      <div class="button button-mini accent">
         <%= submit_tag "ログイン", data: { disable_with: "処理中..."} %>
       </div>
     <% end %>
@@ -21,6 +21,8 @@
       <p>
         <%= link_to "パスワードを忘れた", new_password_reset_url %>
       </p>
+    </div>
+    <div class="c atention">
       <p>
         <%= link_to "アカウントを持っていない", signup_url %>
       </p>

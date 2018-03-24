@@ -1,18 +1,6 @@
 <% if logged_in? %>
-  <%= render 'home_select' %>
-  <div class="post-main">
-    <% if @kicksposts.blank? %>
-      <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "post" } %>
-    <% else %>
-      <div class="post-line clear">
-        <ul>
-          <%= render @kicksposts, comment_disnum: "few" %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
+  <%= render partial: 'static_pages/home_logged_in',
+             locals: { target: nil } %>
 <% else %>
   <div class="content">
     <div class="page-title c">

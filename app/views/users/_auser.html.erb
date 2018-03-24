@@ -1,29 +1,35 @@
-<li class="user-list">
-  <a href="<%= user_path(auser) %>" class="index-data">
-    <div class="c index-left">
-      <div class="index-image">
-        <%= image_tag(image_url(auser), alt: auser.name, size: 40) %>
-      </div>
-      <div class="index-size">
-        <%= auser.shoe_size %>
+<li class="link-list">
+  <a class="content-link" href="<%= user_path(user) %>"></a>
+  <div class="content-abs">
+    <div class="content-height">
+      <div class="list-content clear">
+        <div class="c index-left clear">
+          <%= render  'shared/index_left', user: user %>
+        </div>
+        <div class="index-right">
+          <div class="index-upper clear">
+            <div class="index-text">
+              <div class="index-name">
+                <%= user.name %>
+              </div>
+              <div class="index-msid">
+                <%= "@" + user.mysize_id %>
+              </div>
+            </div>
+            <div class="index-follow">
+              <div class="c abs-center">
+                <% if current_user.admin? && !current_user?(user) %>
+                  <%= link_to "削除", user, method: :delete,
+                      data: { confirm: user.name + "さんを削除します。本当にいいですか??" } %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="index-profile autolink">
+            <%= user.content %>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="index-center">
-      <div class="index-name">
-        <%= auser.name %>
-      </div>
-      <div class="index-mysizeid">
-        <%= fa_icon("at") + auser.mysize_id %>
-      </div>
-    </div>
-    <div class="index-profile">
-      <%= auser.profile_content %>
-    </div>
-  </a>
-  <div class="act-form">
-    <% if current_user.admin? && !current_user?(auser) %>
-      <%= link_to "削除", auser, method: :delete,
-                               data: { confirm: "本当にいいですか??" } %>
-    <% end %>
   </div>
 </li>

@@ -1,19 +1,16 @@
-<% unless nkind == "comment" || nkind == "reply" %>
-  <% count = counts[num] %>
-<% end %>
 <div class="notice-main clear">
   <div class="notice-icon">
     <% if count >= 2 %>
       <div class="abs-center2">
-        <% users[num].each_with_index do |user, i| %>
+        <% users.each_with_index do |user, i| %>
           <div class="list-image-<%= i %>">
             <%= image_tag(image_url(user), size: 34, alt: user.name) %>
           </div>
         <% end %>
       </div>
     <% else %>
-      <% unless nkind == "comment" || nkind == "reply" %>
-        <% user = users[num][0] %>
+      <% if ntype.in?(["Follow", "Comment", "Kickspost"]) %>
+        <% user = users[0] %>
       <% end %>
       <div class="abs-center">
         <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
@@ -22,27 +19,20 @@
     <% end %>
   </div>
   <div class="notice-text notice-comment-text">
-    <% unless nkind == "comment" || nkind == "reply" %>
-      <%= render partial: 'notices/notice_text',
-                 locals: { uname: users[num][0].name,
-                           count: count,
-                           nkind: nkind } %>
-    <% else %>
-      <%= render partial: 'notices/notice_text',
-                 locals: { uname: user.name,
-                           count: count,
-                           nkind: nkind } %>
+    <% if ntype.in?(["Follow", "Comment", "Kickspost"]) %>
+      <% user = users[0] %>
     <% end %>
+    <%= render partial: 'notices/notice_text',
+               locals: { uname: user.name,
+                         count: count,
+                         ntype: ntype } %>
+    <div class="notice-time kpost-time">
+      <%= time_ago_in_words(ntime) %>前
+    </div>
   </div>
-  <% num -= 1 %>
 </div>
-<% if nkind == "gpost_list" %>
+<% unless ntype == "Follow" %>
   <%= render partial: 'notices/notice_post',
-             locals: { post: kickspost,
-                       nkind: nkind,
-                       content: kickspost.content } %>
-<% elsif nkind == "comment" || nkind == "reply" || nkind == "gcom_list" %>
-  <%= render partial: 'notices/notice_post',
-             locals: { nkind: nkind,
-                       content: comment.comment_content } %>
+             locals: { post:  post,
+                       ntype: ntype } %>
 <% end %>

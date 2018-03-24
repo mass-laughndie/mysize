@@ -1,7 +1,11 @@
 <nav>
   <div class="wrapper container">
     <div class="nav-link alist">
-      <%= link_to fa_icon("home"), latest_path %>
+      <% if logged_in? %>
+        <%= link_to fa_icon("home"), root_path %>
+      <% else %>
+        <%= link_to fa_icon("home"), latest_path %>
+      <% end %>
     </div>
     <div class="nav-link alist">
       <%= link_to fa_icon("search"), search_path %>

@@ -41,4 +41,10 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "プライバシーポリシー | #{@base_title}"
   end
 
+  test "should get latest" do
+    get latest_path
+    assert_response :success
+    assert_select "title", "新着 | #{@base_title}"
+  end
+
 end

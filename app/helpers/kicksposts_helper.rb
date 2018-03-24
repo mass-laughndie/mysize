@@ -4,7 +4,7 @@ module KickspostsHelper
     if post.picture?
       "#{post.picture}"
     else
-      "/images/no_image.png"
+      "/images/default1.png"
     end
   end
 end
