@@ -3,13 +3,12 @@
 <li id="notice-list-<%= notice.id %>" class="notice-list link-list">
   <% if ntype == "Follow" %>
     <a class="content-link" href="<%= followers_user_path(current_user) %>"></a>
+  <% elsif ntype.in?(["ReplyCom", "NormalCom", "Comment"]) %>
+    <% comment = @posts[@pnum] %>
+    <a class="content-link jump" href="<%= kickspost_path(comment.kickspost.user, comment.kickspost) %>#comment-<%= comment.id %>"></a>
   <% else %>
-    <% if ntype.in?(["ReplyCom", "NormalCom", "Comment"]) %>
-      <% linkpost = @posts[@pnum].kickspost %>
-    <% else %>
-      <% linkpost = @posts[@pnum] %>
-    <% end %>
-    <a class="content-link" href="<%= kickspost_path(linkpost.user.mysize_id, linkpost) %>"></a>
+    <% kickspost = @posts[@pnum] %>
+    <a class="content-link" href="<%= kickspost_path(kickspost.user.mysize_id, kickspost) %>"></a>
   <% end %>
   <div class="content-abs">
     <div class="content-height">
