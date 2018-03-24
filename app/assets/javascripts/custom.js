@@ -19,12 +19,17 @@ function escapeHtml(string) {
   });
 }
 
-//flash非表示
+//flash表示非表示
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    setTimeout( function(){
-      $("#flash").css('display', 'none');
-    }, 3000);
+    if ( $("#flash").length != 0 ) {
+      //slideさせるために一旦非表示 -> slide表示
+      $('#flash').css('display', 'none').slideDown('fast');
+      //3秒後slide非表示
+      setTimeout( function(){
+        $("#flash").slideUp('fast');
+      }, 3000);
+    }
   });
 });
 
@@ -73,7 +78,7 @@ document.addEventListener('turbolinks:load', function() {
 
 
       //親の返信相手がいる場合
-      if ( comLink.length ) {
+      if ( comLink.length !== '0' ) {
         var parentID = forIDs;               //親@iD複製(forIDs更新のため)
         //各返信相手において
         comLink.each(function(){
@@ -121,8 +126,10 @@ document.addEventListener('turbolinks:load', function() {
   $(function() {
     $('.comment-text-form').focus( function() {
       $('.comment-form').css('height', '181px');
+      return false;
     }).blur( function() {
       $('.comment-form').css('height', '71px');
+      return false;
     });
   });
 });
@@ -373,14 +380,18 @@ document.addEventListener('turbolinks:load', function() {
 });
 */
 
+//アンカーポイントへジャンプ
 function jumpScroll(_this, _point){
   var target = $(_point == '#' || _point == '' ? $('html') : _point );
   if ( target.length == '0' ) target = $('html');
   var
-    position = target.offset().top,
-    move = _this.data('scroll');
+    position = target.offset().top,       //ページtopからtargetまでの距離
+    move = _this.data('scroll');          //スクロールの高さ調整(headerを考慮)
+  //move(data-scroll属性)が与えられている場合 -> positionに加算
   if ( move !== undefined ) position = position + Number(move);
+  //Android対応処理
   if ( position <= 0 ) position = 1;
+  //ページ上部をpositionの位置へ500msでswing
   $("html, body").animate( { scrollTop : position }, 500, 'swing');
 }
 
@@ -390,19 +401,21 @@ document.addEventListener('turbolinks:load', function() {
     $('body').on('click', '.jump', function(e) {
       var
         _this = $(this);
-        link = _this.attr('href'),
+        link = _this.attr('href'),                  //アンカーリンク先
         index = link.indexOf('#comment'),
-        point = link.slice(index),
-        linkPath = link.replace(point, ''),
-        nowPath = window.location.pathname;
+        point = link.slice(index),                  //「#comment-<id>」(location.hash)
+        linkPath = link.replace(point, ''),         //リンク先のpathname
+        nowPath = window.location.pathname;         //現在のpathname
+      //遷移先にいない場合
       if ( linkPath != nowPath ) {
-        window.location.href = linkPath + escapeHtml(point);
+        window.location.href = linkPath + escapeHtml(point);    //遷移先へ
         return false;
       }
 
+      //(既に遷移先にいて)pointが正しい場合
       if ( point.match(/#comment/) != null ) {
-        e.preventDefault();          //リクエストキャンセル
-        jumpScroll(_this, point);
+        e.preventDefault();           //リクエストキャンセル
+        jumpScroll(_this, point);     //ジャンプ
       }
       return false;
     });
@@ -413,10 +426,9 @@ document.addEventListener('turbolinks:load', function() {
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     if ( $('.jump').length != '0' ) {
-      var
-        _hash = escapeHtml(window.location.hash);
+      var _hash = escapeHtml(window.location.hash);     //URLの「#~」
 
-      console.log(_hash);
+      //_hashが空でない場合
       if ( _hash !== '' ) {
         $(_hash).css('background', 'rgba(255, 0, 0, 0.05)');
         jumpScroll($('.jump'), _hash);
