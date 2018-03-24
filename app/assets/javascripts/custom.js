@@ -397,8 +397,6 @@ document.addEventListener('turbolinks:load', function() {
         nowPath = window.location.pathname;
       if ( linkPath != nowPath ) {
         window.location.href = linkPath + escapeHtml(point);
-        var id = point.match(/\d/g).join('');
-        $('#comment-' + id).css('background', 'rgba(255, 0, 0, 0.05)');
         return false;
       }
 
@@ -420,7 +418,7 @@ document.addEventListener('turbolinks:load', function() {
 
       console.log(_hash);
       if ( _hash !== '' ) {
-        $(_hash).css('background', 'rgba(255, 0, 0, 0.03)');
+        $(_hash).css('background', 'rgba(255, 0, 0, 0.05)');
         jumpScroll($('.jump'), _hash);
       }
     }
