@@ -53,44 +53,50 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+function setReply(_this) {
+  var
+    cid = _this.attr('id'),
+    comID = cid.match(/\d/g).join(''),                     //comment.id
+    forIDs = $('#content-name-' + comID).text(),           //返信先の親@IDを取得(返信相手全@ID配列)
+    comLink = $('#comment-' + comID).find('.id-link'),    //親の返信相手オブジェクト
+    myID = '@' + $('#my-icon').attr('alt'),                //自分の@ID
+    rclass = $('#comment-' + comID).attr('class'),
+    replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
+
+  //reply_id　== 0(返信先がコメントの場合)
+  if (replyID == 0 ) {
+    $('#reply-id').attr('value', comID);          //返信先のIDを挿入(=>reply_id)
+  //それ以外(返信先がリプライの場合)
+  } else {
+    $('#reply-id').attr('value', replyID);        //元のコメントのIDを挿入(=>reply_id)
+  }
+
+  //親の返信相手がいる場合
+  if ( comLink.length != 0 ) {
+    var parentID = forIDs;               //親@iD複製(forIDs更新のため)
+    //各返信相手において
+    comLink.each(function(){
+      var rid = $(this).text();   //  返信相手の@ID
+      //@IDが親と自分と違う場合
+      if ( rid != parentID && rid != myID ) {
+        forIDs = forIDs + ' ' + $(this).text();   //@ID連結
+      }
+    });
+  }
+  //コメントフォームに「@ID (@ID ...)」を挿入しカーソル移動
+  $('.comment-text-form').val(forIDs + " ").focus();
+}
+
 
 //comment返信(reply_idの設定,自動focus)
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     //同じ要素内でautolink化しているためclick発火には静的な親要素で仕込む必要あり
     $('body').on('click', '[id^=comment-reply]', function() {
-      var
-        cid = $(this).attr('id'),
-        comID = cid.match(/\d/g).join(''),                     //comment.id
-        forIDs = $('#content-name-' + comID).text(),           //返信先の親@IDを取得(返信相手全@ID配列)
-        comLink = $('#comment-' + comID).find('.id-link'),    //親の返信相手オブジェクト
-        myID = '@' + $('#my-icon').attr('alt'),                //自分の@ID
-        rclass = $('#comment-' + comID).attr('class'),
-        replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
-
-      //reply_id　== 0(返信先がコメントの場合)
-      if (replyID == 0 ) {
-        $('#reply-id').attr('value', comID);          //返信先のIDを挿入(=>reply_id)
-      //それ以外(返信先がリプライの場合)
-      } else {
-        $('#reply-id').attr('value', replyID);        //元のコメントのIDを挿入(=>reply_id)
+      if ( $('.comment-text-form').length != 0 ) {
+        setReply($(this));
       }
-
-
-      //親の返信相手がいる場合
-      if ( comLink.length !== '0' ) {
-        var parentID = forIDs;               //親@iD複製(forIDs更新のため)
-        //各返信相手において
-        comLink.each(function(){
-          var rid = $(this).text();   //  返信相手の@ID
-          //@IDが親と自分と違う場合
-          if ( rid != parentID && rid != myID ) {
-            forIDs = forIDs + ' ' + $(this).text();   //@ID連結
-          }
-        });
-      }
-      //コメントフォームに「@ID (@ID ...)」を挿入しカーソル移動
-      $('.comment-text-form').val(forIDs + " ").focus();
+      return false;
     });
   });
 });
@@ -183,7 +189,7 @@ iid = [];
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     //.autolinkがある場合
-    if ($('.autolink').length) {
+    if ($('.autolink').length != 0) {
       //data未取得
       if (iid.length == 0) {
         indexId().done(function(data) {
@@ -286,7 +292,7 @@ document.addEventListener('turbolinks:load', function() {
 //textareaの高さ自動変更(要縮小対応[※のはカクつく])
 document.addEventListener('turbolinks:load', function() {
   $(function(){
-    if ($('.autoheight').length) {
+    if ($('.autoheight').length != 0) {
       var maxHeight = $('.autoheight').css('maxHeight').split('px')[0];
       $('.autoheight').on('keyup', function(e){
         var
@@ -317,14 +323,14 @@ document.addEventListener('turbolinks:load', function() {
 //searchの該当文字を太文字に変更(要com-link内検索対応)
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    if ( $('#keyword').length ) {
+    if ( $('#keyword').length != 0 ) {
       var
         keyword = $('#keyword').val(),            //フォーム入力文字
         keywords = keyword.split(/ |　/g);         //空白(全||半)で区切って配列ｌ化
 
       keywords = keywords.filter(v => v);         //空文字を配列から削除
       //keywordsがある場合
-      if ( keywords.length ){
+      if ( keywords.length != 0 ){
         $('.key').each(function() {
           //各keywordにおいて
           for( var i = 0; i < keywords.length; i++ ) {
@@ -383,7 +389,7 @@ document.addEventListener('turbolinks:load', function() {
 //アンカーポイントへジャンプ
 function jumpScroll(_this, _point){
   var target = $(_point == '#' || _point == '' ? $('html') : _point );
-  if ( target.length == '0' ) target = $('html');
+  if ( target.length == 0 ) target = $('html');
   var
     position = target.offset().top,       //ページtopからtargetまでの距離
     move = _this.data('scroll');          //スクロールの高さ調整(headerを考慮)
@@ -425,13 +431,22 @@ document.addEventListener('turbolinks:load', function() {
 //ページ遷移後、アンカーポイントへジャンプ
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    if ( $('.jump').length != '0' ) {
-      var _hash = escapeHtml(window.location.hash);     //URLの「#~」
+    if ( $('.jump').length != 0 && window.location.pathname.match(/kicksposts/) != null ) {
+      var
+        _hash = escapeHtml(window.location.hash),     //URLの「#~」
+        _comment = $('.post-main').find(_hash);       //対象comment
 
-      //_hashが空でない場合
-      if ( _hash !== '' ) {
-        $(_hash).css('background', 'rgba(255, 0, 0, 0.05)');
+      //_hashが空でない && 対象commentが存在する 場合
+      if ( _hash !== '' && _comment.length != 0 ) {
+        _comment.css('background', 'rgba(255, 0, 0, 0.05)');
         jumpScroll($('.jump'), _hash);
+
+        //他ページからのreplyボタン遷移の場合
+        if (window.location.search == '?reply=on') {
+          setTimeout( function(){
+            setReply(_comment);         //スクロール後にsetReply
+          }, 510);
+        }
       }
     }
     return false;

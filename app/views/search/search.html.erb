@@ -27,7 +27,8 @@
               <%= render partial: 'shared/post_main',
                          locals: { post: kickspost,
                                    type: 'Kickspost',
-                                   reply_on: false } %>
+                                   reply_on: false,
+                                   post_page: false } %>
             <% end %>
           </ul>
         </div>
@@ -38,7 +39,8 @@
               <%= render partial: 'shared/post_main',
                          locals: { post: comment,
                                    type: 'Comment',
-                                   reply_on: false } %>
+                                   reply_on: false,
+                                   post_page: false } %>
             <% end %>
           </ul>
         </div>

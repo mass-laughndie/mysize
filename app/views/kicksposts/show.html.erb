@@ -11,11 +11,14 @@
 <div class="post-main">
   <% unless params[:display] == "picture" %>
     <ul>
-      <%= render @kickspost, comment_disnum: nil %>
+      <%= render partial: @kickspost,
+                 locals: { comment_disnum: nil,
+                           post_page: false } %>
       <%= render partial: @comments,
                  locals: { kickspost: @kickspost,
                            comment_disnum: nil,
-                           list: nil } %>
+                           list: nil,
+                           post_page: true } %>
     </ul>
   <% else %>
     <%= render partial: 'kicksposts/kickspost_picture',

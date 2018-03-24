@@ -18,13 +18,15 @@
   <%= render partial: 'shared/post_main',
              locals: { post: comment,
                        type: 'Comment',
-                       reply_on: false } %>
+                       reply_on: false,
+                       post_page: post_page } %>
   <% if replies.any? %>
     <% replies.each do|reply| %>
       <%= render partial: 'shared/post_main',
                  locals: { post: reply,
                            type: 'Comment',
-                           reply_on: true } %>
+                           reply_on: true,
+                           post_page: post_page } %>
     <% end %>
   <% end %>
 <% end %>
