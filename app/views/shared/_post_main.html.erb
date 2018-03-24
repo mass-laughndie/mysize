@@ -84,10 +84,11 @@
           </div>
           <% if type == "Kickspost" %>
             <div class="kpost-picture abs-center">
-              <%= link_to image_tag(picture_url(post),
-                            alt: post.content,
-                            class: "cover"),
-                  kickspost_path(post.user.mysize_id, post)  %>
+              <%= link_to image_tag('/images/grey.gif',
+                                    alt: post.content,
+                                    class: 'cover lazyload',
+                                    data: { src: picture_url(post) } ),
+                          kickspost_path(post.user, post) %>
               <div class="kpost-size index-size">
                 <%= post.size %>
               </div>
