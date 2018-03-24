@@ -10,7 +10,7 @@
                   user_path(kickspost.user) %>
     </div>
     <div class="ppost-prof">
-      <div class="ppost-name">
+      <div class="ppost-name over-name">
         <%= link_to kickspost.user.name, user_path(kickspost.user) %>
       </div>
       <div class="ppost-msid">
@@ -41,58 +41,67 @@
         <%= render partial: 'goods/good_form',
                    locals: { post: kickspost,
                              type: "Kickspost" } %>
-    </div>
-    <div class="ppost-num c">
-      <div class="kpost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
-        <%= kickspost.goods.to_a.size %>
+      </div>
+      <div class="ppost-num c">
+        <div class="ppost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
+          <%= kickspost.goods.to_a.size %>
+        </div>
+      </div>
+      <div class="comment-act c">
+        <%= link_to fa_icon("comment-o"), kickspost_path(kickspost.user, kickspost) %>
+      </div>
+      <div class="ppost-num c">
+        <div class="ppost-good-num">
+          <%= kickspost.comments.to_a.size %>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="ppost-bottom">
-  <div class="ppost-content autolink">
-    <%= link_to kickspost.user.mysize_id,
-                user_path(kickspost.user),
-                class: 'content-name' %>
-    <span class="post-text"><%= kickspost.content %></span>
-  </div>
-  <div class="ppost-time">
-    <span><%= time_ago_in_words(kickspost.created_at) %>前</span>
-  </div>
-  <% unless kickspost.comments.blank? %>
-    <div class="post-comment">
-      <% if comment_disnum == "few" %>
-        <div class="comment-lead">
-          <% if current_user == kickspost.user %>
-            <%= link_to "コメントを見る・返信する",
-                kickspost_path(kickspost.user.mysize_id, kickspost) %>
+  <div class="ppost-bottom">
+    <div class="ppost-content autolink">
+      <%= link_to kickspost.user.mysize_id,
+                  user_path(kickspost.user),
+                  class: 'content-name' %>
+      <span class="post-text"><%= kickspost.content %></span>
+    </div>
+    <div class="ppost-time">
+      <span><%= time_ago_in_words(kickspost.created_at) %>前</span>
+    </div>
+    <% unless kickspost.comments.blank? %>
+      <div class="post-comment">
+        <% if comment_disnum == "few" %>
+          <div class="comment-lead">
+            <% if current_user == kickspost.user %>
+              <%= link_to "コメントを見る・返信する",
+                  kickspost_path(kickspost.user.mysize_id, kickspost) %>
+            <% else %>
+              <%= link_to "コメントを見る・書く",
+                  kickspost_path(kickspost.user.mysize_id, kickspost) %>
+            <% end %>
+          </div>
+        <% end %>
+        <ul>
+          <% if comment_disnum == "few" %>
+            <%= render partial: 'comments/comment',
+                       locals: { kickspost: kickspost,
+                                 comment: kickspost.comments.first,
+                                 comment_disnum: comment_disnum,
+                                 list: "line" } %>
           <% else %>
-            <%= link_to "コメントを見る・書く",
-                kickspost_path(kickspost.user.mysize_id, kickspost) %>
+            <%= render partial: @comments,
+                       locals: { kickspost: kickspost,
+                                 comment_disnum: comment_disnum,
+                                 list: "line" } %>
           <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <% if comment_disnum == "few" && current_user != kickspost.user %>
+        <div class="comment-lead">
+          <%= link_to "コメントを書く",
+            kickspost_path(kickspost.user.mysize_id, kickspost) %>
         </div>
       <% end %>
-      <ul>
-        <% if comment_disnum == "few" %>
-          <%= render partial: 'comments/comment',
-                     locals: { kickspost: kickspost,
-                               comment: kickspost.comments.first,
-                               comment_disnum: comment_disnum,
-                               list: "line" } %>
-        <% else %>
-          <%= render partial: @comments,
-                     locals: { kickspost: kickspost,
-                               comment_disnum: comment_disnum,
-                               list: "line" } %>
-        <% end %>
-      </ul>
-    </div>
-  <% else %>
-    <% if comment_disnum == "few" && current_user != kickspost.user %>
-      <div class="comment-lead">
-        <%= link_to "コメントを書く",
-          kickspost_path(kickspost.user.mysize_id, kickspost) %>
-      </div>
     <% end %>
-  <% end %>
+  </div>
 </div>

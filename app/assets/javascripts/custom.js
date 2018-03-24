@@ -440,6 +440,7 @@ document.addEventListener('turbolinks:load', function() {
       if ( _hash !== '' && _comment.length != 0 ) {
         _comment.css('background', 'rgba(255, 0, 0, 0.05)');
         jumpScroll($('.jump'), _hash);
+        $('#reply-active').find('a').addClass("active");      //active化
 
         //他ページからのreplyボタン遷移の場合
         if (window.location.search == '?reply=on') {

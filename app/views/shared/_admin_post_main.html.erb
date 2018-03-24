@@ -13,7 +13,7 @@
                      locals: { user: post.user } %>
         </div>
         <div class="kpost-center <%= type.downcase %>-center">
-          <div class="kpost-name">
+          <div class="kpost-name over-name">
             <%= link_to user_path(post.user) do %>
               <%= post.user.name %>
               <% if type == "Kickspost" %>
