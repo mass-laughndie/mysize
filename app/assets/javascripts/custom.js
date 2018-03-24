@@ -447,6 +447,7 @@ document.addEventListener('turbolinks:load', function() {
             setReply(_comment);         //スクロール後にsetReply
           }, 510);
         }
+        $('.comment-text-form').focus();      //補助(スマホ)
       }
     }
     return false;
