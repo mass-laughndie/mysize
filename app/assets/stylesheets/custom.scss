@@ -1073,7 +1073,6 @@ nav {
     word-wrap: break-word;
 
     .kpost-name {
-      padding: 5px 0;
       width: 100%;
 
       a {
@@ -1081,8 +1080,9 @@ nav {
         display: inline-block;
         font-size: 12.5px;
         font-weight: 550;
+        max-width: 100%;
+        padding: 5px 0;
         position: relative;
-        width: 100%;
         z-index: 20;
 
         span {
