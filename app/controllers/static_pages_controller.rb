@@ -2,15 +2,17 @@ class StaticPagesController < ApplicationController
   def home
     if logged_in?
       @user = current_user
-      @kicksposts = current_user.feed.reorder(updated_at: :desc)
+      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :user}).reorder(updated_at: :desc)
     end
   end
 
   def latest
     if logged_in?
       @user = current_user
+    else
+      @user = nil
     end
-    @kicksposts = Kickspost.reorder(updated_at: :desc)
+    @kicksposts = Kickspost.includes(:user, {comments: :user}).reorder(updated_at: :desc)
   end
 
   def help
@@ -25,6 +27,4 @@ class StaticPagesController < ApplicationController
   def privacy
   end
 
-  def contact
-  end
 end

@@ -1,16 +1,14 @@
 <% provide(:title, "アカウント設定") %>
 <%= render 'layouts/back', back_path: "#{option_settings_path}" %>
+<%= render 'layouts/center_header', header_text: "アカウント設定" %>
 
 <div class="content-nspace">
-  <div class="ns-page-title">
-    <h1 class="title-text">アカウント設定</h1>
-  </div>
   <div class="setting-select">
     <ul>
       <li class="set-list">
         <a href="<%= mysizeid_settings_path %>">
           <div class="set-text">
-            MysizeID
+            <p>MysizeID</p>
             <div class="sss"><%= "@" + @user.mysize_id %></div>
           </div>
           <div class="set-icon">
@@ -21,7 +19,8 @@
       <li class="set-list">
         <a href="<%= email_settings_path %>">
           <div class="set-text">
-            メールアドレス<div class="sss"><%= @user.email %></div>
+            <p>メールアドレス</p>
+            <div class="sss"><%= @user.email %></div>
           </div>
           <div class="set-icon">
             <%= fa_icon("angle-right") %>
@@ -31,7 +30,7 @@
       <li class="set-list">
         <a href="<%= password_settings_path %>">
           <div class="set-text set-text1">
-            パスワード
+            <p>パスワード</p>
           </div>
           <div class="set-icon">
             <span><%= fa_icon("angle-right") %></span>

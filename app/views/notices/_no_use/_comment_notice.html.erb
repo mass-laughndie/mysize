@@ -1,0 +1,18 @@
+<% cuser = comment.user %>
+<% cname = cuser.name %>
+<div class="notice-icon">
+  <div class="abs-center">
+    <%= link_to image_tag(image_url(cuser), size: 40, alt: cname ),
+            user_path(cuser, display: "square"), class: "list-image" %>
+  </div>
+</div>
+<div class="notice-text notice-comment-text">
+  <% if notice.kind == "comment" %>
+    <span><%= cname %></span>さんからコメントがあります。
+  <% else %>
+    <span><%= cname %></span>さんから返信があります。
+  <% end %>
+</div>
+<div class="comment-content notice-comment-content autolink">
+  <span><%= comment.comment_content %></span>
+</div>

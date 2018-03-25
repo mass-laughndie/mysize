@@ -65,9 +65,9 @@ class UserSettingTest < ActionDispatch::IntegrationTest
     get profile_settings_path
     assert_template 'settings/profile'
     patch profile_settings_path, params: { user: { name: "", 
-                                                   shoe_size: 1,
+                                                   size: 1,
                                                    image: nil,
-                                                   profile_content: "" } }
+                                                   content: "" } }
     assert flash.empty?
     assert_template 'settings/profile'
   end
@@ -76,9 +76,9 @@ class UserSettingTest < ActionDispatch::IntegrationTest
     get profile_settings_path
     assert_template 'settings/profile'
     patch profile_settings_path, params: { user: { name: "mysize1", 
-                                                   shoe_size: 1,
+                                                   size: 1,
                                                    image: nil,
-                                                   profile_content: "AirMax(26.5cm)" } }
+                                                   content: "AirMax(26.5cm)" } }
     assert_not flash.empty?
     assert_redirected_to @user
   end

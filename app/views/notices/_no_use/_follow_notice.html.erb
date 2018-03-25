@@ -1,0 +1,26 @@
+<% fcount = @fcounts[@fnum]  %>
+<div class="notice-icon clear">
+  <% if fcount >= 2 %>
+    <div class="abs-center2">
+      <% @followers[@fnum].each_with_index do |user, i| %>
+        <div class="list-image-<%= i %>">
+          <%= image_tag(image_url(user), size: 34, alt: user.name) %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <% user = @followers[@fnum][0] %>
+    <div class="abs-center">
+      <%= link_to image_tag(image_url(user), size: 40, alt: user.name),
+            user_path(user, display: "square"), class: "list-image" %>
+    </div>
+  <% end %>
+</div>
+<div class="notice-text notice-comment-text">
+  <% if fcount >= 2 %>
+    <span><%= @followers[@fnum][0].name %></span>さん, 他 <%= fcount - 1 %>人にフォローされています。
+  <% else %>
+    <span><%= @followers[@fnum][0].name %></span>さんにフォローされています。
+  <% end %>
+</div>
+<% @fnum -= 1 %>

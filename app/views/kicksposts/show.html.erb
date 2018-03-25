@@ -1,3 +1,36 @@
+<% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+
+<div class="c select kpost-select">
+  <div class="select-list kpost-list alist aline" id="reply-active">
+    <%= link_to "テキスト",
+        kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
+  </div>
+  <div class="select-list kpost-list alist aline">
+    <%= link_to "写真",
+        kickspost_path(@kickspost.user.mysize_id, @kickspost, display: "picture")%>
+  </div>
+</div>
 <div class="post-main">
-  <%= render partial: 'kickspost', locals: { kickspost: @kickspost } %>
+  <% unless params[:display] == "picture" %>
+    <ul>
+      <%= render partial: @kickspost,
+                 locals: { comment_disnum: nil,
+                           post_page: false } %>
+      <%= render partial: @comments,
+                 locals: { kickspost: @kickspost,
+                           comment_disnum: nil,
+                           list: nil,
+                           post_page: true } %>
+    </ul>
+  <% else %>
+    <%= render partial: 'kicksposts/kickspost_picture',
+               locals: { kickspost: @kickspost,
+                         comment_disnum: nil } %>
+  <% end %>
+  <% if logged_in? %>
+    <div class="fixed fixed-bottom">
+      <%= render partial: 'comments/comment_form',
+                 locals: { kickspost: @kickspost } %>
+    </div>
+  <% end %>
 </div>

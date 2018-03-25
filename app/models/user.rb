@@ -1,26 +1,38 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  # devise :database_authenticatable, :registerable,
-         # :recoverable, :rememberable, :trackable, :validatable,
-  #devise :omniauthable, omniauth_providers: [:twitter]
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
 
   has_many :kicksposts, dependent: :destroy
+  has_many :comments,   dependent: :destroy
 
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
-                                  dependent: :destroy
-  has_many :following, through: :active_relationships, source: :followed
+  has_many :active_relationships,  class_name: "Relationship",
+                                   foreign_key: "follower_id",
+                                   dependent: :destroy
+  has_many :following,             through: :active_relationships,
+                                   source: :followed
 
   has_many :passive_relationships, class_name: "Relationship",
                                    foreign_key: "followed_id",
                                    dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :followers,             through: :passive_relationships,
+                                   source: :follower
 
-  before_save :downcase_email_and_mysizeid
+  has_many :goods,         dependent: :destroy,
+                           class_name: "Good"
+  has_many :good_posts,    class_name: "Kickspost",
+                           through:   :goods,
+                           source: :post,
+                           source_type: "Kickspost"
+  has_many :good_comments, class_name: "Comment",
+                           through:   :goods,
+                           source: :post,
+                           source_type: "Comment"
+
+  has_many :notices, dependent: :destroy
+
+  before_save :downcase_email
+  before_save :downcase_mysizeid
 
   mount_uploader :image, ImageUploader
 
@@ -45,7 +57,7 @@ class User < ApplicationRecord
                     length:     { maximum: 255,
                                   message: "メールアドレスは255文字以内まで有効です" },
                     format:     { with: VALID_EMAIL_REGEX,
-                                  message: "メールアドレスは不正な値です",
+                                  message: "そのメールアドレスは不正な値を含んでいます",
                                   allow_blank: true },
                     uniqueness: { case_sensitive: false,
                                   message: "そのメールアドレスは既に登録されています" }
@@ -62,11 +74,11 @@ class User < ApplicationRecord
     validates :password_confirmation,  presence: { message: "Password確認を入力してください" }
   end
 
-  validates :profile_content, length: { maximum: 160,
-                                        massage: "プロフィールは160字以内で入力してください" }
+  validates :content, length: { maximum: 160,
+                                massage: "プロフィールは160字以内で入力してください" }
 
-  validates :shoe_size, presence: { message: "スニーカーのサイズを選択してください",
-                                    if: :validate_shoesize? }
+  validates :size, presence: { message: "スニーカーのサイズを選択してください",
+                               if: :validate_shoesize? }
 
   validate :image_size
 
@@ -85,6 +97,23 @@ class User < ApplicationRecord
 
     def new_reset_token
       SecureRandom.uuid
+    end
+
+    def search(search)
+      if search
+        keyword_arys = search.gsub(/　/, " ").split()
+        size_search = keyword_arys[0].to_f
+        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
+               "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
+        for i in 1..(keyword_arys.length - 1) do
+          size_search = keyword_arys[i].to_f
+          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
+               "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
+        end
+        cond
+      else
+        all
+      end
     end
   end
 
@@ -123,37 +152,17 @@ class User < ApplicationRecord
     mail.deliver_now
   end
 
-=begin
-  def self.find_for_oauth(auth)
-    user = User.where(uid: auth.uid, provider: auth.provider).first
- 
-    unless user
-      user = User.create(
-        uid:      auth.uid,
-        provider: auth.provider,
-        email:    User.dummy_email(auth),
-        password: Devise.friendly_token[0, 20],
-        image: auth.info.image,
-        name: auth.info.name,
-        mysize_id: auth.info.nickname,
-      )
-    end
- 
-    user
-  end
-=end
-  
   def self.find_or_create_from_auth(auth)
-    provider = auth[:provider]
-    uid = auth[:uid]
-    name = auth[:info][:name]
+    provider  = auth[:provider]
+    uid       = auth[:uid]
+    name      = auth[:info][:name]
     mysize_id = auth[:info][:nickname]
-    email = User.dummy_email(auth)
-    image = auth[:info][:image].sub("_normal", "")
+    email     = User.dummy_email(auth)
+    image     = auth[:info][:image].sub("_normal", "")
 
     #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
     self.find_or_create_by(provider: provider, uid: uid) do |user|
-      user.name = name
+      user.name  = name
       user.email = email
       user.remote_image_url = image
       if User.find_by(mysize_id: mysize_id).nil?
@@ -173,19 +182,15 @@ class User < ApplicationRecord
 =end
 
   def validate_name?
-    validate_name == 'true' || validate_name == true
+    validate_name.in?(['true', true])
   end
 
   def validate_shoesize?
-    validate_shoesize == 'true' || validate_shoesize == true
+    validate_shoesize.in?(['true', true])
   end
 
   def validate_password?
-    validate_password == 'true' || validate_password == true
-  end
-
-  def current_user_upload
-    current_user = @user
+    validate_password.in?(['true', true])
   end
 
   def feed
@@ -209,10 +214,84 @@ class User < ApplicationRecord
     following.include?(other)
   end
 
+  def receive_notice_of(type, kind)
+    notices.create(kind_type: type, kind_id: kind.id)
+  end
+
+  def lose_notice_of(type, kind)
+    post_notices = self.notices.where(kind_type: type, kind_id: kind.id)
+    if post_notices.any?
+      post_notices.each do |notice|
+        notice.destroy
+      end
+    end
+  end
+
+  #follow通知の作成or更新
+  def create_or_update_follow_notice
+    #this_day = Time.zone.now.all_day
+    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    #今週の通知がある場合
+    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
+      #未読数+1
+      notice.increment!(:unread_count, by = 1)
+      notice.touch
+    #ない場合
+    else
+      #最新のフォロー通知がある場合
+      if latest_notice = self.notices.where(kind_type: "Follow").first
+        #新しい通知のkind_id = 最新通知のkind_id + 1
+        notice_num = latest_notice.kind_id + 1
+        #フォロー通知作成(kind_idは通し番号)
+        notices.create(kind_type: "Follow", kind_id: notice_num)
+      #ない(初通知の)場合
+      else
+        notices.create(kind_type: "Follow", kind_id: 1)
+      end
+    end
+  end
+
+  #フォロー通知のチェックと削除
+  def check_or_delete_follow_notice(period)
+    #期間period内のフォローされた履歴
+    relations = self.passive_relationships.where(created_at: period)
+    #履歴がない && その期間の通知がある 場合
+    if relations.blank?
+      if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
+        #通知削除
+        follow_notice.destroy
+      end
+    end
+  end
+
+  def good(type, post)
+    goods.create(post_type: type, post_id: post.id)
+  end
+
+  def ungood(type, post)
+    goods.find_by(post_type: type, post_id: post.id).destroy
+  end
+
+  def good?(type, post)
+    goods.where(post_type: type).pluck(:post_id).include?(post.id)
+  end
+
+  #既読済みの期間以前の通知を削除(notices = current_userの全通知)
+  def delete_past_notices_already_read(notices)
+    #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
+    deleteline = Time.new(2000,1,1)..10.weeks.ago
+    #削除ライン以前に更新された未読0の通知
+    exnotices = notices.where(unread_count: 0, updated_at: deleteline)
+    exnotices.destroy_all
+  end
+
   private
 
-    def downcase_email_and_mysizeid
+    def downcase_email
       email.downcase!
+    end
+
+    def downcase_mysizeid
       mysize_id.downcase!
     end
 
@@ -225,4 +304,5 @@ class User < ApplicationRecord
     def self.dummy_email(auth)
       "#{auth.uid}-#{auth.provider}@example.com"
     end
+
 end

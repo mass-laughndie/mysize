@@ -1,27 +1,53 @@
-<% if target == "data" %>
-  <div class="c no-post">
-    <i class="fa fa-image"></i>
+<div class="c no-post">
+  <% if target == "post" %>
+    <%= fa_icon("image") %>
     <div class="no-text">表示できるデータがありません</div>
     <% if current_user?(user) %>
-      <div class="no-text">あなたのマイスニーカーを投稿しましょう</div>
+      <div class="no-text">あなたのマイスニーカーを投稿しましょう！</div>
       <div class="no-link">
         <a href="<%= upload_path %>">
           <%= fa_icon("plus-square") %><span>投稿する</span>
         </a>
       </div>
     <% end %>
-  </div>
-<% elsif target == "person" %>
-  <div class="c no-post">
-    <i class="fa fa-users"></i>
-    <div class="no-text">1件もありません</div>
+  <% elsif target == "new" %>
+    <%= fa_icon("image") %>
+    <div class="no-text">表示できるデータがありません</div>
+    <div class="no-text">まずはあなたと同じサイズの人を探して<br>フォローしましょう！</div>
+    <div class="no-link">
+      <a href="<%= search_path(for: 'user', keyword: user.size ) %>">
+        <%= fa_icon("search") %><span>検索する</span>
+      </a>
+    </div>
+  <% elsif target == "notice" %>
+    <%= fa_icon("bell-o") %>
+    <div class="no-text">１件もありません</div>
+  <% elsif target == "person" %>
+    <%= fa_icon("user-o") %>
+    <div class="no-text">表示できるデータがありません</div>
     <% if current_user?(user) %>
-      <div class="no-text">あなたと同じサイズの人を探して<br>フォローしましょう</div>
+      <div class="no-text">あなたと同じサイズの人を探して<br>フォローしましょう！</div>
       <div class="no-link">
-        <a href="#">
+        <a href="<%= search_path(for: 'user', keyword: user.size ) %>">
           <%= fa_icon("search") %><span>検索する</span>
         </a>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% elsif target == "good" %>
+    <%= fa_icon("thumbs-o-up") %>
+    <div class="no-text">表示できるデータがありません</div>
+    <% if current_user?(user) %>
+      <div class="no-text">グッドはメモとしても使えます<br>役立つ情報にはグッドをしましょう！</div>
+      <div class="no-link">
+        <a href="<%= search_path %>">
+          <%= fa_icon("search") %><span>検索する</span>
+        </a>
+      </div>
+    <% end %>
+  <% elsif target == "development" %>
+    <%= fa_icon("wrench") %>
+    <div class="no-text">現在、開発中です<br>完成までいましばらくお待ちください</div>
+  <% else %>
+    <div class="no-text">表示できるデータがありません</div>
+  <% end %>
+</div>

@@ -1,29 +1,29 @@
 <nav>
   <div class="wrapper container">
-    <div class="nav-link">
-      <%= link_to fa_icon("home"), latest_path %>
+    <div class="nav-link alist">
+      <% if logged_in? %>
+        <%= link_to fa_icon("home"), root_path %>
+      <% else %>
+        <%= link_to fa_icon("home"), latest_path %>
+      <% end %>
     </div>
-    <div class="nav-link">
-      <%= link_to fa_icon("search"), '#' %>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("search"), search_path %>
     </div>
-    <!--
-    <div class="nav-link">
-      <%= link_to fa_icon("plus-square"), '#' %>
+    <div class="nav-link alist">
+      <%= link_to(notice_path) do %>
+        <i class="fa fa-bell">
+          <% if logged_in? %>
+            <% ncount = current_user.notices.pluck(:unread_count).sum %>
+            <% if ncount > 0 %>
+              <span id="notice-count"><%= ncount %></span>
+            <% end %>
+          <% end %>
+        </i>
+      <% end %>
     </div>
-  -->
-    <div class="nav-link">
-      <%= link_to fa_icon("bell"), '#' %>
-    </div>
-    <div class="nav-link">
-      <%= link_to fa_icon("comment"), '#' %>
-      <!--
-      <a href="#"">
-        <span class="fa-stack">
-          <i class="fa fa-comment-o fa-stack-1x"></i>
-          <i class="fa fa-question fa-stack-1x fa-05x"></i>
-        </span>
-      </a>
-      -->
+    <div class="nav-link alist">
+      <%= link_to fa_icon("comment"), comments_path %>
     </div>
   </div>
 </nav>

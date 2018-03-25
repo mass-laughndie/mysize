@@ -103,7 +103,7 @@ class SettingsController < ApplicationController
     if @user.authenticate(params[:password]) && !@user.admin?
       log_out
       @user.destroy
-      flash[:success] = "退会処理が完了しました。ご利用ありがとうございました。"
+      flash[:success] = "退会処理が完了しました。<br>ご利用ありがとうございました。"
       redirect_to root_url
     else
       if @user.admin?
@@ -118,13 +118,13 @@ class SettingsController < ApplicationController
   private
 
     def omniauth_params
-      params.require(:user).permit(:name, :mysize_id, :shoe_size,
+      params.require(:user).permit(:name, :mysize_id, :size,
                                    :password, :password_confirmation)
     end
 
     def profile_params
-      params.require(:user).permit(:name, :shoe_size, :image,
-                                   :image_cache, :profile_content)
+      params.require(:user).permit(:name, :size, :image,
+                                   :image_cache, :content)
     end
 
     def email_params
@@ -144,7 +144,7 @@ class SettingsController < ApplicationController
     end
 
     def no_access
-      unless current_user.name.nil?
+      unless current_user.name.nil? || current_user.size.nil?
         flash[:danger] = "そのページにはアクセスできません"
         return_back
       end

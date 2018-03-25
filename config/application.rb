@@ -11,6 +11,7 @@ module Mysize1
     # Initialize configuration defaults for originally generated Rails version.
     config.i18n.default_locale = :ja
     config.load_defaults 5.1
+    config.time_zone = 'Tokyo'
 
     #認証トークンをremoteフォームに埋め込む(ブラウザ側でJSが無効になっていた場合にAjaxを機能させる)
     config.action_view.embed_authenticity_token_in_remote_forms = true
