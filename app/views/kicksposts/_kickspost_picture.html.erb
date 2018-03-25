@@ -44,15 +44,18 @@
       </div>
       <div class="ppost-num c">
         <div class="ppost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
-          <%= kickspost.goods.to_a.size %>
+          <%= link_to kickspost.goods.to_a.size,
+                      gooders_kickspost_path(kickspost) %>
         </div>
       </div>
       <div class="comment-act c">
-        <%= link_to fa_icon("comment-o"), kickspost_path(kickspost.user, kickspost) %>
+        <%= link_to fa_icon("comment-o"),
+                    kickspost_path(kickspost.user, kickspost) %>
       </div>
       <div class="ppost-num c">
         <div class="ppost-good-num">
-          <%= kickspost.comments.to_a.size %>
+          <%= link_to kickspost.comments.to_a.size,
+                      kickspost_path(kickspost.user, kickspost)  %>
         </div>
       </div>
     </div>

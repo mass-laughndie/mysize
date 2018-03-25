@@ -40,6 +40,12 @@ class CommentsController < ApplicationController
     redirect_to kickspost_path(@user.mysize_id, @kickspost)
   end
 
+  def gooders
+    @post = Comment.find_by(id: params[:id])
+    @main = @post.kickspost
+    @users = @post.gooders.all
+    render 'shared/gooders'
+  end
 
   private
 

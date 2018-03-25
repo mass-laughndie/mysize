@@ -48,6 +48,13 @@ class KickspostsController < ApplicationController
     redirect_to user_path(current_user, display: "square")
   end
 
+  def gooders
+    @post = Kickspost.find_by(id: params[:id])
+    @main = @post
+    @users = @post.gooders.all
+    render 'shared/gooders'
+  end
+
   private
 
     def kicksposts_params
