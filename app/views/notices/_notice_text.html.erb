@@ -1,4 +1,4 @@
-<span><%= uname %></span>さん
+<span><span class="notice-name over-name"><%= uname %></span>さん
 <% if count >= 2 %>
   , 他 <%= count - 1 %>人
 <% end %>
@@ -15,3 +15,4 @@
 <% elsif ntype == "ReplyPost" %>
   から投稿があります。
 <% end %> 
+</span>
