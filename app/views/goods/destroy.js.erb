@@ -1,3 +1,3 @@
 $("#good-form-<%= @type.downcase %>-<%= @post.id %>")
   .html("<%= escape_javascript(render partial: 'goods/good_button', locals: { post: @post, type: @type }) %>");
-  $("#good-num-<%= @type.downcase %>-<%= @post.id %>").html('<%= @post.goods.to_a.size %>');
+$("#good-num-<%= @type.downcase %>-<%= @post.id %>").find('a').html('<%= @post.goods.to_a.size %>');

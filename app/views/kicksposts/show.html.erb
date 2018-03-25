@@ -1,3 +1,5 @@
+<% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+
 <div class="c select kpost-select">
   <div class="select-list kpost-list alist aline" id="reply-active">
     <%= link_to "テキスト",

@@ -51,7 +51,11 @@
                                  type: type } %>
           </div>
           <div class="kpost-num" id="good-num-<%= type.underscore %>-<%= post.id %>">
-            <%= post.goods.to_a.size %>
+            <% if type == 'Kickspost' %>
+              <%= link_to post.goods.to_a.size, gooders_kickspost_path(post) %>
+            <% else %>
+              <%= link_to post.goods.to_a.size, gooders_comment_path(post) %>
+            <% end %>
           </div>
         </div>
         <% if type == "Kickspost" %>
@@ -95,7 +99,7 @@
                                     alt: post.content,
                                     class: 'cover lazyload',
                                     data: { src: picture_url(post) } ),
-                          kickspost_path(post.user, post) %>
+                          kickspost_path(post.user, post, display: 'picture') %>
               <div class="kpost-size index-size">
                 <%= post.size %>
               </div>

@@ -852,7 +852,6 @@ nav {
       a,
       button {
         display: block;
-        line-height: 34px;
 
         i {
           font-size: 20px;
@@ -864,11 +863,17 @@ nav {
   .ppost-num {
     float: left;
     height: 34px;
-    line-height: 36px;
+    line-height: 34px;
     margin: 0 20px 0 5px;
 
     .ppost-good-num {
       font-size: 13px;
+
+      a {
+        display: block;
+        padding: 0 10px;
+        min-width: 30px;
+      }
     }
   }
 }
@@ -1068,16 +1073,16 @@ nav {
     word-wrap: break-word;
 
     .kpost-name {
-      padding: 5px 0;
       width: 100%;
 
       a {
         color: $main;
         display: inline-block;
         font-size: 12.5px;
-        font-weight: 500;
+        font-weight: 550;
+        max-width: 100%;
+        padding: 5px 0;
         position: relative;
-        width: 100%;
         z-index: 20;
 
         span {
@@ -1144,13 +1149,21 @@ nav {
           text-align: center;
           width: 100%;
         }
+
+        .fa-reply {
+          line-height: 22px;
+        }
       }
 
       .kpost-num {
         float: left;
         font-size: 12.5px;
-        line-height: 22px;
-        padding: 0 10px;
+        line-height: 20px;
+        a {
+          display: block;
+          min-width: 30px;
+          padding: 0 10px;
+        }
       }
 
       .kpost-alink {
