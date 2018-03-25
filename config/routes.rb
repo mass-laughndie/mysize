@@ -62,11 +62,17 @@ Rails.application.routes.draw do
                     only: [:show, :destroy],
                     path: '/' do
     member do
-      resources :kicksposts, except: [:new, :create, :index]
+      resources :kicksposts, except: [:new, :create, :index] do
+        #get :gooders, on: :member
+      end
       get :following,
           :followers,
           :good
     end
+  end
+
+  resources :kicksposts, :comments, only: :none do
+    get :gooders, on: :member
   end
 
   resources :relationships, only: [:create, :destroy]
