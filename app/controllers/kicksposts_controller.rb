@@ -28,7 +28,7 @@ class KickspostsController < ApplicationController
   end
 
   def update
-    if @kickspost.update_attributes(postscontent_params)
+    if @kickspost.update_attributes(kicksposts_params)
       flash[:success] = "編集に成功しました"
       redirect_to root_url
     else
@@ -59,10 +59,6 @@ class KickspostsController < ApplicationController
 
     def kicksposts_params
       params.require(:kickspost).permit(:picture, :picture_cache, :size, :content)
-    end
-
-    def postscontent_params
-      params.require(:kickspost).permit(:size, :content)
     end
 
     def set_and_check_kickspost
