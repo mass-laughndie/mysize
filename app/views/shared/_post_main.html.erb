@@ -75,10 +75,12 @@
             <div class="kpost-aicon" id="comment-reply-<%= post.id %>">
               <% if post_page %>
                 <%= fa_icon('reply')%>
-              <% else %>
+              <% elsif logged_in? %>
                 <a class="kpost-alink jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost. user, post.kickspost, reply: 'on') %>#<%= type.downcase %>-<%= post.id %>">
                   <%= fa_icon('reply')%>
                 </a>
+              <% else%>
+                <%= link_to fa_icon('reply'), '#', class: 'ban' %>
               <% end %>
             </div>
           </div>

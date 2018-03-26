@@ -1634,6 +1634,10 @@ nav {
       font-size: 10px;
     }
   }
+
+  a {
+    line-height: 28px;
+  }
 }
 
 
@@ -1747,6 +1751,7 @@ nav {
   font-weight: 550;
   height: 50px;
   line-height: 50px;
+  pointer-events: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -1981,6 +1986,7 @@ nav {
   font-weight: 700;
 }
 
+
 /* comment */
 
 .post-comment {
@@ -1993,11 +1999,20 @@ nav {
 
     .comment-content {
       position: relative;
+      vertical-align: middle;
       word-wrap: break-word;
     
       .comment-act {
         height: 100%;
         cursor: pointer;
+      }
+
+      span {
+        vertical-align: top;
+
+        a {
+          vertical-align: top;
+        }
       }
     }
   }
@@ -2055,7 +2070,7 @@ nav {
     height: 16px;
     letter-spacing: 0.2px;
     max-width: 80%;
-    vertical-align: top;
+    vertical-align: middle;
   }
 
   .notice-time {

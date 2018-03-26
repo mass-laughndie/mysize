@@ -1,6 +1,6 @@
 <% replies = comment.replies.includes(:user) %>
 <% if list == "line" %>
-  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> comment-list">
+  <li id="comment-<%= comment.id %>" class="reply-<%= comment.reply_id %> comment-list autolink">
     <%= render partial: 'comments/comment_line',
                locals: { comment: comment,
                          comment_disnum: comment_disnum } %>
