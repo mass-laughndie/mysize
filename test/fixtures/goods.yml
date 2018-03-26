@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 good1:
-  user: user1
+  gooder: user1
+  gooded: user2
   post: tau

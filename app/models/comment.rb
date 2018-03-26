@@ -9,9 +9,8 @@ class Comment < ApplicationRecord
   has_many   :goods,    as:        :post,
                         dependent: :destroy,
                         class_name: "Good"
-  has_many   :gooders,  class_name: "User",
-                        through:   :goods,
-                        source:    :user
+  has_many   :gooders,  through:   :goods,
+                        source:    :gooder
   has_one    :notice,   as:        :kind,
                         dependent: :destroy,
                         class_name: "Notice"

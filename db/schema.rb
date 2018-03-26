@@ -35,15 +35,16 @@ ActiveRecord::Schema.define(version: 20180314034222) do
   end
 
   create_table "goods", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "gooder_id"
+    t.integer "gooded_id"
     t.string "post_type"
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gooded_id"], name: "index_goods_on_gooded_id"
+    t.index ["gooder_id", "post_id", "post_type"], name: "index_goods_on_gooder_id_and_post_id_and_post_type", unique: true
+    t.index ["gooder_id"], name: "index_goods_on_gooder_id"
     t.index ["post_type", "post_id"], name: "index_goods_on_post_type_and_post_id"
-    t.index ["user_id", "created_at"], name: "index_goods_on_user_id_and_created_at"
-    t.index ["user_id", "post_id", "post_type"], name: "index_goods_on_user_id_and_post_id_and_post_type", unique: true
-    t.index ["user_id"], name: "index_goods_on_user_id"
   end
 
   create_table "kicksposts", force: :cascade do |t|

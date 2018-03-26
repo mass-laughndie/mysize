@@ -10,6 +10,8 @@ class UsersController < ApplicationController
       no_name
     end
     @kicksposts = @user.kicksposts.includes(:comments, :goods)
+    @comments = @user.comments.includes(:goods)
+    @points = @user.passive_goods.where.not(gooder_id: @user.id).to_a.size
   end
 
   def new
@@ -84,7 +86,8 @@ class UsersController < ApplicationController
 
   def good
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @goods = @user.goods.includes(:user).order(updated_at: :desc)
+    @goods = @user.active_goods.includes(:gooded).order(updated_at: :desc)
+    @points = @user.passive_goods.where.not(gooder_id: @user.id).to_a.size
   end
 
   
