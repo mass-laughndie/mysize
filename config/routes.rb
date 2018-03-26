@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   resource   :notice,     only: [:show, :create, :destroy]
   resources  :goods,      only: [:create, :destroy]
+  
   resources  :comments,   only: [:index, :show],
                           path: '/talk'
   

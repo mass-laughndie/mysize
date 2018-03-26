@@ -84,7 +84,8 @@ function setReply(_this) {
     });
   }
   //コメントフォームに「@ID (@ID ...)」を挿入しカーソル移動
-  $('.comment-text-form').val(forIDs + " ").focus();
+  $('.comment-text-form').val(forIDs + " ");
+  $('.comment-text-form').focus();
 }
 
 
@@ -450,7 +451,6 @@ document.addEventListener('turbolinks:load', function() {
             setReply(_comment);         //スクロール後にsetReply
           }, 510);
         }
-        $('.comment-text-form').focus();      //補助(スマホ)
       }
     }
     return false;

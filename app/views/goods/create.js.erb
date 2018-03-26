@@ -1,3 +1,6 @@
 $("#good-form-<%= @type.downcase %>-<%= @post.id %>")
   .html("<%= escape_javascript(render partial: 'goods/ungood_button', locals: { post: @post, type: @type }) %>");
 $("#good-num-<%= @type.downcase %>-<%= @post.id %>").find('a').html('<%= @post.goods.to_a.size %>');
+<% if @post.user != current_user %>
+  $('#good-points').html(Number($('#good-points').text()) + 1);
+<% end %>

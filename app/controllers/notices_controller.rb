@@ -56,7 +56,7 @@ class NoticesController < ApplicationController
         unless post = notice.kind
           notice.destroy
         else
-          gooder = notice.kind.gooders.where.not(id: current_user.id)
+          gooder = post.gooders.where.not(id: current_user.id)
           if gooder.blank?
             notice.destroy
           else
@@ -74,7 +74,7 @@ class NoticesController < ApplicationController
         unless post = notice.kind
           notice.destroy
         else
-          gooder = notice.kind.gooders.includes(:notices).where.not(id: current_user.id)
+          gooder = post.gooders.includes(:notices).where.not(id: current_user.id)
           if gooder.blank?
             notice.destroy
           else
