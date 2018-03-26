@@ -66,7 +66,8 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'mysize1.herokuapp.com'
+  #(3/27変更)'mysize1.herokuapp.com' => 'www.mysize-sneakers.com'
+  host = 'www.mysize-sneakers.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     :address          => 'smtp.sendgrid.net',

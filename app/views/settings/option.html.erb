@@ -1,4 +1,6 @@
 <% provide(:title, "オプション") %>
+<% provide(:og_title, "オプション") %>
+<% provide(:og_url, option_settings_url) %>
 <%= render 'layouts/back', back_path: "#{user_path(current_user)}" %>
 <%= render 'layouts/center_header', header_text: "オプション" %>
 

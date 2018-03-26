@@ -1,13 +1,15 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+<% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+<% provide(:og_url, kickspost_url(@kickspost.user, @kickspost)) %>
 
 <div class="c select kpost-select">
   <div class="select-list kpost-list alist aline" id="reply-active">
     <%= link_to "テキスト",
-        kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
+        kickspost_path(@kickspost.user, @kickspost) %>
   </div>
   <div class="select-list kpost-list alist aline">
     <%= link_to "写真",
-        kickspost_path(@kickspost.user.mysize_id, @kickspost, display: "picture")%>
+        kickspost_path(@kickspost.user, @kickspost, display: "picture")%>
   </div>
 </div>
 <div class="post-main">

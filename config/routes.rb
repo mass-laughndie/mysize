@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get '/latest',    to: 'static_pages#latest'
+  get '/latest',  to: 'static_pages#latest'
   get '/help',    to: 'static_pages#help'
   get '/about',   to: 'static_pages#about'
   get '/terms',   to: 'static_pages#terms'

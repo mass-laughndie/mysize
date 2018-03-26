@@ -1,4 +1,6 @@
 <% provide(:title, "通知") %>
+<% provide(:og_title, "通知") %>
+<% provide(:og_url, notice_url) %>
 <%= render 'layouts/center_header', header_text: "通 知" %>
 
 <% if logged_in? && @notices.any? %>

@@ -1,4 +1,12 @@
 <% provide(:title, "グッドしたユーザー") %>
+<% provide(:og_title, "グッドしたユーザー") %>
+<% if @post.try(:size).nil? %>
+  <% og_url = gooders_comment_url(@post) %>
+<% else %>
+  <% og_url = gooders_kickspost_url(@post) %>
+<% end %>
+<% provide(:og_url, og_url) %>
+
 <%= render 'layouts/back', back_path: "#{kickspost_path(@main.user, @main)}" %>
 <%= render 'layouts/center_header', header_text: "グッドしたユーザー" %>
 <% unless @users.blank? %>
