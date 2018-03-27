@@ -10,7 +10,13 @@
     </div>
   </div>
 <% else %>
-  <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "person" } %>
+  <% if @title == 'フォロー' %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'user',
+                         text: 'follow' } %>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'user',
+                         text: 'post-follow' } %>
+  <% end %>
 <% end %>
