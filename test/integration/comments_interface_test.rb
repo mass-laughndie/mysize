@@ -18,6 +18,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Comment.count' do
       post postcomments_path, params: { comment: { user_id: @user.id,
                                                    kickspost_id: @kickspost.id,
+                                                   reply_id: 0,
                                                    content: "" } }
     end
     assert_not flash.empty?
@@ -26,6 +27,7 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     assert_difference'Comment.count', 1 do
       post postcomments_path, params: { comment: { user_id: @user.id,
                                                    kickspost_id: @kickspost.id,
+                                                   reply_id: 0,
                                                    content: content } }
     end
     assert_not flash.empty?
@@ -34,16 +36,15 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match content, response.body
     assert_match @comment.content, response.body
     #削除
-    assert_select 'i.fa-trash', count: 3
     latest_comment = @user.comments.last
     assert_difference 'Comment.count', -1 do
-      delete postcomment_path(latest_comment.id, kickspost_id: @kickspost.id)
+      delete postcomment_path( latest_comment.id,
+                               kickspost_id: @kickspost.id )
     end
     assert_not flash.empty?
     assert_redirected_to kickspost_path(@user, @kickspost)
     follow_redirect!
     assert_match @comment.content, response.body
-    assert_select 'i.fa-trash', count: 2
     assert_no_match content, response.body
   end
 end

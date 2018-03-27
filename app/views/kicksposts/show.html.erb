@@ -1,26 +1,31 @@
+<% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+<% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+<% provide(:og_url, kickspost_url(@kickspost.user, @kickspost)) %>
+
 <div class="c select kpost-select">
-  <div class="select-list kpost-list alist aline">
-    <%= link_to "写真",
-        kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
+  <div class="select-list kpost-list alist aline" id="reply-active">
+    <%= link_to "テキスト",
+        kickspost_path(@kickspost.user, @kickspost) %>
   </div>
   <div class="select-list kpost-list alist aline">
-    <%= link_to "テキスト",
-        kickspost_path(@kickspost.user.mysize_id, @kickspost, display: "text")%>
+    <%= link_to "写真",
+        kickspost_path(@kickspost.user, @kickspost, display: "picture")%>
   </div>
 </div>
 <div class="post-main">
-  <% if params[:display] == "text" %>
+  <% unless params[:display] == "picture" %>
     <ul>
-      <%= render partial: 'kicksposts/kickspost_text',
-                 locals: { kickspost: @kickspost,
-                           comment_disnum: nil } %>
+      <%= render partial: @kickspost,
+                 locals: { comment_disnum: nil,
+                           post_page: false } %>
       <%= render partial: @comments,
                  locals: { kickspost: @kickspost,
                            comment_disnum: nil,
-                           list: "text" } %>
+                           list: nil,
+                           post_page: true } %>
     </ul>
   <% else %>
-    <%= render partial: 'kicksposts/kickspost',
+    <%= render partial: 'kicksposts/kickspost_picture',
                locals: { kickspost: @kickspost,
                          comment_disnum: nil } %>
   <% end %>

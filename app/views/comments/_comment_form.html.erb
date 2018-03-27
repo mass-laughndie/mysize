@@ -1,12 +1,14 @@
 <div class="c inner-form comment-form">
   <%= form_for(:comment, url: postcomments_url, remote: true) do |f| %>
     <div><%= f.hidden_field :kickspost_id, value: kickspost.id %></div>
-    <div><%= f.hidden_field :user_id, value: current_user.id %></div>
-    <div><%= hidden_field_tag :display, params[:display] %></div>
+    <div><%= f.hidden_field :reply_id, value: 0, id: "reply-id" %></div>
+    <% unless params[:display].blank? %>
+      <div><%= hidden_field_tag :display, params[:display] %></div>
+    <% end %>
     <%= f.text_area :content, placeholder: "コメントをする",
                       class: "comment-text-form" %>
     <div class="inner-button comment-button">
-      <%= f.button fa_icon("reply") %>
+      <%= f.button fa_icon("reply"), id: "comment-button" %>
     </div>
   <% end %>
 </div>

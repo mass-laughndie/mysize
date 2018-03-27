@@ -1,5 +1,5 @@
 <li class="link-list">
-  <a class="content-link" href="<%= user_path(user, display: 'square') %>"></a>
+  <a class="content-link" href="<%= user_path(user) %>"></a>
   <div class="content-abs">
     <div class="content-height">
       <div class="list-content clear">
@@ -12,7 +12,7 @@
               <div class="index-name">
                 <%= user.name %>
               </div>
-              <div class="index-mysizeid">
+              <div class="index-msid">
                 <%= "@" + user.mysize_id %>
               </div>
             </div>
@@ -20,12 +20,12 @@
               <div class="c abs-center">
                 <% if current_user.admin? && !current_user?(user) %>
                   <%= link_to "削除", user, method: :delete,
-                              data: { confirm: "本当にいいですか??" } %>
+                      data: { confirm: user.name + "さんを削除します。本当にいいですか??" } %>
                 <% end %>
               </div>
             </div>
           </div>
-          <div class="index-profile">
+          <div class="index-profile autolink">
             <%= user.content %>
           </div>
         </div>

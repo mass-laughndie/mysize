@@ -20,6 +20,7 @@ gem 'font-awesome-rails',     '4.7.0.3'    #
 gem 'omniauth',              '~> 1.8.1'
 gem 'omniauth-twitter',      '~> 1.4.0'
 gem 'dotenv-rails',          '~> 2.2.1'    #key管理
+gem 'rack-rewrite',          '~> 1.5.1'    #ドメイン統合
 
 #開発、テスト環境に使用
 group :development, :test do

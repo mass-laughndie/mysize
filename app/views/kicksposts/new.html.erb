@@ -1,4 +1,6 @@
 <% provide(:title, "投稿作成") %>
+<% provide(:og_title, "投稿作成") %>
+<% provide(:og_url, upload_url) %>
 <%= render 'layouts/back', back_path: "#{user_path(current_user)}" %>
 <%= render 'layouts/center_header', header_text: "投稿作成" %>
 
@@ -38,9 +40,8 @@
         <%= f.label :content, "投稿フォーム" %>
       </div>
       <div class="base-form base-form-area">
-        <%= f.text_area :content,
-          placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)",
-          class: "autoheight" %>
+        <%= f.text_area :content, class: "autoheight text-area",
+          placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
       </div>
       <div class="c button button-mini accent">
         <%= f.submit "投稿する", data: { disable_with: "処理中..."} %>

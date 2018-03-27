@@ -14,4 +14,5 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require turbolinks
+//= require lazysizes.min
 //= require_tree .

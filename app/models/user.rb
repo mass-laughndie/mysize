@@ -18,8 +18,19 @@ class User < ApplicationRecord
   has_many :followers,             through: :passive_relationships,
                                    source: :follower
 
-  has_many :goods,         dependent: :destroy,
-                           class_name: "Good"
+  #active_goods = goods
+  has_many :active_goods,          class_name: "Good",
+                                   foreign_key: "gooder_id",
+                                   dependent: :destroy
+  has_many :goodings,              through: :active_goods,
+                                   source: :gooded
+
+  has_many :passive_goods,         class_name: "Good",
+                                   foreign_key: "gooded_id",
+                                   dependent: :destroy
+  has_many :gooders,               through: :passive_goods,
+                                   source: :gooder
+
   has_many :good_posts,    class_name: "Kickspost",
                            through:   :goods,
                            source: :post,
@@ -229,10 +240,10 @@ class User < ApplicationRecord
 
   #follow通知の作成or更新
   def create_or_update_follow_notice
-    this_day = Time.zone.now.all_day
-    # this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    #this_day = Time.zone.now.all_day
+    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
     #今週の通知がある場合
-    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_day)
+    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
       #未読数+1
       notice.increment!(:unread_count, by = 1)
       notice.touch
@@ -265,21 +276,21 @@ class User < ApplicationRecord
   end
 
   def good(type, post)
-    goods.create(post_type: type, post_id: post.id)
+    active_goods.create(post_type: type, post_id: post.id, gooded_id: post.user.id)
   end
 
   def ungood(type, post)
-    goods.find_by(post_type: type, post_id: post.id).destroy
+    active_goods.find_by(post_type: type, post_id: post.id).destroy
   end
 
   def good?(type, post)
-    goods.where(post_type: type).pluck(:post_id).include?(post.id)
+    active_goods.where(post_type: type).pluck(:post_id).include?(post.id)
   end
 
   #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]25.weeks.ago)
-    deleteline = Time.new(2000,1,1)..2.days.ago
+    #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
+    deleteline = Time.new(2000,1,1)..10.weeks.ago
     #削除ライン以前に更新された未読0の通知
     exnotices = notices.where(unread_count: 0, updated_at: deleteline)
     exnotices.destroy_all

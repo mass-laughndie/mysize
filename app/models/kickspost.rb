@@ -1,15 +1,14 @@
 class Kickspost < ApplicationRecord
 
   belongs_to :user
-  has_many   :comments, dependent: :destroy
-  has_many   :goods,    as:        :post,
-                        dependent: :destroy,
+  has_many   :comments, dependent:  :destroy
+  has_many   :goods,    as:         :post,
+                        dependent:  :destroy,
                         class_name: "Good"
-  has_many   :gooders,  class_name: "User",
-                        through:   :goods,
-                        source:    :user
-  has_one    :notice,   as:        :kind,
-                        dependent: :destroy,
+  has_many   :gooders,  through:    :goods,
+                        source:     :gooder
+  has_one    :notice,   as:         :kind,
+                        dependent:  :destroy,
                         class_name: "Notice"
 
   default_scope -> { order(created_at: :desc) }
@@ -83,11 +82,11 @@ class Kickspost < ApplicationRecord
 
   #返信通知の作成(cuser = current_user)
   def check_and_create_notice_to_others_and(cuser)
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)   #コメントに含まれる「@<mysize_id> 」の配列
+    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)   #コメントに含まれる「@<mysize_id> 」の配列
     #配列が空でない場合(=返信である場合)
     if ids.any?
       ids.each do |msid|
-        msid.delete!("@").delete!(" ")            #「@<mysize_id> 」 => 「<mysize_id>」
+        msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
         other = User.find_by(mysize_id: msid)
         if other && other != cuser
           other.receive_notice_of("ReplyPost", self)     #cuser以外へのreply通知作成

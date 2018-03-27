@@ -2,20 +2,24 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :kickspost
-  has_many   :goods,    as:        :post,
-                        dependent: :destroy,
-                        class_name: "Good"
-  has_many   :gooders,  class_name: "User",
-                        through:   :goods,
-                        source:    :user
-  has_one    :notice,   as:        :kind,
-                        dependent: :destroy,
-                        class_name: "Notice"
+  has_many   :replies,  class_name:  "Comment",
+                        foreign_key: "reply_id"
+  belongs_to :reply,    class_name:  "Comment",
+                        optional:    true
+  has_many   :goods,    as:          :post,
+                        dependent:   :destroy,
+                        class_name:  "Good"
+  has_many   :gooders,  through:     :goods,
+                        source:      :gooder
+  has_one    :notice,   as:          :kind,
+                        dependent:   :destroy,
+                        class_name:  "Notice"
 
   default_scope -> { order(:created_at) }
 
-  validates :user_id,      presence: { message: "ユーザーを特定できません"}
-  validates :kickspost_id, presence: { message: "投稿を特定できません"}
+  validates :user_id,      presence: { message: "ユーザーを特定できません" }
+  validates :kickspost_id, presence: { message: "投稿先を特定できません" }
+  validates :reply_id,     presence: { message: "投稿先を特定できません" }
   validates :content,      presence: { message: "内容を入力してください" },
                            length:   { maximum: 500,
                                        message: "内容は500文字まで入力できます" }
@@ -77,11 +81,11 @@ class Comment < ApplicationRecord
   #コメント.返信通知の作成(user = kickspost.user, cuser = current_user)
   def check_and_create_notice_to_others_and(user, cuser)
     reply_check = false                           #userへの通知をコメントor返信どちらにするか
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)   #コメントに含まれる「@<mysize_id> 」の配列
+    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)   #コメントに含まれる「@<mysize_id> 」の配列
     #配列が空でない場合(=返信である場合)
     if ids.any?
       ids.each do |msid|
-        msid.delete!("@").delete!(" ")            #「@<mysize_id> 」 => 「<mysize_id>」
+        msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
         other = User.find_by(mysize_id: msid)
         if other && other != user && other != cuser
           other.receive_notice_of("ReplyCom", self)     #user以外へのreply通知作成

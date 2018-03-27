@@ -1,4 +1,6 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さん") %>
+<% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さん") %>
+<% provide(:og_url, user_url(@user)) %>
 
 <div class="content-mspace">
   <%= render partial: 'users/user_profile',
@@ -10,12 +12,14 @@
   <div class="post-main">
     <% if @user.kicksposts.blank? %>
       <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "post" } %>
+                 locals: { icon: 'image',
+                           text: 'post' } %>
     <% else %>
       <div class="post-line clear">
         <ul>
-          <%= render @kicksposts, comment_disnum: "few" %>
+          <%= render partial: @kicksposts,
+                     locals: { comment_disnum: nil,
+                               post_page: false } %>
         </ul>
       </div>
     <% end %>

@@ -1,6 +1,6 @@
 <% unless params[:for] == 'mysizeid' %>
 <li class="link-list">
-  <a class="content-link" href="<%= user_path(user, display: 'square') %>"></a>
+  <a class="content-link" href="<%= user_path(user) %>"></a>
   <div class="content-abs">
     <div class="content-height">
       <div class="list-content clear">
@@ -10,10 +10,10 @@
         <div class="index-right">
           <div class="index-upper clear">
             <div class="index-text">
-              <div class="index-name">
+              <div class="index-name over-name">
                 <%= user.name %>
               </div>
-              <div class="index-mysizeid">
+              <div class="index-msid key">
                 <%= "@" + user.mysize_id %>
               </div>
             </div>
@@ -26,7 +26,7 @@
               </div>
             </div>
           </div>
-          <div class="index-profile">
+          <div class="index-profile autolink key">
             <%= user.content %>
           </div>
         </div>

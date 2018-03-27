@@ -7,7 +7,7 @@ $main: #000;  /* black */
 $accent: #ff0000;  /* red */
 $waccent: #ff6666; /* weak red*/
 $test: #e6e6fa;
-$back: #fafafa;
+$back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
@@ -32,7 +32,9 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 
 body {
   background: $back;
-  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
+  font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
+  /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
   font-size: 1.0em;
   position: relative;
   padding: 51px 0 121px;
@@ -192,7 +194,7 @@ header {
   left: 0;
   right: 0;
   z-index: 100;
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -215,7 +217,7 @@ header {
 }
 
 .select {
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   height: 41px;
   width: 100%;
 
@@ -227,8 +229,8 @@ header {
 
     a {
       display: block;
-      font-size: 14px;
-      font-weight: 550;
+      font-size: 12.5px;
+      font-weight: 600;
       height: 100%;
       line-height: 40px;
     }
@@ -295,6 +297,21 @@ header {
     font-size: 20px;
     padding: 30px 0;
   }
+}
+
+.over-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.over-text {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 /* header */
@@ -385,7 +402,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 101;
-  border-top: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 51px;
 }
 
@@ -495,12 +512,8 @@ nav {
 }
 
 .search-space {
+  background: $back;
   height: 51px;
-}
-
-.search-height {
-  height: 50px;
-  padding: 10px;
 }
 
 .commemt-space {
@@ -516,6 +529,9 @@ nav {
 .home-select {
   margin-bottom: 20px;
 
+  .home-list {
+    width: 33.3%;
+  }
 }
 
 /* profile */
@@ -537,18 +553,6 @@ nav {
     width: 100%;
   }
 }
-
-/* background表示ver
-.icon1 {
-  background: no-repeat center;
-  height: 75px;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 75px;
-}
-*/
 
 .user-stats {
   float: left;
@@ -572,6 +576,10 @@ nav {
     .num {
       font-size: 1.7em;
     }
+
+    span {
+      color: $base-grey;
+    }
   }
 }
 
@@ -590,6 +598,7 @@ nav {
 .user-name {
   position: relative;
   font-size: 0.9em;
+  word-wrap: break-word;
 }
 
 .user-mysizeid {
@@ -601,8 +610,8 @@ nav {
 .set-profile {
   border: 1px solid $twi-grey;
   border-radius: 5px;
-  font-size: 0.7em;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 500;
   float: right;
   height: 30px;
   margin: 8px 2% 12px;
@@ -666,10 +675,12 @@ nav {
 }
 
 .follow-info a {
-  font-size: 0.8em;
-  color: #999;
+  font-size: 12.5px;
+  color: $base-grey;
+  margin-right: 5px;
+
   strong {
-    color: #000;
+    color: $main;
   }
 }
 
@@ -678,28 +689,25 @@ nav {
 }
 
 .post-select {
-  border-top: 1px solid $back;
+  border-top: 1px solid $weak-grey;
   height: 52px;
 
   .post-list {
-    font-size: 1.1em;
     width: 33.3%;
     a {
+      font-size: 13.5px;
       line-height: 50px;
     }
   }
 }
+
+/* kickspost */
 
 .post-main {
   background: $base;
   margin: 0 auto;
   max-width: 600px;
   position: relative;
-  width: 100%;
-}
-
-.post-line {
-  display: block;
   width: 100%;
 }
 
@@ -714,76 +722,74 @@ nav {
   padding-bottom: 30px;
 }
 
-.post-top {
+  /* picture post */
+
+.ppost-top {
   height: 50px;
   padding: 8px;
   position: relative;
   width: 100%;
-}
 
-.post-icon {
-  float: left;
-  margin-right: 40px;
-  position: relative;
-  width: 34px;
-  z-index: 20;
-
-  a {
-    display: block;
-    height: 34px;
-
-    img {
-      border-radius: 17.5%;
-    }
-  }
-}
-
-.post-user {
-  float: left;
-  position: relative;
-  width: 70%;
-
-  .post-name {
-    font-size: 0.8em;
-    font-weight: 500;
-    letter-spacing: 0.15px;
-    line-height: 18px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
+  .ppost-icon {
+    float: left;
+    margin-right: 40px;
+    width: 34px;
+    z-index: 20;
 
     a {
-      color: $main;
-      display: inline-block;
-      width: 100%;
+      display: block;
+      height: 34px;
+
+      img {
+        border-radius: 17.5%;
+      }
     }
   }
 
-  .post-mysizeid {
-    font-size: 0.7em;
-    line-height: 16px;
+  .ppost-usize {
+    background: rgba(255,0,0,0.40);
+    border-radius: 50%;
+    height: 30px;
+    line-height: 30px;
+    margin: 2px;
+    position: absolute;
+    left: 38px;
+    width: 30px;
+
     a {
-      color: $main;
+      color: $base;
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.4px;
     }
   }
-}
 
-.post-shoesize {
-  background: rgba(255,0,0,0.40);
-  border-radius: 50%;
-  height: 30px;
-  line-height: 30px;
-  margin: 2px;
-  position: absolute;
-  left: 38px;
-  width: 30px;
+  .ppost-prof {
+    float: left;
+    position: relative;
+    width: 70%;
 
-  a {
-    color: $base;
-    display: block;
-    font-size: 0.60em;
-    letter-spacing: 0.4px;
+    .ppost-name {
+      font-size: 0.8em;
+      font-weight: 500;
+      letter-spacing: 0.15px;
+      line-height: 18px;
+
+      a {
+        color: $main;
+        display: inline-block;
+        width: 100%;
+      }
+    }
+
+    .ppost-msid {
+      font-size: 0.7em;
+      line-height: 16px;
+    
+      a {
+        color: $main;
+      }
+    }
   }
 }
 
@@ -802,15 +808,116 @@ nav {
 
     &:hover {
       background: lighten($base, 3%);
+    }
   }
+}
+
+.ppost-middle {
+  width: 100%;
+
+  .ppost-main {
+    position: relative;
+
+    .ppost-picture {
+      width: 100%;
+
+      a {
+        display: block;
+
+        img {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
   }
+
+  .ppost-ksize {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    color: $base;
+    font-size: 0.9em;
+    height: 40px;
+    letter-spacing: 0.5px;
+    line-height: 40px;
+    pointer-events: none;
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 40px;
+  }
+
+  .ppost-act {
+    color: $base-grey;
+    height: 40px;
+    padding: 3px 16px;
+
+    .comment-act,
+    .good-act {
+      float: left;
+      height: 34px;
+      line-height: 34px;
+      width: 34px;
+
+      a,
+      button {
+        display: block;
+
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .ppost-num {
+    float: left;
+    height: 34px;
+    line-height: 34px;
+    margin: 0 20px 0 5px;
+
+    .ppost-good-num {
+      font-size: 13px;
+
+      a {
+        display: block;
+        padding: 0 10px;
+        min-width: 30px;
+      }
+    }
+  }
+}
+
+.ppost-bottom {
+  font-size: 12px;
+  padding: 0 16px;
+
+  .ppost-content {
+    color: $main;
+    margin: 5px 0;
+    word-wrap: break-word;
+  }
+
+  .ppost-time {
+    color: $base-grey;
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.content-name {
+  color: $main;
+  float: left;
+  font-weight: 500;
+  margin-right: 0.3em;
+  position: relative;
+  z-index: 10;
 }
 
 .nav-list {
   background: $base;
   border: 1px solid $base-grey;
   display: none;
-  height: 93px;
   overflow: hidden;
   position: absolute;
   left: auto;
@@ -820,10 +927,14 @@ nav {
 
   li {
     background: $base;
-    font-size: 0.8em;
+    font-size: 13px;
     font-weight: 450;
     line-height: 45px;
     z-index: 60;
+
+    a {
+      display: block;
+    }
 
     a,
     span {
@@ -837,7 +948,7 @@ nav {
   }
 }
 
-.postsquare-list {
+.square-list {
   display: block;
   float: left;
   max-width: 200px;
@@ -865,6 +976,21 @@ nav {
     display: block;
     padding-top: 100%;
   }
+
+  .square-size {
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
+    color: $base;
+    font-size: 10px;
+    height: 24px;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    padding: 6px;
+    pointer-events: none;
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+  }
 }
 
 .cover {
@@ -872,111 +998,6 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.kicks-size {
-  background: rgba(0,0,0,0.2);
-  border-radius: 5px;
-  color: #fff;
-  font-size: 0.65em;;
-  letter-spacing: 0.5px;
-  padding: 3px 6px;
-  pointer-events: none;
-  position: absolute;
-  right: 3px;
-  bottom: 3px;
-}
-
-.post-middle {
-  position:relative;
-  width: 100%;
-
-  .post-link {
-    position: relative;
-
-    .post-picture {
-      width: 100%;
-
-      a {
-        display: block;
-
-        img {
-          display: block;
-          width: 100%;
-        }
-      }
-    }
-  }
-
-  .post-act {
-    height: 40px;
-    padding: 3px 16px;
-    
-    .good-act {
-      float: left;
-      height: 34px;
-      line-height: 34px;
-      width: 34px;
-
-      button {
-        display: block;
-        i {
-          font-size: 1.5em;
-        }
-      }
-    }
-
-    .post-num {
-      float: left;
-      height: 34px;
-      line-height: 38px;
-      margin-left: 5px;
-
-      .kpost-good-num {
-        font-size: 16px;
-      }
-    }
-  }
-}
-
-.post-size {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  color: $base;
-  font-size: 0.9em;
-  height: 40px;
-  letter-spacing: 0.5px;
-  line-height: 40px;
-  pointer-events: none;
-  position: absolute;
-  right: 6px;
-  bottom: 6px;
-  width: 40px;
-}
-
-.post-bottom {
-  font-size: 12px;
-  padding: 0 16px;
-
-  .post-content {
-    color: $main;
-    margin: 5px 0;
-    word-wrap: break-word;
-  }
-
-  .post-time {
-    color: $base-grey;
-    font-size: 10px;
-  }
-}
-
-.content-name {
-  color: $main;
-  float: left;
-  font-weight: 600;
-  margin-right: 0.3em;
-  position: relative;
-  z-index: 10;
 }
 
 .no-post {
@@ -1047,26 +1068,33 @@ nav {
     .kpost-icon {
       margin-top: 10px;
     }
-
-    .kpost-shoesize {
-      a {
-        color: $main;
-      }
-    }
   }
 
   .kpost-center {
     float: left;
     height: 100%;
-    margin: 0 3%;
+    margin: 0 3% 30px;
+    position: relative;
     width: 62%;
     word-wrap: break-word;
 
     .kpost-name {
-      margin: 5px 0;
+      width: 100%;
+
       a {
         color: $main;
+        display: inline-block;
+        font-size: 12.5px;
         font-weight: 550;
+        max-width: 100%;
+        padding: 5px 0;
+        position: relative;
+        z-index: 20;
+
+        span {
+          color: $base-grey;
+          font-weight: 450;
+        }
       }
     }
 
@@ -1075,11 +1103,93 @@ nav {
       font-size: 12.5px;
       font-weight: 500;
     }
+  }
+
+  .comment-center {
+    margin-right: 0;
+    width: 72%;
+  }
+
+  .kpost-act {
+    color: $base-grey;
+    font-size: 17px;
+    height: 20px;
+    margin-left: 16.5%;
+    position: absolute;
+    bottom: 20px;
 
     .kpost-time {
-      color: $base-grey;
       font-size: 10.5px;
+      float: left;
+      line-height: 20px;
+      margin-right: 15px;
     }
+
+    .kpost-alist {
+      float: left;
+      height: 20px;
+      line-height: 20px;
+      margin-right: 15px;
+      position: relative;
+      z-index: 25;
+
+      .kpost-aicon {
+        cursor: pointer;
+        float: left;
+        height: 100%;
+        line-height: 20px;
+        margin-right: 5px;
+        padding: 0 5px;
+        width: 30px;
+
+        .good-form div form button i {
+          font-size: 15px;
+        }
+
+        a,
+        i {
+          display: block;
+          height: 100%;
+          font-size: 15px;
+          line-height: 20px;
+          text-align: center;
+          width: 100%;
+        }
+
+        .fa-reply {
+          line-height: 22px;
+        }
+      }
+
+      .kpost-num {
+        float: left;
+        font-size: 12.5px;
+        line-height: 20px;
+        a {
+          display: block;
+          min-width: 30px;
+          padding: 0 10px;
+        }
+      }
+
+      .kpost-alink {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .alist-last {
+      margin: 0;
+    }
+  }
+
+  .comment-act {
+    margin-left: 18%;
+  }
+
+  .reply-act {
+    margin-left: 23%;
   }
 
   .kpost-right {
@@ -1091,8 +1201,20 @@ nav {
       position: relative;
       width: 100%;
 
+      .kpost-menu {
+        margin-left: 50%;
+        padding: 5px 0;
+        position: relative;
+        width: 50%;
+        z-index: 60;
+
+        .post-nav i {
+          font-size: 14px;
+        }
+      }
+
       .kpost-picture {
-        margin: 10px 0 40px;
+        margin: 5px 0 30px;
         position: relative;
         height: 55px;
         width: 55px;
@@ -1117,46 +1239,42 @@ nav {
       .kpost-size {
         background: rgba(0,0,0,0.30);
         color: #fff;
-        bottom: -26px;
-        right: -5px;
+        bottom: -28px;
+        right: 11px;
+      }
+    }
+  }
+
+  .comment-right {
+    width: 10%;
+
+    .kpost-right-top {
+      .comment-menu {
+        margin: 0;
+        width: 100%;
       }
     }
   }
 }
 
-.kpost-right-bottom {
-  position: relative;
-  width: 100%;
+.reply-main {
+  .kpost-reply-icon {
+    float: left;
+    width: 5%;
 
-  .kpost-act {
-    font-size: 17px;
-
-    .kpost-alist {
-      cursor: pointer;
-      height: 35px;
-      line-height: 35px;
-      margin-top: 10px;
-      position: relative;
-      width: 100%;
-      z-index: 25;
-
-      .good-form div form button i {
-        font-size: 17px;
-      }
+    i {
+      color: #fff;
+      font-size: 18px;
     }
   }
-}
 
-.kpost-good-num {
-  color: rgba(0,0,0,0.90);
-  font-size: 10px;
-  font-weight: 550;
-}
+  .kpost-center {
+    width: 57%;
+  }
 
-.kcomment-list {
-  padding: 10px 20px 20px;
-  position: relative;
-  width: 100%;
+  .comment-center {
+    width: 67%
+  }
 }
 
   /* material */
@@ -1293,11 +1411,11 @@ nav {
     border-radius: 5px;
     color: $main;
     display: block;
-    font-size: 0.8em;
-    font-weight: 550;
+    font-size: 13px;
+    font-weight: 500;
     letter-spacing: 0.2px;
-    line-height: 40px;
-    padding: 0 20px;
+    line-height: 24px;
+    padding: 8px 20px;
     width: 100%;
   }
 
@@ -1460,6 +1578,7 @@ nav {
   margin-bottom: 5px;
 
   p,
+  span,
   label {
     display: block;
     font-weight: 550;
@@ -1511,6 +1630,10 @@ nav {
       font-size: 10px;
     }
   }
+
+  a {
+    line-height: 28px;
+  }
 }
 
 
@@ -1552,6 +1675,9 @@ nav {
       display: block;
       height: 100%;
       width: 100%;
+      .fa {
+        color: $base-grey;
+      }
     }
   }
 
@@ -1621,6 +1747,7 @@ nav {
   font-weight: 550;
   height: 50px;
   line-height: 50px;
+  pointer-events: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -1671,8 +1798,8 @@ nav {
       width: 100%;
 
       .list-content {
-        border-bottom: 1px solid $back;
-        padding: 20px;
+        border-bottom: 1px solid $weak-grey;
+        padding: 5%;
         position: relative;
         width: 100%;
         word-wrap: break-word;
@@ -1684,10 +1811,10 @@ nav {
 .list-image {
   display: block;
   float: left;
-  height: 40px;
-  margin: 5px;
+  height: 50px;
+  padding: 5px;
   position: relative;
-  width: 40px;
+  width: 50px;
   z-index: 10;
 
   img {
@@ -1731,7 +1858,7 @@ nav {
 }
 
 .set-list {
-  border-bottom: 1px solid $back;
+  border-bottom: 1px solid $weak-grey;
   font-size: 15px;
   list-style: none;
   position: relative;
@@ -1838,11 +1965,23 @@ nav {
   }
 }
 
+.search-form {
+  background: $base;
+  height: 50px;
+  padding: 10px 0 ;
+}
+
 .search-select {
   .search-list {
     width: 33.3%;
   }
 }
+
+.match,
+.match a {
+  font-weight: 700;
+}
+
 
 /* comment */
 
@@ -1851,25 +1990,39 @@ nav {
   width: 100%;
 
   .comment-list {
-    padding-bottom: 5px;
+    padding-bottom: 8px;
     width: 100%;
 
     .comment-content {
       position: relative;
+      vertical-align: middle;
       word-wrap: break-word;
     
       .comment-act {
         height: 100%;
         cursor: pointer;
       }
+
+      span {
+        vertical-align: top;
+
+        a {
+          vertical-align: top;
+        }
+      }
     }
+  }
+
+  .reply-line {
+    padding-left: 3.5%;
   }
 }
 
-.com-link {
+.id-link,
+.tag-link {
   /*color: rgba(0,53,105,0.85);*/
   color: $accent;
-  font-weight: 550;
+  font-weight: 450;
   position: relative;
   z-index: 25;
 }
@@ -1897,44 +2050,52 @@ nav {
 .notice-main {
   position:relative;
   width: 100%; 
-}
 
-.notice-images {
-  height: 50px;
-  margin: 5px 10px 10px;
-}
-
-.notice-text {
-  font-size: 12.5px;
-  span {
-    font-weight: 570;
-    letter-spacing: 0.2px;
+  .notice-icon {
+    float: left;
+    height: 60px;
+    position: relative;
+    width: 15%;
   }
-}
 
-.notice-icon {
-  float: left;
-  height: 60px;
-  position: relative;
-  width: 15%;
-}
+  .notice-text {
+    float: right;
+    font-size: 12.5px;
+    margin:  5px 0;
+    padding-left: 1.5%; 
+    width: 83.5%;
 
-.notice-comment-text {
-  float: right;
-  margin:  5px 0;
-  padding-left: 1.5%; 
-  width: 83.5%;
-}
+    .notice-name {
+      display: inline-block;
+      font-weight: 570;
+      height: 16px;
+      letter-spacing: 0.2px;
+      max-width: 80%;
+      vertical-align: top;
+    }
 
-.notice-comment-content {
-  float: right;
-  padding-left: 1.5%; 
-  width: 83.5%;
+    .notice-time {
+      font-size: 10.5px;
+      line-height: 20px;
+      margin-right: 15px;
+
+      span {
+        color: $base-grey;
+      }
+    }
+  }
 }
 
 .npost-main {
   position: relative;
   width: 100%;
+
+  .npost-text {
+    float: right;
+    margin-top:  13.5px;
+    padding-left: 1.5%; 
+    width: 83.5%;
+  }
 
   .npost-picture {
     height: 50px;
@@ -1979,16 +2140,18 @@ nav {
 .index-size {
   background: rgba(255,0,0,0.45);
   border-radius: 50%;
-  font-size: 0.60em;
+  font-size: 10px;
   height: 30px;
   letter-spacing: 0.4px;
   line-height: 32px;
   text-align: center;
+  pointer-events: none;
   position: absolute;
-  bottom: -21px;
-  right: -0.5px;
+  bottom: -23px;
+  right: 9px;
   width: 30px;
-  a {
+
+  span {
     color: #fff !important;
   }
 }
@@ -2006,6 +2169,14 @@ nav {
       float: left;
       margin-right: 2%;
       width: 79%;
+
+      .index-name {
+        font-weight: 550;
+      }
+
+      .index-msid {
+        color: $base-grey;
+      }
     }
 
     .index-follow {
@@ -2035,6 +2206,8 @@ nav {
   margin: 0 auto;
   width: 55px;
 }
+
+/* lazysizes */
 
 
 /* 読み込みバー */

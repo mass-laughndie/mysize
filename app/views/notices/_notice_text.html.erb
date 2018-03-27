@@ -1,17 +1,19 @@
-<span><%= uname %></span>さん
+<span><span class="notice-name over-name"><%= uname %></span>さん
 <% if count >= 2 %>
   , 他 <%= count - 1 %>人
 <% end %>
-<% if ntype == "Follow" %>
+<% case ntype
+  when 'Follow' %>
   があなたをフォローしています。
-<% elsif ntype == "Kickspost" %>
+<% when 'Kickspost' %>
   があなたの投稿にグッドをしています。
-<% elsif ntype == "Comment" %>
+<% when 'Comment' %>
   があなたのコメントにグッドをしています。
-<% elsif ntype == "NormalCom" %>
-からコメントがあります。
-<% elsif ntype == "ReplyCom" %>
+<% when 'NormalCom' %>
+  からコメントがあります。
+<% when 'ReplyCom' %>
   から返信があります。
-<% elsif ntype == "ReplyPost" %>
+<% when 'ReplyPost' %>
   から投稿があります。
 <% end %> 
+</span>
