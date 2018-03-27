@@ -2,18 +2,18 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :kickspost
-  has_many   :replies,  class_name: "Comment",
+  has_many   :replies,  class_name:  "Comment",
                         foreign_key: "reply_id"
-  belongs_to :reply,    class_name: "Comment",
-                        optional: true
-  has_many   :goods,    as:        :post,
-                        dependent: :destroy,
-                        class_name: "Good"
-  has_many   :gooders,  through:   :goods,
-                        source:    :gooder
-  has_one    :notice,   as:        :kind,
-                        dependent: :destroy,
-                        class_name: "Notice"
+  belongs_to :reply,    class_name:  "Comment",
+                        optional:    true
+  has_many   :goods,    as:          :post,
+                        dependent:   :destroy,
+                        class_name:  "Good"
+  has_many   :gooders,  through:     :goods,
+                        source:      :gooder
+  has_one    :notice,   as:          :kind,
+                        dependent:   :destroy,
+                        class_name:  "Notice"
 
   default_scope -> { order(:created_at) }
 
