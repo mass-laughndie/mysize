@@ -1,15 +1,15 @@
 class Good < ApplicationRecord
 
-  belongs_to :gooder,    class_name: "User"
-  belongs_to :gooded,    class_name: "User"
+  belongs_to :gooder,    class_name:  "User"
+  belongs_to :gooded,    class_name:  "User"
   belongs_to :post,      polymorphic: true,
-                         optional: true
-  belongs_to :comment,   class_name: 'Comment',
+                         optional:    true
+  belongs_to :comment,   class_name:  'Comment',
                          foreign_key: 'post_id',
-                         optional: true
-  belongs_to :kickspost, class_name: 'Kickspost',
+                         optional:    true
+  belongs_to :kickspost, class_name:  'Kickspost',
                          foreign_key: 'post_id',
-                         optional: true
+                         optional:    true
 
   default_scope -> { order(created_at: :desc) }
 
