@@ -6,7 +6,7 @@ class KickspostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
-    @comments = @kickspost.comments.includes(:user).all
+    @comments = @kickspost.comments.includes(:user, :goods, :replies).where(reply_id: 0)
   end
 
   def new
@@ -28,7 +28,7 @@ class KickspostsController < ApplicationController
   end
 
   def update
-    if @kickspost.update_attributes(postscontent_params)
+    if @kickspost.update_attributes(kicksposts_params)
       flash[:success] = "編集に成功しました"
       redirect_to root_url
     else
@@ -48,14 +48,17 @@ class KickspostsController < ApplicationController
     redirect_to user_path(current_user, display: "square")
   end
 
+  def gooders
+    @post = Kickspost.find_by(id: params[:id])
+    @main = @post
+    @users = @post.gooders.all
+    render 'shared/gooders'
+  end
+
   private
 
     def kicksposts_params
       params.require(:kickspost).permit(:picture, :picture_cache, :size, :content)
-    end
-
-    def postscontent_params
-      params.require(:kickspost).permit(:size, :content)
     end
 
     def set_and_check_kickspost

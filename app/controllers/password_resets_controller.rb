@@ -14,7 +14,11 @@ class PasswordResetsController < ApplicationController
       @user.send_password_reset_email
       redirect_to confirm_password_reset_path
     else
-      flash.now[:danger] = "そのメールアドレスは登録されていません"
+      if params[:email].blank?
+        flash.now[:danger] = "メールアドレスを入力してください"
+      else
+        flash.now[:danger] = "そのメールアドレスは登録されていません"
+      end
       render 'new'
     end
   end

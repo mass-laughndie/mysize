@@ -1,16 +1,16 @@
 <% provide(:title, "オプション") %>
-<%= render 'layouts/back', back_path: "#{user_path(@user)}" %>
+<% provide(:og_title, "オプション") %>
+<% provide(:og_url, option_settings_url) %>
+<%= render 'layouts/back', back_path: "#{user_path(current_user)}" %>
+<%= render 'layouts/center_header', header_text: "オプション" %>
 
 <div class="content-nspace">
-  <div class="ns-page-title">
-    <h1 class="title-text">オプション</h1>
-  </div>
   <div class="setting-select">
     <ul>
       <li class="set-list">
         <a href="<%= account_settings_path %>">
           <div class="set-text set-text1">
-            アカウント設定
+            <p>アカウント設定</p>
           </div>
           <div class="set-icon">
             <%= fa_icon("angle-right") %>
@@ -20,7 +20,17 @@
       <li class="set-list">
         <a href="<%= help_path %>">
           <div class="set-text set-text1">
-            ヘルプ
+            <p>ヘルプ</p>
+          </div>
+          <div class="set-icon">
+            <span><%= fa_icon("angle-right") %></span>
+          </div>
+        </a>
+      </li>
+      <li class="set-list">
+        <a href="<%= new_contact_path %>">
+          <div class="set-text set-text1">
+            <p>お問い合わせ</p>
           </div>
           <div class="set-icon">
             <span><%= fa_icon("angle-right") %></span>
@@ -30,7 +40,7 @@
       <li class="set-list">
         <a href="<%= terms_path %>">
           <div class="set-text set-text1">
-            利用規約
+            <p>利用規約</p>
           </div>
           <div class="set-icon">
             <span><%= fa_icon("angle-right") %></span>
@@ -40,7 +50,7 @@
       <li class="set-list">
         <a href="<%= privacy_path %>">
           <div class="set-text set-text1">
-            プライバシーポリシー
+            <p>プライバシーポリシー</p>
           </div>
           <div class="set-icon">
             <span><%= fa_icon("angle-right") %></span>
@@ -50,7 +60,7 @@
       <li class="set-list">
         <a href="<%= about_path %>">
           <div class="set-text set-text1">
-            Mysizeについて
+            <p>Mysizeについて</p>
           </div>
           <div class="set-icon">
             <span><%= fa_icon("angle-right") %></span>
@@ -60,7 +70,7 @@
       <li class="set-list">
         <a href="#">
           <div class="set-text set-text1">
-            公式ツイッター
+            <p>公式ツイッター</p>
           </div>
           <div class="set-icon">
             <span><%= fa_icon("angle-right") %></span>
@@ -71,7 +81,7 @@
         <li class="set-list">
           <a href="<%= admusrind_url %>">
             <div class="set-text set-text1">
-              管理者ページ
+              <p>管理者ページ</p>
             </div>
             <div class="set-icon">
               <span><%= fa_icon("angle-right") %></span>
@@ -82,7 +92,7 @@
       <li class="set-list">
         <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
           <div class="set-text set-text1">
-            ログアウト
+            <p>ログアウト</p>
           </div>
           <div class="set-icon">
             <%= fa_icon("angle-right") %>

@@ -1,16 +1,55 @@
 <% provide(:title, "キックスポスト編集") %>
+<% provide(:og_title, "キックスポスト編集") %>
+<% provide(:og_url, edit_kickspost_url(@kickspost.user, @kickspost)) %>
 
-<div class="content-sspace">
+<div class="content-fspace">
   <div class="post-form">
-    <%= form_for(@kickspost, url: kickspost_path(@kickspost.user.mysize_id, @kickspost), multipart: true) do |f| %>
+    <%= form_for(@kickspost,
+                 url: kickspost_path(@kickspost.user, @kickspost),
+                 multipart: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-      <div class="label-form">
-        <%= f.label :size, "スニーカーのサイズ" %>
-        <%= f.select(:size, options_for_select(size_array), prompt: "選択してください") %>
+      <div class="set-form clear">
+        <div class="upload-form">
+          <div class="label-form file-label">
+            <%= f.label :picture, "画像" %>
+          </div>
+          <div class="file-form">
+            <%= f.label :picture, class: "upload-button" do %>
+          <div class="upload-icon">
+            <% if @kickspost.picture.blank? %>
+              <%= fa_icon("plus") %>
+            <% else %>
+              <%= fa_icon("refresh") %>
+            <% end %>
+          </div>
+          <% if @kickspost.picture.blank? %>
+            <div class="preview"></div>
+          <% else %>
+            <div class="preview"><%= image_tag(picture_url(@kickspost), alt: @kickspost.content, class: "cover") %></div>
+          <% end %>
+        <% end %>
+          </div>
+          <div class="base-form hidden-form">
+            <%= f.file_field :picture %>
+            <%= f.hidden_field :picture_cache %>
+          </div>
+        </div>
+        <div class="size-form">
+          <div class="label-form select-label">
+            <%= f.label :size, "スニーカーのサイズ" %>
+          </div>
+          <div class="base-form select-form">
+            <%= f.select(:size, options_for_select(size_array, @kickspost.size)) %>
+            <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
+          </div>
+        </div>
       </div>
       <div class="label-form">
         <%= f.label :content, "投稿フォーム" %>
-        <%= f.text_area :content, placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
+      </div>
+      <div class="base-form base-form-area">
+        <%= f.text_area :content, class: "autoheight text-area",
+                        placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
       </div>
       <div class="c button button-mini accent">
         <%= f.submit "更新", data: { disable_with: "処理中..."} %>

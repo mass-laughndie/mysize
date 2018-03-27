@@ -1,0 +1,39 @@
+<% provide(:title, "お問い合わせ内容確認") %>
+<% provide(:og_title, "お問い合わせ内容確認") %>
+<% provide(:og_url, confirm_contact_url) %>
+<%= render 'layouts/center_header', header_text: "内容確認" %>
+
+<div class="content">
+  <div class="text">
+    <p>以下の内容で送信します。内容をご確認ください。</p>
+  </div>
+  <div class="form">
+    <%= form_for(@contact, url: contact_path) do |f| %>
+      <div class="label-form"><p>件名</p></div>
+      <div><%= f.hidden_field :name %></div>
+      <div class="text back-accent">
+        <%= @contact.name %>
+      </div>
+      <div class="label-form"><p>メールアドレス</p></div>
+      <div><%= f.hidden_field :email %></div>
+      <div class="text back-accent">
+        <%= @contact.email %>
+      </div>
+      <div class="label-form"><p>お問い合わせ内容</p></div>
+      <div><%= f.hidden_field :message %></div>
+      <div class="text back-accent">
+        <%= @contact.message %>
+      </div>
+      <div class="buttons">
+        <div class="button button-left button-back">
+          <%= f.button nil, name: 'back' do %>
+            <%= fa_icon("caret-left") %><span>戻 る</span>
+          <% end %>
+        </div>
+        <div class="button button-right accent">
+          <%= f.submit "送信する", data: { disable_with: "送信する"} %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんのグッド") %>
+<% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さんのグッド") %>
+<% provide(:og_url, good_user_url(@user)) %>
 
 <div class="content-mspace">
   <%= render partial: 'users/user_profile',
@@ -11,13 +13,11 @@
     <% if @goods.blank? %>
       <%= render partial: 'shared/no_data',
                  locals: { user: @user,
-                           target: "post" } %>
+                           target: "good" } %>
     <% else %>
-      <div class="post-line clear">
-        <ul>
-          <%= render @goods %>
-        </ul>
-      </div>
+      <ul>
+        <%= render @goods %>
+      </ul>
     <% end %>
   </div>
 </div>

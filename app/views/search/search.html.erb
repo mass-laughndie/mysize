@@ -1,13 +1,16 @@
 <% provide(:title, "検索") %>
+<% provide(:og_title, "検索") %>
+<% provide(:og_url, search_url) %>
+<%= render 'layouts/center_header', header_text: "検 索" %>
 
 <div class="content-sspace search-space">
-  <div class="fixed fixed-top search-height">
+  <div class="fixed fixed-top">
     <%= render 'shared/search_form' %>
   </div>
 </div>
 <% unless params[:keyword].nil? %>
   <div class="content-nspace">
-    <div class="c select-form search-select">
+    <div class="c select search-select">
       <div class="select-list search-list alist aline">
         <%= link_to "ユーザー", search_path(keyword: params[:keyword], for: 'user') %>
       </div>
@@ -19,52 +22,40 @@
       </div>
     </div>
     <div class="search-result">
-      <% if params[:for] == 'post' %>
-        <% if @kicksposts.blank? %>
-          <%= render partial: 'shared/no_data',
-                     locals: { user: current_user,
-                               target: nil } %>
-        <% else %>
-          <div class="post-main">
-            <div class="post-line clear">
-              <ul>
-                <% @kicksposts.each do |kickspost| %>                
-                  <%= render partial: 'kicksposts/kickspost_text',
-                             locals: { kickspost: kickspost } %>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
-      <% elsif params[:for] == 'com' %>
-        <% if @comments.blank? %>
-          <%= render partial: 'shared/no_data',
-                     locals: { user: current_user,
-                               target: nil } %>
-        <% else %>
-          <div class="post-main">
-            <div class="post-line clear">
-              <ul>
-                <% @comments.each do |comment| %>
-                  <%= render partial: 'comments/comment_text',
-                             locals: { comment: comment } %>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
-      <% elsif params[:for] == 'user' || params[:for].blank? %>
-        <% if @users.blank? %>
-          <%= render partial: 'shared/no_data',
-                     locals: { user: current_user,
-                               target: nil } %>
-        <% else %>
-          <div class="setting-select">
-            <ul>
-              <%= render @users %>
-            </ul>
-          </div>
-        <% end %>
+      <% if params[:for] == 'post' && @kicksposts.any? %>
+        <div class="post-main">
+          <ul>
+            <% @kicksposts.each do |kickspost| %>
+              <%= render partial: 'shared/post_main',
+                         locals: { post: kickspost,
+                                   type: 'Kickspost',
+                                   reply_on: false,
+                                   post_page: false } %>
+            <% end %>
+          </ul>
+        </div>
+      <% elsif params[:for] == 'com' && @comments.any? %>
+        <div class="post-main">
+          <ul>
+            <% @comments.each do |comment| %>
+              <%= render partial: 'shared/post_main',
+                         locals: { post: comment,
+                                   type: 'Comment',
+                                   reply_on: false,
+                                   post_page: false } %>
+            <% end %>
+          </ul>
+        </div>
+      <% elsif (params[:for] == 'user' || params[:for].blank?) && @users.any? %>
+        <div class="setting-select">
+          <ul>
+            <%= render @users %>
+          </ul>
+        </div>
+      <% else %>
+        <%= render partial: 'shared/no_data',
+                   locals: { user: current_user,
+                             target: nil } %>
       <% end %>
     </div>
   </div>

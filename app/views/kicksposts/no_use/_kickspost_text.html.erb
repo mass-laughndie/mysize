@@ -1,0 +1,13 @@
+<li id="kickspost-<%= kickspost.id %>" class="link-list kpost-main clear">
+  <a class="content-link" href="<%= kickspost_url(kickspost.user.mysize_id, kickspost) %>"></a>
+  <div class="content-abs">
+    <div class="content-height">
+      <div class="list-content clear">
+        <%= render partial: 'shared/post_main',
+                   locals: { post: kickspost,
+                             type: 'Kickspost',
+                             reply_on: false } %>
+      </div>
+    </div>
+  </div>
+</li>

@@ -1,118 +1,18 @@
 <% if params[:display] == "square" %>
   <li id="postsquare-<%= kickspost.id %>" class="postsquare-list">
     <div class="square-picture">
-      <%= link_to image_tag(picture_url(kickspost),
-                            alt: kickspost.content,
-                            class: 'cover'),
-                  kickspost_path(kickspost.user.mysize_id, kickspost) %>
+      <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
+                        class: 'cover lazyload', data: { src: picture_url(kickspost) } ),
+                        kickspost_path(kickspost.user, kickspost) %>
     </div>
     <div class="kicks-size">
       <%= kickspost.size %>
     </div>
   </li>
 <% else %>
-  <li id="kickspost-<%= kickspost.id %>" class="kickspost-list">
-    <div class="post-top">
-      <div class="post-icon">
-        <%= link_to image_tag(image_url(kickspost.user), size: 34),
-                    user_path(kickspost.user, display: "square") %>
-      </div>
-      <div class="c post-shoesize">
-        <%= link_to kickspost.user.size,
-                    user_path(kickspost.user, display: "square") %>
-      </div>
-      <div class="post-user">
-        <div class="post-name">
-          <%= link_to kickspost.user.name,
-                      user_path(kickspost.user, display: "square") %>
-        </div>
-        <div class="post-mysizeid">
-          <%= link_to fa_icon("at") + kickspost.user.mysize_id,
-                      user_path(kickspost.user, display: "square") %>
-        </div>
-      </div>
-      <div class="c post-menu">
-        <% if current_user == kickspost.user %>
-          <div id="post-nav-<%= kickspost.id %>" class="post-nav">
-            <%= fa_icon("ellipsis-h") %>
-          </div>
-          <ul id="nav-list-<%= kickspost.id %>" class="nav-list">
-            <li><%= link_to "削除",
-                    kickspost_path(kickspost.user.mysize_id, kickspost),
-                    method: :delete,
-                    data: { confirm: "本当に削除してよろしいですか？" } %></li>
-            <li class="bar"></li>
-            <li><%= link_to "編集",
-                    edit_kickspost_path(kickspost.user.mysize_id, kickspost) %></li>
-          </ul>
-        <% end %>
-      </div>
-    </div>
-    <div class="post-middle">
-      <% unless kickspost.picture.nil? %>
-        <div class="post-link">
-          <div class="post-picture">
-            <%= link_to image_tag(picture_url(kickspost), alt: kickspost.content),
-                        kickspost_path(kickspost.user.mysize_id, kickspost) %>
-          </div>
-          <div class="c post-size">
-            <%= kickspost.size %>
-          </div>
-        </div>
-      <% end %>
-      <div class="post-act">
-        <div class="c good-act">
-          <%= render partial: 'goods/good_form',
-                     locals: { post: kickspost,
-                               type: "Kickspost" } %>
-      </div>
-    </div>
-    <div class="post-bottom">
-      <div class="post-content autolink">
-        <%= link_to kickspost.user.mysize_id,
-                    user_path(kickspost.user, display: "square"),
-                    class: 'content-name' %>
-        <%= kickspost.content %>
-      </div>
-      <% unless kickspost.comments.blank? %>
-        <div class="post-comment">
-          <% if comment_disnum == "few" %>
-            <div class="comment-lead">
-              <% if current_user == kickspost.user %>
-                <%= link_to "コメントを見る・返信する",
-                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
-              <% else %>
-                <%= link_to "コメントを見る・書く",
-                            kickspost_path(kickspost.user.mysize_id, kickspost) %>
-              <% end %>
-            </div>
-          <% end %>
-          <ul>
-            <% if comment_disnum == "few" %>
-              <%= render partial: 'comments/comment',
-                         locals: { kickspost: kickspost,
-                                   comment: kickspost.comments.first,
-                                   comment_disnum: comment_disnum,
-                                   list: "normal" } %>
-            <% else %>
-              <%= render partial: @comments,
-                         locals: { kickspost: kickspost,
-                                   comment_disnum: comment_disnum,
-                                   list: "normal" } %>
-            <% end %>
-          </ul>
-        </div>
-      <% else %>
-        <% if comment_disnum == "few" && current_user != kickspost.user %>
-            <div class="comment-lead">
-              <%= link_to "コメントを書く",
-                          kickspost_path(kickspost.user.mysize_id, kickspost) %>
-            </div>
-          <% end %>
-      <% end %>
-      <div class="post-time">
-        <span><%= time_ago_in_words(kickspost.created_at) %>前</span>
-      </div>
-    </div>
-  </li>
+  <%= render partial: 'shared/post_main',
+             locals: { post: kickspost,
+                       type: 'Kickspost',
+                       reply_on: false,
+                       post_page: post_page } %>
 <% end %>

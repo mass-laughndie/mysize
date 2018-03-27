@@ -1,0 +1,110 @@
+<div id="kickspost-<%= kickspost.id %>" class="kickspost-list">
+  <div class="ppost-top">
+    <div class="ppost-icon">
+      <%= link_to image_tag(image_url(kickspost.user), size: 34,
+                            alt: kickspost.user.mysize_id),
+                  user_path(kickspost.user) %>
+    </div>
+    <div class="c ppost-usize">
+      <%= link_to kickspost.user.size,
+                  user_path(kickspost.user) %>
+    </div>
+    <div class="ppost-prof">
+      <div class="ppost-name over-name">
+        <%= link_to kickspost.user.name, user_path(kickspost.user) %>
+      </div>
+      <div class="ppost-msid">
+        <%= link_to "@" + kickspost.user.mysize_id, user_path(kickspost.user) %>
+      </div>
+    </div>
+    <div class="post-menu c">
+      <% if current_user == kickspost.user %>
+        <%= render partial: 'shared/post_menu',
+                   locals: { post: kickspost,
+                             type: "Kickspost" } %>
+      <% end %>
+    </div>
+  </div>
+  <div class="ppost-middle">
+    <div class="ppost-main">
+      <div class="ppost-picture">
+        <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
+                    class: 'lazyload', data: { src: picture_url(kickspost) } ),
+                    kickspost_path(kickspost.user, kickspost) %>
+      </div>
+      <div class="ppost-ksize c">
+        <%= kickspost.size %>
+      </div>
+    </div>
+    <div class="ppost-act">
+      <div class="good-act c">
+        <%= render partial: 'goods/good_form',
+                   locals: { post: kickspost,
+                             type: "Kickspost" } %>
+      </div>
+      <div class="ppost-num c">
+        <div class="ppost-good-num" id="good-num-kickspost-<%= kickspost.id %>">
+          <%= link_to kickspost.goods.to_a.size,
+                      gooders_kickspost_path(kickspost) %>
+        </div>
+      </div>
+      <div class="comment-act c">
+        <%= link_to fa_icon("comment-o"),
+                    kickspost_path(kickspost.user, kickspost) %>
+      </div>
+      <div class="ppost-num c">
+        <div class="ppost-good-num">
+          <%= link_to kickspost.comments.to_a.size,
+                      kickspost_path(kickspost.user, kickspost)  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ppost-bottom">
+    <div class="ppost-content autolink">
+      <%= link_to kickspost.user.mysize_id,
+                  user_path(kickspost.user),
+                  class: 'content-name' %>
+      <span class="post-text"><%= kickspost.content %></span>
+    </div>
+    <div class="ppost-time">
+      <span><%= time_ago_in_words(kickspost.created_at) %>前</span>
+    </div>
+    <% unless kickspost.comments.blank? %>
+      <div class="post-comment">
+        <% if comment_disnum == "few" %>
+          <div class="comment-lead">
+            <% if current_user == kickspost.user %>
+              <%= link_to "コメントを見る・返信する",
+                  kickspost_path(kickspost.user, kickspost) %>
+            <% else %>
+              <%= link_to "コメントを見る・書く",
+                  kickspost_path(kickspost.user, kickspost) %>
+            <% end %>
+          </div>
+        <% end %>
+        <ul>
+          <% if comment_disnum == "few" %>
+            <%= render partial: 'comments/comment',
+                       locals: { kickspost: kickspost,
+                                 comment: kickspost.comments.first,
+                                 comment_disnum: comment_disnum,
+                                 list: "line" } %>
+          <% else %>
+            <%= render partial: @comments,
+                       locals: { kickspost: kickspost,
+                                 comment_disnum: comment_disnum,
+                                 list: "line" } %>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <% if comment_disnum == "few" && current_user != kickspost.user %>
+        <div class="comment-lead">
+          <%= link_to "コメントを書く",
+            kickspost_path(kickspost.user, kickspost) %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

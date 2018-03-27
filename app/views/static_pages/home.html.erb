@@ -1,18 +1,17 @@
 <% if logged_in? %>
-  <%= render 'home_select' %>
-  <div class="post-main">
-    <% if @kicksposts.blank? %>
-      <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "post" } %>
-    <% else %>
-      <div class="post-line clear">
-        <ul>
-          <%= render @kicksposts, comment_disnum: "few" %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
+  <% title = "フォロー中" %>
+  <% og_title = "フォロー中" %>
+<% else %>
+  <% title = "" %>
+  <% og_title = "Mysize -スニーカーサイジング共有SNS-" %>
+<% end %>
+<% provide(:title, title) %>
+<% provide(:og_title, og_title) %>
+<% provide(:og_url, root_url) %>
+
+<% if logged_in? %>
+  <%= render partial: 'static_pages/home_logged_in',
+             locals: { target: nil } %>
 <% else %>
   <div class="content">
     <div class="page-title c">

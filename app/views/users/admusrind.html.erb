@@ -1,4 +1,6 @@
 <% provide(:title, '管理者ページ') %>
+<% provide(:og_title, '管理者ページ') %>
+<% provide(:og_url, admusrind_url) %>
 
 <div class="content-sspace search-space">
   <div class="fixed fixed-top search-height">
@@ -7,67 +9,51 @@
 </div>
 <% unless params[:keyword].nil? %>
   <div class="content-nspace">
-    <div class="c select-form search-select">
+    <div class="c select search-select">
       <div class="select-list search-list alist aline">
-        <%= link_to "ユーザー", admusrind_path(keyword: params[:keyword]) %>
+        <%= link_to "ユーザー", admusrind_path(for: 'user', keyword: params[:keyword]) %>
       </div>
       <div class="select-list search-list alist aline">
-        <%= link_to "投稿", admusrind_path(keyword: params[:keyword], for: 'post') %>
+        <%= link_to "投稿", admusrind_path(for: 'post', keyword: params[:keyword]) %>
       </div>
       <div class="select-list search-list alist aline">
-        <%= link_to "コメント", admusrind_path(keyword: params[:keyword], for: 'com') %>
+        <%= link_to "コメント", admusrind_path(for: 'com', keyword: params[:keyword]) %>
       </div>
     </div>
     <div class="search-result">
-      <% if params[:for] == 'post' %>
-        <% if @kicksposts.blank? %>
-          <%= render partial: 'shared/no_data',
-                     locals: { user: current_user,
-                               target: nil } %>
-        <% else %>
-          <div class="post-main">
-            <div class="post-line clear">
-              <ul>
-                <% @kicksposts.each do |kickspost| %>                
-                  <%= render partial: 'kicksposts/akickspost_text',
-                             locals: { kickspost: kickspost } %>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
-      <% elsif params[:for] == 'com' %>
-        <% if @comments.blank? %>
-          <%= render partial: 'shared/no_data',
-                     locals: { user: current_user,
-                               target: nil } %>
-        <% else %>
-          <div class="post-main">
-            <div class="post-line clear">
-              <ul>
-                <% @comments.each do |comment| %>                
-                  <%= render partial: 'comments/acomment_text',
-                             locals: { comment: comment } %>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
+      <% if params[:for] == 'post' && @kicksposts.any? %>
+        <div class="post-main">
+          <ul>
+            <% @kicksposts.each do |kickspost| %>
+              <%= render partial: 'shared/admin_post_main',
+                         locals: { post: kickspost,
+                                   type: 'Kickspost' } %>
+            <% end %>
+          </ul>
+        </div>
+      <% elsif params[:for] == 'com' && @comments.any? %>
+        <div class="post-main">
+          <ul>
+            <% @comments.each do |comment| %>
+              <%= render partial: 'shared/admin_post_main',
+                         locals: { post: comment,
+                                   type: 'Comment' } %>
+            <% end %>
+          </ul>
+        </div>
+      <% elsif (params[:for] == 'user' || params[:for].blank?) && @users.any? %>
+        <div class="setting-select">
+          <ul>
+            <% @users.each do |user| %>
+              <%= render partial: 'users/auser',
+                         locals: { user: user } %>
+            <% end %>
+          </ul>
+        </div>
       <% else %>
-        <% if @users.blank? %>
-          <%= render partial: 'shared/no_data',
-                     locals: { user: current_user,
-                               target: nil } %>
-        <% else %>
-          <div class="setting-select">
-            <ul>
-              <% @users.each do |user| %>
-                <%= render partial: 'users/auser',
-                           locals: { user: user } %>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <%= render partial: 'shared/no_data',
+                   locals: { user: current_user,
+                             target: nil } %>
       <% end %>
     </div>
   </div>

@@ -1,3 +1,8 @@
+<% provide(:title, "スレッド") %>
+<% provide(:og_title, "スレッド") %>
+<% provide(:og_url, comments_url) %>
+
 <div class="">
-  <p>開発中</p>
+  <%= render partial: 'shared/no_data',
+             locals: { target: "development" } %>
 </div>

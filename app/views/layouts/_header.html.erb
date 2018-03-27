@@ -1,11 +1,16 @@
 <header>
   <div class="wrapper container">
-    <div class="header-link">
+    <div class="header header-left">
       <% if logged_in? %>
         <% if content_for?(:left_header) %>
           <%= yield(:left_header) %>
         <% else %>
-          <%= link_to image_tag(image_url(current_user), size: 40, alt: current_user.name), user_path(current_user, display: "square"), class: "left-header" %>
+          <%= link_to image_tag(image_url(current_user),
+                      size: 40,
+                      alt: current_user.mysize_id,
+                      id: "my-icon"),
+                      user_path(current_user, display: "square"),
+                      class: "left-header" %>
         <% end %>
       <% else %>
         <% if content_for?(:left_header) %>
@@ -15,15 +20,17 @@
         <% end %>
       <% end %>
     </div>
-    <div class="header-link">
-      <div class="logo">
+    <div class="header header-center">
+      <% if content_for?(:center_header) %>
+        <%= yield(:center_header) %>
+      <% else %>
         <a class="logo-text" href="<%= root_path %>">
           <%= image_tag("/images/apps_icon5.png", size: 24) %>
           <span class="logo-font">Mysize</span>
         </a>
-      </div>
+      <% end %>
     </div>
-    <div class="header-link alist">
+    <div class="header header-right alist">
       <% if content_for?(:right_header) %>
         <%= yield(:right_header) %>
       <% else %>

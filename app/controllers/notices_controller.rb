@@ -7,9 +7,7 @@ class NoticesController < ApplicationController
     #全通知
     @notices   = current_user.notices.includes(:user)
     #既読済みの過去通知の削除
-    if Time.zone.now.wday == 0
-      current_user.delete_past_notices_already_read(@notices)
-    end
+    current_user.delete_past_notices_already_read(@notices)
 
     #未読数リセット
     urnotices = @notices.where.not(unread_count: 0)
@@ -38,9 +36,11 @@ class NoticesController < ApplicationController
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
     @fnum = @fcounts.size - 1 
 
-    @posts = []
-    @gcommers = []
-    @gposters = []
+    #その他の通知関連
+    @posts = []               #post配列
+    @gcommers = []            #comments.gooders配列
+    @gposters = []            #kicksposts.gooders配列
+    #各配列のindexnumber
     @pnum  = 0
     @gcnum = 0
     @gpnum = 0
@@ -56,7 +56,7 @@ class NoticesController < ApplicationController
         unless post = notice.kind
           notice.destroy
         else
-          gooder = notice.kind.gooders.where.not(id: current_user.id)
+          gooder = post.gooders.where.not(id: current_user.id)
           if gooder.blank?
             notice.destroy
           else
@@ -74,7 +74,7 @@ class NoticesController < ApplicationController
         unless post = notice.kind
           notice.destroy
         else
-          gooder = notice.kind.gooders.includes(:notices).where.not(id: current_user.id)
+          gooder = post.gooders.includes(:notices).where.not(id: current_user.id)
           if gooder.blank?
             notice.destroy
           else

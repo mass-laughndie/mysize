@@ -1,30 +1,35 @@
 <% provide(:title, "新規登録") %>
-<div class="content">
+<% provide(:og_title, "新規登録") %>
+<% provide(:og_url, signup_url) %>
+
+<div class="content-fspace">
   <div class="page-title">
     <h1 class="title-text">新規登録<small>(MysizeID)</small></h1>
   </div>
-  <div class="d">
+  <div class="form">
     <%= form_for(@user, url: signup_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-      <div class="c base-form">
-        <%= f.text_field :mysize_id, placeholder: "MysizeID (a-z,0-9,_ 15文字以内)" %>
+      <div class="base-form">
+        <%= f.text_field :mysize_id,
+                         placeholder: "MysizeID(a-z,0-9,_ 15文字以内)" %>
       </div>
-      <div class="c base-form">
+      <div class="base-form">
         <%= f.email_field :email, placeholder: "メールアドレス" %>
       </div>
-      <div class="c base-form">
+      <div class="base-form">
         <%= f.password_field :password, placeholder: "Password" %>
       </div>
-      <div class="c base-form">
-        <%= f.password_field :password_confirmation, placeholder: "Password確認" %>
+      <div class="base-form">
+        <%= f.password_field :password_confirmation,
+                             placeholder: "Password確認" %>
       </div>
       <div class="c atention">
         <p>
           ※<%= link_to "利用規約", terms_path %>、<%= link_to "プライバシーポリシー", privacy_path %>をご確認の上ご登録ください。
         </p>
       </div>
-      <div class="c button accent">
-        <%= f.submit "登録", data: { disable_with: "処理中..."} %>
+      <div class="button button-mini accent">
+        <%= f.submit "登録する", data: { disable_with: "処理中..."} %>
       </div>
     <% end %>
   </div>

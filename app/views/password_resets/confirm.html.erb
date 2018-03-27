@@ -1,15 +1,17 @@
 <% provide(:title, "再設定URL送信確認") %>
+<% provide(:og_title, "再設定URL送信確認") %>
+<% provide(:og_url, confirm_password_reset_url) %>
 
 <div class="content-pspace">
   <div class="ns-page-title">
     <h1 class="title-text">再発行URL送信完了</h1>
   </div>
-  <div class="reset-text">
+  <div class="text">
     <p>パスワード再設定URLをメールアドレスに送信しました。ご確認の上、<b>2時間以内</b>にパスワードの再設定を行ってください。</p>
   </div>
-  <div class="c to-top">
+  <div class="c button-back button-mini">
     <a href="<%= root_path %>">
-      <%= fa_icon("caret-left") %><span>Topへ</span>
+      <%= fa_icon("caret-left") %><span>TOPへ</span>
     </a>
   </div>
 </div>

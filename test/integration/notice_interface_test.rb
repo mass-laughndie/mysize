@@ -20,9 +20,10 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
   test "good notice to my kickspost" do
     log_in_as(@other)
     assert_difference '@user.notices.count', 1 do
-      assert_difference '@other.goods.count', 1 do
+      assert_difference '@other.active_goods.count', 1 do
         post goods_path, params: { post_type: "Kickspost",
-                                   post_id: @kickspost.id }
+                                   post_id: @kickspost.id,
+                                   gooded_id: @user.id }
       end
     end
   end
@@ -30,9 +31,10 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
   test "good notice to my comment" do
     log_in_as(@other)
     assert_difference '@user.notices.count', 1 do
-      assert_difference '@other.goods.count', 1 do
+      assert_difference '@other.active_goods.count', 1 do
         post goods_path, params: { post_type: "Comment",
-                                   post_id:   @comment.id}
+                                   post_id:   @comment.id,
+                                   gooded_id: @user.id }
       end
     end
   end
@@ -58,8 +60,8 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
     content = "Good!!!!!!!!"
     assert_difference '@user.notices.count', 1 do
       assert_difference '@other.comments.count', 1 do
-        post postcomments_path, params: { comment: { user_id: @other.id,
-                                                     kickspost_id: @kickspost.id,
+        post postcomments_path, params: { comment: { kickspost_id: @kickspost.id,
+                                                     reply_id: 0,
                                                      content: content } }
       end
     end
@@ -73,8 +75,8 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
     content = "@user1 My favorite!"
     assert_difference '@user.notices.count', 1 do
       assert_difference '@other.comments.count', 1 do
-        post postcomments_path, params: { comment: { user_id: @other.id,
-                                                     kickspost_id: kicksposts(:van).id,
+        post postcomments_path, params: { comment: { kickspost_id: kicksposts(:van).id,
+                                                     reply_id: 0,
                                                      content: content } }
       end
     end

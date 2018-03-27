@@ -13,7 +13,7 @@
           <% end %>
         </strong>
       </div>
-      cm
+      <span>cm</span>
     </a>
     <a href="<%= user_path(user, display: "square") %>">
       <div class="num">
@@ -21,15 +21,15 @@
           <%= user.kicksposts.count %>
         </strong>
       </div>
-      キックス
+      <span>キックス</span>
     </a>
     <a href="#">
       <div class="num">
-        <strong id="good-answer" class="stat">
-          0
+        <strong id="good-points" class="stat">
+          <%= @points %>
         </strong>
       </div>
-      グッドアンサー
+      <span>グッドポイント</span>
     </a>
   </div>
 </div>

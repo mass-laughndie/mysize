@@ -1,54 +1,114 @@
-<div class="c index-left kpost-left">
-  <%= render partial: 'shared/index_left',
-             locals: { user: post.user } %>
-</div>
-<div class="kpost-center">
-  <div class="kpost-name">
-    <%= link_to post.user.mysize_id,
-                user_path(post.user, display: "square"),
-                id: "content-name-" + post.id.to_s %>
-  </div>
-  <div class="kpost-content autolink">
-    <%= post.content %>
-  </div>
-</div>
-<div class="kpost-right">
-  <% if type == "Kickspost" %>
-  <div class="c kpost-right-top">
-    <div class="kpost-picture abs-center">
-      <%= link_to image_tag(picture_url(post),
-                            alt: post.content,
-                            class: "cover"),
-                  kickspost_path(post.user.mysize_id, post)  %>
-      <div class="kpost-size index-size">
-        <%= post.size %>
-      </div>
-    </div>
-  </div>
-  <% end %>
-  <div class="c kpost-right-bottom">
-    <div class="kpost-act">
-      <% if current_user.in?([post.user, main_post.user]) %>
+<% if type == 'Kickspost' %>
+<li id="kickspost-<%= post.id %>" class="link-list kpost-main clear">
+  <a class="content-link" href="<%= kickspost_path(post.user, post) %>"></a>
+<% elsif type == 'Comment' %>
+<li id="comment-<%= post.id %>" class="reply-<%= post.reply_id %> link-list kpost-main clear">
+  <a class="content-link jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost.user, post.kickspost) %>#<%= type.downcase %>-<%= post.id %>"></a>
+<% end %>
+  <div class="content-abs">
+    <div class="content-height">
+      <% unless reply_on %>
+      <div class="list-content clear">
+      <% else %>
+      <div class="list-content reply-main clear">
+      <% end %>
+        <% if reply_on %>
+          <div class="c kpost-reply-icon">
+            <%= fa_icon("caret-right") %>
+          </div>
+        <% end %>
+        <div class="c index-left kpost-left">
+          <%= render partial: 'shared/index_left',
+                     locals: { user: post.user } %>
+        </div>
+        <div class="kpost-center <%= type.downcase %>-center">
+          <div class="kpost-name over-name">
+            <%= link_to user_path(post.user) do %>
+              <%= post.user.name %>
+              <% if type == "Kickspost" %>
+                <span> @<%= post.user.mysize_id %></span>
+              <% else %>
+                <span id="content-name-<%= post.id %>"> @<%= post.user.mysize_id %></span>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="kpost-content autolink">
+            <span class="post-text"><%= post.content %></span>
+          </div>
+        </div>
+      <% if reply_on %>
+      <div class="kpost-act  <%= type.downcase %>-act reply-act clear">
+      <% else %>
+      <div class="kpost-act  <%= type.downcase %>-act clear">
+      <% end %>
+        <div class="kpost-time">
+          <%= time_ago_in_words(post.created_at) %>前
+        </div>
         <div class="kpost-alist">
-          <div class="comment-act comment-delete">
-            <%= render partial: 'shared/post_delete',
+          <div class="kpost-aicon">
+            <%= render partial: 'goods/good_form',
                        locals: { post: post,
                                  type: type } %>
           </div>
-        </div>
-      <% end %>
-      <div class="kpost-alist">
-        <%= render partial: 'goods/good_form',
-                   locals: { post: post,
-                             type: type } %>
-      </div>
-      <% if current_user != post.user && type == "Comment" %>
-        <div class="kpost-alist">
-          <div class="comment-act" id="comment-reply-<%= post.id %>">
-            <%= fa_icon('reply')%>
+          <div class="kpost-num" id="good-num-<%= type.underscore %>-<%= post.id %>">
+            <% if type == 'Kickspost' %>
+              <%= link_to post.goods.to_a.size, gooders_kickspost_path(post) %>
+            <% else %>
+              <%= link_to post.goods.to_a.size, gooders_comment_path(post) %>
+            <% end %>
           </div>
         </div>
-      <% end %>
+        <% if type == "Kickspost" %>
+          <div class="kpost-alist alist-last">
+            <%= link_to kickspost_path(post.user.mysize_id, post), class: "kpost-alink" do %>
+              <div class="kpost-aicon">
+                <%= fa_icon("comment-o") %>
+              </div>
+              <div class="kpost-num">
+                <%= post.comments.to_a.size %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <% if type == "Comment" && current_user != post.user %>
+          <div class="kpost-alist alist-last">
+            <div class="kpost-aicon" id="comment-reply-<%= post.id %>">
+              <% if post_page %>
+                <%= fa_icon('reply')%>
+              <% elsif logged_in? %>
+                <a class="kpost-alink jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost. user, post.kickspost, reply: 'on') %>#<%= type.downcase %>-<%= post.id %>">
+                  <%= fa_icon('reply')%>
+                </a>
+              <% else%>
+                <%= link_to fa_icon('reply'), '#', class: 'ban' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="kpost-right <%= type.downcase %>-right">
+        <div class="c kpost-right-top">
+          <div class="kpost-menu  <%= type.downcase %>-menu clear">
+            <% if current_user == post.user %>
+              <%= render partial: 'shared/post_menu',
+                         locals: { post: post,
+                                   type: type } %>
+            <% end %>
+          </div>
+          <% if type == "Kickspost" %>
+            <div class="kpost-picture abs-center">
+              <%= link_to image_tag('/images/grey.gif',
+                                    alt: post.content,
+                                    class: 'cover lazyload',
+                                    data: { src: picture_url(post) } ),
+                          kickspost_path(post.user, post, display: 'picture') %>
+              <div class="kpost-size index-size">
+                <%= post.size %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</li>
