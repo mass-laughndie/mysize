@@ -12,8 +12,8 @@
   <div class="post-main">
     <% if @user.kicksposts.blank? %>
       <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "post" } %>
+                 locals: { icon: 'image',
+                           text: 'post' } %>
     <% else %>
       <div class="post-line clear">
         <ul>

@@ -12,8 +12,8 @@
   <div class="post-main">
     <% if @goods.blank? %>
       <%= render partial: 'shared/no_data',
-                 locals: { user: @user,
-                           target: "good" } %>
+                 locals: { icon: 'good',
+                           text: 'good' } %>
     <% else %>
       <ul>
         <%= render @goods %>

@@ -1,53 +1,63 @@
 <div class="c no-post">
-  <% if target == "post" %>
-    <%= fa_icon("image") %>
-    <div class="no-text">表示できるデータがありません</div>
-    <% if current_user?(user) %>
-      <div class="no-text">あなたのマイスニーカーを投稿しましょう！</div>
-      <div class="no-link">
-        <a href="<%= upload_path %>">
-          <%= fa_icon("plus-square") %><span>投稿する</span>
-        </a>
-      </div>
-    <% end %>
-  <% elsif target == "new" %>
-    <%= fa_icon("image") %>
-    <div class="no-text">表示できるデータがありません</div>
-    <div class="no-text">まずはあなたと同じサイズの人を探して<br>フォローしましょう！</div>
-    <div class="no-link">
-      <a href="<%= search_path(for: 'user', keyword: user.size ) %>">
-        <%= fa_icon("search") %><span>検索する</span>
-      </a>
-    </div>
-  <% elsif target == "notice" %>
-    <%= fa_icon("bell-o") %>
-    <div class="no-text">１件もありません</div>
-  <% elsif target == "person" %>
-    <%= fa_icon("user-o") %>
-    <div class="no-text">表示できるデータがありません</div>
-    <% if current_user?(user) %>
-      <div class="no-text">あなたと同じサイズの人を探して<br>フォローしましょう！</div>
-      <div class="no-link">
-        <a href="<%= search_path(for: 'user', keyword: user.size ) %>">
-          <%= fa_icon("search") %><span>検索する</span>
-        </a>
-      </div>
-    <% end %>
-  <% elsif target == "good" %>
-    <%= fa_icon("thumbs-o-up") %>
-    <div class="no-text">表示できるデータがありません</div>
-    <% if current_user?(user) %>
-      <div class="no-text">グッドはメモとしても使えます<br>役立つ情報にはグッドをしましょう！</div>
-      <div class="no-link">
-        <a href="<%= search_path %>">
-          <%= fa_icon("search") %><span>検索する</span>
-        </a>
-      </div>
-    <% end %>
-  <% elsif target == "development" %>
-    <%= fa_icon("wrench") %>
-    <div class="no-text">現在、開発中です<br>完成までいましばらくお待ちください</div>
+  <% case icon
+    when 'image' %>
+    <%= fa_icon('image') %>
+  <% when 'user' %>
+    <%= fa_icon('user-o') %>
+  <% when 'good' %>
+    <%= fa_icon('thumbs-o-up') %>
+  <% when 'search' %>
+    <%= fa_icon('search') %>
+  <% when 'notice' %>
+    <%= fa_icon('bell-o') %>
+  <% when 'develop' %>
+    <%= fa_icon('wrench') %>
   <% else %>
-    <div class="no-text">表示できるデータがありません</div>
+    <%= fa_icon('question') %>
   <% end %>
+  <div class="no-text">
+    <% case text
+      when 'search' %>
+      キーワードを入力してください
+    <% when 'search-no-hit' %>
+      <p>検索結果は０件です</p><p>キーワードを確認してみてください</p>
+    <% when 'notice' %>
+      <p>１件もありません</p>
+    <% when 'develop' %>
+      <p>現在、開発中です</p><p>完成までいましばらくお待ちください</p>
+    <% else %>
+      <p>表示できるデータがありません</p>
+      <% if logged_in? && current_user?(@user) %>
+        <% case text
+          when 'post', 'post-follow' %>
+          <p>あなたのマイスニーカーについて投稿しましょう！</p>
+          <% if text == 'post-follow' %>
+            <p>フォローしてもらえるかもしれません！</p>
+          <% end %>
+          <div class="no-link">
+            <a href="<%= upload_path %>">
+              <%= fa_icon("plus-square") %><span>投稿する</span>
+            </a>
+          </div>
+        <% when 'follow' %>
+          <p>あなたと同じサイズの人を探して</p>
+          <p>フォローしましょう！</p>
+          <div class="no-link">
+            <a href="<%= search_path(for: 'user', keyword: @user.size ) %>">
+              <%= fa_icon("search") %><span>検索する</span>
+            </a>
+          </div>
+        <% when 'good' %>
+          <p>グッドはメモとしても使えます！</p>
+          <p>キーワード検索をして役立つ情報には</p>
+          <p>どんどんグッドをしましょう！</p>
+          <div class="no-link">
+            <a href="<%= search_path %>">
+              <%= fa_icon("search") %><span>検索する</span>
+            </a>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
