@@ -15,21 +15,26 @@
 <% else %>
   <div class="content">
     <div class="page-title c">
-      <div class="top-text">
-        <%= image_tag("/images/apps_icon5.png", size: 90) %>
+      <div class="top-title">
+        <%= image_tag("/images/apps_icon1.png", size: 90) %>
         <span class="logo-font">Mysize</span>
       </div>
     </div>
-    <h2 class="c">～開発中～</h2>
-    <div class="c button twitter-color">
+    <div class="top-main">
+      <h2 class="top-text c">
+        <p>スニーカー好きのための</p>
+        <p>スニーカーに特化したSNS</p>
+      </h2>
+    </div>
+    <div class="c button button-large twitter-color">
       <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", 'auth/twitter' %>
     </div>
-    <div class="c button accent">
+    <div class="c button button-large accent">
       <%= link_to "MysizeIDで登録する", signup_path %>
     </div>
     <div class="c atention">
       <p>
-        <%= link_to "MysizeIDでログインする", login_path %>
+        <%= link_to fa_icon("sign-in") + " MysizeIDでログインする", login_path %>
       </p>
     </div>
   </div>

@@ -95,7 +95,7 @@ select {
   text-align: center;
 }
 
-.top-text {
+.top-title {
   background: #fff;
   height: 150px;
   margin: 0 auto;
@@ -116,6 +116,13 @@ select {
     float: left;
     font-size: 100px;
     line-height: 130px;
+  }
+}
+
+.top-main {
+  margin-bottom: 60px;
+  .top-text {
+    font-size: 20px;
   }
 }
 
@@ -531,6 +538,161 @@ nav {
 
   .home-list {
     width: 33.3%;
+  }
+}
+
+/* about */
+
+.about-logo {
+  color: $accent;
+  display: inline-block;
+  font-size: 1.8em;
+  font-weight: 550;
+}
+
+.about-title {
+  font-size: 32px;
+  line-height: 60px;
+  margin: 30px;
+}
+
+.about-main {
+  padding: 10px 20px;
+  position: relative;
+  width: 100%;
+
+  .about-mtitle {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 80px;
+  }
+
+  .about-can {
+    margin-bottom: 120px;
+
+    .about-stitle {
+      font-size: 24px;
+      line-height: 32px;
+      margin-bottom: 30px;
+      padding: 30px 0;
+    }
+
+    ul {
+      font-size: 18px;
+      font-weight: 550;
+      padding: 0 30px;
+
+      li {
+        margin-bottom: 20px;
+
+        a {
+          color: $main;
+          text-decoration: underline;
+          text-decoration-color: $waccent;
+
+          .fa {
+            color: $waccent;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .about-list {
+    margin-bottom: 70px;
+    padding-top: 50px;
+    position: relative;
+    width: 100%;
+
+    .about-icon {
+      margin-bottom: 20px;
+      position: relative;
+
+      i {
+        display: inline-block;
+      }
+
+      .fa-archive {
+        font-size: 5em;
+        padding: 10px;
+      }
+
+      .fa-plus {
+        color: $waccent;
+        font-size: 3em;
+        height: 100px;
+        line-height: 100px;
+        vertical-align: top;
+      }
+
+      .fa-search {
+        font-size: 6em;
+        padding: 10px;
+      }
+
+      .fa-question {
+        color: $waccent;
+        font-size: 2.5em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-86.5%,-60%);
+        vertical-align: top;
+      }
+
+      .fa-user,
+      .fa-users {
+        font-size: 5.5em;
+        height: 120px;
+        line-height: 100px;
+        padding: 10px;
+        vertical-align: top;
+      }
+
+      .fa-users {
+        font-size: 4.5em;
+      }
+
+      .fa-handshake-o {
+        color: $waccent;
+        font-size: 2.5em;
+        height: 120px;
+        line-height: 120px;
+        margin: 0 5px;
+      }
+    }
+
+    .about-text {
+      font-size: 22px;
+
+      h4 {
+        margin-bottom: 20px;
+      }
+
+      .text {
+        p {
+          font-size: 13.5px;
+          margin: 0;
+        }
+
+        .mb {
+          margin-bottom: 20px;
+        }
+
+        .sfont {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .about-lead {
+    margin-bottom: 30px;
+
+    .about-text h4 {
+      font-size: 20px;
+    }
   }
 }
 
@@ -1309,6 +1471,10 @@ nav {
 
 .button-middle {
   width: 70%;
+}
+
+.button-large {
+  width: 80%;
 }
 
 .button:hover {
