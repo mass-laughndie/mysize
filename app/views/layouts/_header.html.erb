@@ -33,8 +33,12 @@
     <div class="header header-right alist">
       <% if content_for?(:right_header) %>
         <%= yield(:right_header) %>
-      <% else %>
+      <% elsif logged_in? %>
         <%= link_to fa_icon("plus-square"), upload_path, class: "right-header" %>
+      <% else %>
+        <a class="right-header jump" data-scroll="-50" href="<%= about_path(about: 'on1') %>#about-can3">
+          <%= fa_icon("plus-square") %>
+        </a>
       <% end %>
     </div>
   </div>

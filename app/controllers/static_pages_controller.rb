@@ -19,6 +19,9 @@ class StaticPagesController < ApplicationController
   end
 
   def about
+    if !logged_in? && params[:about].in?(['on1', 'on2', 'on3'])
+      flash.now[:danger] = "ログインまたは登録をお願いします。"
+    end
   end
 
   def terms

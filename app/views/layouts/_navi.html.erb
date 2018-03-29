@@ -11,19 +11,29 @@
       <%= link_to fa_icon("search"), search_path %>
     </div>
     <div class="nav-link alist">
-      <%= link_to(notice_path) do %>
-        <i class="fa fa-bell">
-          <% if logged_in? %>
+      <% if logged_in? %>
+        <%= link_to(notice_path) do %>
+          <i class="fa fa-bell">
             <% ncount = current_user.notices.pluck(:unread_count).sum %>
             <% if ncount > 0 %>
               <span id="notice-count"><%= ncount %></span>
             <% end %>
-          <% end %>
-        </i>
+          </i>
+        <% end %>
+      <% else %>
+        <a class="right-header jump" data-scroll="-50" href="<%= about_path(about: 'on2') %>#about-can3">
+          <%= fa_icon("bell") %>
+        </a>
       <% end %>
     </div>
     <div class="nav-link alist">
-      <%= link_to fa_icon("comment"), comments_path %>
+      <% if logged_in? %>
+        <%= link_to fa_icon("comments"), comments_path %>
+      <% else %>
+        <a class="right-header jump" data-scroll="-50" href="<%= about_path(about: 'on3') %>#about-can3">
+          <%= fa_icon("comments") %>
+        </a>
+      <% end %>
     </div>
   </div>
 </nav>

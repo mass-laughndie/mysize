@@ -59,10 +59,12 @@
 </div>
 <div class="profile-bottom">
   <div class="user-profile autolink">
-    <% unless user.content.blank? %>
+    <% if !user.content.blank? %>
       <%= user.content %>
+    <% elsif current_user?(user) %>
+      <p>プロフィールが未記入です。まずは「プロフィール編集」からあなたのことを記入しましょう！</p>
     <% else %>
-      プロフィールが未記入です。
+      <p>プロフィールが未記入です。</p>
     <% end %>
   </div>
   <div class="follow-info">

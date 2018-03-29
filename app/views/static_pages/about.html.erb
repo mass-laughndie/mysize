@@ -3,33 +3,44 @@
 <% provide(:og_url, about_url) %>
 
 <div class="content-sspace">
-  <div class="ps-page-title">
+  <div class="ps-page-title c">
     <h1 class="about-title">
-      <span class="logo-font about-logo">Mysize</span>とは？
+      <span class="logo-font about-logo">Mysize</span> とは
     </h1>
-  </div>
-  <div class="about-main c">
+    <div class="about-title-icon">
+      <%= image_tag('/images/apps_icon1.png', size: 110) %>
+      <%= fa_icon('question') %>
+    </div>
     <h2 class="about-mtitle">
       <p>スニーカー好きのための</p>
-      <p>スニーカーに特化したSNSです。</p>
-    </h3>
-    <div class="about-can">
-      <h3 class="about-stitle" id="about-can3">
-        <span class="logo-font about-logo">Mysize</span>でできる３つのこと
+      <p>スニーカーに特化したSNSです</p>
+    </h2>
+  </div>
+  <div class="about-main c">
+    <p class="about-down">
+      <a class="jump" data-scroll="-50" class="about-stitle" href="<%= about_path %>#about-can3">
+        <%= fa_icon('hand-o-down') %>
+      </a>
+    </p>
+    <div class="about-can"  id="about-can3">
+      <h3 class="about-stitle">
+        <a class="jump" data-scroll="-50" class="about-stitle" href="<%= about_path %>#about-can3">
+          <span class="logo-font about-logo">Mysize</span>でできる３つのこと
+        </a>
       </h3>
       <ul>
         <li>
-          <a href="#about-post">
+          <a class="jump" data-scroll="-51" href="<%= about_path %>#about-post">
             <%= fa_icon('chevron-circle-right') %>マイスニーカーを簡単に記録して公開できる！
           </a>
         </li>
         <li>
-          <a href="#about-search">
+          <a class="jump" data-scroll="-51" href="<%= about_path %>#about-search">
             <%= fa_icon('chevron-circle-right') %>欲しかったあのスニーカーのサイズ感がすぐに分かる！
           </a>
         </li>
         <li>
-          <a href="#about-friend">
+          <a class="jump" data-scroll="-51" href="<%= about_path %>#about-friend">
             <%= fa_icon('chevron-circle-right') %>スニーカー仲間の和を広げることができる！
           </a>
         </li>
@@ -115,7 +126,7 @@
         </div>
       </div>
     </div>
-    <div class="about-lead">
+    <div class="about-lead" id="about-lead">
       <% if logged_in? %>
         <div class="c button-back button-mini">
           <a href="<%= root_path %>">
@@ -129,17 +140,26 @@
           </h4>
         </div>
         <div class="c button button-large twitter-color">
-          <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", 'auth/twitter' %>
+          <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
         </div>
         <div class="c button button-large accent">
           <%= link_to "MysizeIDで登録する", signup_path %>
         </div>
-        <div class="c atention">
+        <div class="c atention font-accent">
           <p>
             <%= link_to fa_icon("sign-in") + " MysizeIDでログインする", login_path %>
           </p>
         </div>
       <% end %>
     </div>
+    <% unless logged_in? %>
+      <div class="fix-lead" id="scroll">
+        <a class="jump" href="<%= about_path %>#about-lead">
+          <p>登録</p>
+          <p>ログイン</p>
+          <p><%= fa_icon('chevron-circle-down') %></p>
+        </a>
+      </div>
+    <% end %>
   </div>
 </div>
