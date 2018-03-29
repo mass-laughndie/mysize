@@ -9,7 +9,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.welcome(@user)
     mail.transport_encoding = "8bit"
     assert_equal "Welcome to Mysize!!!",  mail.subject
-    assert_equal ["noreply@mysize.net"],  mail.from
+    assert_equal ["noreply@mysize-sneakers.com"],  mail.from
     assert_equal [@user.email],           mail.to
     # assert_match root_url,               mail.body.encoded
   end
@@ -20,7 +20,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.password_reset(@user)
     mail.transport_encoding = "8bit"
     assert_equal "パスワード再設定URL発行",    mail.subject
-    assert_equal ["noreply@mysize.net"],  mail.from
+    assert_equal ["noreply@mysize-sneakers.com"],  mail.from
     assert_equal [@user.email],           mail.to
     # assert_match @user.reset_token,       mail.body.encoded
     # assert_match @user.e_token,           mail.body.encoded
