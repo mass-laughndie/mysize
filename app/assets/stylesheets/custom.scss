@@ -95,27 +95,35 @@ select {
   text-align: center;
 }
 
-.top-text {
-  background: #fff;
-  height: 150px;
+.top-title {
   margin: 0 auto;
-  padding: 10px;
-  width: 270px;
+  width: 100%;
 
   img {
-    display: inline-block;
-    float: left;
-    height: 80px;
-    margin: 25px 10px;
-    width: 80px;
+    width: 100%;
+  }
+}
+
+.top-main {
+  margin-bottom: 40px;
+
+  .top-text {
+    font-size: 20px;
+    margin-bottom: 20px;
   }
 
-  span {
-    color: $accent;
-    display: inline-block;
-    float: left;
-    font-size: 100px;
-    line-height: 130px;
+  .top-lead {
+    margin-bottom: 20px; 
+
+    .about-stitle {
+      color: $main;
+      font-size: 20px;
+    }
+
+    a {
+
+      font-weight: 500;
+    }
   }
 }
 
@@ -185,6 +193,12 @@ select {
   background: rgba(255,0,0,0.05);
   border-radius: 5px;
   padding: 5px 20px;
+}
+
+.font-accent {
+  a, p, span {
+    color: $waccent !important;
+  }
 }
 
 header {
@@ -524,6 +538,33 @@ nav {
   height: 70px;
 }
 
+.fix-lead {
+  position: fixed;
+  bottom: 60px;
+  display: none;
+  right: 5%;
+  z-index: 90;
+
+  a {
+    background: rgba(0,0,0,0.06);
+    border-radius: 10px;
+    display: block;
+    height: 90px;
+    padding: 10px 0;
+    width: 60px;
+
+    p {
+      color: $waccent;
+      font-size: 12.5px;
+      font-weight: 500;
+
+      .fa {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
 /* home */
 
 .home-select {
@@ -531,6 +572,199 @@ nav {
 
   .home-list {
     width: 33.3%;
+  }
+}
+
+/* about */
+
+.about-logo {
+  color: $accent !important;
+  display: inline-block;
+  font-size: 1.8em;
+  font-weight: 550;
+}
+
+.about-title {
+  font-size: 32px;
+  line-height: 60px;
+  padding: 20px 30px 30px;
+}
+
+.about-title-icon {
+  height: 160px;
+  line-height: 160px;
+  margin: 0 auto 40px;
+  position: relative;
+
+  img {
+    position :relative;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .fa {
+    font-size: 5.5em;
+    line-height: 160px;
+    margin: 0 20px;
+    transform: rotate(20deg);
+    vertical-align: top;
+  }
+}
+
+.about-mtitle {
+  font-size: 20px;
+  line-height: 32px;
+  margin-bottom: 10px;
+}
+
+.about-stitle {
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 30px;
+  padding: 30px 0;
+  a {
+    color: $main;
+  }
+}
+
+.about-main {
+  padding: 10px 20px;
+  position: relative;
+  width: 100%;
+
+  .about-down a {
+    display: block;
+    height: 40px;
+    margin: 0 auto;
+    width: 40px;
+
+    .fa {
+      color: $main;
+      font-size: 2em;
+      line-height: 40px;
+    }
+  }
+
+  .about-can {
+    margin-bottom: 100px;
+
+    ul {
+      font-size: 18px;
+      font-weight: 550;
+      padding: 0 30px;
+
+      li {
+        margin-bottom: 30px;
+
+        a {
+          color: $main;
+          text-decoration: underline;
+          text-decoration-color: $waccent;
+
+          .fa {
+            color: $waccent;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .about-list {
+    margin-bottom: 70px;
+    padding-top: 50px;
+    position: relative;
+    width: 100%;
+
+    .about-icon {
+      margin-bottom: 20px;
+      position: relative;
+
+      i {
+        display: inline-block;
+      }
+
+      .fa-archive {
+        font-size: 5em;
+        padding: 10px;
+      }
+
+      .fa-plus {
+        color: $waccent;
+        font-size: 3em;
+        height: 100px;
+        line-height: 100px;
+        vertical-align: top;
+      }
+
+      .fa-search {
+        font-size: 6em;
+        padding: 10px;
+      }
+
+      .fa-question {
+        color: $waccent;
+        font-size: 2.5em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-86.5%,-60%);
+        vertical-align: top;
+      }
+
+      .fa-user,
+      .fa-users {
+        font-size: 5.5em;
+        height: 120px;
+        line-height: 100px;
+        padding: 10px;
+        vertical-align: top;
+      }
+
+      .fa-users {
+        font-size: 4.5em;
+      }
+
+      .fa-handshake-o {
+        color: $waccent;
+        font-size: 2.5em;
+        height: 120px;
+        line-height: 120px;
+        margin: 0 5px;
+      }
+    }
+
+    .about-text {
+      font-size: 22px;
+
+      h4 {
+        margin-bottom: 20px;
+      }
+
+      .text {
+        p {
+          font-size: 13.5px;
+          margin: 0;
+        }
+
+        .mb {
+          margin-bottom: 20px;
+        }
+
+        .sfont {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .about-lead {
+    margin-bottom: 30px;
+
+    .about-text h4 {
+      font-size: 20px;
+    }
   }
 }
 
@@ -1282,11 +1516,12 @@ nav {
 /* button, form */
 
 .button {
-  width: 100%;
   font-size: 1em;
   height: 40px;
   border-radius: 5px;
-  margin: 25px auto;
+  margin: 35px auto;
+  max-width: 320px;
+  width: 100%;
 
   input,
   a {
@@ -1305,10 +1540,17 @@ nav {
 
 .button-mini {
   width: 40%;
+  max-width: 130px;
 }
 
 .button-middle {
   width: 70%;
+  max-width: 220px;
+}
+
+.button-large {
+  width: 80%;
+  max-width: 260px;
 }
 
 .button:hover {

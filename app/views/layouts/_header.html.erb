@@ -25,7 +25,7 @@
         <%= yield(:center_header) %>
       <% else %>
         <a class="logo-text" href="<%= root_path %>">
-          <%= image_tag("/images/apps_icon5.png", size: 24) %>
+          <%= image_tag("/images/apps_icon1.png", size: 24) %>
           <span class="logo-font">Mysize</span>
         </a>
       <% end %>
@@ -33,8 +33,12 @@
     <div class="header header-right alist">
       <% if content_for?(:right_header) %>
         <%= yield(:right_header) %>
-      <% else %>
+      <% elsif logged_in? %>
         <%= link_to fa_icon("plus-square"), upload_path, class: "right-header" %>
+      <% else %>
+        <a class="right-header jump" data-scroll="-50" href="<%= about_path(about: 'on1') %>#about-can3">
+          <%= fa_icon("plus-square") %>
+        </a>
       <% end %>
     </div>
   </div>

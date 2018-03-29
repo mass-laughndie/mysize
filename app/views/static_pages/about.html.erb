@@ -2,10 +2,164 @@
 <% provide(:og_title, "このサイトについて") %>
 <% provide(:og_url, about_url) %>
 
-<div class="content">
-  <div class="page-title">
-    <h1 class="title-text">このサイトについて</h1>
+<div class="content-sspace">
+  <div class="ps-page-title c">
+    <h1 class="about-title">
+      <span class="logo-font about-logo">Mysize</span> とは
+    </h1>
+    <div class="about-title-icon">
+      <%= image_tag('/images/apps_icon1.png', size: 110) %>
+      <%= fa_icon('question') %>
+    </div>
+    <h2 class="about-mtitle">
+      <p>スニーカー好きのための</p>
+      <p>スニーカーに特化したSNSです</p>
+    </h2>
   </div>
-  <div class="content">
+  <div class="about-main c">
+    <p class="about-down">
+      <a class="jump" data-scroll="-50" class="about-stitle" href="<%= about_path %>#about-can3">
+        <%= fa_icon('hand-o-down') %>
+      </a>
+    </p>
+    <div class="about-can"  id="about-can3">
+      <h3 class="about-stitle">
+        <a class="jump" data-scroll="-50" class="about-stitle" href="<%= about_path %>#about-can3">
+          <span class="logo-font about-logo">Mysize</span>でできる３つのこと
+        </a>
+      </h3>
+      <ul>
+        <li>
+          <a class="jump" data-scroll="-51" href="<%= about_path %>#about-post">
+            <%= fa_icon('chevron-circle-right') %>マイスニーカーを簡単に記録して公開できる！
+          </a>
+        </li>
+        <li>
+          <a class="jump" data-scroll="-51" href="<%= about_path %>#about-search">
+            <%= fa_icon('chevron-circle-right') %>欲しかったあのスニーカーのサイズ感がすぐに分かる！
+          </a>
+        </li>
+        <li>
+          <a class="jump" data-scroll="-51" href="<%= about_path %>#about-friend">
+            <%= fa_icon('chevron-circle-right') %>スニーカー仲間の和を広げることができる！
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="about-list" id="about-post">
+      <div class="about-icon">
+        <%= fa_icon('archive') %>
+        <%= fa_icon('plus') %>
+      </div>
+      <div class="about-text">
+        <h4>マイスニーカーを<br>簡単に記録して公開できる！</h4>
+        <div class="text">
+          <p class="mb">あなたの愛用していたり、家の部屋や倉庫に眠っている大切なスニーカーはありませんか？</p>
+          <p>せっかく手に入れた想い入れのあるスニーカーの</p>
+          <p class="mb">感動や思い出も時間とともに色あせてしまっていませんか？</p>
+          <p>Mysizeでは手に入れたときの『エピソード』や</p>
+          <p>足を通したときの『感触』、</p>
+          <p>『サイズ感』や『履き心地』など、</p>
+          <p>あなたのスニーカーのあらゆることを好きなように記録して</p>
+          <p class="mb">手のひらに大切に保管しておくことができます！
+          </p>
+          <p>また、それを公開することで</p>
+          <p>エピソードを共有したり、</p>
+          <p class="mb">同じスニーカーを手に入れたい人に情報を提供したりすることもできます！
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="about-list" id="about-search">
+      <div class="about-icon">
+        <%= fa_icon('search') %>
+        <%= fa_icon('question') %>
+      </div>
+      <div class="about-text">
+        <h4>欲しかったあのスニーカーの<br>サイズ感がすぐに分かる！</h4>
+        <div class="text">
+          <p>スニーカーをオンラインやフリマサイトなどで購入しようとしたときに問題になってくるのが</p>
+          <p class="mb">サイズ感が正確に分からないということです。</p>
+          </p>
+          <p class="mb">
+            実際に試着できればいいのですが、店頭に行っても種類によっては完売していて試着できなかったり、そもそも店頭に行く手間も省きたかったりすることもあります。
+          </p>
+          <p class="mb">
+            また、同じ種類のスニーカーでもカラーや製造年によってサイズ感にばらつきがあったりもして、一層、スニーカーのサイズ感を正確に知ることを困難にしています。
+          </p>
+          <p>運営者自身もそんなとき、ネットで検索して探したり、</p>
+          <p>フリマサイトの出品者に質問したり、</p>
+          <p>履いている仲間に聞いたりしていましたが、</p>
+          <p class="mb">情報があちこちに分散していて、収集する手間も時間もかかりました。</p>
+          <p class="mb">それに、より正確に調べるために他のスニーカーのサイズ感も参考にしたくなったりもしました。</p>
+          <p>Mysizeではユーザー登録の際にスニーカーのベースサイズを登録してもらい、</p>
+          <p class="mb">プロフィールにもベースにしているスニーカーの記載を推奨しています。</p>
+          <p>また、スニーカーの投稿をする際にも必ずそのスニーカーのサイズを記録する必要があるので、</p>
+          <p>ベースサイズや他のスニーカーのサイズと比較しながら、手に入れたいスニーカーのサイズ感をより正確に調べることができます。</p>
+          <p class="mb sfont">(※必ずしも正確なサイズを保証するものではありません。)</p>
+          <p>『Mysizeを見れば、欲しいスニーカーのサイズ感のことがすぐに分かる！』</p>
+          <p class="mb">そんな場所を目指して、運営しています！</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-list" id="about-friend">
+      <div class="about-icon">
+        <%= fa_icon('user') %>
+        <%= fa_icon('handshake-o') %>
+        <%= fa_icon('users') %>
+      </div>
+      <div class="about-text">
+        <h4>スニーカー仲間の和を<br>広げることができる！</h4>
+        <div class="text">
+          <p class="mb">
+            Mysizeはスニーカー好きな人たちが集まってスニーカーに関する様々なことを共有できる場です。
+          </p>
+          <p class="mb">
+            サイズ感が同じ人やスニーカー争奪戦を共にした人、ためになる情報を教えてくれる人や、自分と似た境遇の人など、いろんなスニーカー好きな人たちを見つけることができるかもしれません。
+          </p>
+          <p class="mb">
+            見つけたら、その人をフォローしたり、かっこいいスニーカーやおもしろいエピソード、役に立った情報にはグッドをして気持ちを伝えたり、コメントや質問をすることもできます。
+          </p>
+          <p class="mb">
+            スニーカーという共通の趣味、生きがいを通して、交流を深めることで仲間の和を広げることができるでしょう！
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="about-lead" id="about-lead">
+      <% if logged_in? %>
+        <div class="c button-back button-mini">
+          <a href="<%= root_path %>">
+            <%= fa_icon("caret-left") %><span>TOPへ</span>
+          </a>
+        </div>
+      <% else %>
+        <div class="about-text">
+          <h4>
+            早速、<span class="logo-font about-logo">Mysize</span>を始めましょう！
+          </h4>
+        </div>
+        <div class="c button button-large twitter-color">
+          <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
+        </div>
+        <div class="c button button-large accent">
+          <%= link_to "MysizeIDで登録する", signup_path %>
+        </div>
+        <div class="c atention font-accent">
+          <p>
+            <%= link_to fa_icon("sign-in") + " MysizeIDでログインする", login_path %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+    <% unless logged_in? %>
+      <div class="fix-lead" id="scroll">
+        <a class="jump" href="<%= about_path %>#about-lead">
+          <p>登録</p>
+          <p>ログイン</p>
+          <p><%= fa_icon('chevron-circle-down') %></p>
+        </a>
+      </div>
+    <% end %>
   </div>
 </div>
