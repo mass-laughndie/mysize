@@ -1,19 +1,20 @@
 
-  <footer class="my-footer">
+  <footer>
     <% unless logged_in? %>
-    <div class="links">
+    <div class="footer-link">
       <%= link_to fa_icon("caret-right") + "登録/ログインはTOPへ", root_path %>
     </div>
     <% end %>
-    <div class="links">
-        <%= link_to "ヘルプ", help_path %>
+    <div class="footer-link">
         <%= link_to "Mysize とは",   about_path %>
         <%= link_to "お問い合わせ", new_contact_path %>
         <%= link_to "利用規約", terms_path %>
         <%= link_to "プライバシーポリシー", privacy_path %>
     </div>
-    <div class="links">
+    <div class="twitter-link c">
       <%= link_to fa_icon("twitter"), '#' %>
     </div>
-    <%= link_to fa_icon("copyright") + "2018 Mysize", root_path %>
+    <div class="footer-link copyright">
+      <%= link_to fa_icon("copyright") + "2018 Mysize", root_path %>
+    </div>
   </footer>
