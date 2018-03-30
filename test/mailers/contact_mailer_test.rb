@@ -10,7 +10,7 @@ class ContactMailerTest < ActionMailer::TestCase
     mail = ContactMailer.received_message(@contact)
     mail.transport_encoding = "8bit"
     assert_equal "お問い合わせを受け取りました。(お問い合わせ番号 #{@contact.id})", mail.subject
-    assert_equal ["noreply@mysize.net"],  mail.from
+    assert_equal ["noreply@mysize-sneakers.com"],  mail.from
     assert_equal ["mysize_sns@outlook.com"], mail.to
     #assert_match "Hi", mail.body.encoded
   end

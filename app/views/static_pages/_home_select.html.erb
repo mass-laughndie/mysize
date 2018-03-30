@@ -6,6 +6,10 @@
     <%= link_to "フォロー中", root_path %>
   </div>
   <div class="select-list home-list alist aline">
-    <%= link_to "写真", root_path(display: 'square') %>
+    <% if logged_in? %>
+      <%= link_to "写真", root_path(display: 'square') %>
+    <% else %>
+      <%= link_to "写真", root_path %>
+    <% end %>
   </div>
 </div>

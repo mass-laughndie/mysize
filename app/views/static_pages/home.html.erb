@@ -3,7 +3,7 @@
   <% og_title = "フォロー中" %>
 <% else %>
   <% title = "" %>
-  <% og_title = "Mysize -スニーカーサイジング共有SNS-" %>
+  <% og_title = "Mysize(マイサイズ) -スニーカーSNS-" %>
 <% end %>
 <% provide(:title, title) %>
 <% provide(:og_title, og_title) %>
@@ -13,24 +13,35 @@
   <%= render partial: 'static_pages/home_logged_in',
              locals: { target: nil } %>
 <% else %>
-  <div class="content">
+  <div class="content-fspace">
     <div class="page-title c">
-      <div class="top-text">
-        <%= image_tag("/images/apps_icon5.png", size: 90) %>
-        <span class="logo-font">Mysize</span>
+      <div class="top-title c">
+        <%= image_tag("/images/top-logo.png") %>
       </div>
     </div>
-    <h2 class="c">～開発中～</h2>
-    <div class="c button twitter-color">
-      <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", 'auth/twitter' %>
+    <div class="top-main c" id="top-main">
+      <h2 class="top-text">
+        <p>スニーカー好きのための</p>
+        <p>スニーカーに特化したSNS</p>
+      </h2>
+      <div class="top-lead">
+        <div class="text" style="margin: 0;">
+          <p><small>初めての方はここをクリック！</small></p>
+          <p><%= fa_icon('hand-o-down') %></p>
+        </div>
+        <a class="about-stitle jump" data-scroll="-51" href="<%= about_path %>#about-can3">
+          <span class="logo-font about-logo">Mysize</span>でできる３つのこと
+        </a>
+      </div>
     </div>
-    <div class="c button accent">
+    <div class="c button button-large twitter-color">
+      <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
+    </div>
+    <div class="c button button-large accent">
       <%= link_to "MysizeIDで登録する", signup_path %>
     </div>
-    <div class="c atention">
-      <p>
-        <%= link_to "MysizeIDでログインする", login_path %>
-      </p>
+    <div class="c button mini-button waccent">
+      <%= link_to fa_icon("sign-in") + " MysizeIDでログイン", login_path %>
     </div>
   </div>
 <% end %>

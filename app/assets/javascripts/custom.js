@@ -23,9 +23,8 @@ function escapeHtml(string) {
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     if ( $("#flash").length != 0 ) {
-      //slideさせるために一旦非表示 -> slide表示
+      //slideさせるために一旦非表示
       $('#flash').css('display', 'none').slideDown('fast');
-      //3秒後slide非表示
       setTimeout( function(){
         $("#flash").slideUp('fast');
       }, 3000);
@@ -63,7 +62,7 @@ function setReply(_this) {
     rclass = $('#comment-' + comID).attr('class'),
     replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
 
-  //reply_id　== 0(返信先がコメントの場合)
+  //返信先がコメントの場合
   if ( replyID == 0 ) {
     $('#reply-id').attr('value', comID);          //返信先のIDを挿入(=>reply_id)
   //それ以外(返信先がリプライの場合)
@@ -388,7 +387,7 @@ document.addEventListener('turbolinks:load', function() {
 */
 
 //アンカーポイントへジャンプ
-function jumpScroll(_this, _point) {
+function jumpScroll(_this, _point, time) {
   var target = $(_point == '#' || _point == '' ? $('html') : _point );
   if ( target.length == 0 ) target = $('html');
   var
@@ -399,7 +398,7 @@ function jumpScroll(_this, _point) {
   //Android対応処理
   if ( position <= 0 ) position = 1;
   //ページ上部をpositionの位置へ500msでswing
-  $("html, body").animate({ scrollTop : position }, 500, 'swing');
+  $("html, body").animate({ scrollTop : position }, Number(time), 'swing');
 }
 
 //ページ遷移 or アンカーポイントへジャンプ
@@ -409,23 +408,30 @@ document.addEventListener('turbolinks:load', function() {
       var
         _this = $(this);
         link = _this.attr('href'),                  //アンカーリンク先
-        index = link.indexOf('#comment'),
-        point = link.slice(index),                  //「#comment-<id>」(location.hash)
+        index = link.indexOf('#'),
+        point = link.slice(index),                  //link先のlocation.hash
         linkPath = link.replace(point, ''),         //リンク先のpathname
         nowPath = window.location.pathname;         //現在のpathname
 
       //遷移先にいない場合
       if ( linkPath != nowPath　) {
-        window.location.href = linkPath + escapeHtml(point);    //遷移先へ
+        window.location.href = linkPath + escapeHtml(point);
         return false;
       }
 
-      //(既に遷移先にいて)pointが正しい場合
+      //遷移先にいる場合(comment用)
       if ( point.match(/#comment/) != null ) {
         e.preventDefault();           //リクエストキャンセル
-        jumpScroll(_this, point);     //ジャンプ
+        jumpScroll(_this, point, 500);     //ジャンプ
+        return false;
       }
-      return false;
+
+      //遷移先にいる場合(about用)
+      if ( point.match(/#about/) != null ) {
+        e.preventDefault();           //リクエストキャンセル
+        jumpScroll(_this, point, 1000);     //ジャンプ
+        return false;
+      }
     });
   });
 });
@@ -442,7 +448,7 @@ document.addEventListener('turbolinks:load', function() {
       //_hashが空でない && 対象commentが存在する 場合
       if ( _hash !== '' && _comment.length != 0 ) {
         _comment.css('background', 'rgba(255, 0, 0, 0.05)');
-        jumpScroll($('.jump'), _hash);
+        jumpScroll($('.jump'), _hash, 500);
         $('#reply-active').find('a').addClass("active");      //active化
 
         //他ページからのreplyボタン遷移の場合
@@ -451,6 +457,51 @@ document.addEventListener('turbolinks:load', function() {
             setReply(_comment);         //スクロール後にsetReply
           }, 510);
         }
+      }
+    }
+    return false;
+  });
+});
+
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('.jump').length != 0
+         && window.location.pathname.match(/about/) != null　) {
+      var
+        _hash = escapeHtml(window.location.hash),     //URLの「#~」
+        target = $('.about-main').find(_hash);       //対象comment
+
+      if ( _hash !== '' && target.length != 0 ) {
+        jumpScroll($('.jump'), _hash, 1000);
+      }
+    }
+  });
+});
+
+function scrollOut(_target, _point) {
+  $(window).scroll(function() {
+    var distance = $(window).scrollTop();
+    if ( _point >= distance ) {
+      _target.fadeIn();
+    } else if ( _point <= distance ) {
+      _target.fadeOut();
+    }
+  });
+}
+
+//Aboutページの登録ログインリード表示
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#scroll').length != 0 ) {
+      setTimeout(function() {
+        $('#scroll').slideDown();
+      }, 3000);
+
+      if ( $('#about-lead').length != 0 ) {
+        setTimeout(function() {
+          var point = $('#about-lead').offset().top - 400;
+          scrollOut($('#scroll'), point);
+        }, 3100);
       }
     }
     return false;

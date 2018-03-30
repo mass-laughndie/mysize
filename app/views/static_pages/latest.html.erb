@@ -4,3 +4,12 @@
 
 <%= render partial: 'static_pages/home_logged_in',
            locals: { target: nil } %>
+<% unless logged_in? %>
+  <div class="fix-lead c" id="scroll">
+    <a href="<%= root_path %>#top-main">
+      <p>登録</p>
+      <p>ログイン</p>
+      <p><%= fa_icon('sign-in') %></p>
+    </a>
+  </div>
+<% end %>
