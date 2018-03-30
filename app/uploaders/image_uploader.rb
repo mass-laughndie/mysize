@@ -2,11 +2,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
+  include Piet::CarrierWaveExtension
 
   process :fix_exif_rotation  #１番目固定
   process resize_to_fill: [100,100]
+  process optimize: [quality: 100]
   process convert: 'jpg'
-  process quality: 100
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.development? || Rails.env.test?
