@@ -19,6 +19,6 @@
   </div>
 <% else %>
   <%= render partial: 'shared/no_data',
-                 locals: { user: @post.user,
-                           target: "person" } %>
+                 locals: { icon: 'user',
+                           text: nil } %>
 <% end %>

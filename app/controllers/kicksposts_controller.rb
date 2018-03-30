@@ -7,6 +7,7 @@ class KickspostsController < ApplicationController
 
   def show
     @comments = @kickspost.comments.includes(:user, :goods, :replies).where(reply_id: 0)
+    @text = "detail"
   end
 
   def new
@@ -58,7 +59,7 @@ class KickspostsController < ApplicationController
   private
 
     def kicksposts_params
-      params.require(:kickspost).permit(:picture, :picture_cache, :size, :content)
+      params.require(:kickspost).permit(:title, :content, :picture, :picture_cache, :size,)
     end
 
     def set_and_check_kickspost

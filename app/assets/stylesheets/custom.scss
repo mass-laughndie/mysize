@@ -1110,6 +1110,28 @@ footer {
         }
       }
     }
+
+    .twitter-act {
+      background: $base-grey;
+      border-radius: 50%;
+      float: left;
+      height: 24px;
+      margin: 5px;
+      width: 24px;
+
+      a {
+        display: block;
+        height: 34px;
+        margin: -5px;
+        width: 34px;
+
+        i {
+          color: $base;
+          line-height: 34px;
+          font-size: 12.5px;
+        }
+      }
+    }
   }
 
   .ppost-num {
@@ -1133,6 +1155,11 @@ footer {
 .ppost-bottom {
   font-size: 12px;
   padding: 0 16px;
+
+  .ppost-title {
+    font-size: 16px;
+    margin: 10px 0;
+  }
 
   .ppost-content {
     color: $main;
@@ -1340,8 +1367,12 @@ footer {
       }
     }
 
+    .kpost-title {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
     .kpost-content {
-      color: $main;
       font-size: 12.5px;
       font-weight: 500;
     }
@@ -1407,7 +1438,8 @@ footer {
         float: left;
         font-size: 12.5px;
         line-height: 20px;
-        a {
+
+        a, span {
           display: block;
           min-width: 30px;
           padding: 0 10px;
@@ -1456,7 +1488,7 @@ footer {
       }
 
       .kpost-picture {
-        margin: 5px 0 30px;
+        margin: 5px 0 60px;
         position: relative;
         height: 55px;
         width: 55px;

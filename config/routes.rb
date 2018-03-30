@@ -56,8 +56,10 @@ Rails.application.routes.draw do
   resource   :notice,     only: [:show, :create, :destroy]
   resources  :goods,      only: [:create, :destroy]
   
+=begin
   resources  :comments,   only: [:index, :show],
                           path: '/talk'
+=end
   
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],

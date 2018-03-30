@@ -28,7 +28,7 @@
   <div class="ppost-middle">
     <div class="ppost-main">
       <div class="ppost-picture">
-        <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
+        <%= link_to image_tag('/images/grey.gif', alt: kickspost.title,
                     class: 'lazyload', data: { src: picture_url(kickspost) } ),
                     kickspost_path(kickspost.user, kickspost) %>
       </div>
@@ -58,9 +58,22 @@
                       kickspost_path(kickspost.user, kickspost)  %>
         </div>
       </div>
+      <div class="twitter-act c">
+        <%= link_to "https://twitter.com/intent/tweet?text=" +
+            ERB::Util.url_encode(kickspost.user.name + "さんの投稿｜" +
+                                 kickspost.title + "\n") +
+            "&url=" + kickspost_url(kickspost.user, kickspost),
+            class: "kpost-alink", 
+            onclick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" do %>
+          <%= fa_icon('twitter') %>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="ppost-bottom">
+    <div class="ppost-title">
+      <h2><%= kickspost.title %></h2>
+    </div>
     <div class="ppost-content autolink">
       <%= link_to kickspost.user.mysize_id,
                   user_path(kickspost.user),

@@ -37,11 +37,17 @@
         </div>
       </div>
       <div class="label-form">
+        <%= f.label :title, "ラベル" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :title, placeholder: "スニーカーの正式名称、カラーなど" %>
+      </div>
+      <div class="label-form">
         <%= f.label :content, "投稿フォーム" %>
       </div>
       <div class="base-form base-form-area">
         <%= f.text_area :content, class: "autoheight text-area",
-          placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
+          placeholder: "スニーカーのサイズ感や履き心地、エピソードなど好きなように投稿しましょう！(500文字以内)\n\nハッシュタグも付けられます！\n(#nike #airmax ...)" %>
       </div>
       <div class="c button button-mini accent">
         <%= f.submit "投稿する", data: { disable_with: "処理中..."} %>

@@ -1,7 +1,7 @@
 <% if params[:display] == "square" %>
   <li id="square-<%= kickspost.id %>" class="square-list">
     <div class="square-picture">
-      <%= link_to image_tag('/images/grey.gif', alt: kickspost.content,
+      <%= link_to image_tag('/images/grey.gif', alt: kickspost.title,
                         class: 'cover lazyload', data: { src: picture_url(kickspost) } ),
                         kickspost_path(kickspost.user, kickspost) %>
     </div>

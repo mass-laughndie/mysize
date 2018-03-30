@@ -99,7 +99,8 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated kicksposts should be destroyed" do
     @user.save
-    @user.kicksposts.create!(content: "Lorem ipsum",
+    @user.kicksposts.create!(title: "Air max",
+                             content: "Lorem ipsum",
                              picture: open("#{Rails.root}/db/data/kicks1.jpg"),
                              size: 7)
     assert_difference 'Kickspost.count', -1 do

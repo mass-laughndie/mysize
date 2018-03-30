@@ -15,7 +15,9 @@ class Kickspost < ApplicationRecord
 
   mount_uploader :picture, PictureUploader
 
-  validates :user_id, presence: { message: "ユーザーを特定できません"}
+  validates :user_id, presence: { message: "ユーザーを特定できません" }
+  validates :title,   presence: { message: "ラベルを入力してください" },
+                      length:   { maximum: 100 }
   validates :content, presence: { message: "内容を入力してください" },
                       length:   { maximum: 500,
                                   massage: "500文字まで入力できます" }
@@ -30,10 +32,10 @@ class Kickspost < ApplicationRecord
       if search
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
-        cond = where(["content LIKE (?) OR size IN (?)", "%#{keyword_arys[0]}%", "#{size_search}"])
+        cond = where(["title LIKE (?) OR content LIKE (?) OR size IN (?)", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
-          cond = cond.where(["content LIKE (?) OR size IN (?)", "%#{keyword_arys[i]}%", "#{size_search}"])
+          cond = cond.where(["title LIKE (?) OR content LIKE (?) OR size IN (?)", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
         end
         cond
       else
@@ -97,10 +99,10 @@ class Kickspost < ApplicationRecord
 
   #返信通知の削除(cuser = current_user)
   def check_and_delete_notice_form_others_and(cuser)
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)
+    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)
     if ids.any?
       ids.each do |msid|
-        msid.delete!("@").delete!(" ")
+        msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
         other = User.find_by(mysize_id: msid)
         if other && other != cuser
           other.lose_notice_of("ReplyPost", self)     #cuser以外へのreply通知削除
