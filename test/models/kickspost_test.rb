@@ -4,7 +4,8 @@ class KickspostTest < ActiveSupport::TestCase
   
   def setup
     @user = users(:mysize1)
-    @kickspost = @user.kicksposts.build(content: "Lorem ipsum",
+    @kickspost = @user.kicksposts.build(title: "Air max",
+                                        content: "Lorem ipsum",
                                         picture: open("#{Rails.root}/db/data/kicks1.jpg"),
                                         size: 7)
   end
@@ -15,6 +16,16 @@ class KickspostTest < ActiveSupport::TestCase
 
   test "user id should be present" do
     @kickspost.user_id = nil
+    assert_not @kickspost.valid?
+  end
+
+  test "title should be present" do
+    @kickspost.title = "    "
+    assert_not @kickspost.valid?
+  end
+
+  test "title should be at most 100 characters" do
+    @kickspost.title = "a" * 101
     assert_not @kickspost.valid?
   end
 

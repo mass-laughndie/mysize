@@ -49,9 +49,11 @@ ActiveRecord::Schema.define(version: 20180314034222) do
 
   create_table "kicksposts", force: :cascade do |t|
     t.integer "user_id"
+    t.string "title"
     t.text "content"
     t.string "picture"
     t.float "size"
+    t.boolean "new_kicks", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_kicksposts_on_user_id_and_created_at"

@@ -152,7 +152,7 @@
     </div>
     <% unless logged_in? %>
       <div class="fix-lead" id="scroll">
-        <a class="jump" href="<%= about_path %>#about-lead">
+        <a class="jump" data-scroll="-50" href="<%= about_path %>#about-lead">
           <p>登録</p>
           <p>ログイン</p>
           <p><%= fa_icon('chevron-circle-down') %></p>

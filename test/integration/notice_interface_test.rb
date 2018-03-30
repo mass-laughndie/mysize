@@ -41,11 +41,13 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
 
   test "reply kickspost notice" do
     log_in_as(@other)
+    title = "Air max 97"
     content = "@user1 Wonderful!!"
     picture = fixture_file_upload('test/fixtures/kicks1.jpg', 'image/jpg')
     assert_difference '@user.notices.count', 1 do
       assert_difference '@other.kicksposts.count', 1 do
-        post upload_path, params: { kickspost: { content: content,
+        post upload_path, params: { kickspost: { title: title,
+                                                 content: content,
                                                  picture: picture,
                                                  size: 21.5 } }
       end

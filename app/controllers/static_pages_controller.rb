@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
     if logged_in?
       @user = current_user
       @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
+      @text = "short"
     end
   end
 
@@ -13,6 +14,7 @@ class StaticPagesController < ApplicationController
       @user = nil
     end
     @kicksposts = Kickspost.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
+    @text = "short"
   end
 
   def help
