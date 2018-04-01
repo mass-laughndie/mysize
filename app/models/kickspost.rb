@@ -16,8 +16,15 @@ class Kickspost < ApplicationRecord
   mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: { message: "ユーザーを特定できません" }
-  validates :title,   presence: { message: "ラベルを入力してください" },
-                      length:   { maximum: 100 }
+  validates :title,   presence: { message: "スニーカー名を入力してください" },
+                      length:   { maximum: 50,
+                                  message: "スニーカー名は最大50文字まで入力できます" }
+  validates :color,   presence: { message: "カラーを選択して下さい" },
+                      length:   { maximum: 30,
+                                  message: "カラーは最大30文字まで入力できます" }
+  validates :brand,   presence: { message: "ブランドを選択して下さい" },
+                      length:   { maximum: 30,
+                                  message: "ブランドは最大30文字まで入力できます" }
   validates :content, presence: { message: "内容を入力してください" },
                       length:   { maximum: 500,
                                   massage: "500文字まで入力できます" }
@@ -32,10 +39,12 @@ class Kickspost < ApplicationRecord
       if search
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
-        cond = where(["title LIKE (?) OR content LIKE (?) OR size IN (?)", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
+        cond = where(["title LIKE (?) OR color LIKE (?) OR brand LIKE (?) OR content LIKE (?) OR size IN (?)",
+                      "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
-          cond = cond.where(["title LIKE (?) OR content LIKE (?) OR size IN (?)", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
+          cond = cond.where(["title LIKE (?) OR color LIKE (?) OR brand LIKE (?) OR content LIKE (?) OR size IN (?)",
+                             "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
         end
         cond
       else

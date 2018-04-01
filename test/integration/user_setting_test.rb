@@ -40,22 +40,16 @@ class UserSettingTest < ActionDispatch::IntegrationTest
   test "unsuccessful edit password" do
     get password_settings_path
     assert_template 'settings/password'
-    patch password_settings_path, params: { password: "",
-                                            user: { password: "foobar",
-                                                      password_confirmation: "foobar" } }
-    assert_not flash.empty?
-    assert_template 'settings/password'
-    patch password_settings_path, params: { password: "password",
-                                            user: { password: "foo",
+    patch password_settings_path, params: { user: { password: "foo",
                                                     password_confirmation: "bar" } }
+    assert_select 'div.error'
     assert_template 'settings/password'
   end
 
   test "successful edit password" do
     get password_settings_path
     assert_template 'settings/password'
-    patch password_settings_path, params: { password: "password",
-                                            user: { password: "foobar",
+    patch password_settings_path, params: { user: { password: "foobar",
                                                     password_confirmation: "foobar" } }
     assert_not flash.empty?
     assert_redirected_to account_settings_path

@@ -59,7 +59,9 @@ class KickspostsController < ApplicationController
   private
 
     def kicksposts_params
-      params.require(:kickspost).permit(:title, :content, :picture, :picture_cache, :size,)
+      params.require(:kickspost).permit(:title, :color, :brand,
+                                        :content, :picture,
+                                        :picture_cache, :size)
     end
 
     def set_and_check_kickspost

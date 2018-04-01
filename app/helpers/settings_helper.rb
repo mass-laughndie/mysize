@@ -6,4 +6,18 @@ module SettingsHelper
     end
     ary
   end
+
+  def brand_array
+    ary = [
+      ["Adidas(アディダス)", "Adidas(アディダス)"],
+      ["Asics(アシックス)", "Asics(アシックス)"],
+      ["Converse(コンバース)", "Converse(コンバース)"],
+      ["New Balance(ニューバランス)", "New Balance(ニューバランス)"],
+      ["Nike(ナイキ)", "Nike(ナイキ)"],
+      ["Puma(プーマ)", "Puma(プーマ)"],
+      ["Reebok(リーボック)", "Reebok(リーボック)"],
+      ["Vans(バンズ)", "Vans(バンズ)"]
+    ]
+    
+  end
 end

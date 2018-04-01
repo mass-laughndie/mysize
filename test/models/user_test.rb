@@ -100,6 +100,8 @@ class UserTest < ActiveSupport::TestCase
   test "associated kicksposts should be destroyed" do
     @user.save
     @user.kicksposts.create!(title: "Air max",
+                             brand: "Nike",
+                             color: "Bred",
                              content: "Lorem ipsum",
                              picture: open("#{Rails.root}/db/data/kicks1.jpg"),
                              size: 7)
