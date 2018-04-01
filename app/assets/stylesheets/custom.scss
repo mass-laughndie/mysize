@@ -1368,9 +1368,19 @@ footer {
       }
     }
 
+    .kpost-brand {
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+
     .kpost-title {
       font-size: 14px;
       margin-bottom: 6px;
+
+      span {
+        font-size: 12px;
+        font-weight: 500;
+      }
     }
 
     .kpost-content {

@@ -33,8 +33,11 @@
             <% end %>
           </div>
           <% if type == "Kickspost" %>
+            <div class="kpost-brand">
+              <span><%= post.brand %></span>
+            </div>
             <div class="kpost-title">
-              <h2><%= post.title %></h2>
+              <h2><%= post.title %> <span>( <%= post.color %> )</span></h2>
             </div>
           <% end %>
           <% if  @text == "detail" %>

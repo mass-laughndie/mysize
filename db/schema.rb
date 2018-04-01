@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180314034222) do
+ActiveRecord::Schema.define(version: 20180401110917) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -56,6 +56,11 @@ ActiveRecord::Schema.define(version: 20180314034222) do
     t.boolean "new_kicks", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "color"
+    t.string "brand"
+    t.index ["brand"], name: "index_kicksposts_on_brand"
+    t.index ["color"], name: "index_kicksposts_on_color"
+    t.index ["title"], name: "index_kicksposts_on_title"
     t.index ["user_id", "created_at"], name: "index_kicksposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_kicksposts_on_user_id"
   end

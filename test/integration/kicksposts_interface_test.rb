@@ -12,12 +12,16 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     log_in_as(@user)
     get upload_path
+    brand = "Nike"
     title = "Air max"
+    color = "Black toe"
     content = "This kickspost really ties the room together"
     picture = fixture_file_upload('test/fixtures/kicks1.jpg', 'image/jpg')
     #タイトルなし=>無効
     assert_no_difference 'Kickspost.count' do
       post upload_path, params: { kickspost: { title: "",
+                                               brand: "",
+                                               color: "",
                                                content: content,
                                                picture: picture,
                                                size: 3 } }
@@ -25,6 +29,8 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     #コメントなし=>無効
     assert_no_difference 'Kickspost.count' do
       post upload_path, params: { kickspost: { title: title,
+                                               brand: brand,
+                                               color: color,
                                                content: "",
                                                picture: picture,
                                                size: 3 } }
@@ -33,6 +39,8 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     #画像なし=>無効
     assert_no_difference 'Kickspost.count' do
       post upload_path, params: { kickspost: { title: title,
+                                               brand: brand,
+                                               color: color,
                                                content: content,
                                                picture: "",
                                                size: 2 } }
@@ -41,6 +49,8 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     #有効な送信
     assert_difference 'Kickspost.count', 1 do
       post upload_path, params: { kickspost: { title: title,
+                                               brand: brand,
+                                               color: color,
                                                content: content,
                                                picture: picture,
                                                size: 7 } }

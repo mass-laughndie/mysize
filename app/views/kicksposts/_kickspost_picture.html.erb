@@ -71,8 +71,11 @@
     </div>
   </div>
   <div class="ppost-bottom">
+    <div class="kpost-brand">
+      <span><%= kickspost.brand %></span>
+    </div>
     <div class="ppost-title">
-      <h2><%= kickspost.title %></h2>
+      <h2><%= kickspost.title %> <span>( <%= kickspost.color %> )</span></h2>
     </div>
     <div class="ppost-content autolink">
       <%= link_to kickspost.user.mysize_id,

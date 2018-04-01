@@ -11,9 +11,6 @@ class SettingsController < ApplicationController
   def welcome_update
     @user.validate_shoesize = true
     @user.validate_name = true
-    unless @user.uid.nil?
-      @user.validate_password = true
-    end
     if @user.uid.nil? && @user.update_attributes(profile_params)
       flash[:success] = "プロフィール登録が完了しました！"
       redirect_to @user
@@ -83,15 +80,10 @@ class SettingsController < ApplicationController
 
   def password_update
     @user.validate_password = true
-    if @user.authenticate(params[:password])
-      if @user.update_attributes(password_params)
-        flash[:success] = "Passwordの変更が完了しました！"
-        redirect_to account_settings_path
-      else
-        render 'password'
-      end
+    if @user.update_attributes(password_params)
+      flash[:success] = "Passwordの変更が完了しました！"
+      redirect_to account_settings_path
     else
-      flash.now[:danger] = "Passwordが間違っています。"
       render 'password'
     end
   end
@@ -118,13 +110,11 @@ class SettingsController < ApplicationController
   private
 
     def omniauth_params
-      params.require(:user).permit(:name, :mysize_id, :size,
-                                   :password, :password_confirmation)
+      params.require(:user).permit(:name, :mysize_id, :image, :image_cache, :size)
     end
 
     def profile_params
-      params.require(:user).permit(:name, :size, :image,
-                                   :image_cache, :content)
+      params.require(:user).permit(:name, :size, :image, :image_cache, :content)
     end
 
     def email_params

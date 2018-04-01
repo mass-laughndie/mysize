@@ -45,10 +45,22 @@
         </div>
       </div>
       <div class="label-form">
-        <%= f.label :title, "ラベル" %>
+        <%= f.label :brand, "ブランド" %>
       </div>
       <div class="base-form">
-        <%= f.text_field :title, placeholder: "スニーカーの正式名称、カラーなど" %>
+        <%= f.text_field :brand, placeholder: "例) Adidas, Nike ×　Supreme" %>
+      </div>
+      <div class="label-form">
+        <%= f.label :title, "スニーカー名" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :title, placeholder: "例) Air Jordan 1" %>
+      </div>
+      <div class="label-form">
+        <%= f.label :color, "カラー" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :color, placeholder: "例) Black, White/Red" %>
       </div>
       <div class="label-form">
         <%= f.label :content, "投稿フォーム" %>
