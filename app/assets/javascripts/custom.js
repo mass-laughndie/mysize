@@ -358,14 +358,15 @@ document.addEventListener('turbolinks:load', function() {
       for ( var i = 0; i < exp.length; i++ ) {
         var
           elength = exp[i].length,                          //文字数
-          word = exp[i].replace(/\s|<br>|<\/span>/g, ''),   //「#(任意の文字列)」
+          word = exp[i].replace(/\s|<br>|<\/span>|<\/a>/g, ''),   //「#(任意の文字列)」
           option = exp[i].replace(word, ''),                //wordの後続
           key = "%23" + word.slice(1),                       //「#」削除
           url = '/search?for=post&keyword=' + key,        //リンクURL
           txt = $(this).html();             //新たに定義しないと複数置換できない
+          
           //new RegExp(exp[i], 'g')で重複を一括replace
           //exp[i]は重複(=完全一致)以外は一意の文字列のため、exp[i]でreplaceして削られるoptionを後から追加
-        var replaceText = txt.replace(new RegExp(exp[i], 'g'), "<a class='tag-link' href=" + url + ">" + word + "</a>" + option);
+        var replaceText = txt.replace(new RegExp(exp[i], 'g'), "<a class='tag-link' href=" + escapeHtml(url) + ">" + escapeHtml(word) + "</a>" + option);
         $(this).html(replaceText);
         }
       }

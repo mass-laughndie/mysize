@@ -53,10 +53,10 @@
         <%= f.submit "投稿する", data: { disable_with: "処理中..."} %>
       </div>
       <script type="text/javascript">
-        $('#kickspost_picturre').bind('change', function() {
+        $('#kickspost_picture').bind('change', function() {
           var size_in_megabytes = this.file[0].size/1024/1024;
-          if (size_in_megabytes > 10) {
-            alert('ファイルは最大10MBまでとなります。');
+          if (size_in_megabytes > 5) {
+            alert('ファイルは最大5MBまでとなります。');
           }
         });
       </script>

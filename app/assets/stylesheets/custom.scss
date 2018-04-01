@@ -975,6 +975,7 @@ footer {
   .ppost-icon {
     float: left;
     margin-right: 40px;
+    position: relative;
     width: 34px;
     z-index: 20;
 
@@ -2440,11 +2441,10 @@ footer {
 
   .index-image {
     height: 50px;
-    margin-top: 5px;
+    margin: 5px 0 25px;
     position: relative;
     width: 50px;
   }
-
 }
 
 .index-size {

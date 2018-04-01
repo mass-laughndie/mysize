@@ -114,8 +114,8 @@ class Kickspost < ApplicationRecord
   private
 
     def picture_size
-      if picture.size > 10.megabytes
-        error.add(:picture, "画像サイズは最大10MBまで設定できます")
+      if picture.size > 5.megabytes
+        error.add(:picture, "画像サイズは最大5MBまで設定できます")
       end
     end
 end

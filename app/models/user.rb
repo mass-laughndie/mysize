@@ -307,8 +307,8 @@ class User < ApplicationRecord
     end
 
     def image_size
-      if image.size > 10.megabytes
-        error.add(:image, "画像サイズは最大10MBまで設定できます")
+      if image.size > 5.megabytes
+        error.add(:image, "画像サイズは最大5MBまで設定できます")
       end
     end
 
