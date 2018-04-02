@@ -3,7 +3,7 @@
 <% provide(:og_url, new_contact_url) %>
 <%= render 'layouts/center_header', header_text: "お問い合わせ" %>
 
-<div class="content-fspace">
+<div class="container content-fspace">
   <div class="form">
     <%= form_for(@contact, url: confirm_contact_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>

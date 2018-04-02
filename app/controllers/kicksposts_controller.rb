@@ -53,6 +53,7 @@ class KickspostsController < ApplicationController
     @post = Kickspost.find_by(id: params[:id])
     @main = @post
     @users = @post.gooders.all
+    @url = gooders_kickspost_url(@post)
     render 'shared/gooders'
   end
 

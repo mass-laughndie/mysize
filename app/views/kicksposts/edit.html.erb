@@ -2,7 +2,7 @@
 <% provide(:og_title, "キックスポスト編集") %>
 <% provide(:og_url, edit_kickspost_url(@kickspost.user, @kickspost)) %>
 
-<div class="content-fspace">
+<div class="container content-fspace">
   <div class="post-form">
     <%= form_for(@kickspost,
                  url: kickspost_path(@kickspost.user, @kickspost),

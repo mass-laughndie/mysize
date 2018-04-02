@@ -2,11 +2,11 @@
 <% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さん") %>
 <% provide(:og_url, user_url(@user)) %>
 
-<div class="content-mspace">
+<div class="container content-mspace">
   <%= render partial: 'users/user_profile',
              locals: { user: @user } %>
 </div>
-<div class="post">
+<div class="container post">
   <%= render partial: 'users/post_select',
              locals: { user: @user } %>
   <div class="post-main">

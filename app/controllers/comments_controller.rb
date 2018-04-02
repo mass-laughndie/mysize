@@ -44,6 +44,7 @@ class CommentsController < ApplicationController
     @post = Comment.find_by(id: params[:id])
     @main = @post.kickspost
     @users = @post.gooders.all
+    @url = gooders_comment_url(@post)
     render 'shared/gooders'
   end
 

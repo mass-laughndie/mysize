@@ -4,7 +4,7 @@
 <%= render 'layouts/back', back_path: "#{account_settings_path}" %>
 <%= render 'layouts/center_header', header_text: "メールアドレス編集" %>
 
-<div class="content">
+<div class="container content-space">
   <div class="form">
     <%= form_for(@user, url: email_settings_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>

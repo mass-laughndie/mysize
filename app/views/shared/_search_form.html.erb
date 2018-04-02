@@ -1,9 +1,9 @@
-<div class="c inner-form search-form">
+<div class="c inner-form search-form container clear">
   <%= form_tag(yield(:search_url),
                method: "get",
                enforce_utf8: false) do %>
     <% if params[:for].blank? %>
-      <div><%= hidden_field_tag :for, "user" %></div>
+      <div><%= hidden_field_tag :for, "post" %></div>
     <% else %>
       <div><%= hidden_field_tag :for, params[:for] %></div>
     <% end %>

@@ -85,11 +85,6 @@ select {
   font-family: 'Chathura', sans-serif;
 }
 
-.content {
-  padding: 45px;
-  background: $base;
-}
-
 .page-title {
   padding-bottom: 30px;
   text-align: center;
@@ -143,6 +138,11 @@ select {
   text-align: center;
 }
 
+.content-space {
+  background: $base;
+  padding: 45px;
+}
+
 .content-sspace {
   background: $base;
   border-bottom: 1px solid $back;
@@ -157,7 +157,6 @@ select {
 }
 
 .content-nspace {
-  background: $base;
   position: relative;
 }
 
@@ -231,12 +230,12 @@ header {
 }
 
 .select {
+  background: $base;
   border-bottom: 1px solid $weak-grey;
   height: 41px;
   width: 100%;
 
   .select-list {
-    background: #fff;
     float: left;
     height: 100%;
     width: 50%;
@@ -464,12 +463,7 @@ nav {
 /* footer */
 
 footer {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
   padding: 20px;
-  position: relative;
-  width: 100%;
 
   .footer-link {
 
@@ -517,6 +511,18 @@ footer {
 }
 
 /* other fixed */
+
+.fixed-space {
+  background: $base;
+  border-bottom: 1px solid $weak-grey;
+  height: 50px;
+}
+
+.fixed-space-bottom {
+  position: absolute;
+  bottom: 51px;
+  left: 0;
+}
 
 .fixed {
   position: fixed;
@@ -946,11 +952,13 @@ footer {
 /* kickspost */
 
 .post-main {
+/*
   background: $base;
   margin: 0 auto;
   max-width: 600px;
   position: relative;
   width: 100%;
+*/
 }
 
 /* floatの解除 */
@@ -1323,11 +1331,12 @@ footer {
 
 /* kickspost show */
 
-.kpost-select {
-  .kpost-list {
-    position: relative;
+.post-main {
+  background: $base;
+}
 
-  }
+.kpost-select {
+  margin-bottom: 10px;
 }
 
 .kpost-main {
@@ -2097,6 +2106,7 @@ footer {
 /* link-list */
 
 .link-list {
+  background: $base;
   font-size: 12.5px;
   position: relative;
   width: 100%; 
@@ -2174,6 +2184,7 @@ footer {
 /* settings */
 
 .setting-select {
+  background: $base;
   position: relative;
   border-top: 1px solid $back;
 }
@@ -2240,7 +2251,6 @@ footer {
   width: 100%;
 
   form {
-    background: $weak-grey;
     border-radius: 5px;
     height: 100%;
     margin: 0 auto;
@@ -2249,7 +2259,7 @@ footer {
 
     input,
     textarea {
-      background: $weak-grey;
+      background: rgba(255,0,0,0.12);
       border-radius: 5px;
       border: none;
       color: #000;
@@ -2261,7 +2271,9 @@ footer {
       word-wrap: break-word;
     }
 
-    input:focus {
+    input:focus,
+    textarea:focus {
+      background: $weak-grey;
       outline: none;
     }
 
@@ -2273,7 +2285,7 @@ footer {
       width: 30px;
 
       button {
-        background: $weak-grey;
+        background: rgba(255,0,0,0.0);
         border-radius: 5px;
         bottom: 0;
         display: block;
@@ -2287,12 +2299,12 @@ footer {
 }
 
 .search-form {
-  background: $base;
   height: 50px;
   padding: 10px 0 ;
 }
 
 .search-select {
+  margin-bottom: 10px;
   .search-list {
     width: 33.3%;
   }
