@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       #常時remember me状態
       remember @user
       flash[:success] = "ログインに成功しました！"
-      redirect_back_or @user
+      redirect_back_or root_path
     else
       flash.now[:danger] = "Mysize_id/メールアドレス<br>またはPasswordが間違っています。"
       render 'new'
@@ -23,12 +23,12 @@ class SessionsController < ApplicationController
     @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
     log_in @user
     remember @user
-    if @user.size.nil?
+    if @user.created_at > 1.minutes.ago
       flash[:success] = "登録が完了しました"
       redirect_to welcome_url
     else
       flash[:success] = "ログインに成功しました！"
-      redirect_to @user
+      redirect_to root_url
     end
   end
 

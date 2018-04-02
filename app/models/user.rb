@@ -114,11 +114,11 @@ class User < ApplicationRecord
       if search
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
-        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
+        cond = where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR lower(size) IN (?)",
                "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
-          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
+          cond = cond.where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR lower(size) IN (?)",
                "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
         end
         cond
@@ -176,8 +176,17 @@ class User < ApplicationRecord
       user.name  = name
       user.email = email
       user.remote_image_url = image
+      user.size = 27.0
       if User.find_by(mysize_id: mysize_id).nil?
         user.mysize_id = mysize_id
+      else
+        while true
+          num = SecureRandom.urlsafe_base64(10)
+          if User.find_by(mysize_id: num).nil?
+            user.mysize_id = num
+            break
+          end
+        end
       end
     end
   end

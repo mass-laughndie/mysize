@@ -1,6 +1,6 @@
 class GoodsController < ApplicationController
+  
   before_action :logged_in_user
-  before_action :no_name
 
   def create
     @type = params[:post_type]

@@ -59,6 +59,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     #passwordバリデーション有効化
     @user.validate_password = true
+    @user.name = params[:user][:mysize_id]
+    @user.size = 27.0
 
     if @user.save
       log_in @user
@@ -96,7 +98,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:email, :mysize_id,
+      params.require(:user).permit(:email, :mysize_id, :name, :size,
                                    :password, :password_confirmation)
     end
 

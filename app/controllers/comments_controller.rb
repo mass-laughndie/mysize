@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
 
   before_action :logged_in_user
-  before_action :no_name
   before_action :corrent_user,   only: :destroy
 
   def create
