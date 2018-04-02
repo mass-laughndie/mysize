@@ -513,7 +513,6 @@ footer {
 /* other fixed */
 
 .fixed-space {
-  background: $base;
   border-bottom: 1px solid $weak-grey;
   height: 50px;
 }
@@ -525,6 +524,7 @@ footer {
 }
 
 .fixed {
+  background: $base;
   position: fixed;
   left: 0;
   right: 0;
