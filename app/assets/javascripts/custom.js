@@ -23,8 +23,7 @@ function escapeHtml(string) {
 document.addEventListener('turbolinks:load', function() {
   $(function(){
     if ( $("#flash").length != 0 ) {
-      //slideさせるために一旦非表示
-      $('#flash').css('display', 'none').slideDown('fast');
+      $('#flash').css('display', 'none').slideDown('fast');   //slideさせるために一旦非表示
       setTimeout( function(){
         $("#flash").slideUp('fast');
       }, 3000);
@@ -36,6 +35,7 @@ document.addEventListener('turbolinks:load', function() {
 //post-menuスライドバー
 document.addEventListener('turbolinks:load', function() {
   $(function(){
+    //comment-menu
     $("[id^=post-nav-comment]").on('click', function() {
       var
         str = $(this).attr("id"),
@@ -43,6 +43,7 @@ document.addEventListener('turbolinks:load', function() {
       $('#nav-list-comment-' + num).slideToggle('fast');
     });
 
+    //kickspost-menu
     $("[id^=post-nav-kickspost]").on('click', function() {
       var
         str = $(this).attr("id"),
@@ -51,6 +52,7 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
 
 function setReply(_this) {
   var
@@ -62,27 +64,26 @@ function setReply(_this) {
     rclass = $('#comment-' + comID).attr('class'),
     replyID = rclass.match(/\d/g).join('');                //返信先のcomment.reply_id
 
-  //返信先がコメントの場合
+  //返信先がコメント
   if ( replyID == 0 ) {
-    $('#reply-id').attr('value', comID);          //返信先のIDを挿入(=>reply_id)
-  //それ以外(返信先がリプライの場合)
+    $('#reply-id').attr('value', comID);
+  //それ以外(返信先がリプライ)
   } else {
-    $('#reply-id').attr('value', replyID);        //元のコメントのIDを挿入(=>reply_id)
+    $('#reply-id').attr('value', replyID);
   }
 
-  //親の返信相手がいる場合
+  //親の返信相手がいる
   if ( comLink.length != 0 ) {
     var parentID = forIDs;               //親@iD複製(forIDs更新のため)
-    //各返信相手において
+
     comLink.each(function(){
       var rid = $(this).text();   //  返信相手の@ID
       //@IDが親と自分と違う場合
       if ( rid != parentID && rid != myID ) {
-        forIDs = forIDs + ' ' + $(this).text();   //@ID連結
+        forIDs = forIDs + ' ' + $(this).text();
       }
     });
   }
-  //コメントフォームに「@ID (@ID ...)」を挿入しカーソル移動
   $('.comment-text-form').val(forIDs + " ");
   $('.comment-text-form').focus();
 }
@@ -140,7 +141,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-
+//mysize_is表読み込み
 function indexId() {
   return $.ajax({
     type: 'GET',
@@ -188,7 +189,6 @@ iid = [];
 //comment送信先ユーザーリンク化
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    //.autolinkがある場合
     if ( $('.autolink').length != 0 ) {
       //data未取得
       if ( iid.length == 0 ) {
@@ -216,9 +216,7 @@ document.addEventListener('turbolinks:load', function() {
     $('.link-list').each(function() {
       //子要素(=absolute要素内の固定長要素)の高さ
       var height = $(this).find('.content-height').height();
-      //親要素を子要素の高さで確保
       $(this).height(height);
-      //同長のリンクcover生成
       $(this).find(".content-link").css('padding-bottom', height);
     });
   });
@@ -262,7 +260,7 @@ document.addEventListener('turbolinks:load', function() {
         reader = new FileReader(),
         $preview = $('.preview');
 
-      //fileが選択されなかった || fileタイプがimageでないとき => 実効終了
+      //実効終了条件
       if ( file == undefined || file.type.indexOf('image') < 0 ) {
         return false;
       }
@@ -270,15 +268,15 @@ document.addEventListener('turbolinks:load', function() {
       //読み込み成功して完了(onload)
       reader.onload = (function(file) {
         return function(e) {
-          //既存のプレビュー削除
+          //preview挿入
           $preview.empty();
-          //プレビュー挿入
           $preview.append($('<img>').attr({
             src: e.target.result,
             width: "35%",
             class: "cover",
             title: file.name
           }));
+          //icon変更
           $('.upload-icon').empty();
           $('.upload-icon').append($('<i>').attr('class', 'fa fa-refresh'));
         };
@@ -289,7 +287,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-//textareaの高さ自動変更(要縮小対応[※のはカクつく])
+//textareaの高さ自動変更(要縮小対応)
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     if ( $('.autoheight').length != 0 ) {
@@ -302,18 +300,7 @@ document.addEventListener('turbolinks:load', function() {
 
         if( allHeight < maxHeight && allHeight > areaHeight ) {
           $textarea.height(allHeight);
-        }/*else {
-          //line-heightの値を取得
-          var lineHeight = Number($textarea.css('lineHeight').split('px')[0]);
-          while (true) {
-            //1行分ずつ縮小する
-            $textarea.height($textarea.height() - lineHeight);
-            if(allHeight > areaHeight){
-              $textarea.height(allHeight);
-            }
-            break;
-          }
-        }*/
+        }
       });
     }
   });
@@ -357,7 +344,7 @@ document.addEventListener('turbolinks:load', function() {
     if ( exp != null ) {
       for ( var i = 0; i < exp.length; i++ ) {
         var
-          elength = exp[i].length,                          //文字数
+          elength = exp[i].length,
           word = exp[i].replace(/\s|<br>|<\/span>|<\/a>/g, ''),   //「#(任意の文字列)」
           option = exp[i].replace(word, ''),                //wordの後続
           key = "%23" + word.slice(1),                       //「#」削除
@@ -374,31 +361,18 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/*
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    $('img.lazyload').lazyload({
-      threshold: 0,
-      effect: 'fadeIn',
-      effect_speed: 10000,
-      placeholder: "/images/grey.gif",
-    });
-  });
-});
-*/
-
 //アンカーポイントへジャンプ
 function jumpScroll(_this, _point, time) {
   var target = $(_point == '#' || _point == '' ? $('html') : _point );
   if ( target.length == 0 ) target = $('html');
   var
-    position = target.offset().top,       //ページtopからtargetまでの距離
-    move = _this.data('scroll');          //スクロールの高さ調整(headerを考慮)
-  //move(data-scroll属性)が与えられている場合 -> positionに加算
+    position = target.offset().top,
+    move = _this.data('scroll');          //header考慮した加算量
+  //data-scroll属性あり
   if ( move !== undefined ) position = position + Number(move);
   //Android対応処理
   if ( position <= 0 ) position = 1;
-  //ページ上部をpositionの位置へ500msでswing
+
   $("html, body").animate({ scrollTop : position }, Number(time), 'swing');
 }
 
@@ -412,47 +386,47 @@ document.addEventListener('turbolinks:load', function() {
         index = link.indexOf('#'),
         point = link.slice(index),                  //link先のlocation.hash
         linkPath = link.replace(point, ''),         //リンク先のpathname
-        nowPath = window.location.pathname;         //現在のpathname
+        nowPath = window.location.pathname;
 
-      //遷移先にいない場合
+      //遷移先にいない
       if ( linkPath != nowPath　) {
         window.location.href = linkPath + escapeHtml(point);
         return false;
       }
 
-      //遷移先にいる場合(comment用)
+      //遷移先にいる(comment用)
       if ( point.match(/#comment/) != null ) {
-        e.preventDefault();           //リクエストキャンセル
-        jumpScroll(_this, point, 500);     //ジャンプ
+        e.preventDefault();
+        jumpScroll(_this, point, 500);
         return false;
       }
 
-      //遷移先にいる場合(about用)
+      //遷移先にいる(about用)
       if ( point.match(/#about/) != null ) {
-        e.preventDefault();           //リクエストキャンセル
-        jumpScroll(_this, point, 1000);     //ジャンプ
+        e.preventDefault();
+        jumpScroll(_this, point, 1000);
         return false;
       }
     });
   });
 });
 
-//ページ遷移後、アンカーポイントへジャンプ
+//アンカーポイントへジャンプ(kickspost)
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     if ( $('.jump').length != 0
          && window.location.pathname.match(/kicksposts/) != null　) {
       var
-        _hash = escapeHtml(window.location.hash),     //URLの「#~」
+        _hash = escapeHtml(window.location.hash),
         _comment = $('.post-main').find(_hash);       //対象comment
 
-      //_hashが空でない && 対象commentが存在する 場合
+      //対象存在確認
       if ( _hash !== '' && _comment.length != 0 ) {
         _comment.css('background', 'rgba(255, 0, 0, 0.05)');
         jumpScroll($('.jump'), _hash, 500);
-        $('#reply-active').find('a').addClass("active");      //active化
+        $('#reply-active').find('a').addClass("active");
 
-        //他ページからのreplyボタン遷移の場合
+        //他ページからのreplyボタンでの遷移
         if ( window.location.search == '?reply=on' ) {
           setTimeout(function() {
             setReply(_comment);         //スクロール後にsetReply
@@ -464,6 +438,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+//アンカーポイントへジャンプ(about)
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     if ( $('.jump').length != 0
@@ -479,6 +454,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+//スクロール位置での表示非表示
 function scrollOut(_target, _point) {
   $(window).scroll(function() {
     var distance = $(window).scrollTop();
