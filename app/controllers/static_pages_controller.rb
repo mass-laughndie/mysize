@@ -1,9 +1,10 @@
 class StaticPagesController < ApplicationController
+
+  before_action :logged_in_user, only: :follow
+
   def home
     if logged_in?
-      @user = current_user
-      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
-      @text = "short"
+      redirect_to latest_path
     end
   end
 
@@ -15,6 +16,14 @@ class StaticPagesController < ApplicationController
     end
     @kicksposts = Kickspost.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
+  end
+
+  def follow
+    if logged_in?
+      @user = current_user
+      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
+      @text = "short"
+    end
   end
 
   def help

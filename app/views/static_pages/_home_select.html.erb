@@ -4,13 +4,13 @@
       <%= link_to "新着", latest_path %>
     </div>
     <div class="select-list home-list alist aline">
-      <%= link_to "フォロー中", root_path %>
+      <%= link_to "フォロー中", follow_path %>
     </div>
     <div class="select-list home-list alist aline">
       <% if logged_in? %>
-        <%= link_to "写真", root_path(display: 'square') %>
+        <%= link_to "写真", follow_path(display: 'square') %>
       <% else %>
-        <%= link_to "写真", root_path %>
+        <%= link_to "写真", follow_path %>
       <% end %>
     </div>
   </div>

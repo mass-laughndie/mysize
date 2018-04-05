@@ -23,7 +23,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
                                password: 'password' }
     assert is_logged_in?
     assert_not_empty cookies['remember_token']
-    assert_redirected_to root_path
+    assert_redirected_to latest_path
     follow_redirect!
     delete logout_path
     assert_not is_logged_in?

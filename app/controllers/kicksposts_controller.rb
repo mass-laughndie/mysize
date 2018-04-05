@@ -18,7 +18,7 @@ class KickspostsController < ApplicationController
     if @kickspost.save
       @kickspost.check_and_create_notice_to_others_and(current_user)
       flash[:success] = "投稿に成功しました"
-      redirect_to root_url
+      redirect_to follow_url
     else
       render 'new'
     end
@@ -30,7 +30,7 @@ class KickspostsController < ApplicationController
   def update
     if @kickspost.update_attributes(kicksposts_params)
       flash[:success] = "編集に成功しました"
-      redirect_to root_url
+      redirect_to follow_url
     else
       render 'edit'
     end

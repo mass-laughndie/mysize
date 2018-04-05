@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       #常時remember me状態
       remember @user
       flash[:success] = "ログインに成功しました！"
-      redirect_back_or root_path
+      redirect_back_or latest_path
     else
       flash.now[:danger] = "Mysize_id/メールアドレス<br>またはPasswordが間違っています。"
       render 'new'
@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
       redirect_to welcome_url
     else
       flash[:success] = "ログインに成功しました！"
-      redirect_to root_url
+      redirect_to latest_url
     end
   end
 
@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
     def logged_in
       if logged_in?
         flash[:info] = "既にログイン中です"
-        redirect_to root_url
+        redirect_to latest_url
       end
     end
 

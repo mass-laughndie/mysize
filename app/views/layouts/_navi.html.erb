@@ -1,11 +1,7 @@
 <nav>
   <div class="wrapper container">
     <div class="nav-link alist">
-      <% if logged_in? %>
-        <%= link_to fa_icon("home"), root_path %>
-      <% else %>
-        <%= link_to fa_icon("home"), latest_path %>
-      <% end %>
+      <%= link_to fa_icon("home"), latest_path %>
       <% if !logged_in? && content_for?(:left_popup) %>
         <%= yield(:left_popup) %>
       <% end %>

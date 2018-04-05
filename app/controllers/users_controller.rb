@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 =end
     @user.destroy
     flash[:success] = "削除が完了しました"
-    redirect_to admusrind_url
+    redirect_to admusrind_path
   end
 
   def create

@@ -1,0 +1,6 @@
+<% provide(:title, "フォロー中") %>
+<% provide(:og_title, "フォロー中") %>
+<% provide(:og_url, follow_url) %>
+
+<%= render partial: 'static_pages/home_logged_in',
+           locals: { target: nil } %>
