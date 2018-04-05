@@ -6,6 +6,9 @@
       <% else %>
         <%= link_to fa_icon("home"), latest_path %>
       <% end %>
+      <% if !logged_in? && content_for?(:left_popup) %>
+        <%= yield(:left_popup) %>
+      <% end %>
     </div>
     <div class="nav-link alist">
       <%= link_to fa_icon("search"), search_path %>
@@ -33,6 +36,9 @@
         <a class="right-header jump" data-scroll="-50" href="<%= about_path(about: 'on3') %>#about-can3">
           <%= fa_icon("thumbs-up") %>
         </a>
+      <% end %>
+      <% if !logged_in? && content_for?(:right_popup) %>
+        <%= yield(:right_popup) %>
       <% end %>
     </div>
   </div>

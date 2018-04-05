@@ -306,32 +306,6 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/* (autolinkとの相性×)
-//searchの該当文字を太文字に変更(要com-link内検索対応)
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    if ( $('#keyword').length != 0 ) {
-      var
-        keyword = $('#keyword').val(),            //フォーム入力文字
-        keywords = keyword.split(/ |　/g);         //空白(全||半)で区切って配列ｌ化
-
-      keywords = keywords.filter(v => v);         //空文字を配列から削除
-      //keywordsがある場合
-      if ( keywords.length != 0 ){
-        $('.key').each(function() {
-          //各keywordにおいて
-          for( var i = 0; i < keywords.length; i++ ) {
-            var
-              txt = $(this).html(),
-              replaceText = txt.replace(keywords[i], '<span class="match">' + keywords[i] + '</span>');
-            $(this).html(replaceText);
-          }
-        });
-      }
-    }
-  });
-});
-*/
 
 //ハッシュタグのリンク化
 document.addEventListener('turbolinks:load', function() {
@@ -482,5 +456,20 @@ document.addEventListener('turbolinks:load', function() {
       }
     }
     return false;
+  });
+});
+
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#popup').length != 0 ) {
+      setTimeout(function() {
+        $('#popup').slideDown();
+      }, 1000);
+    }
+
+    $('#remove').on('click', function(e) {
+      e.preventDefault();
+      $('#popup').css('display', 'none');
+    });
   });
 });

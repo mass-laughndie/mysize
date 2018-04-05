@@ -8,6 +8,7 @@
 <% provide(:title, title) %>
 <% provide(:og_title, og_title) %>
 <% provide(:og_url, root_url) %>
+<%= render 'layouts/left_popup' %>
 
 <% if logged_in? %>
   <%= render partial: 'static_pages/home_logged_in',

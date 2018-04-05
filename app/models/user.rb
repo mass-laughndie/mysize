@@ -115,7 +115,7 @@ class User < ApplicationRecord
         keyword_arys = search.gsub(/　/, " ").split()
         size_search = keyword_arys[0].to_f
         cond = where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-               "%#{keyword_arys[0]}%.downcase", "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "#{size_search}"])
+               "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "#{size_search}"])
         for i in 1..(keyword_arys.length - 1) do
           size_search = keyword_arys[i].to_f
           cond = cond.where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",

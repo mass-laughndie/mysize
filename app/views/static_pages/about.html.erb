@@ -1,6 +1,8 @@
 <% provide(:title, "このサイトについて") %>
 <% provide(:og_title, "このサイトについて") %>
 <% provide(:og_url, about_url) %>
+<%= render 'layouts/right_popup', icon: 'down' %>
+<%= render 'layouts/left_popup' %>
 
 <div class="container">
   <div class="content-sspace">
@@ -160,15 +162,6 @@
           </div>
         <% end %>
       </div>
-      <% unless logged_in? %>
-        <div class="fix-lead" id="scroll">
-          <a class="jump" data-scroll="-50" href="<%= about_path %>#about-lead">
-            <p>登録</p>
-            <p>ログイン</p>
-            <p><%= fa_icon('chevron-circle-down') %></p>
-          </a>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
