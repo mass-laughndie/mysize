@@ -27,16 +27,12 @@ Rails.application.routes.draw do
   get  '/upload', to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
 
-  get '/search', to: 'search#search'
+  get '/search', to: 'searches#search'
 
   post   '/postcomments',    to: 'comments#create'
   delete '/postcomment/:id', to: 'comments#destroy',
                              as: 'postcomment'
 
-=begin
-  get  '/question', to: 'comments#new'
-  post '/question', to: 'comments#create'
-=end
   resource :password_reset, except: [:show, :destroy],
                             path_names: { new: '' } do
     collection do
@@ -57,18 +53,13 @@ Rails.application.routes.draw do
   resource   :notice,     only: [:show, :create, :destroy]
   resources  :goods,      only: [:create, :destroy]
   
-=begin
-  resources  :comments,   only: [:index, :show],
-                          path: '/talk'
-=end
-  
+
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
                     path: '/' do
     member do
-      resources :kicksposts, except: [:new, :create, :index] do
-        #get :gooders, on: :member
-      end
+      resources :kicksposts, except: [:new, :create, :index]
+
       get :following,
           :followers,
           :good

@@ -3,8 +3,12 @@ class User < ApplicationRecord
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
 
+  before_save :downcase_email
+  before_save :downcase_mysizeid
+
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
+  has_many :notices,    dependent: :destroy
 
   has_many :active_relationships,  class_name: "Relationship",
                                    foreign_key: "follower_id",
@@ -31,27 +35,22 @@ class User < ApplicationRecord
   has_many :gooders,               through: :passive_goods,
                                    source: :gooder
 
-  has_many :good_posts,    class_name: "Kickspost",
-                           through:   :goods,
-                           source: :post,
-                           source_type: "Kickspost"
-  has_many :good_comments, class_name: "Comment",
-                           through:   :goods,
-                           source: :post,
-                           source_type: "Comment"
-
-  has_many :notices, dependent: :destroy
-
-  before_save :downcase_email
-  before_save :downcase_mysizeid
+  has_many :good_posts,            class_name: "Kickspost",
+                                   through:   :goods,
+                                   source: :post,
+                                   source_type: "Kickspost"
+  has_many :good_comments,         class_name: "Comment",
+                                   through:   :goods,
+                                   source: :post,
+                                   source_type: "Comment"
 
   mount_uploader :image, ImageUploader
 
   validates :name, presence: { message: "名前を入力してください",
                                if: :validate_name? },
-                   length: { maximum: 50,
-                             message: "名前は50文字以内まで有効です",
-                             allow_blank: true }
+                   length:   { maximum: 50,
+                               message: "名前は50文字以内まで有効です",
+                               allow_blank: true }
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
   validates :mysize_id, presence:   { message: "MysizeIDを入力してください" },
@@ -92,8 +91,6 @@ class User < ApplicationRecord
                                if: :validate_shoesize? }
 
   validate :image_size
-
-  # validates :uid, presence: true
   
   class << self
 
@@ -112,7 +109,7 @@ class User < ApplicationRecord
 
     def search(search)
       if search
-        keyword_arys = search.gsub(/　/, " ").split()
+        keyword_arys = search.split(/[\s　]+/)
         size_search = keyword_arys[0].to_f
         cond = where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
                "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "#{size_search}"])
@@ -249,20 +246,18 @@ class User < ApplicationRecord
 
   #follow通知の作成or更新
   def create_or_update_follow_notice
-    #this_day = Time.zone.now.all_day
     this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+
     #今週の通知がある場合
     if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
-      #未読数+1
       notice.increment!(:unread_count, by = 1)
       notice.touch
     #ない場合
     else
       #最新のフォロー通知がある場合
       if latest_notice = self.notices.where(kind_type: "Follow").first
-        #新しい通知のkind_id = 最新通知のkind_id + 1
+        #kind_idは通し番号
         notice_num = latest_notice.kind_id + 1
-        #フォロー通知作成(kind_idは通し番号)
         notices.create(kind_type: "Follow", kind_id: notice_num)
       #ない(初通知の)場合
       else
@@ -278,7 +273,6 @@ class User < ApplicationRecord
     #履歴がない && その期間の通知がある 場合
     if relations.blank?
       if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
-        #通知削除
         follow_notice.destroy
       end
     end
@@ -300,7 +294,6 @@ class User < ApplicationRecord
   def delete_past_notices_already_read(notices)
     #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
     deleteline = Time.new(2000,1,1)..10.weeks.ago
-    #削除ライン以前に更新された未読0の通知
     exnotices = notices.where(unread_count: 0, updated_at: deleteline)
     exnotices.destroy_all
   end

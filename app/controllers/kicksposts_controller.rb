@@ -1,8 +1,8 @@
 class KickspostsController < ApplicationController
   
   before_action :logged_in_user,          except: [:show]
-  before_action :set_and_check_kickspost, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_correct_user,     only: [:edit, :update, :destroy]
+  before_action :set_and_check_kickspost, only:   [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user,     only:   [:edit, :update, :destroy]
 
   def show
     @comments = @kickspost.comments.includes(:user, :goods, :replies).where(reply_id: 0)
@@ -70,7 +70,7 @@ class KickspostsController < ApplicationController
       @check = User.find_by(mysize_id: params[:mysize_id])
       if @user != @check
         not_found
-        #redirect_to kickspost_path(@user.mysize_id, @kickspost.id)
+        #redirect_to kickspost_path(@user, @kickspost.id)
       end
     end
 

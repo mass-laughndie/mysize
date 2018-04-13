@@ -10,7 +10,7 @@ class SearchingTest < ActionDispatch::IntegrationTest
   
   test 'search interface' do
     get search_path
-    assert_template 'search/search'
+    assert_template 'searches/search'
     assert_select 'div.search-form'
     assert_select 'div.search-select', false
     assert_no_match @user.mysize_id, response.body

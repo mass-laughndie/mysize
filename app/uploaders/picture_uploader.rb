@@ -8,6 +8,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   process resize_to_fit: [600, 800]
   process optimize: [quality: 60]
   process convert: 'jpg'
+  
   # Choose what kind of storage to use for this uploader:
   if Rails.env.development? || Rails.env.test?
     storage :file

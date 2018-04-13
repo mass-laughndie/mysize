@@ -7,9 +7,7 @@ module SessionsHelper
   def remember(user)
     #remember_tokenを発行し、userのDBにrember_digest(tokenのハッシュ化)を保存
     user.remember
-    #cookiesにidを保存
-    cookies.permanent.signed[:msuid] = { value: user.id, httponly: true }
-    #cookiesにremeber_tokenを保存
+    cookies.permanent.signed[:msuid]   = { value: user.id, httponly: true }
     cookies.permanent[:remember_token] = { value: user.remember_token, httponly: true }
   end
 
@@ -47,9 +45,7 @@ module SessionsHelper
 
   #記憶したURL(もしくはデフォルト値)にリダイレクト
   def redirect_back_or(default)
-    #session[:forwarding_url]か=nilならdefaultのURLにリダイレクト
     redirect_to(session[:forwarding_url] || default)
-    #session[:forwarding_url]の削除
     session.delete(:forwarding_url)
   end
 
