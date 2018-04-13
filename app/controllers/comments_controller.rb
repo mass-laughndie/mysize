@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
 
   before_action :logged_in_user
-  before_action :no_name
   before_action :corrent_user,   only: :destroy
 
   def create
@@ -44,6 +43,7 @@ class CommentsController < ApplicationController
     @post = Comment.find_by(id: params[:id])
     @main = @post.kickspost
     @users = @post.gooders.all
+    @url = gooders_comment_url(@post)
     render 'shared/gooders'
   end
 

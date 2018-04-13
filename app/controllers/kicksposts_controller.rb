@@ -1,9 +1,8 @@
 class KickspostsController < ApplicationController
   
-  before_action :logged_in_user
-  before_action :no_name
+  before_action :logged_in_user,          except: [:show]
   before_action :set_and_check_kickspost, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user,     only: [:edit, :update, :destroy]
 
   def show
     @comments = @kickspost.comments.includes(:user, :goods, :replies).where(reply_id: 0)
@@ -19,7 +18,7 @@ class KickspostsController < ApplicationController
     if @kickspost.save
       @kickspost.check_and_create_notice_to_others_and(current_user)
       flash[:success] = "投稿に成功しました"
-      redirect_to root_url
+      redirect_to follow_url
     else
       render 'new'
     end
@@ -31,7 +30,7 @@ class KickspostsController < ApplicationController
   def update
     if @kickspost.update_attributes(kicksposts_params)
       flash[:success] = "編集に成功しました"
-      redirect_to root_url
+      redirect_to follow_url
     else
       render 'edit'
     end
@@ -53,6 +52,7 @@ class KickspostsController < ApplicationController
     @post = Kickspost.find_by(id: params[:id])
     @main = @post
     @users = @post.gooders.all
+    @url = gooders_kickspost_url(@post)
     render 'shared/gooders'
   end
 

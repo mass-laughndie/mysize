@@ -52,13 +52,15 @@ class UsersController < ApplicationController
 =end
     @user.destroy
     flash[:success] = "削除が完了しました"
-    redirect_to admusrind_url
+    redirect_to admusrind_path
   end
 
   def create
     @user = User.new(user_params)
     #passwordバリデーション有効化
     @user.validate_password = true
+    @user.name = params[:user][:mysize_id]
+    @user.size = 27.0
 
     if @user.save
       log_in @user
@@ -74,6 +76,7 @@ class UsersController < ApplicationController
     @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
     @users = @user.following.order(updated_at: :desc)#.includes(active_relationships: :followed)
+    @url = following_user_url(@user)
     render 'show_follow'
   end
 
@@ -81,6 +84,7 @@ class UsersController < ApplicationController
     @title = "フォロワー"
     @user = User.find_by(mysize_id: params[:mysize_id])
     @users = @user.followers.order(updated_at: :desc)#.includes(passive_relationships: :follower)
+    @url = followers_user_url(@user)
     render 'show_follow'
   end
 
@@ -94,7 +98,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:email, :mysize_id,
+      params.require(:user).permit(:email, :mysize_id, :name, :size,
                                    :password, :password_confirmation)
     end
 

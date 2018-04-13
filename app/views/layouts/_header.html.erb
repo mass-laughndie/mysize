@@ -23,6 +23,11 @@
     <div class="header header-center">
       <% if content_for?(:center_header) %>
         <%= yield(:center_header) %>
+      <% elsif logged_in? %>
+        <a class="logo-text" href="<%= follow_path %>">
+          <%= image_tag("/images/apps_icon1.png", size: 24) %>
+          <span class="logo-font">Mysize</span>
+        </a>
       <% else %>
         <a class="logo-text" href="<%= root_path %>">
           <%= image_tag("/images/apps_icon1.png", size: 24) %>

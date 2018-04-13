@@ -56,7 +56,7 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
                                                size: 7 } }
     end
     assert_not flash.empty?
-    assert_redirected_to root_url
+    assert_redirected_to follow_url
     follow_redirect!
     assert_match content, response.body
     # assert_match picture, response.body
@@ -92,7 +92,7 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
                                                                     content: content } }
 
     assert_not flash.empty?
-    assert_redirected_to root_url
+    assert_redirected_to follow_url
     follow_redirect!
     assert_match content, response.body
   end

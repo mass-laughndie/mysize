@@ -1,0 +1,17 @@
+<% content_for :right_popup do %>
+  <div class="fix-lead c" id="scroll">
+    <% if icon == 'down' %>
+      <a class="jump" data-scroll="-50" href="<%= about_path %>#about-lead">
+    <% else %>
+      <a href="<%= root_path %>#top-main">
+    <% end %>
+      <p>登録</p>
+      <p>ログイン</p>
+      <% if icon == 'down' %>
+        <p><%= fa_icon('chevron-circle-down') %></p>
+      <% else %>
+        <p><%= fa_icon('sign-in') %></p>
+      <% end %>
+    </a>
+  </div>
+<% end %>

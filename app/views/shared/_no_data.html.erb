@@ -7,7 +7,7 @@
   <% when 'good' %>
     <%= fa_icon('thumbs-o-up') %>
   <% when 'search' %>
-    <%= fa_icon('search') %>
+    <small><%= fa_icon('search') %></small>
   <% when 'notice' %>
     <%= fa_icon('bell-o') %>
   <% when 'develop' %>
@@ -18,7 +18,8 @@
   <div class="no-text">
     <% case text
       when 'search' %>
-      キーワードを入力してください
+      <p>上のフォームより</p>
+      <p>キーワードを入力してください</p>
     <% when 'search-no-hit' %>
       <p>検索結果は０件です</p><p>キーワードを確認してみてください</p>
     <% when 'notice' %>
@@ -40,7 +41,7 @@
             </a>
           </div>
         <% when 'follow' %>
-          <p>あなたと同じサイズの人を探して</p>
+          <p>まずは、あなたと同じサイズの人を探して</p>
           <p>フォローしましょう！</p>
           <div class="no-link">
             <a href="<%= search_path(for: 'user', keyword: @user.size ) %>">

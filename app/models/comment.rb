@@ -29,9 +29,9 @@ class Comment < ApplicationRecord
     def search(search)
       if search
         keyword_arys = search.gsub(/　/, " ").split()
-        cond = where(["content LIKE (?)", "%#{keyword_arys[0]}%"])
+        cond = where(["lower(content) LIKE (?)", "%#{keyword_arys[0]}%".downcase])
         for i in 1..(keyword_arys.length - 1) do
-          cond = cond.where(["content LIKE (?)", "%#{keyword_arys[i]}%"])
+          cond = cond.where(["lower(content) LIKE (?)", "%#{keyword_arys[i]}%".downcase])
         end
         cond
       else

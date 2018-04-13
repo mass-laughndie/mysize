@@ -1,10 +1,10 @@
 <%= form_for(@user, url: welcome_path, multipart: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="label-form">
-    <%= f.label :name, "*ユーザー名" %>
+    <label for="user_name"><span class="font-accent">*</span>ユーザー名</label>
   </div>
   <div class="base-form">
-    <%= f.text_field :name, placeholder: "ユーザー名" %>
+    <%= f.text_field :name, placeholder: "(例) 靴好き男" %>
   </div>
   <div class="label-form">
     <%= f.label :mysize_id, "*Mysize ID" %>
@@ -29,7 +29,9 @@
           <% if @user.image.blank? %>
             <div class="preview"></div>
           <% else %>
-            <div class="preview"><%= image_tag(image_url(@user), alt: @user.name, class: "cover") %></div>
+            <div class="preview">
+              <%= image_tag(image_url(@user), alt: @user.name, class: "cover") %>
+            </div>
           <% end %>
         <% end %>
       </div>
@@ -40,10 +42,10 @@
     </div>
     <div class="size-form">
       <div class="label-form select-label font-mini">
-        <%= f.label :size, "*スニーカーのベースサイズ" %>
+        <label for="user_size"><span class="font-accent">*</span>スニーカーのベースサイズ</label>
       </div>
       <div class="base-form select-form">
-        <%= f.select(:size, options_for_select(size_array, @user.size), prompt: "選 択") %>
+        <%= f.select(:size, options_for_select(size_array, @user.size)) %>
         <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
       </div>
     </div>

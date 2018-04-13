@@ -1,7 +1,6 @@
 class NoticesController < ApplicationController
 
   before_action :logged_in_user
-  before_action :no_name
 
   def show
     #全通知

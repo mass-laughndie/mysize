@@ -1,9 +1,7 @@
 class SettingsController < ApplicationController
 
   before_action :logged_in_user
-  before_action :no_name, except: [:welcome, :welcome_update]
   before_action :get_user
-  before_action :no_access, only: [:welcome, :welcome_update]
 
   def welcome
   end
@@ -13,10 +11,10 @@ class SettingsController < ApplicationController
     @user.validate_name = true
     if @user.uid.nil? && @user.update_attributes(profile_params)
       flash[:success] = "プロフィール登録が完了しました！"
-      redirect_to @user
+      redirect_to latest_path
     elsif !@user.uid.nil? && @user.update_attributes(omniauth_params)
       flash[:success] = "アカウント登録が完了しました！"
-      redirect_to @user
+      redirect_to latest_path
     else
       if params[:user][:name].blank? || params[:user][:mysize_id].blank?
         @user.reload
@@ -110,7 +108,7 @@ class SettingsController < ApplicationController
   private
 
     def omniauth_params
-      params.require(:user).permit(:name, :mysize_id, :image, :image_cache, :size)
+      params.require(:user).permit(:name, :mysize_id, :size, :image, :image_cache)
     end
 
     def profile_params
@@ -131,12 +129,5 @@ class SettingsController < ApplicationController
 
     def get_user
       @user = current_user
-    end
-
-    def no_access
-      unless current_user.name.nil? || current_user.size.nil?
-        flash[:danger] = "そのページにはアクセスできません"
-        return_back
-      end
     end
 end

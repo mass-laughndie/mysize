@@ -1,8 +1,11 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの" + @title) %>
+<% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さんの" + @title) %>
+<% provide(:og_url, @url) %>
 <%= render 'layouts/back', back_path: "#{user_path(@user)}" %>
 <%= render 'layouts/center_header', header_text: @title %>
+
 <% unless @users.blank? %>
-  <div class="content-nspace">
+  <div class="container content-nspace">
     <div class="setting-select">
       <ul>
         <%= render @users %>
@@ -10,13 +13,15 @@
     </div>
   </div>
 <% else %>
-  <% if @title == 'フォロー' %>
-    <%= render partial: 'shared/no_data',
-               locals: { icon: 'user',
-                         text: 'follow' } %>
-  <% else %>
-    <%= render partial: 'shared/no_data',
-               locals: { icon: 'user',
-                         text: 'post-follow' } %>
-  <% end %>
+  <div class="container content-nspace">
+    <% if @title == 'フォロー' %>
+      <%= render partial: 'shared/no_data',
+                 locals: { icon: 'user',
+                           text: 'follow' } %>
+    <% else %>
+      <%= render partial: 'shared/no_data',
+                 locals: { icon: 'user',
+                           text: 'post-follow' } %>
+    <% end %>
+  </div>
 <% end %>
