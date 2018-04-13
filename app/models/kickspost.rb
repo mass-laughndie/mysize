@@ -37,7 +37,7 @@ class Kickspost < ApplicationRecord
 
     def search(search)
       if search
-        keyword_arys = search.gsub(/　/, " ").split()
+        keyword_arys = search.split(/[\s　]+/)
         size_search = keyword_arys[0].to_f
         cond = where(["lower(title) LIKE (?) OR lower(color) LIKE (?) OR lower(brand) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
                "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "#{size_search}"])
@@ -70,13 +70,9 @@ class Kickspost < ApplicationRecord
   
   #good通知の作成および更新
   def good_notice_create_or_update
-    #ポストの通知が作られていない(=good1つ目の)場合
     if self.notice.nil?
-      #通知作成
       create_notice(user_id: self.user.id)
-    #既に通知がある場合
     else
-      #未読数+1
       notice.increment!(:unread_count, by = 1)
       notice.touch
     end
@@ -84,9 +80,7 @@ class Kickspost < ApplicationRecord
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    #ポストのgood数が0 && noticeが見つかった　場合
     if self.goods.blank? &&  good_notice = self.notice
-        #通知削除
         good_notice.destroy
     end
   end

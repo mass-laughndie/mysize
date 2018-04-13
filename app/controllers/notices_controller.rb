@@ -16,16 +16,18 @@ class NoticesController < ApplicationController
       end
     end
 
+    #以下、要リファクタリング(モデルメソッド化)
+
     #期間ごとのフォロワーの２重配列作成
-    follow_notices = @notices.where(kind_type: "Follow")     #フォロー通知リスト
-    @followers = []                                         #フォロワー格納配列
+    follow_notices = @notices.where(kind_type: "Follow")
+    @followers = []
     @fcounts = []
-    follow_notices.each do |notice|  #notice=>各フォロー通知リスト
+    follow_notices.each do |notice|
       #リストを作成した週のrelationship(最新順)
       relations = current_user.passive_relationships.where(created_at: that_day(notice.created_at)).order(created_at: :desc)
-      #frelationshipがない場合(念のため、基本は事前にnoticeが削除されているためfalseになるはず)
+      
       if relations.blank?
-        notice.destroy  #list削除
+        notice.destroy
       else
         #期間内のフォロワーを新しい順に並べた配列をフォロワー格納配列へ
         @fcounts.unshift(relations.to_a.size)
@@ -34,6 +36,9 @@ class NoticesController < ApplicationController
     end
     #フォロワー格納配列から週を指定するのに利用(全通知リストが最新順のため後ろの配列から表示)
     @fnum = @fcounts.size - 1 
+
+
+    #以下、要リファクタリング(モデルメソッド化)
 
     #その他の通知関連
     @posts = []               #post配列

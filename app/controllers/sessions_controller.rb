@@ -6,11 +6,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(mysize_id: params[:mysize_id].downcase) || User.find_by(email: params[:mysize_id].downcase)
+    @user = User.find_by(mysize_id: params[:mysize_id].downcase) ||
+            User.find_by(email: params[:mysize_id].downcase)
+
     if @user && @user.authenticate(params[:password])
       log_in @user
-      #常時remember me状態
-      remember @user
+      remember @user                                    #常時remember me状態
       flash[:success] = "ログインに成功しました！"
       redirect_to latest_path
     else
@@ -20,9 +21,10 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_create
-    @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
+    @user = User.find_or_create_from_auth(auth_params)
     log_in @user
     remember @user
+
     if @user.created_at > 1.minutes.ago
       flash[:success] = "登録が完了しました"
       redirect_to welcome_url
@@ -41,6 +43,10 @@ class SessionsController < ApplicationController
   end
 
   private
+
+    def auth_params
+      request.env['omniauth.auth']
+    end
 
     def logged_in
       if logged_in?

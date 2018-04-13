@@ -16,9 +16,9 @@ class CommentsController < ApplicationController
     end
 
     if params[:display]
-      redirect_to kickspost_path(@user.mysize_id, @kickspost, display: params[:display])
+      redirect_to kickspost_path(@user, @kickspost, display: params[:display])
     else
-      redirect_to kickspost_path(@user.mysize_id, @kickspost)
+      redirect_to kickspost_path(@user, @kickspost)
     end
   end
 
@@ -27,16 +27,10 @@ class CommentsController < ApplicationController
     @user = @kickspost.user
 
     @comment.check_and_delete_notice_form_others_and(@user, current_user)
-    
-=begin
-    Notice.where("kind IN (?) OR kind IN (?) OR kind IN (?)", "comment", "reply", "gcom_list")
-          .where(kind_id: @comment.id).destroy_all
-    Good.where(kind: "gcom", kind_id: @comment.id).destroy_all
-=end
 
     @comment.destroy
     flash[:success] = "コメントを削除しました"
-    redirect_to kickspost_path(@user.mysize_id, @kickspost)
+    redirect_to kickspost_path(@user, @kickspost)
   end
 
   def gooders
@@ -58,7 +52,8 @@ class CommentsController < ApplicationController
         @comment = Comment.find_by(id: params[:id])
       else
         #自分のコメントor自分のポストへのコメントのみ
-        @comment = current_user.comments.find_by(id: params[:id]) || current_user.kicksposts.find_by(id: params[:kickspost_id]).comments.find_by(id: params[:id])
+        @comment = current_user.comments.find_by(id: params[:id]) ||
+                   current_user.kicksposts.find_by(id: params[:kickspost_id]).comments.find_by(id: params[:id])
         redirect_to root_url if @comment.nil?
       end
     end

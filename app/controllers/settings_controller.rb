@@ -9,6 +9,7 @@ class SettingsController < ApplicationController
   def welcome_update
     @user.validate_shoesize = true
     @user.validate_name = true
+
     if @user.uid.nil? && @user.update_attributes(profile_params)
       flash[:success] = "プロフィール登録が完了しました！"
       redirect_to latest_path
@@ -35,6 +36,7 @@ class SettingsController < ApplicationController
   def profile_update
     @user.validate_shoesize = true
     @user.validate_name = true
+
     if @user.update_attributes(profile_params)
       flash[:success] = "更新が完了しました！"
       redirect_to @user
@@ -78,6 +80,7 @@ class SettingsController < ApplicationController
 
   def password_update
     @user.validate_password = true
+    
     if @user.update_attributes(password_params)
       flash[:success] = "Passwordの変更が完了しました！"
       redirect_to account_settings_path

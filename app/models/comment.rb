@@ -28,7 +28,7 @@ class Comment < ApplicationRecord
 
     def search(search)
       if search
-        keyword_arys = search.gsub(/　/, " ").split()
+        keyword_arys = search.split(/[\s　]+/)
         cond = where(["lower(content) LIKE (?)", "%#{keyword_arys[0]}%".downcase])
         for i in 1..(keyword_arys.length - 1) do
           cond = cond.where(["lower(content) LIKE (?)", "%#{keyword_arys[i]}%".downcase])
@@ -57,13 +57,9 @@ class Comment < ApplicationRecord
   
   #good通知の作成および更新
   def good_notice_create_or_update
-    #ポストの通知が作られていない(=good1つ目の)場合
     if self.notice.nil?
-      #通知作成
       create_notice(user_id: self.user.id)
-    #既に通知がある場合
     else
-      #未読数+1
       notice.increment!(:unread_count, by = 1)
       notice.touch
     end
@@ -71,9 +67,7 @@ class Comment < ApplicationRecord
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    #ポストのgood数が0 && noticeが見つかった　場合
     if self.goods.blank? &&  good_notice = self.notice
-        #通知削除
         good_notice.destroy
     end
   end
@@ -82,7 +76,7 @@ class Comment < ApplicationRecord
   def check_and_create_notice_to_others_and(user, cuser)
     reply_check = false                           #userへの通知をコメントor返信どちらにするか
     ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)   #コメントに含まれる「@<mysize_id> 」の配列
-    #配列が空でない場合(=返信である場合)
+    #返信である場合
     if ids.any?
       ids.each do |msid|
         msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」

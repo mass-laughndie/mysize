@@ -6,9 +6,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(mysize_id: params[:mysize_id])
-    if current_user == @user
-      no_name
-    end
     @kicksposts = @user.kicksposts.includes(:comments, :goods)
     @comments = @user.comments.includes(:goods)
     @points = @user.passive_goods.where.not(gooder_id: @user.id).to_a.size
@@ -32,24 +29,18 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find_by(mysize_id: params[:mysize_id])
 
+    #関連コメント、ポストの削除対応(dependent: :destroyにかからないもの)
     @user.comments.each do |comment|
       comment.check_and_create_notice_to_others_and(current_user, current_user)
-      # Good.where(kind: "gcom", kind_id: comment.id).destroy_all
     end
 
     @user.kicksposts.each do |kickspost|
       kickspost.comments.each do |comment|
         comment.check_and_delete_notice_form_others_and(current_user, current_user)
-        # Good.where(post_type: "Comment", post_id: comment.id).destroy_all
       end
       kickspost.check_and_delete_notice_form_others_and(current_user)
-      # Good.where(post_type: "Kickspost", post_id: kickspost.id).destroy_all
     end
-=begin
-    @user.goods.each do |good|
-      Notice.find_by(kind: good.kind + "_list", kind_id: good.kind_id).destroy
-    end
-=end
+
     @user.destroy
     flash[:success] = "削除が完了しました"
     redirect_to admusrind_path
@@ -57,7 +48,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    #passwordバリデーション有効化
     @user.validate_password = true
     @user.name = params[:user][:mysize_id]
     @user.size = 27.0
@@ -75,7 +65,7 @@ class UsersController < ApplicationController
   def following
     @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.following.order(updated_at: :desc)#.includes(active_relationships: :followed)
+    @users = @user.following.order(updated_at: :desc)
     @url = following_user_url(@user)
     render 'show_follow'
   end
@@ -83,7 +73,7 @@ class UsersController < ApplicationController
   def followers
     @title = "フォロワー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.followers.order(updated_at: :desc)#.includes(passive_relationships: :follower)
+    @users = @user.followers.order(updated_at: :desc)
     @url = followers_user_url(@user)
     render 'show_follow'
   end

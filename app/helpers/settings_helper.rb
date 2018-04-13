@@ -1,4 +1,6 @@
 module SettingsHelper
+
+  #スニーカーサイズ表
   def size_array
     ary = []
     17.times do |n|
