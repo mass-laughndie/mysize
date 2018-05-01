@@ -24,4 +24,5 @@ class ActionDispatch::IntegrationTest
     post login_path, params: { mysize_id: user.mysize_id,
                                password:  password }
   end
+
 end

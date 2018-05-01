@@ -26,7 +26,7 @@ class ContactsController < ApplicationController
     if params[:back]
       render 'new'
     elsif @contact.save
-      @contact.send_received_message_email
+      @contact.send_email(:received_message)
       redirect_to thanks_contact_path
     else
       flash.now[:danger] = "送信できませんでした。<br>通信環境などをご確認ください。"

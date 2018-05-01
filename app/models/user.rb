@@ -123,6 +123,39 @@ class User < ApplicationRecord
         all
       end
     end
+
+    def find_or_create_from_auth(auth)
+      provider  = auth[:provider]
+      uid       = auth[:uid]
+      name      = auth[:info][:name]
+      mysize_id = auth[:info][:nickname]
+      email     = User.dummy_email(auth)
+      image     = auth[:info][:image].sub("_normal", "")
+
+      #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
+      find_or_create_by(provider: provider, uid: uid) do |user|
+        user.name  = name
+        user.email = email
+        user.remote_image_url = image
+        user.size = 27.0
+        if User.find_by(mysize_id: mysize_id).nil?
+          user.mysize_id = mysize_id
+        else
+          while true
+            num = SecureRandom.urlsafe_base64(10)
+            if User.find_by(mysize_id: num).nil?
+              user.mysize_id = num
+              break
+            end
+          end
+        end
+      end
+    end
+
+  end
+
+  def to_param
+    mysize_id
   end
 
   def remember
@@ -141,8 +174,8 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def send_welcome_email
-    mail = UserMailer.welcome(self)
+  def send_email(subject)
+    mail = UserMailer.send("#{subject}", self)
     mail.transport_encoding = "8bit"
     mail.deliver_now
   end
@@ -152,44 +185,6 @@ class User < ApplicationRecord
     update_columns(reset_digest: User.digest(reset_token),
                    e_token: User.digest(email),
                    reset_sent_at: Time.zone.now)
-  end
-
-  def send_password_reset_email
-    mail = UserMailer.password_reset(self)
-    mail.transport_encoding = "8bit"
-    mail.deliver_now
-  end
-
-  def self.find_or_create_from_auth(auth)
-    provider  = auth[:provider]
-    uid       = auth[:uid]
-    name      = auth[:info][:name]
-    mysize_id = auth[:info][:nickname]
-    email     = User.dummy_email(auth)
-    image     = auth[:info][:image].sub("_normal", "")
-
-    #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
-    self.find_or_create_by(provider: provider, uid: uid) do |user|
-      user.name  = name
-      user.email = email
-      user.remote_image_url = image
-      user.size = 27.0
-      if User.find_by(mysize_id: mysize_id).nil?
-        user.mysize_id = mysize_id
-      else
-        while true
-          num = SecureRandom.urlsafe_base64(10)
-          if User.find_by(mysize_id: num).nil?
-            user.mysize_id = num
-            break
-          end
-        end
-      end
-    end
-  end
-
-  def to_param
-    mysize_id
   end
 
 =begin

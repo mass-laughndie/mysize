@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.find_by(mysize_id: params[:mysize_id])
     @kicksposts = @user.kicksposts.includes(:comments, :goods)
     @comments = @user.comments.includes(:goods)
-    @points = @user.passive_goods.where.not(gooder_id: @user.id).to_a.size
+    @points = @user.passive_goods.where.not(gooder_id: @user.id).size
   end
 
   def new
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in @user
-      @user.send_welcome_email
+      @user.send_email(:welcome)
       flash[:success] = "登録が完了しました！"
       redirect_to welcome_path
     else
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   def good
     @user = User.find_by(mysize_id: params[:mysize_id])
     @goods = @user.active_goods.includes(:gooded).order(updated_at: :desc)
-    @points = @user.passive_goods.where.not(gooder_id: @user.id).to_a.size
+    @points = @user.passive_goods.where.not(gooder_id: @user.id).size
   end
 
   

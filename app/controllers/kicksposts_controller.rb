@@ -68,6 +68,7 @@ class KickspostsController < ApplicationController
       @kickspost = Kickspost.find_by(id: params[:id])
       @user = User.find_by(id: @kickspost.user_id)
       @check = User.find_by(mysize_id: params[:mysize_id])
+
       if @user != @check
         not_found
         #redirect_to kickspost_path(@user, @kickspost.id)

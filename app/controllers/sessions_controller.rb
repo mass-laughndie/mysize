@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  before_action :logged_in, only: [:new]
+  before_action :logged_in, only: :new
 
   def new
   end
