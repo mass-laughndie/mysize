@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(post_comment_params)
     @kickspost = Kickspost.find_by(id: params[:comment][:kickspost_id])
     @user = @kickspost.user
+
     if @comment.save
       @comment.check_and_create_notice_to_others_and(@user, current_user)
-
       flash[:success] = "コメントを送信しました"
     else
       flash[:danger] = "コメントを送信できませんでした"
@@ -20,6 +20,7 @@ class CommentsController < ApplicationController
     else
       redirect_to kickspost_path(@user, @kickspost)
     end
+    
   end
 
   def destroy

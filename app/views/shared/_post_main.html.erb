@@ -66,9 +66,9 @@
           </div>
           <div class="kpost-num" id="good-num-<%= type.underscore %>-<%= post.id %>">
             <% if type == 'Kickspost' %>
-              <%= link_to post.goods.to_a.size, gooders_kickspost_path(post) %>
+              <%= link_to post.goods.size, gooders_kickspost_path(post) %>
             <% else %>
-              <%= link_to post.goods.to_a.size, gooders_comment_path(post) %>
+              <%= link_to post.goods.size, gooders_comment_path(post) %>
             <% end %>
           </div>
         </div>
@@ -79,7 +79,7 @@
                 <%= fa_icon("comment-o") %>
               </div>
               <div class="kpost-num">
-                <span><%= post.comments.to_a.size %></span>
+                <span><%= post.comments.size %></span>
               </div>
             <% end %>
           </div>

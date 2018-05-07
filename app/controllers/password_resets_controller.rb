@@ -11,7 +11,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email].downcase)
     if @user
       @user.create_reset_digest_and_e_token
-      @user.send_password_reset_email
+      @user.send_email(:password_reset)
       redirect_to confirm_password_reset_path
     else
       if params[:email].blank?

@@ -30,7 +30,7 @@ class NoticesController < ApplicationController
         notice.destroy
       else
         #期間内のフォロワーを新しい順に並べた配列をフォロワー格納配列へ
-        @fcounts.unshift(relations.to_a.size)
+        @fcounts.unshift(relations.size)
         @followers.unshift(User.find(relations.pluck(:follower_id).first(2)))
       end
     end
