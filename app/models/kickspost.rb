@@ -53,35 +53,19 @@ class Kickspost < ApplicationRecord
     end
 
   end
-
-=begin
-  def gooded(user)
-    goods.create(user_id: user.id)
-  end
-
-  def ungooded(user)
-    goods.find_by(user_id: user.id).destroy
-  end
-
-  def gooded?(user)
-    gooders.include?(user)
-  end
-=end
   
-  #good通知の作成および更新
   def good_notice_create_or_update
     if self.notice.nil?
       create_notice(user_id: self.user.id)
     else
-      notice.increment!(:unread_count, by = 1)
-      notice.touch
+      notice.add_unread_count!
     end
   end
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
     if self.goods.blank? &&  good_notice = self.notice
-        good_notice.destroy
+      good_notice.destroy
     end
   end
 

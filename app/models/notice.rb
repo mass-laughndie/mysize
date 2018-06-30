@@ -13,9 +13,4 @@ class Notice < ApplicationRecord
   def add_unread_count!
     increment!(:unread_count, by = 1).touch
   end
-
-  def remove_unread_count!
-    decrement!(:unread_count, by = 1).touch
-  end
-
 end
