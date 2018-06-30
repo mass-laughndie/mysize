@@ -223,15 +223,15 @@ class User < ApplicationRecord
   end
 
   def create_or_update_follow_notice
-    if notice = self.follow_notice_for_this_week
+    if notice = self.follow_notice_for(this_week)
       notice.add_unread_count!
     else
       self.create_follow_notice(follow_notice_kind_id)
     end
   end
 
-  def follow_notice_for_this_week
-    notices.find_by(kind_type: "Follow", created_at: this_week)
+  def follow_notice_for(period)
+    notices.find_by(kind_type: "Follow", created_at: period)
   end
 
   def latest_follow_notice
@@ -244,12 +244,14 @@ class User < ApplicationRecord
 
   #フォロー通知のチェックと削除
   def check_or_delete_follow_notice(period)
-    relations = self.passive_relationships.where(created_at: period)
-    if relations.blank?
-      if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
-        follow_notice.destroy
-      end
+    return unless self.followed_while(period)
+    if follow_notice = self.follow_notice_for(period)
+      follow_notice.destroy
     end
+  end
+
+  def followed_while(period)
+    self.passive_relationships.where(created_at: period).present?
   end
 
   def good(type, post)
