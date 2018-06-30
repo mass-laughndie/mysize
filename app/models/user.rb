@@ -219,40 +219,32 @@ class User < ApplicationRecord
 
   def lose_notice_of(type, kind)
     post_notices = self.notices.where(kind_type: type, kind_id: kind.id)
-    if post_notices.any?
-      post_notices.each do |notice|
-        notice.destroy
-      end
+    post_notices.destroy_all if post_notices.any?
+  end
+
+  def create_or_update_follow_notice
+    if notice = self.follow_notice_for_this_week
+      notice.add_unread_count!
+    else
+      self.create_follow_notice(follow_notice_kind_id)
     end
   end
 
-  #follow通知の作成or更新
-  def create_or_update_follow_notice
-    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+  def follow_notice_for_this_week
+    notices.find_by(kind_type: "Follow", created_at: this_week)
+  end
 
-    #今週の通知がある場合
-    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
-      notice.increment!(:unread_count, by = 1)
-      notice.touch
-    #ない場合
-    else
-      #最新のフォロー通知がある場合
-      if latest_notice = self.notices.where(kind_type: "Follow").first
-        #kind_idは通し番号
-        notice_num = latest_notice.kind_id + 1
-        notices.create(kind_type: "Follow", kind_id: notice_num)
-      #ない(初通知の)場合
-      else
-        notices.create(kind_type: "Follow", kind_id: 1)
-      end
-    end
+  def latest_follow_notice
+    notices.where(kind_type: "Follow").first
+  end
+
+  def create_follow_notice(kind_id)
+    notices.create(kind_type: "Follow", kind_id: kind_id)
   end
 
   #フォロー通知のチェックと削除
   def check_or_delete_follow_notice(period)
-    #期間period内のフォローされた履歴
     relations = self.passive_relationships.where(created_at: period)
-    #履歴がない && その期間の通知がある 場合
     if relations.blank?
       if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
         follow_notice.destroy
@@ -274,10 +266,9 @@ class User < ApplicationRecord
 
   #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
+    #[dev,test]1.day.ago => [production]10.weeks.ago
     deleteline = Time.new(2000,1,1)..10.weeks.ago
-    exnotices = notices.where(unread_count: 0, updated_at: deleteline)
-    exnotices.destroy_all
+    notices.where(unread_count: 0, updated_at: deleteline).destroy_all
   end
 
   private
@@ -298,6 +289,15 @@ class User < ApplicationRecord
 
     def self.dummy_email(auth)
       "#{auth.uid}-#{auth.provider}@example.com"
+    end
+
+    def this_week
+      Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    end
+
+    def follow_notice_kind_id
+      latest_follow_notice = self.latest_follow_notice
+      latest_follow_notice.present? ? latest_follow_notice.kind_id + 1 : 1
     end
 
 end
