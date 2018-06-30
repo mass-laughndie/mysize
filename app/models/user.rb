@@ -184,22 +184,12 @@ class User < ApplicationRecord
                    reset_sent_at: Time.zone.now)
   end
 
-=begin
-  def validate_on?(name)
-    send("validate_#{param}") == 'true' || send("validate_#{param}") == true
-  end
-=end
-
-  def validate_name?
-    validate_name.in?(['true', true])
-  end
-
-  def validate_shoesize?
-    validate_shoesize.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
+  ["name", "shoesize", "password"].each do |param|
+    class_eval <<-EOS
+      def validate_#{param}?
+        validate_#{param}.in?(['true', true])
+      end
+    EOS
   end
 
   def feed
