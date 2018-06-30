@@ -128,30 +128,27 @@ class User < ApplicationRecord
       provider  = auth[:provider]
       uid       = auth[:uid]
       name      = auth[:info][:name]
-      mysize_id = auth[:info][:nickname]
+      mysizeid  = auth[:info][:nickname]
       email     = User.dummy_email(auth)
       image     = auth[:info][:image].sub("_normal", "")
 
-      #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
       find_or_create_by(provider: provider, uid: uid) do |user|
         user.name  = name
         user.email = email
         user.remote_image_url = image
         user.size = 27.0
-        if User.find_by(mysize_id: mysize_id).nil?
-          user.mysize_id = mysize_id
-        else
-          while true
-            num = SecureRandom.urlsafe_base64(10)
-            if User.find_by(mysize_id: num).nil?
-              user.mysize_id = num
-              break
-            end
-          end
-        end
+        user.mysize_id = user.set_mysize_id(mysizeid)
       end
     end
 
+  end
+
+  def set_mysize_id(mysize_id)
+    return mysize_id if User.find_by(mysize_id: mysize_id).nil?
+    while true
+      num = SecureRandom.urlsafe_base64(10)
+      return num if User.find_by(mysize_id: num).nil?
+    end
   end
 
   def to_param
