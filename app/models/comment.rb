@@ -60,15 +60,14 @@ class Comment < ApplicationRecord
     if self.notice.nil?
       create_notice(user_id: self.user.id)
     else
-      notice.increment!(:unread_count, by = 1)
-      notice.touch
+      notice.add_unread_count!
     end
   end
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
     if self.goods.blank? &&  good_notice = self.notice
-        good_notice.destroy
+      good_notice.destroy
     end
   end
 

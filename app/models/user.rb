@@ -128,30 +128,27 @@ class User < ApplicationRecord
       provider  = auth[:provider]
       uid       = auth[:uid]
       name      = auth[:info][:name]
-      mysize_id = auth[:info][:nickname]
+      mysizeid  = auth[:info][:nickname]
       email     = User.dummy_email(auth)
       image     = auth[:info][:image].sub("_normal", "")
 
-      #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
       find_or_create_by(provider: provider, uid: uid) do |user|
         user.name  = name
         user.email = email
         user.remote_image_url = image
         user.size = 27.0
-        if User.find_by(mysize_id: mysize_id).nil?
-          user.mysize_id = mysize_id
-        else
-          while true
-            num = SecureRandom.urlsafe_base64(10)
-            if User.find_by(mysize_id: num).nil?
-              user.mysize_id = num
-              break
-            end
-          end
-        end
+        user.mysize_id = user.set_mysize_id(mysizeid)
       end
     end
 
+  end
+
+  def set_mysize_id(mysize_id)
+    return mysize_id if User.find_by(mysize_id: mysize_id).nil?
+    while true
+      num = SecureRandom.urlsafe_base64(10)
+      return num if User.find_by(mysize_id: num).nil?
+    end
   end
 
   def to_param
@@ -187,22 +184,12 @@ class User < ApplicationRecord
                    reset_sent_at: Time.zone.now)
   end
 
-=begin
-  def validate_on?(name)
-    send("validate_#{param}") == 'true' || send("validate_#{param}") == true
-  end
-=end
-
-  def validate_name?
-    validate_name.in?(['true', true])
-  end
-
-  def validate_shoesize?
-    validate_shoesize.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
+  ["name", "shoesize", "password"].each do |param|
+    class_eval <<-EOS
+      def validate_#{param}?
+        validate_#{param}.in?(['true', true])
+      end
+    EOS
   end
 
   def feed
@@ -232,45 +219,39 @@ class User < ApplicationRecord
 
   def lose_notice_of(type, kind)
     post_notices = self.notices.where(kind_type: type, kind_id: kind.id)
-    if post_notices.any?
-      post_notices.each do |notice|
-        notice.destroy
-      end
+    post_notices.destroy_all if post_notices.any?
+  end
+
+  def create_or_update_follow_notice
+    if notice = self.follow_notice_for(this_week)
+      notice.add_unread_count!
+    else
+      self.create_follow_notice(follow_notice_kind_id)
     end
   end
 
-  #follow通知の作成or更新
-  def create_or_update_follow_notice
-    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+  def follow_notice_for(period)
+    notices.find_by(kind_type: "Follow", created_at: period)
+  end
 
-    #今週の通知がある場合
-    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
-      notice.increment!(:unread_count, by = 1)
-      notice.touch
-    #ない場合
-    else
-      #最新のフォロー通知がある場合
-      if latest_notice = self.notices.where(kind_type: "Follow").first
-        #kind_idは通し番号
-        notice_num = latest_notice.kind_id + 1
-        notices.create(kind_type: "Follow", kind_id: notice_num)
-      #ない(初通知の)場合
-      else
-        notices.create(kind_type: "Follow", kind_id: 1)
-      end
-    end
+  def latest_follow_notice
+    notices.where(kind_type: "Follow").first
+  end
+
+  def create_follow_notice(kind_id)
+    notices.create(kind_type: "Follow", kind_id: kind_id)
   end
 
   #フォロー通知のチェックと削除
   def check_or_delete_follow_notice(period)
-    #期間period内のフォローされた履歴
-    relations = self.passive_relationships.where(created_at: period)
-    #履歴がない && その期間の通知がある 場合
-    if relations.blank?
-      if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
-        follow_notice.destroy
-      end
+    return unless self.followed_while(period)
+    if follow_notice = self.follow_notice_for(period)
+      follow_notice.destroy
     end
+  end
+
+  def followed_while(period)
+    self.passive_relationships.where(created_at: period).present?
   end
 
   def good(type, post)
@@ -287,10 +268,9 @@ class User < ApplicationRecord
 
   #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
+    #[dev,test]1.day.ago => [production]10.weeks.ago
     deleteline = Time.new(2000,1,1)..10.weeks.ago
-    exnotices = notices.where(unread_count: 0, updated_at: deleteline)
-    exnotices.destroy_all
+    notices.where(unread_count: 0, updated_at: deleteline).destroy_all
   end
 
   private
@@ -311,6 +291,15 @@ class User < ApplicationRecord
 
     def self.dummy_email(auth)
       "#{auth.uid}-#{auth.provider}@example.com"
+    end
+
+    def this_week
+      Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    end
+
+    def follow_notice_kind_id
+      latest_follow_notice = self.latest_follow_notice
+      latest_follow_notice.present? ? latest_follow_notice.kind_id + 1 : 1
     end
 
 end
