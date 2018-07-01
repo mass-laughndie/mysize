@@ -40,20 +40,6 @@ class Comment < ApplicationRecord
     end
 
   end
-
-=begin
-  def gooded(user)
-    goods.create(user_id: user.id)
-  end
-
-  def ungooded(user)
-    goods.find_by(user_id: user.id).destroy
-  end
-
-  def gooded?(user)
-    gooders.include?(user)
-  end
-=end
   
   #good通知の作成および更新
   def good_notice_create_or_update
@@ -71,13 +57,19 @@ class Comment < ApplicationRecord
     end
   end
 
+  def mysize_ids
+    content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)
+  end
+
+  def is_reply?
+    mysize_ids.any?
+  end
+
   #コメント.返信通知の作成(user = kickspost.user, cuser = current_user)
   def check_and_create_notice_to_others_and(user, cuser)
-    reply_check = false                           #userへの通知をコメントor返信どちらにするか
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)   #コメントに含まれる「@<mysize_id> 」の配列
-    #返信である場合
-    if ids.any?
-      ids.each do |msid|
+    reply_check = false
+    if mysize_ids.any?
+      mysize_ids.each do |msid|
         msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
         other = User.find_by(mysize_id: msid)
         if other && other != user && other != cuser
@@ -96,11 +88,10 @@ class Comment < ApplicationRecord
   end
 
   #コメント.返信通知の削除(user = kickspost.user, cuser = current_user)
-  def check_and_delete_notice_form_others_and(user, cuser)
+  def check_and_delete_notice_from_others_and(user, cuser)
     reply_check = false
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)
-    if ids.any?
-      ids.each do |msid|
+    if mysize_ids.any?
+      mysize_ids.each do |msid|
         msid.delete!("@").delete!(" ")
         other = User.find_by(mysize_id: msid)
         if other && other != user && other != cuser

@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
     @user = @kickspost.user
 
-    @comment.check_and_delete_notice_form_others_and(@user, current_user)
+    @comment.check_and_delete_notice_from_others_and(@user, current_user)
 
     @comment.destroy
     flash[:success] = "コメントを削除しました"
