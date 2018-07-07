@@ -9,7 +9,8 @@ class CommentsController < ApplicationController
     @user = @kickspost.user
 
     if @comment.save
-      @comment.check_and_create_notice_to_others_and(@user, current_user)
+      @comment.create_notice_to_others_and(@user, current_user) if @comment.is_reply?
+      @comment.create_comment_notice_for(@user, current_user)
       flash[:success] = "コメントを送信しました"
     else
       flash[:danger] = "コメントを送信できませんでした"
@@ -27,7 +28,8 @@ class CommentsController < ApplicationController
     @kickspost = Kickspost.find_by(id: @comment.kickspost_id)
     @user = @kickspost.user
 
-    @comment.check_and_delete_notice_form_others_and(@user, current_user)
+    @comment.delete_notice_from_others_and(@user, current_user) if @comment.is_reply?
+    @comment.delete_comment_notice_from(@user, current_user)
 
     @comment.destroy
     flash[:success] = "コメントを削除しました"

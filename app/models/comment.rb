@@ -40,25 +40,11 @@ class Comment < ApplicationRecord
     end
 
   end
-
-=begin
-  def gooded(user)
-    goods.create(user_id: user.id)
-  end
-
-  def ungooded(user)
-    goods.find_by(user_id: user.id).destroy
-  end
-
-  def gooded?(user)
-    gooders.include?(user)
-  end
-=end
   
   #good通知の作成および更新
   def good_notice_create_or_update
     if self.notice.nil?
-      create_notice(user_id: self.user.id)
+      create_notice(user_id: self.user_id)
     else
       notice.add_unread_count!
     end
@@ -66,55 +52,46 @@ class Comment < ApplicationRecord
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    if self.goods.blank? &&  good_notice = self.notice
+    if self.goods.blank? && good_notice = self.notice
       good_notice.destroy
     end
   end
 
-  #コメント.返信通知の作成(user = kickspost.user, cuser = current_user)
-  def check_and_create_notice_to_others_and(user, cuser)
-    reply_check = false                           #userへの通知をコメントor返信どちらにするか
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)   #コメントに含まれる「@<mysize_id> 」の配列
-    #返信である場合
-    if ids.any?
-      ids.each do |msid|
-        msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
-        other = User.find_by(mysize_id: msid)
-        if other && other != user && other != cuser
-          other.receive_notice_of("ReplyCom", self)     #user以外へのreply通知作成
-        elsif other == user && other != cuser
-          user.receive_notice_of("ReplyCom", self)      #userへのreply通知作成
-          reply_check = true
-        end
-      end
-    end
+  def mysize_ids
+    content.scan(/@[a-zA-Z0-9_]+/).map {|id| id.delete("@")}
+  end
 
-    #userへの返信じゃない || userがコメ主でない  場合
-    unless reply_check || user == cuser
-      user.receive_notice_of("NormalCom", self)         #userへのコメント通知作成
+  def is_reply?
+    mysize_ids.any?
+  end
+
+  def extract_others_replied_by(mysize_id, cuser)
+    return nil if mysize_id == cuser.mysize_id
+    User.find_by(mysize_id: mysize_id)
+  end
+
+  def create_notice_to_others_and(user, cuser)
+    mysize_ids.each do |msid|
+      other = self.extract_others_replied_by(msid, cuser)
+      next if other.nil?
+      other.receive_notice_of("ReplyCom", self) if other != user
     end
   end
 
-  #コメント.返信通知の削除(user = kickspost.user, cuser = current_user)
-  def check_and_delete_notice_form_others_and(user, cuser)
-    reply_check = false
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)
-    if ids.any?
-      ids.each do |msid|
-        msid.delete!("@").delete!(" ")
-        other = User.find_by(mysize_id: msid)
-        if other && other != user && other != cuser
-          other.lose_notice_of("ReplyCom", self)     #user以外へのreply通知削除
-        elsif other == user && other != cuser
-          user.lose_notice_of("ReplyCom", self)      #userへのreply通知削除
-          reply_check = true
-        end
-      end
-    end
+  def create_comment_notice_for(user, cuser)
+    user.receive_notice_of("NormalCom", self) unless user == cuser
+  end
 
-    unless reply_check || user == cuser
-      user.lose_notice_of("NormalCom", self)      #userへのコメント通知削除
+  def delete_notice_from_others_and(user, cuser)
+    mysize_ids.each do |msid|
+      other = self.extract_others_replied_by(msid, cuser)
+      next if other.nil?
+      other.lose_notice_of("ReplyCom", self)
     end
+  end
+
+  def delete_comment_notice_from(user, cuser)
+    user.lose_notice_of("NormalCom", self) unless user == cuser
   end
 
 end

@@ -56,53 +56,50 @@ class Kickspost < ApplicationRecord
   
   def good_notice_create_or_update
     if self.notice.nil?
-      create_notice(user_id: self.user.id)
+      create_notice(user_id: self.user_id)
     else
       notice.add_unread_count!
     end
   end
 
-  #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    if self.goods.blank? &&  good_notice = self.notice
+    if self.goods.blank? && good_notice = self.notice
       good_notice.destroy
     end
   end
 
-  #返信通知の作成(cuser = current_user)
-  def check_and_create_notice_to_others_and(cuser)
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)   #コメントに含まれる「@<mysize_id> 」の配列
-    #配列が空でない場合(=返信である場合)
-    if ids.any?
-      ids.each do |msid|
-        msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
-        other = User.find_by(mysize_id: msid)
-        if other && other != cuser
-          other.receive_notice_of("ReplyPost", self)     #cuser以外へのreply通知作成
-        end
-      end
+  def mysize_ids
+    content.scan(/@[a-zA-Z0-9_]+/).map {|id| id.delete("@")}
+  end
+
+  def is_reply?
+    mysize_ids.any?
+  end
+
+  def extract_others_replied_by(mysize_id, cuser)
+    return nil if mysize_id == cuser.mysize_id
+    User.find_by(mysize_id: mysize_id)
+  end
+
+  def create_notice_to_others_from(cuser)
+    mysize_ids.each do |msid|
+      other = self.extract_others_replied_by(msid, cuser)
+      next if other.nil?
+      other.receive_notice_of("ReplyPost", self) 
     end
   end
 
-  #返信通知の削除(cuser = current_user)
-  def check_and_delete_notice_form_others_and(cuser)
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s|\r\n|\r/)
-    if ids.any?
-      ids.each do |msid|
-        msid = msid.delete("@").delete(" ").delete("\r\n").delete("\n") #「@<mysize_id> 」 => 「<mysize_id>」
-        other = User.find_by(mysize_id: msid)
-        if other && other != cuser
-          other.lose_notice_of("ReplyPost", self)     #cuser以外へのreply通知削除
-        end
-      end
+  def delete_notice_from_others_by(cuser)
+    mysize_ids.each do |msid|
+      other = self.extract_others_replied_by(msid, cuser)
+      next if other.nil?
+      other.lose_notice_of("ReplyPost", self)
     end
   end
 
   private
 
     def picture_size
-      if picture.size > 5.megabytes
-        error.add(:picture, "画像サイズは最大5MBまで設定できます")
-      end
+      error.add(:picture, "画像サイズは最大5MBまで設定できます") if picture.size > 5.megabytes
     end
 end

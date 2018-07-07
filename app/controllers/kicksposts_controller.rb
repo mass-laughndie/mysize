@@ -14,9 +14,9 @@ class KickspostsController < ApplicationController
   end
 
   def create
-    @kickspost = current_user.kicksposts.build(kicksposts_params)
+    @kickspost = current_user.kicksposts.build(kickspost_params)
     if @kickspost.save
-      @kickspost.check_and_create_notice_to_others_and(current_user)
+      @kickspost.create_notice_to_others_from(current_user) if @kickspost.is_reply?
       flash[:success] = "投稿に成功しました"
       redirect_to follow_url
     else
@@ -28,7 +28,7 @@ class KickspostsController < ApplicationController
   end
 
   def update
-    if @kickspost.update_attributes(kicksposts_params)
+    if @kickspost.update_attributes(kickspost_params)
       flash[:success] = "編集に成功しました"
       redirect_to follow_url
     else
@@ -38,10 +38,11 @@ class KickspostsController < ApplicationController
 
   def destroy
     @kickspost.comments.each do |comment|
-      comment.check_and_delete_notice_form_others_and(current_user, current_user)
+      comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
+      comment.delete_comment_notice_from(current_user, current_user)
     end
 
-    @kickspost.check_and_delete_notice_form_others_and(current_user)
+    @kickspost.delete_notice_from_others_by(current_user) if @kickspost.is_reply?
 
     @kickspost.destroy
     flash[:danger] = "投稿を削除しました"
@@ -58,7 +59,7 @@ class KickspostsController < ApplicationController
 
   private
 
-    def kicksposts_params
+    def kickspost_params
       params.require(:kickspost).permit(:title, :color, :brand,
                                         :content, :picture,
                                         :picture_cache, :size)
