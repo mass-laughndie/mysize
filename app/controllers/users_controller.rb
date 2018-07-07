@@ -31,14 +31,16 @@ class UsersController < ApplicationController
 
     #関連コメント、ポストの削除対応(dependent: :destroyにかからないもの)
     @user.comments.each do |comment|
-      comment.check_and_delete_notice_from_others_and(current_user, current_user)
+      comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
+      comment.delete_comment_notice_from(current_user, current_user)
     end
 
     @user.kicksposts.each do |kickspost|
       kickspost.comments.each do |comment|
-        comment.check_and_delete_notice_from_others_and(current_user, current_user)
+        comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
+      comment.delete_comment_notice_from(current_user, current_user)
       end
-      kickspost.check_and_delete_notice_from_others_and(current_user)
+      kickspost.delete_notice_from_others_and(current_user) if kickspost.is_reply?
     end
 
     @user.destroy

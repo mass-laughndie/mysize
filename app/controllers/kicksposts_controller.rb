@@ -38,7 +38,8 @@ class KickspostsController < ApplicationController
 
   def destroy
     @kickspost.comments.each do |comment|
-      comment.check_and_delete_notice_from_others_and(current_user, current_user)
+      comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
+      comment.delete_comment_notice_from(current_user, current_user)
     end
 
     @kickspost.delete_notice_from_others_by(current_user) if @kickspost.is_reply?
