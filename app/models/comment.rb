@@ -44,7 +44,7 @@ class Comment < ApplicationRecord
   #good通知の作成および更新
   def good_notice_create_or_update
     if self.notice.nil?
-      create_notice(user_id: self.user.id)
+      create_notice(user_id: self.user_id)
     else
       notice.add_unread_count!
     end
@@ -52,7 +52,7 @@ class Comment < ApplicationRecord
 
   #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    if self.goods.blank? &&  good_notice = self.notice
+    if self.goods.blank? && good_notice = self.notice
       good_notice.destroy
     end
   end
