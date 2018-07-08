@@ -41,9 +41,7 @@ class SettingsController < ApplicationController
       flash[:success] = "更新が完了しました！"
       redirect_to @user
     else
-      if params[:user][:name].blank?
-        @user.reload
-      end
+      @user.reload if params[:user][:name].blank?
       render 'profile'
     end
   end
@@ -99,11 +97,7 @@ class SettingsController < ApplicationController
       flash[:success] = "退会処理が完了しました。<br>ご利用ありがとうございました。"
       redirect_to root_url
     else
-      if @user.admin?
-        flash[:danger] = "このアカウントは削除できません。"
-      else
-        flash[:danger] = "Passwordが間違っています。"
-      end
+      flash[:danger] = (@user.admin? ? "このアカウントは削除できません。" : "Passwordが間違っています。" )
       render 'leave'
     end
   end
