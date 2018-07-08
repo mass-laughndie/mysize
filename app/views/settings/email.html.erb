@@ -6,7 +6,7 @@
 
 <div class="container content-space">
   <div class="form">
-    <%= form_for(@user, url: email_settings_path) do |f| %>
+    <%= form_for(current_user, url: email_settings_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="c base-form">
         <%= f.email_field :email, placeholder: "メールアドレス" %>

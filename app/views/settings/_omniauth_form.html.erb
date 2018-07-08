@@ -1,4 +1,4 @@
-<%= form_for(@user, url: welcome_path, multipart: true) do |f| %>
+<%= form_for(current_user, url: welcome_path, multipart: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="label-form">
     <label for="user_name"><span class="font-accent">*</span>ユーザー名</label>
@@ -20,19 +20,13 @@
       <div class="file-form">
         <%= f.label :image, class: "upload-button" do %>
           <div class="upload-icon">
-            <% if @user.image.blank? %>
-              <%= fa_icon("plus") %>
-            <% else %>
-              <%= fa_icon("refresh") %>
+            <%= fa_icon(current_user.image.blank? ? "plus" : "refresh") %>
+          </div>
+          <div class="preview">
+            <% if current_user.image.present? %>
+              <%= image_tag(image_url(current_user), alt: current_user.name, class: "cover") %>
             <% end %>
           </div>
-          <% if @user.image.blank? %>
-            <div class="preview"></div>
-          <% else %>
-            <div class="preview">
-              <%= image_tag(image_url(@user), alt: @user.name, class: "cover") %>
-            </div>
-          <% end %>
         <% end %>
       </div>
       <div class="base-form hidden-form">
@@ -45,7 +39,7 @@
         <label for="user_size"><span class="font-accent">*</span>スニーカーのベースサイズ</label>
       </div>
       <div class="base-form select-form">
-        <%= f.select(:size, options_for_select(size_array, @user.size)) %>
+        <%= f.select(:size, options_for_select(size_array, current_user.size)) %>
         <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
       </div>
     </div>
