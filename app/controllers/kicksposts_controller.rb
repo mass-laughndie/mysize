@@ -1,10 +1,12 @@
 class KickspostsController < ApplicationController
   
   before_action :logged_in_user,          except: [:show]
-  before_action :set_and_check_kickspost, only:   [:show, :edit, :update, :destroy]
-  before_action :ensure_correct_user,     only:   [:edit, :update, :destroy]
 
   def show
+    @kickspost = Kickspost.find_by(id: params[:id])
+    @user = @kickspost.user
+    redirect_to kickspost_path(@user, @kickspost) if @user.mysize_id != params[:mysize_id]
+
     @comments = @kickspost.comments.includes(:user, :goods, :replies).where(reply_id: 0)
     @text = "detail"
   end
@@ -25,9 +27,18 @@ class KickspostsController < ApplicationController
   end
 
   def edit
+    @kickspost = Kickspost.find_by(id: params[:id])
+    @user = @kickspost.user
+    redirect_if_invalid(@user)
+    redirect_to kickspost_path(@user, @kickspost) if @user.mysize_id != params[:mysize_id]
   end
 
   def update
+    @kickspost = Kickspost.find_by(id: params[:id])
+    @user = @kickspost.user
+    redirect_if_invalid(@user)
+    redirect_to kickspost_path(@user, @kickspost) if @user.mysize_id != params[:mysize_id]
+
     if @kickspost.update_attributes(kickspost_params)
       flash[:success] = "編集に成功しました"
       redirect_to follow_url
@@ -37,6 +48,11 @@ class KickspostsController < ApplicationController
   end
 
   def destroy
+    @kickspost = Kickspost.find_by(id: params[:id])
+    @user = @kickspost.user
+    redirect_if_invalid(@user)
+    redirect_to kickspost_path(@user, @kickspost) if @user.mysize_id != params[:mysize_id]
+
     @kickspost.comments.each do |comment|
       comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
       comment.delete_comment_notice_from(current_user, current_user)
@@ -65,21 +81,9 @@ class KickspostsController < ApplicationController
                                         :picture_cache, :size)
     end
 
-    def set_and_check_kickspost
-      @kickspost = Kickspost.find_by(id: params[:id])
-      @user = User.find_by(id: @kickspost.user_id)
-      @check = User.find_by(mysize_id: params[:mysize_id])
-
-      if @user != @check
-        not_found
-        #redirect_to kickspost_path(@user, @kickspost.id)
-      end
-    end
-
-    def ensure_correct_user
-      unless @kickspost.user_id == current_user.id || current_user.admin?
-        flash[:danger] = "権限がありません"
-        redirect_to root_url
-      end
+    def redirect_if_invalid(user)
+      return if current_user?(user) || current_user.admin?
+      flash[:danger] = "権限がありません"
+      redirect_to root_url
     end
 end

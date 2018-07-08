@@ -4,7 +4,7 @@ class RelationshipsController < ApplicationController
 
   def create
     @user = User.find(params[:followed_id])
-    @relation = current_user.follow(@user)
+    current_user.follow(@user)
 
     @user.create_or_update_follow_notice
 
