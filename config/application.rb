@@ -16,6 +16,8 @@ module Mysize1
     #認証トークンをremoteフォームに埋め込む(ブラウザ側でJSが無効になっていた場合にAjaxを機能させる)
     config.action_view.embed_authenticity_token_in_remote_forms = true
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
