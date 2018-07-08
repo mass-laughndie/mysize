@@ -6,8 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(mysize_id: params[:mysize_id].downcase) ||
-            User.find_by(email: params[:mysize_id].downcase)
+    @user = find_user_by(params[:mysize_id])
 
     if @user && @user.authenticate(params[:password])
       log_in @user
@@ -44,15 +43,17 @@ class SessionsController < ApplicationController
 
   private
 
-    def auth_params
-      request.env['omniauth.auth']
-    end
+  def auth_params
+    request.env['omniauth.auth']
+  end
 
-    def logged_in
-      if logged_in?
-        flash[:info] = "既にログイン中です"
-        redirect_to latest_url
-      end
-    end
+  def logged_in
+    return unless logged_in?
+    flash[:info] = "既にログイン中です"
+    redirect_to latest_url
+  end
 
+  def find_user_by(param)
+    User.find_by(mysize_id: param.downcase) || User.find_by(email: param.downcase)
+  end
 end

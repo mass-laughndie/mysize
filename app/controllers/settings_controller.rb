@@ -9,16 +9,14 @@ class SettingsController < ApplicationController
     current_user.validate_shoesize = true
     current_user.validate_name = true
 
-    if current_user.uid.nil? && current_user.update_attributes(profile_params)
+    if twitter_linked? && current_user.update_attributes(profile_params)
       flash[:success] = "プロフィール登録が完了しました！"
       redirect_to latest_path
-    elsif !current_user.uid.nil? && current_user.update_attributes(omniauth_params)
+    elsif !twitter_linked? && current_user.update_attributes(omniauth_params)
       flash[:success] = "アカウント登録が完了しました！"
       redirect_to latest_path
     else
-      if params[:user][:name].blank? || params[:user][:mysize_id].blank?
-        current_user.reload
-      end
+      current_user.reload if name_or_mysize_id_blank?
       render 'welcome'
     end
   end
@@ -121,5 +119,13 @@ class SettingsController < ApplicationController
 
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def name_or_mysize_id_blank?
+    params[:user][:name].blank? || params[:user][:mysize_id].blank?
+  end
+
+  def twitter_linked?
+    current_user.uid.nil?
   end
 end
