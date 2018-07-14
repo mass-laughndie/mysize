@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Search
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
@@ -107,21 +108,9 @@ class User < ApplicationRecord
       SecureRandom.uuid
     end
 
-    def search(search)
-      if search
-        keyword_arys = search.split(/[\s　]+/)
-        size_search = keyword_arys[0].to_f
-        cond = where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-               "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase, "#{size_search}"])
-        for i in 1..(keyword_arys.length - 1) do
-          size_search = keyword_arys[i].to_f
-          cond = cond.where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-               "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase, "#{size_search}"])
-        end
-        cond
-      else
-        all
-      end
+    def search(keywords)
+      fields = [:name, :mysize_id, :content]
+      self.search_condition(keywords, fields, :size)
     end
 
     def find_or_create_from_auth(auth)
@@ -266,7 +255,6 @@ class User < ApplicationRecord
     active_goods.where(post_type: type).pluck(:post_id).include?(post.id)
   end
 
-  #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
     #[dev,test]1.day.ago => [production]10.weeks.ago
     deleteline = Time.new(2000,1,1)..10.weeks.ago
@@ -296,8 +284,8 @@ class User < ApplicationRecord
     end
 
     def follow_notice_kind_id
-      latest_follow_notice = self.latest_follow_notice
-      latest_follow_notice.present? ? latest_follow_notice.kind_id + 1 : 1
+      latest_notice = self.latest_follow_notice
+      latest_notice.present? ? latest_notice.kind_id + 1 : 1
     end
 
 end

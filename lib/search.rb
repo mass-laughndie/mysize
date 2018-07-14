@@ -1,40 +1,44 @@
 module Search
-
-  # 削除予定
-  def self.search(search_words, fields)
-    return all unless search_words.blank?
-
-    keywords = format(search_words)
-    size_keyword = keywords[0].to_f
-    cond = where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-            "%#{keywords[0]}%", "%#{keywords[0]}%", "%#{keywords[0]}%", "#{size_keyword}"])
-    for i in 1..(keywords.length - 1) do
-      size_keyword = keywords[i].to_f
-      cond = cond.where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-            "%#{keywords[i]}%", "%#{keywords[i]}%", "%#{keywords[i]}%", "#{size_keyword}"])
-    end
-    cond
+  def self.included(klass)
+    klass.extend(ClassMethods)
   end
 
-  # 作成中
-  def self.search(search_words, fields)
-    return all unless search_words.blank?
+  module ClassMethods
+    def search_condition(search_words, fields, size_field = nil)
+      condition = all
+      return condition if search_words.blank?
 
-    keywords = format(search_words)
-    size_keyword = keywords[0].to_f
-    cond = where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-            "%#{keywords[0]}%", "%#{keywords[0]}%", "%#{keywords[0]}%", "#{size_keyword}"])
-    for i in 1..(keywords.length - 1) do
-      size_keyword = keywords[i].to_f
-      cond = cond.where(["lower(name) LIKE (?) OR lower(mysize_id) LIKE (?) OR lower(content) LIKE (?) OR size IN (?)",
-            "%#{keywords[i]}%", "%#{keywords[i]}%", "%#{keywords[i]}%", "#{size_keyword}"])
+      keywords = format(search_words)
+      keywords.each do |keyword|
+        where_phrases = [""]
+        where_phrases = where_some_phrases_for(fields, keyword, where_phrases)
+        where_phrases = where_size_phrases_for(size_field, keyword, where_phrases)
+
+        condition = condition.where(where_phrases)
+      end
+      condition
     end
-    cond
-  end
 
-  private
+    private
 
-  def format(keywords)
-    keywords.downcase.split(/[\s　]+/)
+    def format(keywords)
+      keywords.downcase.split(/[\s　]+/)
+    end
+
+    def where_some_phrases_for(fields, keyword, phrases)
+      fields.each do |field|
+        phrases[0] += "lower(#{field}) LIKE (?)"
+        phrases[0] += " OR " if field != fields[-1]
+        phrases << "%#{keyword}%"
+      end
+      phrases
+    end
+
+    def where_size_phrases_for(field = nil, keyword, phrases)
+      return phrases if field.nil?
+      phrases[0] += " OR #{field} IN (?)"
+      phrases << "#{keyword.to_f}"
+      phrases
+    end
   end
 end
