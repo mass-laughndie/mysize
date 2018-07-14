@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+  include Search
 
   belongs_to :user
   belongs_to :kickspost
@@ -25,20 +26,10 @@ class Comment < ApplicationRecord
                                        message: "内容は500文字まで入力できます" }
 
   class << self
-
-    def search(search)
-      if search
-        keyword_arys = search.split(/[\s　]+/)
-        cond = where(["lower(content) LIKE (?)", "%#{keyword_arys[0]}%".downcase])
-        for i in 1..(keyword_arys.length - 1) do
-          cond = cond.where(["lower(content) LIKE (?)", "%#{keyword_arys[i]}%".downcase])
-        end
-        cond
-      else
-        all
-      end
+    def search(keywords)
+      fields = [:content]
+      self.search_condition(keywords, fields)
     end
-
   end
   
   #good通知の作成および更新
