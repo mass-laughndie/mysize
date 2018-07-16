@@ -37,7 +37,7 @@ class KickspostsController < ApplicationController
     @kickspost = Kickspost.find_by(id: params[:id])
     @user = @kickspost.user
     redirect_if_invalid(@user)
-    redirect_to kickspost_path(@user, @kickspost) if @user.mysize_id != params[:mysize_id]
+    redirect_to kickspost_path(@user, @kickspost) and return if @user.mysize_id != params[:mysize_id]
 
     if @kickspost.update_attributes(kickspost_params)
       flash[:success] = "編集に成功しました"
@@ -50,8 +50,8 @@ class KickspostsController < ApplicationController
   def destroy
     @kickspost = Kickspost.find_by(id: params[:id])
     @user = @kickspost.user
-    redirect_if_invalid(@user)
-    redirect_to kickspost_path(@user, @kickspost) if @user.mysize_id != params[:mysize_id]
+    redirect_if_invalid(@user) and return
+    redirect_to kickspost_path(@user, @kickspost) and return if @user.mysize_id != params[:mysize_id]
 
     @kickspost.comments.each do |comment|
       comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
@@ -84,6 +84,6 @@ class KickspostsController < ApplicationController
     def redirect_if_invalid(user)
       return if current_user?(user) || current_user.admin?
       flash[:danger] = "権限がありません"
-      redirect_to root_url
+      redirect_to(root_url) and return true
     end
 end
