@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include Search
+  extend Search
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
@@ -94,7 +94,6 @@ class User < ApplicationRecord
   validate :image_size
   
   class << self
-
     def digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
@@ -129,7 +128,6 @@ class User < ApplicationRecord
         user.mysize_id = user.set_mysize_id(mysizeid)
       end
     end
-
   end
 
   def set_mysize_id(mysize_id)
@@ -187,6 +185,7 @@ class User < ApplicationRecord
   end
 
   def password_reset_expired?
+    return true if self.reset_sent_at.nil?
     reset_sent_at < 2.hours.ago
   end
 

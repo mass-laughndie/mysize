@@ -1,5 +1,5 @@
 class Kickspost < ApplicationRecord
-  include Search
+  extend Search
   
   belongs_to :user
   has_many   :comments, dependent:  :destroy
