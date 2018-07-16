@@ -80,9 +80,13 @@ class Kickspost < ApplicationRecord
     end
   end
 
+  def gooders_without_ownself
+    gooders.where.not(id: current_user.id)
+  end
+
   private
 
-    def picture_size
-      error.add(:picture, "画像サイズは最大5MBまで設定できます") if picture.size > 5.megabytes
-    end
+  def picture_size
+    error.add(:picture, "画像サイズは最大5MBまで設定できます") if picture.size > 5.megabytes
+  end
 end

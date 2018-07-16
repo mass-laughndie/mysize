@@ -81,4 +81,7 @@ class Comment < ApplicationRecord
     user.lose_notice_of("NormalCom", self) unless user == cuser
   end
 
+  def gooders_without_ownself
+    gooders.where.not(id: current_user.id)
+  end
 end
