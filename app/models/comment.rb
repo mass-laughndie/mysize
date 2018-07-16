@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  include Search
+  extend Search
 
   belongs_to :user
   belongs_to :kickspost

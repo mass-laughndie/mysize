@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include Search
+  extend Search
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
