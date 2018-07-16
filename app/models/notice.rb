@@ -15,7 +15,6 @@ class Notice < ApplicationRecord
   end
 
   def get_post
-    post = nil
     case self.kind_type
     when "ReplyCom", "NormalCom"
       return Comment.find_by(id: self.kind_id)
