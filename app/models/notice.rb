@@ -13,4 +13,18 @@ class Notice < ApplicationRecord
   def add_unread_count!
     increment!(:unread_count, by = 1).touch
   end
+
+  def get_post
+    post = nil
+    case self.kind_type
+    when "ReplyCom", "NormalCom"
+      return Comment.find_by(id: self.kind_id)
+    when "ReplyPost"
+      return Kickspost.find_by(id: self.kind_id)
+    when "Comment", "Kickspost"
+      return self.kind
+    else
+      return nil
+    end
+  end
 end
