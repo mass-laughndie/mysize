@@ -1,5 +1,7 @@
 class Kickspost < ApplicationRecord
   extend Search
+
+  search_fields :title, :color, :brand, :content, size_field: :size
   
   belongs_to :user
   has_many   :comments, dependent:  :destroy
@@ -34,13 +36,6 @@ class Kickspost < ApplicationRecord
   validate  :picture_size
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 
-  class << self
-    def search(keywords)
-      fields = [:title, :color, :brand, :content]
-      self.search_condition(keywords, fields, :size)
-    end
-  end
-  
   def good_notice_create_or_update
     return create_notice(user_id: self.user_id) if self.notice.nil?
     notice.add_unread_count!

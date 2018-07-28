@@ -59,6 +59,13 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get notice_path
     assert_match content, response.body
+
+    log_in_as(@other)
+    get user_path(@other)
+    first_kickspost = @other.kicksposts.first
+    assert_difference 'Kickspost.count', -1 do
+      delete kickspost_path(@other, first_kickspost)
+    end
   end
 
   test "normal comment notice for my kickspost" do

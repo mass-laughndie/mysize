@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
+  
+  search_fields :name, :mysize_id, :content, size_field: :size
 
   before_save :downcase_email
   before_save :downcase_mysizeid
@@ -105,11 +107,6 @@ class User < ApplicationRecord
 
     def new_reset_token
       SecureRandom.uuid
-    end
-
-    def search(keywords)
-      fields = [:name, :mysize_id, :content]
-      self.search_condition(keywords, fields, :size)
     end
 
     def find_or_create_from_auth(auth)
