@@ -27,13 +27,11 @@ class Comment < ApplicationRecord
                            length:   { maximum: 500,
                                        message: "内容は500文字まで入力できます" }
 
-  #good通知の作成および更新
   def good_notice_create_or_update
     return create_notice(user_id: self.user_id) if self.notice.nil?
     notice.add_unread_count!
   end
 
-  #good通知のチェックおよび削除
   def good_notice_check_or_delete
     return if self.goods.any? || !(good_notice = self.notice)
     good_notice.destroy
