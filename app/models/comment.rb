@@ -1,6 +1,8 @@
 class Comment < ApplicationRecord
   extend Search
 
+  search_fields :content
+
   belongs_to :user
   belongs_to :kickspost
   has_many   :replies,  class_name:  "Comment",
@@ -25,13 +27,6 @@ class Comment < ApplicationRecord
                            length:   { maximum: 500,
                                        message: "内容は500文字まで入力できます" }
 
-  class << self
-    def search(keywords)
-      fields = [:content]
-      self.search_condition(keywords, fields)
-    end
-  end
-  
   #good通知の作成および更新
   def good_notice_create_or_update
     return create_notice(user_id: self.user_id) if self.notice.nil?

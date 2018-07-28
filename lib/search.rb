@@ -1,5 +1,14 @@
 module Search
-  def search_condition(search_words, fields, size_field = nil)
+  def search_fields(*fields, size_field: nil)
+    @fields = valid_columns_from(fields)
+    @size_field = valid_size_column_from(size_field)
+  end
+
+  def search(search_words)
+    search_condition(search_words, @fields, @size_field)
+  end
+
+  def search_condition(search_words, fields, size_field)
     condition = all
     return condition if search_words.blank?
 
@@ -15,6 +24,14 @@ module Search
   end
 
   private
+
+  def valid_columns_from(fields)
+    column_names.map(&:to_sym) & fields
+  end
+
+  def valid_size_column_from(size_field)
+    column_names.map(&:to_sym).include?(size_field) ? size_field : nil
+  end
 
   def format(keywords)
     keywords.downcase.split(/[\s　]+/)
