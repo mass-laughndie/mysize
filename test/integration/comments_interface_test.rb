@@ -11,6 +11,13 @@ class CommentsInterfaceTest < ActionDispatch::IntegrationTest
 
   test "create comment interface" do
     get kickspost_path(@user, @kickspost)
+    #ログインなし
+    assert_no_difference 'Comment.count' do
+      post postcomments_path, params: { comment: { user_id: @user.id,
+                                                   kickspost_id: @kickspost.id,
+                                                   reply_id: 0,
+                                                   content: "" } }
+    end
     assert_redirected_to login_url
     log_in_as(@user)
     get kickspost_path(@user, @kickspost)

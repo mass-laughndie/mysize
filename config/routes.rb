@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get '/latest',    to: 'static_pages#latest'
+  get '/latest',  to: 'static_pages#latest'
+  get '/follow',  to: 'static_pages#follow'
   get '/help',    to: 'static_pages#help'
   get '/about',   to: 'static_pages#about'
   get '/terms',   to: 'static_pages#terms'
@@ -26,16 +27,12 @@ Rails.application.routes.draw do
   get  '/upload', to: 'kicksposts#new'
   post '/upload', to: 'kicksposts#create'
 
-  get '/search', to: 'search#search'
+  get '/search', to: 'searches#search'
 
   post   '/postcomments',    to: 'comments#create'
   delete '/postcomment/:id', to: 'comments#destroy',
                              as: 'postcomment'
 
-=begin
-  get  '/question', to: 'comments#new'
-  post '/question', to: 'comments#create'
-=end
   resource :password_reset, except: [:show, :destroy],
                             path_names: { new: '' } do
     collection do
@@ -55,16 +52,14 @@ Rails.application.routes.draw do
 
   resource   :notice,     only: [:show, :create, :destroy]
   resources  :goods,      only: [:create, :destroy]
-  resources  :comments,   only: [:index, :show],
-                          path: '/talk'
   
+
   resources :users, param: :mysize_id,
                     only: [:show, :destroy],
                     path: '/' do
     member do
-      resources :kicksposts, except: [:new, :create, :index] do
-        #get :gooders, on: :member
-      end
+      resources :kicksposts, except: [:new, :create, :index]
+
       get :following,
           :followers,
           :good

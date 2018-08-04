@@ -6,10 +6,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(mysize_id: params[:mysize_id])
-    if current_user == @user
-      no_name
-    end
     @kicksposts = @user.kicksposts.includes(:comments, :goods)
+    @comments = @user.comments.includes(:goods)
+    @points = @user.passive_goods.where.not(gooder_id: @user.id).size
   end
 
   def new
@@ -30,37 +29,34 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find_by(mysize_id: params[:mysize_id])
 
+    #関連コメント、ポストの削除対応(dependent: :destroyにかからないもの)
     @user.comments.each do |comment|
-      comment.check_and_create_notice_to_others_and(current_user, current_user)
-      # Good.where(kind: "gcom", kind_id: comment.id).destroy_all
+      comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
+      comment.delete_comment_notice_from(current_user, current_user)
     end
 
     @user.kicksposts.each do |kickspost|
       kickspost.comments.each do |comment|
-        comment.check_and_delete_notice_form_others_and(current_user, current_user)
-        # Good.where(post_type: "Comment", post_id: comment.id).destroy_all
+        comment.delete_notice_from_others_and(current_user, current_user) if comment.is_reply?
+      comment.delete_comment_notice_from(current_user, current_user)
       end
-      kickspost.check_and_delete_notice_form_others_and(current_user)
-      # Good.where(post_type: "Kickspost", post_id: kickspost.id).destroy_all
+      kickspost.delete_notice_from_others_and(current_user) if kickspost.is_reply?
     end
-=begin
-    @user.goods.each do |good|
-      Notice.find_by(kind: good.kind + "_list", kind_id: good.kind_id).destroy
-    end
-=end
+
     @user.destroy
     flash[:success] = "削除が完了しました"
-    redirect_to admusrind_url
+    redirect_to admusrind_path
   end
 
   def create
     @user = User.new(user_params)
-    #passwordバリデーション有効化
     @user.validate_password = true
+    @user.name = params[:user][:mysize_id]
+    @user.size = 27.0
 
     if @user.save
       log_in @user
-      @user.send_welcome_email
+      @user.send_email(:welcome)
       flash[:success] = "登録が完了しました！"
       redirect_to welcome_path
     else
@@ -71,27 +67,30 @@ class UsersController < ApplicationController
   def following
     @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.following.order(updated_at: :desc)#.includes(active_relationships: :followed)
+    @users = @user.following.order(updated_at: :desc)
+    @url = following_user_url(@user)
     render 'show_follow'
   end
 
   def followers
     @title = "フォロワー"
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @users = @user.followers.order(updated_at: :desc)#.includes(passive_relationships: :follower)
+    @users = @user.followers.order(updated_at: :desc)
+    @url = followers_user_url(@user)
     render 'show_follow'
   end
 
   def good
     @user = User.find_by(mysize_id: params[:mysize_id])
-    @goods = @user.goods.includes(:user).order(updated_at: :desc)
+    @goods = @user.active_goods.includes(:gooded).order(updated_at: :desc)
+    @points = @user.passive_goods.where.not(gooder_id: @user.id).size
   end
 
   
   private
 
     def user_params
-      params.require(:user).permit(:email, :mysize_id,
+      params.require(:user).permit(:email, :mysize_id, :name, :size,
                                    :password, :password_confirmation)
     end
 

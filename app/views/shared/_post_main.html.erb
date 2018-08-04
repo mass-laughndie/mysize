@@ -32,9 +32,23 @@
               <% end %>
             <% end %>
           </div>
-          <div class="kpost-content autolink">
-            <span class="post-text"><%= post.content %></span>
-          </div>
+          <% if type == "Kickspost" %>
+            <div class="kpost-brand">
+              <span><%= post.brand %></span>
+            </div>
+            <div class="kpost-title">
+              <h2><%= post.title %> <span>( <%= post.color %> )</span></h2>
+            </div>
+          <% end %>
+          <% if  @text == "detail" %>
+            <div class="kpost-content autolink">
+              <span class="post-text"><%= post.content %></span>
+            </div>
+          <% else %>
+            <div class="kpost-content autolink over-text">
+              <span><%= post.content %></span>
+            </div>
+          <% end %>
         </div>
       <% if reply_on %>
       <div class="kpost-act  <%= type.downcase %>-act reply-act clear">
@@ -52,20 +66,32 @@
           </div>
           <div class="kpost-num" id="good-num-<%= type.underscore %>-<%= post.id %>">
             <% if type == 'Kickspost' %>
-              <%= link_to post.goods.to_a.size, gooders_kickspost_path(post) %>
+              <%= link_to post.goods.size, gooders_kickspost_path(post) %>
             <% else %>
-              <%= link_to post.goods.to_a.size, gooders_comment_path(post) %>
+              <%= link_to post.goods.size, gooders_comment_path(post) %>
             <% end %>
           </div>
         </div>
         <% if type == "Kickspost" %>
-          <div class="kpost-alist alist-last">
-            <%= link_to kickspost_path(post.user.mysize_id, post), class: "kpost-alink" do %>
+          <div class="kpost-alist">
+            <%= link_to kickspost_path(post.user, post), class: "kpost-alink" do %>
               <div class="kpost-aicon">
                 <%= fa_icon("comment-o") %>
               </div>
               <div class="kpost-num">
-                <%= post.comments.to_a.size %>
+                <span><%= post.comments.size %></span>
+              </div>
+            <% end %>
+          </div>
+          <div class="kpost-alist alist-last">
+            <%= link_to "https://twitter.com/intent/tweet?text=" +
+                ERB::Util.url_encode(post.user.name + "さんの投稿｜" +
+                                     post.title + "\n") +
+                "&url=" + kickspost_url(post.user, post),
+                class: "kpost-alink",
+                onclick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" do %>
+              <div class="kpost-aicon">
+                <%= fa_icon('twitter') %>
               </div>
             <% end %>
           </div>
@@ -75,10 +101,12 @@
             <div class="kpost-aicon" id="comment-reply-<%= post.id %>">
               <% if post_page %>
                 <%= fa_icon('reply')%>
-              <% else %>
-                <a class="kpost-alink jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost. user, post.kickspost, reply: 'on') %>#<%= type.downcase %>-<%= post.id %>">
+              <% elsif logged_in? %>
+                <a class="kpost-alink jump" data-scroll="-51" href="<%= kickspost_path(post.kickspost.user, post.kickspost, reply: 'on') %>#<%= type.downcase %>-<%= post.id %>">
                   <%= fa_icon('reply')%>
                 </a>
+              <% else%>
+                <%= link_to fa_icon('reply'), '#', class: 'ban' %>
               <% end %>
             </div>
           </div>
@@ -96,7 +124,7 @@
           <% if type == "Kickspost" %>
             <div class="kpost-picture abs-center">
               <%= link_to image_tag('/images/grey.gif',
-                                    alt: post.content,
+                                    alt: post.title,
                                     class: 'cover lazyload',
                                     data: { src: picture_url(post) } ),
                           kickspost_path(post.user, post, display: 'picture') %>

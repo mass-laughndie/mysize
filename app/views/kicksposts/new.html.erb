@@ -1,8 +1,10 @@
 <% provide(:title, "投稿作成") %>
+<% provide(:og_title, "投稿作成") %>
+<% provide(:og_url, upload_url) %>
 <%= render 'layouts/back', back_path: "#{user_path(current_user)}" %>
 <%= render 'layouts/center_header', header_text: "投稿作成" %>
 
-<div class="content-fspace">
+<div class="container content-fspace">
   <div class="post-form">
     <%= form_for(@kickspost, url: upload_path, multipart: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
@@ -35,20 +37,38 @@
         </div>
       </div>
       <div class="label-form">
+        <%= f.label :brand, "ブランド" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :brand, placeholder: "例) Adidas, Nike × Supreme" %>
+      </div>
+      <div class="label-form">
+        <%= f.label :title, "スニーカー名" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :title, placeholder: "例) Air Jordan 1" %>
+      </div>
+      <div class="label-form">
+        <%= f.label :color, "カラー" %>
+      </div>
+      <div class="base-form">
+        <%= f.text_field :color, placeholder: "例) Black, White/Red" %>
+      </div>
+      <div class="label-form">
         <%= f.label :content, "投稿フォーム" %>
       </div>
       <div class="base-form base-form-area">
         <%= f.text_area :content, class: "autoheight text-area",
-          placeholder: "スニーカーのサイズ感や履き心地などを投稿しましょう(500文字以内)" %>
+          placeholder: "スニーカーのサイズ感や履き心地、エピソードなど好きなように投稿しましょう！(500文字以内)\n\nハッシュタグも付けられます！\n(#nike #airmax ...)" %>
       </div>
       <div class="c button button-mini accent">
         <%= f.submit "投稿する", data: { disable_with: "処理中..."} %>
       </div>
       <script type="text/javascript">
-        $('#kickspost_picturre').bind('change', function() {
+        $('#kickspost_picture').bind('change', function() {
           var size_in_megabytes = this.file[0].size/1024/1024;
-          if (size_in_megabytes > 10) {
-            alert('ファイルは最大10MBまでとなります。');
+          if (size_in_megabytes > 5) {
+            alert('ファイルは最大5MBまでとなります。');
           }
         });
       </script>

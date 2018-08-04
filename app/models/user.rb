@@ -1,10 +1,17 @@
 class User < ApplicationRecord
+  extend Search
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
                 :remember_token, :reset_token
+  
+  search_fields :name, :mysize_id, :content, size_field: :size
+
+  before_save :downcase_email
+  before_save :downcase_mysizeid
 
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
+  has_many :notices,    dependent: :destroy
 
   has_many :active_relationships,  class_name: "Relationship",
                                    foreign_key: "follower_id",
@@ -18,29 +25,35 @@ class User < ApplicationRecord
   has_many :followers,             through: :passive_relationships,
                                    source: :follower
 
-  has_many :goods,         dependent: :destroy,
-                           class_name: "Good"
-  has_many :good_posts,    class_name: "Kickspost",
-                           through:   :goods,
-                           source: :post,
-                           source_type: "Kickspost"
-  has_many :good_comments, class_name: "Comment",
-                           through:   :goods,
-                           source: :post,
-                           source_type: "Comment"
+  #active_goods = goods
+  has_many :active_goods,          class_name: "Good",
+                                   foreign_key: "gooder_id",
+                                   dependent: :destroy
+  has_many :goodings,              through: :active_goods,
+                                   source: :gooded
 
-  has_many :notices, dependent: :destroy
+  has_many :passive_goods,         class_name: "Good",
+                                   foreign_key: "gooded_id",
+                                   dependent: :destroy
+  has_many :gooders,               through: :passive_goods,
+                                   source: :gooder
 
-  before_save :downcase_email
-  before_save :downcase_mysizeid
+  has_many :good_posts,            class_name: "Kickspost",
+                                   through:   :goods,
+                                   source: :post,
+                                   source_type: "Kickspost"
+  has_many :good_comments,         class_name: "Comment",
+                                   through:   :goods,
+                                   source: :post,
+                                   source_type: "Comment"
 
   mount_uploader :image, ImageUploader
 
   validates :name, presence: { message: "名前を入力してください",
                                if: :validate_name? },
-                   length: { maximum: 50,
-                             message: "名前は50文字以内まで有効です",
-                             allow_blank: true }
+                   length:   { maximum: 50,
+                               message: "名前は50文字以内まで有効です",
+                               allow_blank: true }
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
   validates :mysize_id, presence:   { message: "MysizeIDを入力してください" },
@@ -81,11 +94,8 @@ class User < ApplicationRecord
                                if: :validate_shoesize? }
 
   validate :image_size
-
-  # validates :uid, presence: true
   
   class << self
-
     def digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
@@ -99,22 +109,34 @@ class User < ApplicationRecord
       SecureRandom.uuid
     end
 
-    def search(search)
-      if search
-        keyword_arys = search.gsub(/　/, " ").split()
-        size_search = keyword_arys[0].to_f
-        cond = where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
-               "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "%#{keyword_arys[0]}%", "#{size_search}"])
-        for i in 1..(keyword_arys.length - 1) do
-          size_search = keyword_arys[i].to_f
-          cond = cond.where(["name LIKE (?) OR mysize_id LIKE (?) OR content LIKE (?) OR size IN (?)",
-               "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "%#{keyword_arys[i]}%", "#{size_search}"])
-        end
-        cond
-      else
-        all
+    def find_or_create_from_auth(auth)
+      provider  = auth[:provider]
+      uid       = auth[:uid]
+      name      = auth[:info][:name]
+      mysizeid  = auth[:info][:nickname]
+      email     = User.dummy_email(auth)
+      image     = auth[:info][:image].sub("_normal", "")
+
+      find_or_create_by(provider: provider, uid: uid) do |user|
+        user.name  = name
+        user.email = email
+        user.remote_image_url = image
+        user.size = 27.0
+        user.mysize_id = user.set_mysize_id(mysizeid)
       end
     end
+  end
+
+  def set_mysize_id(mysize_id)
+    return mysize_id if User.find_by(mysize_id: mysize_id).nil?
+    while true
+      num = SecureRandom.urlsafe_base64(10)
+      return num if User.find_by(mysize_id: num).nil?
+    end
+  end
+
+  def to_param
+    mysize_id
   end
 
   def remember
@@ -133,8 +155,8 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def send_welcome_email
-    mail = UserMailer.welcome(self)
+  def send_email(subject)
+    mail = UserMailer.send("#{subject}", self)
     mail.transport_encoding = "8bit"
     mail.deliver_now
   end
@@ -146,51 +168,12 @@ class User < ApplicationRecord
                    reset_sent_at: Time.zone.now)
   end
 
-  def send_password_reset_email
-    mail = UserMailer.password_reset(self)
-    mail.transport_encoding = "8bit"
-    mail.deliver_now
-  end
-
-  def self.find_or_create_from_auth(auth)
-    provider  = auth[:provider]
-    uid       = auth[:uid]
-    name      = auth[:info][:name]
-    mysize_id = auth[:info][:nickname]
-    email     = User.dummy_email(auth)
-    image     = auth[:info][:image].sub("_normal", "")
-
-    #find_or_create_by:条件を指定して初めの1件を取得し、1件もなければ作成
-    self.find_or_create_by(provider: provider, uid: uid) do |user|
-      user.name  = name
-      user.email = email
-      user.remote_image_url = image
-      if User.find_by(mysize_id: mysize_id).nil?
-        user.mysize_id = mysize_id
+  ["name", "shoesize", "password"].each do |param|
+    class_eval <<-EOS
+      def validate_#{param}?
+        validate_#{param}.in?(['true', true])
       end
-    end
-  end
-
-  def to_param
-    mysize_id
-  end
-
-=begin
-  def validate_on?(name)
-    send("validate_#{param}") == 'true' || send("validate_#{param}") == true
-  end
-=end
-
-  def validate_name?
-    validate_name.in?(['true', true])
-  end
-
-  def validate_shoesize?
-    validate_shoesize.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
+    EOS
   end
 
   def feed
@@ -199,6 +182,7 @@ class User < ApplicationRecord
   end
 
   def password_reset_expired?
+    return true if self.reset_sent_at.nil?
     reset_sent_at < 2.hours.ago
   end
 
@@ -220,69 +204,57 @@ class User < ApplicationRecord
 
   def lose_notice_of(type, kind)
     post_notices = self.notices.where(kind_type: type, kind_id: kind.id)
-    if post_notices.any?
-      post_notices.each do |notice|
-        notice.destroy
-      end
+    post_notices.destroy_all if post_notices.any?
+  end
+
+  def create_or_update_follow_notice
+    if notice = self.follow_notice_for(this_week)
+      notice.add_unread_count!
+    else
+      self.create_follow_notice(follow_notice_kind_id)
     end
   end
 
-  #follow通知の作成or更新
-  def create_or_update_follow_notice
-    #this_day = Time.zone.now.all_day
-    this_week = Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    #今週の通知がある場合
-    if notice = self.notices.find_by(kind_type: "Follow", created_at: this_week)
-      #未読数+1
-      notice.increment!(:unread_count, by = 1)
-      notice.touch
-    #ない場合
-    else
-      #最新のフォロー通知がある場合
-      if latest_notice = self.notices.where(kind_type: "Follow").first
-        #新しい通知のkind_id = 最新通知のkind_id + 1
-        notice_num = latest_notice.kind_id + 1
-        #フォロー通知作成(kind_idは通し番号)
-        notices.create(kind_type: "Follow", kind_id: notice_num)
-      #ない(初通知の)場合
-      else
-        notices.create(kind_type: "Follow", kind_id: 1)
-      end
-    end
+  def follow_notice_for(period)
+    notices.find_by(kind_type: "Follow", created_at: period)
+  end
+
+  def latest_follow_notice
+    notices.where(kind_type: "Follow").first
+  end
+
+  def create_follow_notice(kind_id)
+    notices.create(kind_type: "Follow", kind_id: kind_id)
   end
 
   #フォロー通知のチェックと削除
   def check_or_delete_follow_notice(period)
-    #期間period内のフォローされた履歴
-    relations = self.passive_relationships.where(created_at: period)
-    #履歴がない && その期間の通知がある 場合
-    if relations.blank?
-      if follow_notice = notices.find_by(kind_type: "Follow", created_at: period)
-        #通知削除
-        follow_notice.destroy
-      end
+    return unless self.followed_while(period)
+    if follow_notice = self.follow_notice_for(period)
+      follow_notice.destroy
     end
   end
 
+  def followed_while(period)
+    self.passive_relationships.where(created_at: period).present?
+  end
+
   def good(type, post)
-    goods.create(post_type: type, post_id: post.id)
+    active_goods.create(post_type: type, post_id: post.id, gooded_id: post.user.id)
   end
 
   def ungood(type, post)
-    goods.find_by(post_type: type, post_id: post.id).destroy
+    active_goods.find_by(post_type: type, post_id: post.id).destroy
   end
 
   def good?(type, post)
-    goods.where(post_type: type).pluck(:post_id).include?(post.id)
+    active_goods.where(post_type: type).pluck(:post_id).include?(post.id)
   end
 
-  #既読済みの期間以前の通知を削除(notices = current_userの全通知)
   def delete_past_notices_already_read(notices)
-    #削除ライン([テスト]1.day.ago => [本番]10.weeks.ago)
+    #[dev,test]1.day.ago => [production]10.weeks.ago
     deleteline = Time.new(2000,1,1)..10.weeks.ago
-    #削除ライン以前に更新された未読0の通知
-    exnotices = notices.where(unread_count: 0, updated_at: deleteline)
-    exnotices.destroy_all
+    notices.where(unread_count: 0, updated_at: deleteline).destroy_all
   end
 
   private
@@ -296,13 +268,20 @@ class User < ApplicationRecord
     end
 
     def image_size
-      if image.size > 10.megabytes
-        error.add(:image, "画像サイズは最大10MBまで設定できます")
-      end
+      error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
     end
 
     def self.dummy_email(auth)
       "#{auth.uid}-#{auth.provider}@example.com"
+    end
+
+    def this_week
+      Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+    end
+
+    def follow_notice_kind_id
+      latest_notice = self.latest_follow_notice
+      latest_notice.present? ? latest_notice.kind_id + 1 : 1
     end
 
 end

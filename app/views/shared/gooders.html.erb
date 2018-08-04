@@ -1,16 +1,19 @@
 <% provide(:title, "グッドしたユーザー") %>
+<% provide(:og_title, "グッドしたユーザー") %>
+<% provide(:og_url, @url) %>
 <%= render 'layouts/back', back_path: "#{kickspost_path(@main.user, @main)}" %>
 <%= render 'layouts/center_header', header_text: "グッドしたユーザー" %>
-<% unless @users.blank? %>
-  <div class="content-nspace">
+
+<div class="container content-nspace">
+  <% unless @users.blank? %>
     <div class="setting-select">
       <ul>
         <%= render @users %>
       </ul>
     </div>
-  </div>
-<% else %>
-  <%= render partial: 'shared/no_data',
-                 locals: { user: @post.user,
-                           target: "person" } %>
-<% end %>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'user',
+                         text: nil } %>
+  <% end %>
+</div>

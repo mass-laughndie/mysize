@@ -3,7 +3,7 @@ require 'test_helper'
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    @base_title = "Mysize -スニーカーサイジング共有SNS-"
+    @base_title = "Mysize(マイサイズ) -スニーカーSNS-"
   end
 
   test "should get home" do

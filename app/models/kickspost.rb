@@ -1,22 +1,33 @@
 class Kickspost < ApplicationRecord
+  extend Search
 
+  search_fields :title, :color, :brand, :content, size_field: :size
+  
   belongs_to :user
-  has_many   :comments, dependent: :destroy
-  has_many   :goods,    as:        :post,
-                        dependent: :destroy,
+  has_many   :comments, dependent:  :destroy
+  has_many   :goods,    as:         :post,
+                        dependent:  :destroy,
                         class_name: "Good"
-  has_many   :gooders,  class_name: "User",
-                        through:   :goods,
-                        source:    :user
-  has_one    :notice,   as:        :kind,
-                        dependent: :destroy,
+  has_many   :gooders,  through:    :goods,
+                        source:     :gooder
+  has_one    :notice,   as:         :kind,
+                        dependent:  :destroy,
                         class_name: "Notice"
 
   default_scope -> { order(created_at: :desc) }
 
   mount_uploader :picture, PictureUploader
 
-  validates :user_id, presence: { message: "ユーザーを特定できません"}
+  validates :user_id, presence: { message: "ユーザーを特定できません" }
+  validates :title,   presence: { message: "スニーカー名を入力してください" },
+                      length:   { maximum: 50,
+                                  message: "スニーカー名は最大50文字まで入力できます" }
+  validates :color,   presence: { message: "カラーを選択して下さい" },
+                      length:   { maximum: 30,
+                                  message: "カラーは最大30文字まで入力できます" }
+  validates :brand,   presence: { message: "ブランドを選択して下さい" },
+                      length:   { maximum: 30,
+                                  message: "ブランドは最大30文字まで入力できます" }
   validates :content, presence: { message: "内容を入力してください" },
                       length:   { maximum: 500,
                                   massage: "500文字まで入力できます" }
@@ -25,96 +36,52 @@ class Kickspost < ApplicationRecord
   validate  :picture_size
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 
-  class << self
-
-    def search(search)
-      if search
-        keyword_arys = search.gsub(/　/, " ").split()
-        size_search = keyword_arys[0].to_f
-        cond = where(["content LIKE (?) OR size IN (?)", "%#{keyword_arys[0]}%", "#{size_search}"])
-        for i in 1..(keyword_arys.length - 1) do
-          size_search = keyword_arys[i].to_f
-          cond = cond.where(["content LIKE (?) OR size IN (?)", "%#{keyword_arys[i]}%", "#{size_search}"])
-        end
-        cond
-      else
-        all
-      end
-    end
-
-  end
-
-=begin
-  def gooded(user)
-    goods.create(user_id: user.id)
-  end
-
-  def ungooded(user)
-    goods.find_by(user_id: user.id).destroy
-  end
-
-  def gooded?(user)
-    gooders.include?(user)
-  end
-=end
-  
-  #good通知の作成および更新
   def good_notice_create_or_update
-    #ポストの通知が作られていない(=good1つ目の)場合
-    if self.notice.nil?
-      #通知作成
-      create_notice(user_id: self.user.id)
-    #既に通知がある場合
-    else
-      #未読数+1
-      notice.increment!(:unread_count, by = 1)
-      notice.touch
-    end
+    return create_notice(user_id: self.user_id) if self.notice.nil?
+    notice.add_unread_count!
   end
 
-  #good通知のチェックおよび削除
   def good_notice_check_or_delete
-    #ポストのgood数が0 && noticeが見つかった　場合
-    if self.goods.blank? &&  good_notice = self.notice
-        #通知削除
-        good_notice.destroy
+    return if self.goods.any? || !(good_notice = self.notice)
+    good_notice.destroy
+  end
+
+  def mysize_ids
+    content.scan(/@[a-zA-Z0-9_]+/).map {|id| id.delete("@")}
+  end
+
+  def is_reply?
+    mysize_ids.any?
+  end
+
+  def extract_others_replied_by(mysize_id, cuser)
+    return nil if mysize_id == cuser.mysize_id
+    User.find_by(mysize_id: mysize_id)
+  end
+
+  def create_notice_to_others_from(cuser)
+    mysize_ids.each do |msid|
+      other = self.extract_others_replied_by(msid, cuser)
+      next if other.nil?
+      other.receive_notice_of("ReplyPost", self) 
     end
   end
 
-  #返信通知の作成(cuser = current_user)
-  def check_and_create_notice_to_others_and(cuser)
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)   #コメントに含まれる「@<mysize_id> 」の配列
-    #配列が空でない場合(=返信である場合)
-    if ids.any?
-      ids.each do |msid|
-        msid.delete!("@").delete!(" ")            #「@<mysize_id> 」 => 「<mysize_id>」
-        other = User.find_by(mysize_id: msid)
-        if other && other != cuser
-          other.receive_notice_of("ReplyPost", self)     #cuser以外へのreply通知作成
-        end
-      end
+  def delete_notice_from_others_by(cuser)
+    mysize_ids.each do |msid|
+      other = self.extract_others_replied_by(msid, cuser)
+      next if other.nil?
+      other.lose_notice_of("ReplyPost", self)
     end
   end
 
-  #返信通知の削除(cuser = current_user)
-  def check_and_delete_notice_form_others_and(cuser)
-    ids = self.content.scan(/@[a-zA-Z0-9_]+\s/)
-    if ids.any?
-      ids.each do |msid|
-        msid.delete!("@").delete!(" ")
-        other = User.find_by(mysize_id: msid)
-        if other && other != cuser
-          other.lose_notice_of("ReplyPost", self)     #cuser以外へのreply通知削除
-        end
-      end
-    end
+  def gooders_without_ownself
+    gooders.where.not(id: current_user.id)
   end
 
   private
 
-    def picture_size
-      if picture.size > 10.megabytes
-        error.add(:picture, "画像サイズは最大10MBまで設定できます")
-      end
-    end
+  def picture_size
+    error.add(:picture, "画像サイズは最大5MBまで設定できます") if picture.size > 5.megabytes
+  end
 end

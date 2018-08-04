@@ -8,7 +8,10 @@ class KickspostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect create when no logged in" do
     assert_no_difference 'Kickspost.count' do
-      post upload_path, params: { kickspost: { content: "Lorem ipsum",
+      post upload_path, params: { kickspost: { title: "Air jordan 1 bred",
+                                               brand: "Nike",
+                                               color: "Bred",
+                                               content: "Lorem ipsum",
                                                picture: fixture_file_upload('test/fixtures/kicks1.jpg', 'image/jpg'),
                                                size: 7 } }
     end

@@ -1,13 +1,16 @@
 <% provide(:title, '管理者ページ') %>
+<% provide(:og_title, '管理者ページ') %>
+<% provide(:og_url, admusrind_url) %>
+<% provide(:search_url, admusrind_path) %>
 
-<div class="content-sspace search-space">
-  <div class="fixed fixed-top search-height">
+<div class="content-nspace fixed-space">
+  <div class="fixed fixed-top">
     <%= render 'shared/search_form' %>
   </div>
 </div>
 <% unless params[:keyword].nil? %>
-  <div class="content-nspace">
-    <div class="c select search-select">
+  <div class="select search-select c">
+    <div class="container clear">
       <div class="select-list search-list alist aline">
         <%= link_to "ユーザー", admusrind_path(for: 'user', keyword: params[:keyword]) %>
       </div>
@@ -18,7 +21,9 @@
         <%= link_to "コメント", admusrind_path(for: 'com', keyword: params[:keyword]) %>
       </div>
     </div>
-    <div class="search-result">
+  </div>
+  <div class="container post-main">
+    <div class="content-nspace">
       <% if params[:for] == 'post' && @kicksposts.any? %>
         <div class="post-main">
           <ul>
@@ -50,9 +55,17 @@
         </div>
       <% else %>
         <%= render partial: 'shared/no_data',
-                   locals: { user: current_user,
-                             target: nil } %>
+                   locals: { icon: nil,
+                             text: 'search-no-hit' } %>
       <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="container">
+    <div class="content-nspace">
+      <%= render partial: 'shared/no_data',
+                 locals: { icon: 'search',
+                           text: 'search' } %>
     </div>
   </div>
 <% end %>

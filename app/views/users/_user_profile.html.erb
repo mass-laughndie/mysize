@@ -25,11 +25,11 @@
     </a>
     <a href="#">
       <div class="num">
-        <strong id="good-answer" class="stat">
-          0
+        <strong id="good-points" class="stat">
+          <%= @points %>
         </strong>
       </div>
-      <span>グッドアンサー</span>
+      <span>グッドポイント</span>
     </a>
   </div>
 </div>
@@ -59,10 +59,12 @@
 </div>
 <div class="profile-bottom">
   <div class="user-profile autolink">
-    <% unless user.content.blank? %>
+    <% if !user.content.blank? %>
       <%= user.content %>
+    <% elsif current_user?(user) %>
+      <p>プロフィールが未記入です。まずは「プロフィール編集」からあなたのことを記入しましょう！</p>
     <% else %>
-      プロフィールが未記入です。
+      <p>プロフィールが未記入です。</p>
     <% end %>
   </div>
   <div class="follow-info">

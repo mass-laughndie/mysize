@@ -1,16 +1,21 @@
 <% provide(:title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+<% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さんの投稿") %>
+<% provide(:og_url, kickspost_url(@kickspost.user, @kickspost)) %>
+
 
 <div class="c select kpost-select">
-  <div class="select-list kpost-list alist aline" id="reply-active">
-    <%= link_to "テキスト",
-        kickspost_path(@kickspost.user.mysize_id, @kickspost) %>
-  </div>
-  <div class="select-list kpost-list alist aline">
-    <%= link_to "写真",
-        kickspost_path(@kickspost.user.mysize_id, @kickspost, display: "picture")%>
+  <div class="container clear">
+    <div class="select-list kpost-list alist aline" id="reply-active">
+      <%= link_to "テキスト",
+          kickspost_path(@kickspost.user, @kickspost) %>
+    </div>
+    <div class="select-list kpost-list alist aline">
+      <%= link_to "写真",
+          kickspost_path(@kickspost.user, @kickspost, display: "picture")%>
+    </div>
   </div>
 </div>
-<div class="post-main">
+<div class="container post-main">
   <% unless params[:display] == "picture" %>
     <ul>
       <%= render partial: @kickspost,
@@ -27,10 +32,12 @@
                locals: { kickspost: @kickspost,
                          comment_disnum: nil } %>
   <% end %>
-  <% if logged_in? %>
+</div>
+<% if logged_in? %>
+  <div class="content-nspace fixed-space fixed-space-bottom">
     <div class="fixed fixed-bottom">
       <%= render partial: 'comments/comment_form',
                  locals: { kickspost: @kickspost } %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

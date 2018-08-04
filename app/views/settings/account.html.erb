@@ -1,15 +1,17 @@
 <% provide(:title, "アカウント設定") %>
+<% provide(:og_title, "アカウント設定") %>
+<% provide(:og_url, account_settings_url) %>
 <%= render 'layouts/back', back_path: "#{option_settings_path}" %>
 <%= render 'layouts/center_header', header_text: "アカウント設定" %>
 
-<div class="content-nspace">
+<div class="container content-nspace">
   <div class="setting-select">
     <ul>
       <li class="set-list">
         <a href="<%= mysizeid_settings_path %>">
           <div class="set-text">
             <p>MysizeID</p>
-            <div class="sss"><%= "@" + @user.mysize_id %></div>
+            <div class="sss"><%= "@" + current_user.mysize_id %></div>
           </div>
           <div class="set-icon">
             <%= fa_icon("angle-right") %>
@@ -20,7 +22,7 @@
         <a href="<%= email_settings_path %>">
           <div class="set-text">
             <p>メールアドレス</p>
-            <div class="sss"><%= @user.email %></div>
+            <div class="sss"><%= current_user.email %></div>
           </div>
           <div class="set-icon">
             <%= fa_icon("angle-right") %>

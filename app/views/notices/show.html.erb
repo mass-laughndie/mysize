@@ -1,13 +1,16 @@
 <% provide(:title, "通知") %>
+<% provide(:og_title, "通知") %>
+<% provide(:og_url, notice_url) %>
 <%= render 'layouts/center_header', header_text: "通 知" %>
 
-<% if logged_in? && @notices.any? %>
-<div class="content-nspace">
-  <ul>
-    <%= render @notices %>
-  </ul>
+<div class="container content-nspace">
+  <% if logged_in? && @notices.any? %>
+    <ul>
+      <%= render @notices %>
+    </ul>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'notice',
+                         text: 'notice' } %>
+  <% end %>
 </div>
-<% else %>
-  <%= render partial: 'shared/no_data',
-                 locals: { target: "notice" } %>
-<% end %>

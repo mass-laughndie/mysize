@@ -20,9 +20,10 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
   test "good notice to my kickspost" do
     log_in_as(@other)
     assert_difference '@user.notices.count', 1 do
-      assert_difference '@other.goods.count', 1 do
+      assert_difference '@other.active_goods.count', 1 do
         post goods_path, params: { post_type: "Kickspost",
-                                   post_id: @kickspost.id }
+                                   post_id: @kickspost.id,
+                                   gooded_id: @user.id }
       end
     end
   end
@@ -30,20 +31,27 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
   test "good notice to my comment" do
     log_in_as(@other)
     assert_difference '@user.notices.count', 1 do
-      assert_difference '@other.goods.count', 1 do
+      assert_difference '@other.active_goods.count', 1 do
         post goods_path, params: { post_type: "Comment",
-                                   post_id:   @comment.id}
+                                   post_id:   @comment.id,
+                                   gooded_id: @user.id }
       end
     end
   end
 
   test "reply kickspost notice" do
     log_in_as(@other)
+    title = "Air max 97"
+    brand = "Nike"
+    color = "Bred"
     content = "@user1 Wonderful!!"
     picture = fixture_file_upload('test/fixtures/kicks1.jpg', 'image/jpg')
     assert_difference '@user.notices.count', 1 do
       assert_difference '@other.kicksposts.count', 1 do
-        post upload_path, params: { kickspost: { content: content,
+        post upload_path, params: { kickspost: { title: title,
+                                                 brand: brand,
+                                                 color: color,
+                                                 content: content,
                                                  picture: picture,
                                                  size: 21.5 } }
       end
@@ -51,6 +59,13 @@ class NoticeInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get notice_path
     assert_match content, response.body
+
+    log_in_as(@other)
+    get user_path(@other)
+    first_kickspost = @other.kicksposts.first
+    assert_difference 'Kickspost.count', -1 do
+      delete kickspost_path(@other, first_kickspost)
+    end
   end
 
   test "normal comment notice for my kickspost" do

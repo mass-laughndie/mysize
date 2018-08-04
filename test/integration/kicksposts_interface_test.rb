@@ -12,30 +12,51 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     log_in_as(@user)
     get upload_path
-    #コメントなし=>無効
+    brand = "Nike"
+    title = "Air max"
+    color = "Black toe"
+    content = "This kickspost really ties the room together"
     picture = fixture_file_upload('test/fixtures/kicks1.jpg', 'image/jpg')
+    #タイトルなし=>無効
     assert_no_difference 'Kickspost.count' do
-      post upload_path, params: { kickspost: { content: "",
+      post upload_path, params: { kickspost: { title: "",
+                                               brand: "",
+                                               color: "",
+                                               content: content,
+                                               picture: picture,
+                                               size: 3 } }
+    end
+    #コメントなし=>無効
+    assert_no_difference 'Kickspost.count' do
+      post upload_path, params: { kickspost: { title: title,
+                                               brand: brand,
+                                               color: color,
+                                               content: "",
                                                picture: picture,
                                                size: 3 } }
     end
     assert_select 'div.error'
     #画像なし=>無効
-    content = "This kickspost really ties the room together"
     assert_no_difference 'Kickspost.count' do
-      post upload_path, params: { kickspost: { content: content,
+      post upload_path, params: { kickspost: { title: title,
+                                               brand: brand,
+                                               color: color,
+                                               content: content,
                                                picture: "",
                                                size: 2 } }
     end
     assert_select 'div.error'
     #有効な送信
     assert_difference 'Kickspost.count', 1 do
-      post upload_path, params: { kickspost: { content: content,
+      post upload_path, params: { kickspost: { title: title,
+                                               brand: brand,
+                                               color: color,
+                                               content: content,
                                                picture: picture,
                                                size: 7 } }
     end
     assert_not flash.empty?
-    assert_redirected_to root_url
+    assert_redirected_to follow_url
     follow_redirect!
     assert_match content, response.body
     # assert_match picture, response.body
@@ -54,15 +75,24 @@ class KickspostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get edit_kickspost_path(@user, @kickspost)
     assert_template 'kicksposts/edit'
+    title = "Air max"
     content = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     patch kickspost_path(@user, @kickspost), params: { kickspost: { size: 7,
+                                                                    title: "",
+                                                                    content: content } }
+    assert_select 'div.error'
+    assert_template 'kicksposts/edit'
+    patch kickspost_path(@user, @kickspost), params: { kickspost: { size: 7,
+                                                                    title: title,
                                                                     content: "" } }
     assert_select 'div.error'
     assert_template 'kicksposts/edit'
-    patch kickspost_path(@user.mysize_id, @kickspost.id), params: { kickspost: { size: 7,
+    patch kickspost_path(@user, @kickspost), params: { kickspost: { size: 7,
+                                                                    title: title,
                                                                     content: content } }
+
     assert_not flash.empty?
-    assert_redirected_to root_url
+    assert_redirected_to follow_url
     follow_redirect!
     assert_match content, response.body
   end

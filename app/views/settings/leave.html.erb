@@ -1,7 +1,9 @@
 <% provide(:title, "退会") %>
+<% provide(:og_title, "退会") %>
+<% provide(:og_url, leave_settings_url) %>
 <%= render 'layouts/back', back_path: "#{account_settings_path}" %>
 
-<div class="content">
+<div class="container content-space">
   <div class="page-title">
     <h1 class="title-text">Mysizeから退会する</h1>
   </div>

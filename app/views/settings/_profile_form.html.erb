@@ -1,10 +1,10 @@
-<%= form_for(@user, url: yield(:post_url), multipart: true) do |f| %>
+<%= form_for(current_user, url: yield(:post_url), multipart: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="label-form">
-    <%= f.label :name, "*ユーザー名" %>
+    <label for="user_name"><span class="font-accent">*</span>ユーザー名</label>
   </div>
   <div class="base-form">
-    <%= f.text_field :name, placeholder: "ユーザー名" %>
+    <%= f.text_field :name, placeholder: "(例) 靴好き男" %>
   </div>
   <div class="set-form clear">
     <div class="upload-form">
@@ -14,17 +14,13 @@
       <div class="file-form">
         <%= f.label :image, class: "upload-button" do %>
           <div class="upload-icon">
-            <% if @user.image.blank? %>
-              <%= fa_icon("plus") %>
-            <% else %>
-              <%= fa_icon("refresh") %>
+            <%= fa_icon(current_user.image.blank? ? "plus" : "refresh") %>
+          </div>
+          <div class="preview">
+            <% if current_user.image.present? %>
+              <%= image_tag(image_url(current_user), alt: current_user.name, class: "cover") %>
             <% end %>
           </div>
-          <% if @user.image.blank? %>
-            <div class="preview"></div>
-          <% else %>
-            <div class="preview"><%= image_tag(image_url(@user), alt: @user.name, class: "cover") %></div>
-          <% end %>
         <% end %>
       </div>
       <div class="base-form hidden-form">
@@ -34,10 +30,10 @@
     </div>
     <div class="size-form">
       <div class="label-form select-label font-mini">
-        <%= f.label :size, "*スニーカーのベースサイズ" %>
+        <label for="user_size"><span class="font-accent">*</span>スニーカーのベースサイズ</label>
       </div>
       <div class="base-form select-form">
-        <%= f.select(:size, options_for_select(size_array, @user.size), prompt: "選 択") %>
+        <%= f.select(:size, options_for_select(size_array, current_user.size)) %>
         <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
       </div>
     </div>
@@ -48,7 +44,7 @@
   <div class="base-form base-form-area">
     <%= f.text_area :content, class: "autoheight text-area",
         placeholder: "具体的なスニーカーのサイズ例や簡単な自己紹介などを記入しましょう(160文字以内)
-(例)Jordan1(27cm)/StanSmith(26.5cm)/...(好きなブランドなど)" %>
+(例)Jordan1(27cm)/StanSmith(26.5cm)/好きなブランドなど..." %>
   </div>
   <div class="c button button-mini accent">
     <%= f.submit yield(:button_text), data: { disable_with: "処理中..."} %>
@@ -56,8 +52,8 @@
   <script type="text/javascript">
     $('#user_image').bind('change', function() {
       var size_in_megabytes = this.file[0].size/1024/1024;
-      if (size_in_megabytes > 10) {
-        alert('ファイルは最大10MBまでとなります。');
+      if (size_in_megabytes > 5) {
+        alert('ファイルは最大5MBまでとなります。');
       }
     });
   </script>

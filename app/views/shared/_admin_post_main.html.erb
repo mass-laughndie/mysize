@@ -23,9 +23,20 @@
               <% end %>
             <% end %>
           </div>
-          <div class="kpost-content autolink">
-            <span class="post-text"><%= post.content %></span>
-          </div>
+          <% if type == "Kickspost" %>
+            <div class="kpost-title">
+              <h2><%= post.title %> <span>( <%= post.color %> )</span></h2>
+            </div>
+          <% end %>
+          <% if  @text == "detail" %>
+            <div class="kpost-content autolink">
+              <span class="post-text"><%= post.content %></span>
+            </div>
+          <% else %>
+            <div class="kpost-content autolink over-text">
+              <span><%= post.content %></span>
+            </div>
+          <% end %>
         </div>
         <div class="kpost-act <%= type.downcase %>-act clear">
           <div class="kpost-time">
@@ -44,10 +55,10 @@
             <% if type == "Kickspost" %>
               <div class="kpost-picture abs-center">
                 <%= link_to image_tag('/images/grey.gif',
-                                      alt: post.content,
+                                      alt: post.title,
                                       class: 'cover lazyload',
                                       data: { src: picture_url(post) } ),
-                            kickspost_path(post.user, post) %>
+                            kickspost_path(post.user, post, display: 'picture') %>
                 <div class="kpost-size index-size">
                   <%= post.size %>
                 </div>

@@ -1,15 +1,18 @@
 <%= render 'home_select' %>
-<div class="post-main">
-  <% if @kicksposts.blank? %>
-    <%= render partial: 'shared/no_data',
-               locals: { target: target } %>
-  <% else %>
-    <div class="post-line clear">
-      <ul>
-        <%= render partial: @kicksposts,
-                   locals: { comment_disnum: nil,
-                             post_page: false } %>
-      </ul>
-    </div>
-  <% end %>
+<div class="container">
+  <div class="post-main">
+    <% if @kicksposts.blank? %>
+      <%= render partial: 'shared/no_data',
+                 locals: { icon: 'image',
+                           text: 'follow' } %>
+    <% else %>
+      <div class="post-line clear">
+        <ul>
+          <%= render partial: @kicksposts,
+                     locals: { comment_disnum: nil,
+                               post_page: false } %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
 </div>

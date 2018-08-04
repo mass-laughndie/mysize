@@ -1,7 +1,9 @@
 <% provide(:title, "ログイン") %>
+<% provide(:og_title, "ログイン") %>
+<% provide(:og_url, login_url) %>
 <%= render 'layouts/back', back_path: "#{root_path}" %>
 
-<div class="content">
+<div class="container content-space">
   <div class="page-title">
     <h1 class="title-text">ログイン<small>(MysizeID)</small></h1>
   </div>
@@ -19,12 +21,12 @@
     <% end %>
     <div class="c atention">
       <p>
-        <%= link_to "パスワードを忘れた", new_password_reset_url %>
+        <%= link_to "パスワードを忘れた", new_password_reset_path %>
       </p>
     </div>
     <div class="c atention">
       <p>
-        <%= link_to "アカウントを持っていない", signup_url %>
+        <%= link_to "アカウントを持っていない", signup_path %>
       </p>
     </div>
   </div>
