@@ -22,10 +22,10 @@
         </div>
       </div>
       <div class="top-main c" id="top-main">
-        <h2 class="top-text"><%= t('views.static_pages.home.top-text') %></h2>
+        <h2 class="top-text"><%= raw t("views.static_pages.home.top-text") %></h2>
         <div class="top-lead">
           <div class="text" style="margin: 0;">
-            <p><small><%= t('views.static_pages.home.top-lead') %></small></p>
+            <p><small><%= t("views.static_pages.home.top-lead") %></small></p>
             <p><%= fa_icon('hand-o-down') %></p>
           </div>
           <a class="about-stitle jump" data-scroll="-51" href="<%= about_path %>#about-can3">
