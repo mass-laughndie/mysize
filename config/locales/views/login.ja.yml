@@ -1,0 +1,6 @@
+ja:
+  views:
+    login:
+      normal_register: MysizeIDで登録する
+      twitter_register_or_login: Twitterで登録/ログイン
+      normal_login: " MysizeIDでログイン"
