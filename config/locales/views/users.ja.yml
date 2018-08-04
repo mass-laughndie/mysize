@@ -1,0 +1,6 @@
+ja:
+  views:
+    users:
+      new:
+        title: 新規登録
+        sub_title: (MysizeID)

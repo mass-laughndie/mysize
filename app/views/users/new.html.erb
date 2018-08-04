@@ -4,7 +4,7 @@
 
 <div class="container content-fspace">
   <div class="page-title">
-    <h1 class="title-text">新規登録<small>(MysizeID)</small></h1>
+    <h1 class="title-text"><%= t('views.users.new.title') %><small><%= t('views.users.new.sub_title') %></small></h1>
   </div>
   <div class="form">
     <%= form_for(@user, url: signup_path) do |f| %>
