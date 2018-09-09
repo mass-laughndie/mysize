@@ -33,6 +33,9 @@ class StaticPagesController < ApplicationController
   def privacy
   end
 
+  def test
+  end
+
   private
 
   def not_logged_in?
