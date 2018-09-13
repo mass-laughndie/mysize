@@ -17,6 +17,7 @@ class StaticPagesController < ApplicationController
       @user = current_user
       @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
       @text = "short"
+      gon.followingKicksposts = @kicksposts
     end
   end
 

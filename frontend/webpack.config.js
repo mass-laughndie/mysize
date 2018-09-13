@@ -13,7 +13,8 @@ const extractCSS = new ExtractTextPlugin(`${FILENAME}.css`);
 module.exports = {
   entry: {
     'frontend/vendor': ['jquery'],
-    'frontend/test': './src/javascripts/test'
+    'frontend/test': './src/javascripts/test',
+    'frontend/follow': './src/javascripts/follow'
   },
 
   output: {
