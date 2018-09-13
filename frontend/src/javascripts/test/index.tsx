@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Hello } from './components/Hello';
-import { gon } from '../window';
+import { gon } from '../types/window';
 
 const message = gon.test;
 
