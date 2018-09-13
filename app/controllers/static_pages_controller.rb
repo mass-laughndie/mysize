@@ -34,6 +34,7 @@ class StaticPagesController < ApplicationController
   end
 
   def test
+    gon.test = "Test!!!"
   end
 
   private
