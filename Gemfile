@@ -20,8 +20,8 @@ gem 'omniauth',              '~> 1.8.1'
 gem 'omniauth-twitter',      '~> 1.4.0'
 gem 'dotenv-rails',          '~> 2.2.1'    #key管理
 gem 'rack-rewrite',          '~> 1.5.1'    #ドメイン統合
+gem 'gon',                   '~> 6.2.0'
 
-#開発、テスト環境に使用
 group :development, :test do
   gem 'sqlite3',       '1.3.13'
   gem 'pry-rails',  '~> 0.3.6'             #rails console拡張
@@ -29,7 +29,6 @@ group :development, :test do
   gem 'pry-doc',    '~> 0.13.1'
 end
 
-#開発環境にのみ使用
 group :development do
   gem 'web-console',           '3.5.1'
   gem 'listen',                '3.1.5'
