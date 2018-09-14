@@ -1,14 +1,7 @@
 import * as React from 'react';
-import { Post } from '../../types/commonTypes';
+import { SquarePostProp } from '../../types/commonTypes';
 
-interface Props {
-  id: number;
-  title: string;
-  size: number;
-  picture: {
-    url: string;
-  };
-}
+type Props = SquarePostProp;
 
 const SquarePost = (props: Props) => {
   const { id, title, size, picture } = props;
