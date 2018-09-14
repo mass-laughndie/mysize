@@ -2,13 +2,14 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get '/latest',  to: 'static_pages#latest'
-  get '/follow',  to: 'static_pages#follow'
-  get '/help',    to: 'static_pages#help'
-  get '/about',   to: 'static_pages#about'
-  get '/terms',   to: 'static_pages#terms'
-  get '/privacy', to: 'static_pages#privacy'
-  get '/test',    to: 'static_pages#test'
+  get '/latest',         to: 'static_pages#latest'
+  get '/follow',         to: 'static_pages#follow'
+  get '/follow/square',  to: 'static_pages#follow_square'
+  get '/help',           to: 'static_pages#help'
+  get '/about',          to: 'static_pages#about'
+  get '/terms',          to: 'static_pages#terms'
+  get '/privacy',        to: 'static_pages#privacy'
+  get '/test',           to: 'static_pages#test'
 
   get  '/signup',   to: 'users#new'
   post '/signup',   to: 'users#create'

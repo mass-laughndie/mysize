@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
 
-  before_action :logged_in_user, only: :follow
+  before_action :logged_in_user, only: [:follow, :follow_square]
 
   def home
     redirect_to latest_path if logged_in?
@@ -13,6 +13,15 @@ class StaticPagesController < ApplicationController
   end
 
   def follow
+    if logged_in?
+      @user = current_user
+      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
+      @text = "short"
+      gon.followingKicksposts = @kicksposts
+    end
+  end
+
+  def follow_square
     if logged_in?
       @user = current_user
       @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)

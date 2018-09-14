@@ -1,0 +1,19 @@
+<% provide(:title, "フォロー中") %>
+<% provide(:og_title, "フォロー中") %>
+<% provide(:og_url, follow_square_url) %>
+<% content_for :javascript_addition do %>
+  <%= javascript_include_tag "frontend/follow_square" %>
+<% end %>
+
+<%= render 'home_select' %>
+<div class="container">
+  <div class="post-main">
+    <% if @kicksposts.blank? %>
+      <%= render partial: 'shared/no_data',
+                 locals: { icon: 'image',
+                           text: 'follow' } %>
+    <% else %>
+      <div class="post-line clear" data-react-entry="FollowingSquarePosts"></div>
+    <% end %>
+  </div>
+</div>

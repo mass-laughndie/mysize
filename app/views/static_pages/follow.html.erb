@@ -1,9 +1,6 @@
 <% provide(:title, "フォロー中") %>
 <% provide(:og_title, "フォロー中") %>
 <% provide(:og_url, follow_url) %>
-<% content_for :javascript_addition do %>
-  <%= javascript_include_tag "frontend/follow" %>
-<% end %>
 
 <%= render partial: 'static_pages/home_logged_in',
            locals: { target: nil } %>

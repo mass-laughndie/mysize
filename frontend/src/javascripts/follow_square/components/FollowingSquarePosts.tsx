@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Post } from '../../types/commonTypes';
 import { gon } from '../../types/window';
 import { SquarePosts } from '../../shared/components/SqurePosts';
 
