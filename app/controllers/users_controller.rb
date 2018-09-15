@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @kicksposts = @user.kicksposts.includes(:comments, :goods)
     @comments = @user.comments.includes(:goods)
     @points = @user.passive_goods.where.not(gooder_id: @user.id).size
+    gon.mypageKicksposts = @kicksposts;
   end
 
   def new

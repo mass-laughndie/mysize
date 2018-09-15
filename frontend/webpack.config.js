@@ -14,7 +14,8 @@ module.exports = {
   entry: {
     'frontend/vendor': ['jquery'],
     'frontend/test': './src/javascripts/test',
-    'frontend/follow_square': './src/javascripts/follow_square'
+    'frontend/follow_square': './src/javascripts/follow_square',
+    'frontend/mypage_square': './src/javascripts/mypage'
   },
 
   output: {
