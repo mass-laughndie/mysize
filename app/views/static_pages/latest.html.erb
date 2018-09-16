@@ -1,6 +1,10 @@
 <% provide(:title, "新着") %>
 <% provide(:og_title, "新着") %>
 <% provide(:og_url, latest_url) %>
+<% content_for :javascript_addition do %>
+  <%= javascript_include_tag "frontend/latest" %>
+<% end %>
+
 <%= render 'layouts/right_popup', icon: 'signin' %>
 
 <%= render partial: 'static_pages/home_logged_in',

@@ -10,3 +10,12 @@ export interface Post {
     url: string;
   };
 }
+
+export interface SquarePostProp {
+  id: number;
+  title: string;
+  size: number;
+  picture: {
+    url: string;
+  };
+}

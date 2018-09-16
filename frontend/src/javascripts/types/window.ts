@@ -11,9 +11,12 @@ export interface GonFollowingKickspost {
   };
 }
 
+export type GonMypageKickspost = GonFollowingKickspost;
+
 export interface Gon {
   test: string;
   followingKicksposts: GonFollowingKickspost[];
+  mypageKicksposts: GonMypageKickspost[];
 }
 
 export const gon: Gon = (window as any).gon;

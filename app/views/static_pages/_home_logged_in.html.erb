@@ -6,27 +6,13 @@
                  locals: { icon: 'image',
                            text: 'follow' } %>
     <% else %>
-    <% if params[:display] == "square" %>
-      <div class="post-line clear" data-react-entry="FollowingSquarePosts"></div>
-    <% else %>
       <div class="post-line clear">
-        <% @kicksposts.each do |kickspost| %>
-          <%= render partial: 'shared/post_main',
-                    locals: { post: kickspost,
-                              type: 'Kickspost',
-                              reply_on: false,
-                              post_page: post_page } %>
-        <% end %>
+        <ul>
+          <%= render partial: @kicksposts,
+                     locals: { comment_disnum: nil,
+                               post_page: false } %>
+        </ul>
       </div>
-    <% end %>
-    <% else %>
-    <div class="post-line clear">
-      <ul>
-        <%= render partial: @kicksposts,
-                    locals: { comment_disnum: nil,
-                              post_page: false } %>
-      </ul>
-    </div>
     <% end %>
   </div>
 </div>
