@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { LatestPosts } from './components/LatestPosts';
 
 ReactDOM.render(
-  <div>LatestPosts</div>,
+  <LatestPosts />,
   document.querySelector('[data-react-entry="LatestPosts"]')
 );
