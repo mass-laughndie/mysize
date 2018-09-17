@@ -6,9 +6,7 @@ export interface GonFollowingKickspost {
   title: string;
   content: string | null;
   size: number;
-  picture: {
-    url: string;
-  };
+  picture_url: string;
 }
 
 export type GonMypageKickspost = GonFollowingKickspost;

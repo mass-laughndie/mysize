@@ -36,6 +36,34 @@ class Kickspost < ApplicationRecord
   validate  :picture_size
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 
+  class << self
+    def all_for_gon
+      self.all.map do |k|
+        Hash[
+          extract_params_for_gon.map do |ep|
+            [ep, k.send(ep)]
+          end
+        ]
+      end
+    end
+
+    def find_for_gon(ids)
+      self.find(ids).map do |k|
+        Hash[
+          extract_params_for_gon.map do |ep|
+            [ep, k.send(ep)]
+          end
+        ]
+      end
+    end
+
+    private
+
+    def extract_params_for_gon
+      [:id, :user_id, :brand, :color, :title, :content, :size, :picture_url]
+    end
+  end
+
   def good_notice_create_or_update
     return create_notice(user_id: self.user_id) if self.notice.nil?
     notice.add_unread_count!

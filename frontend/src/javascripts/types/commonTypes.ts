@@ -6,16 +6,12 @@ export interface Post {
   title: string;
   content: string | null;
   size: number;
-  picture: {
-    url: string;
-  };
+  picture_url: string;
 }
 
 export interface SquarePostProp {
   id: number;
   title: string;
   size: number;
-  picture: {
-    url: string;
-  };
+  picture_url: string;
 }
