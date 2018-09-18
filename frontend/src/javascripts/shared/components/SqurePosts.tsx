@@ -14,7 +14,7 @@ class SquarePosts extends React.Component<Props> {
         id={post.id}
         title={post.title}
         size={post.size}
-        picture={post.picture}
+        picture_url={post.picture_url}
       />
     );
   }

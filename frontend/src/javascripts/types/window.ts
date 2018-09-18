@@ -1,4 +1,4 @@
-export interface GonFollowingKickspost {
+export interface GonKickspost {
   id: number;
   user_id: number;
   brand: string | null;
@@ -6,17 +6,24 @@ export interface GonFollowingKickspost {
   title: string;
   content: string | null;
   size: number;
-  picture: {
-    url: string;
-  };
+  picture_url: string;
 }
 
-export type GonMypageKickspost = GonFollowingKickspost;
+export interface GonPostUser {
+  id: number;
+  name: string;
+  mysize_id: string;
+  image_url: string;
+  size: number;
+  content: string;
+}
 
 export interface Gon {
   test: string;
-  followingKicksposts: GonFollowingKickspost[];
-  mypageKicksposts: GonMypageKickspost[];
+  followingKicksposts: GonKickspost[];
+  mypageKicksposts: GonKickspost[];
+  latestKicksposts: GonKickspost[];
+  postUsers: GonPostUser[];
 }
 
 export const gon: Gon = (window as any).gon;

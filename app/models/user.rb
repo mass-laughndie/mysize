@@ -125,6 +125,32 @@ class User < ApplicationRecord
         user.mysize_id = user.set_mysize_id(mysizeid)
       end
     end
+
+    def all_for_gon
+      self.all.map do |u|
+        Hash[
+          extract_params_for_gon.map do |ep|
+            [ep, u.send(ep)]
+          end
+        ]
+      end
+    end
+
+    def find_for_gon(ids)
+      self.find(ids).map do |u|
+        Hash[
+          extract_params_for_gon.map do |ep|
+            [ep, u.send(ep)]
+          end
+        ]
+      end
+    end
+
+    private
+
+    def extract_params_for_gon
+      [:id, :name, :mysize_id, :image_url, :size, :content]
+    end
   end
 
   def set_mysize_id(mysize_id)

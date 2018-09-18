@@ -10,6 +10,8 @@ class StaticPagesController < ApplicationController
     @user = (logged_in? ? current_user : nil)
     @kicksposts = Kickspost.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
+    gon.latestKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.users = User.all_for_gon
   end
 
   def follow
@@ -17,16 +19,18 @@ class StaticPagesController < ApplicationController
       @user = current_user
       @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
       @text = "short"
-      gon.followingKicksposts = @kicksposts
+      gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+      gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
     end
   end
 
-  def follow_square
+  def follow_squaqre
     if logged_in?
       @user = current_user
       @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
       @text = "short"
-      gon.followingKicksposts = @kicksposts
+      gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+      gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
     end
   end
 
@@ -52,5 +56,4 @@ class StaticPagesController < ApplicationController
   def not_logged_in?
     !logged_in? && params[:about].in?(['on1', 'on2', 'on3'])
   end
-
 end
