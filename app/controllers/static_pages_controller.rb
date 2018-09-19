@@ -12,6 +12,7 @@ class StaticPagesController < ApplicationController
     @text = "short"
     gon.latestKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
     gon.users = User.all_for_gon
+    gon.currentUser = @user
   end
 
   def follow
@@ -21,6 +22,7 @@ class StaticPagesController < ApplicationController
       @text = "short"
       gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
       gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
+      gon.currentUser = @user
     end
   end
 
@@ -31,6 +33,7 @@ class StaticPagesController < ApplicationController
       @text = "short"
       gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
       gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
+      gon.currentUser = @user
     end
   end
 
