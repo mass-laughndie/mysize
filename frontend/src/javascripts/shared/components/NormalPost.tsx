@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Post, User } from '../../types/commonTypes';
+import { NormalPostLeft } from './NormalPostLeft';
 
 interface Props {
   post: Post;
@@ -19,22 +20,11 @@ const NormalPost = (props: Props) => {
         <div className="content-height">
           <div className="list-content clear">
             <div className="c index-left kpost-left">
-              <div className="index-image kpost-icon abs-center">
-                <a
-                  className="list-image"
-                  href={`/${user.mysize_id}?display=square`}
-                >
-                  <img
-                    src={user.image_url}
-                    alt={user.mysize_id}
-                    width="40"
-                    height="40"
-                  />
-                </a>
-                <div className="index-size kpost-shoesize">
-                  <span>{user.size}</span>
-                </div>
-              </div>
+              <NormalPostLeft
+                mysize_id={user.mysize_id}
+                image_url={user.image_url}
+                size={user.size}
+              />
             </div>
             <div className="kpost-center <%= type.downcase %>-center">
               <div className="kpost-name over-name">
