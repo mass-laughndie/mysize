@@ -19,13 +19,11 @@ const NormalPost = (props: Props) => {
       <div className="content-abs">
         <div className="content-height">
           <div className="list-content clear">
-            <div className="c index-left kpost-left">
-              <NormalPostLeft
-                mysize_id={user.mysize_id}
-                image_url={user.image_url}
-                size={user.size}
-              />
-            </div>
+            <NormalPostLeft
+              mysize_id={user.mysize_id}
+              image_url={user.image_url}
+              size={user.size}
+            />
             <div className="kpost-center <%= type.downcase %>-center">
               <div className="kpost-name over-name">
                 <a href={user.mysize_id}>
