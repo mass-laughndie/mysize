@@ -18,3 +18,5 @@ class NormalPosts extends React.Component<Props> {
     return <ul>{posts.map(this.renderNormalPost)}</ul>;
   }
 }
+
+export { NormalPosts };
