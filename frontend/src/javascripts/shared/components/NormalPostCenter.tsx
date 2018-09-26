@@ -33,3 +33,5 @@ const NormalPostCenter = (props: Props) => {
     </div>
   );
 };
+
+export { NormalPostCenter };
