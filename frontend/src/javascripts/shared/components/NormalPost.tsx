@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Post, User } from '../../types/commonTypes';
 import { NormalPostLeft } from './NormalPostLeft';
+import { NormalPostCenter } from './NormalPostCenter';
+import { pseudoRandomBytes } from 'crypto';
 
 interface Props {
   post: Post;
@@ -24,26 +26,14 @@ const NormalPost = (props: Props) => {
               image_url={user.image_url}
               size={user.size}
             />
-            <div className="kpost-center kickspost-center">
-              <div className="kpost-name over-name">
-                <a href={user.mysize_id}>
-                  {user.name}
-                  <span>{`@${user.mysize_id}`}</span>
-                </a>
-              </div>
-              <div className="kpost-brand">
-                <span>{post.brand}</span>
-              </div>
-              <div className="kpost-title">
-                <h2>
-                  {`${post.title} `}
-                  <span>{`( ${post.color} )`}</span>
-                </h2>
-              </div>
-              <div className="kpost-content autolink over-text">
-                <span>{post.content}</span>
-              </div>
-            </div>
+            <NormalPostCenter
+              name={user.name}
+              mysize_id={user.mysize_id}
+              brand={post.brand}
+              color={post.color}
+              title={post.title}
+              content={post.content}
+            />
             <div className="kpost-act  kickspost-act clear">
               <div className="kpost-time">
                 {/* <%= time_ago_in_words(post.created_at) %>前 */}

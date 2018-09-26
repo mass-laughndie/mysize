@@ -3,10 +3,10 @@ import * as React from 'react';
 interface Props {
   name: string;
   mysize_id: string;
-  brand: string;
-  color: string;
+  brand: string | null;
+  color: string | null;
   title: string;
-  content: string;
+  content: string | null;
 }
 const NormalPostCenter = (props: Props) => {
   const { name, mysize_id, brand, color, title, content } = props;
