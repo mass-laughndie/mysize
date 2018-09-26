@@ -24,7 +24,7 @@ const NormalPost = (props: Props) => {
               image_url={user.image_url}
               size={user.size}
             />
-            <div className="kpost-center <%= type.downcase %>-center">
+            <div className="kpost-center kickspost-center">
               <div className="kpost-name over-name">
                 <a href={user.mysize_id}>
                   {user.name}
@@ -45,7 +45,7 @@ const NormalPost = (props: Props) => {
               <span>{post.content}</span>
             </div>
           </div>
-          <div className="kpost-act  <%= type.downcase %>-act clear">
+          <div className="kpost-act  kickspost-act clear">
             <div className="kpost-time">
               {/* <%= time_ago_in_words(post.created_at) %>前 */}
             </div>
@@ -101,9 +101,9 @@ const NormalPost = (props: Props) => {
               <% end %> */}
             </div>
           </div>
-          <div className="kpost-right <%= type.downcase %>-right">
+          <div className="kpost-right kickspost-right">
             <div className="c kpost-right-top">
-              <div className="kpost-menu  <%= type.downcase %>-menu clear">
+              <div className="kpost-menu  kickspost-menu clear">
                 {/* <% if current_user == post.user %>
                   <%= render partial: 'shared/post_menu',
                             locals: { post: post,
