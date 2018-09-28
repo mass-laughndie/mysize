@@ -3,6 +3,7 @@ import { Post, User } from '../../types/commonTypes';
 import { NormalPostLeft } from './NormalPostLeft';
 import { NormalPostCenter } from './NormalPostCenter';
 import { NormalPostAct } from './NormalPostAct';
+import { NormalPostRight } from './NormalPostRight';
 
 interface Props {
   post: Post;
@@ -39,32 +40,13 @@ const NormalPost = (props: Props) => {
               mysize_id={user.mysize_id}
               encodedURI={encodedURI}
             />
-            <div className="kpost-right kickspost-right">
-              <div className="c kpost-right-top">
-                <div className="kpost-menu  kickspost-menu clear">
-                  {/* <% if current_user == post.user %>
-                    <%= render partial: 'shared/post_menu',
-                              locals: { post: post,
-                                        type: type } %>
-                  <% end %> */}
-                </div>
-                <div className="kpost-picture abs-center">
-                  <a
-                    href={`/${user.mysize_id}/kicksposts/${
-                      post.id
-                    }?display='picture'`}
-                  >
-                    <img
-                      className="cover lazyload"
-                      src="/images/grey.gif"
-                      data-src={post.picture_url}
-                      alt={post.title}
-                    />
-                  </a>
-                  <div className="kpost-size index-size">{post.size}</div>
-                </div>
-              </div>
-            </div>
+            <NormalPostRight
+              post_id={post.id}
+              mysize_id={user.mysize_id}
+              picture_url={post.picture_url}
+              size={post.size}
+              title={post.title}
+            />
           </div>
         </div>
       </div>

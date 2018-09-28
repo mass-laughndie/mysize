@@ -4,7 +4,7 @@ interface Props {
   post_id: number;
   mysize_id: string;
   picture_url: string;
-  size: number:
+  size: number;
   title: string;
 }
 
@@ -21,9 +21,7 @@ const NormalPostRight = (props: Props) => {
               <% end %> */}
         </div>
         <div className="kpost-picture abs-center">
-          <a
-            href={`/${mysize_id}/kicksposts/${post_id}?display='picture'`}
-          >
+          <a href={`/${mysize_id}/kicksposts/${post_id}?display='picture'`}>
             <img
               className="cover lazyload"
               src="/images/grey.gif"
