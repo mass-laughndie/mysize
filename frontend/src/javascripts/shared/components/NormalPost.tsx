@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Post, User } from '../../types/commonTypes';
 import { NormalPostLeft } from './NormalPostLeft';
 import { NormalPostCenter } from './NormalPostCenter';
-import { pseudoRandomBytes } from 'crypto';
 
 interface Props {
   post: Post;
