@@ -50,16 +50,16 @@ const NormalPostAct = (props: Props) => {
           </div>
         </a>
         {/* <%= link_to "https://twitter.com/intent/tweet?text=" +
-                    ERB::Util.url_encode(post.user.name + "さんの投稿｜" +
-                                          post.title + "\n") +
-                    "&url=" + kickspost_url(post.user, post),
-                    className: "kpost-alink",
-                    onclick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" do %>
-                  <div className="kpost-aicon">
-                    <i className='fa fa-twitter' />
-                    <%= fa_icon('twitter') %>
-                  </div>
-                <% end %> */}
+              ERB::Util.url_encode(post.user.name + "さんの投稿｜" +
+                                    post.title + "\n") +
+              "&url=" + kickspost_url(post.user, post),
+              className: "kpost-alink",
+              onclick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" do %>
+              <div className="kpost-aicon">
+                <i className='fa fa-twitter' />
+                <%= fa_icon('twitter') %>
+              </div>
+            <% end %> */}
       </div>
     </div>
   );
