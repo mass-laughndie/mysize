@@ -10,8 +10,10 @@
                          type: type } %>
   <% end %>
   </div>
-<% elsif  !logged_in? %>
+<% else %>
   <div class="good-form">
-    <%= render partial: 'goods/good_button' %>
+    <div class="c form-good">
+      <%= link_to fa_icon("thumbs-o-up"), '#', class: 'ban' %>
+    </div>
   </div>
 <% end %>
