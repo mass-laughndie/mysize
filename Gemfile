@@ -21,6 +21,7 @@ gem 'omniauth-twitter',      '~> 1.4.0'
 gem 'dotenv-rails',          '~> 2.2.1'    #key管理
 gem 'rack-rewrite',          '~> 1.5.1'    #ドメイン統合
 gem 'gon',                   '~> 6.2.0'
+gem 'mysql2'
 
 group :development, :test do
   gem 'sqlite3',       '1.3.13'
