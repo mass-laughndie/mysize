@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 
   before_action :logged_in_user, only: [:follow, :follow_square]
+  before_action :setting_gon, only: [:latest, :follow, :follow_square]
 
   def home
     redirect_to latest_path if logged_in?
@@ -54,5 +55,9 @@ class StaticPagesController < ApplicationController
 
   def not_logged_in?
     !logged_in? && params[:about].in?(['on1', 'on2', 'on3'])
+  end
+
+  def setting_gon
+    gon.logged_in = logged_in?
   end
 end

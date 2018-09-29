@@ -24,6 +24,7 @@ export interface Gon {
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
   postUsers: GonPostUser[];
+  logged_in: boolean;
 }
 
 export const gon: Gon = (window as any).gon;
