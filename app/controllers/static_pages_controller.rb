@@ -16,25 +16,21 @@ class StaticPagesController < ApplicationController
   end
 
   def follow
-    if logged_in?
-      @user = current_user
-      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
-      @text = "short"
-      gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
-      gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
-      gon.currentUser = @user
-    end
+    @user = current_user
+    @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
+    @text = "short"
+    gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
+    gon.currentUser = @user
   end
 
-  def follow_squaqre
-    if logged_in?
-      @user = current_user
-      @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
-      @text = "short"
-      gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
-      gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
-      gon.currentUser = @user
-    end
+  def follow_square
+    @user = current_user
+    @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
+    @text = "short"
+    gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
+    gon.currentUser = @user
   end
 
   def help
