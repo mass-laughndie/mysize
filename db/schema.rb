@@ -12,10 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180401110917) do
 
-  create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "kickspost_id"
-    t.integer "reply_id"
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "kickspost_id"
+    t.bigint "reply_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "contacts", force: :cascade do |t|
+  create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.text "message"
@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "goods", force: :cascade do |t|
+  create_table "goods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "gooder_id"
     t.integer "gooded_id"
     t.string "post_type"
-    t.integer "post_id"
+    t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["gooded_id"], name: "index_goods_on_gooded_id"
@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.index ["post_type", "post_id"], name: "index_goods_on_post_type_and_post_id"
   end
 
-  create_table "kicksposts", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "kicksposts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
     t.string "title"
     t.text "content"
     t.string "picture"
-    t.float "size"
+    t.float "size", limit: 24
     t.boolean "new_kicks", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -65,10 +65,10 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.index ["user_id"], name: "index_kicksposts_on_user_id"
   end
 
-  create_table "notices", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "notices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
     t.string "kind_type"
-    t.integer "kind_id"
+    t.bigint "kind_id"
     t.integer "unread_count", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.index ["user_id"], name: "index_notices_on_user_id"
   end
 
-  create_table "relationships", force: :cascade do |t|
+  create_table "relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "follower_id"
     t.integer "followed_id"
     t.datetime "created_at", null: false
@@ -87,13 +87,13 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.string "mysize_id"
     t.string "password_digest"
     t.string "image"
-    t.float "size"
+    t.float "size", limit: 24
     t.string "content"
     t.string "remember_digest"
     t.boolean "admin", default: false
@@ -108,4 +108,8 @@ ActiveRecord::Schema.define(version: 20180401110917) do
     t.index ["mysize_id"], name: "index_users_on_mysize_id", unique: true
   end
 
+  add_foreign_key "comments", "kicksposts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "kicksposts", "users"
+  add_foreign_key "notices", "users"
 end
