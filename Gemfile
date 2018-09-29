@@ -25,7 +25,7 @@ gem 'mysql2',                '~> 0.4.0'
 gem 'yaml_db'
 
 group :development, :test do
-  gem 'sqlite3',       '1.3.13'
+  # gem 'sqlite3',       '1.3.13'
   gem 'pry-rails',  '~> 0.3.6'             #rails console拡張
   gem 'pry-byebug', '~> 3.6.0'
   gem 'pry-doc',    '~> 0.13.1'

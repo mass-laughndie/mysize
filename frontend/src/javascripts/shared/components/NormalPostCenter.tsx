@@ -8,6 +8,7 @@ interface Props {
   title: string;
   content: string | null;
 }
+
 const NormalPostCenter = (props: Props) => {
   const { name, mysize_id, brand, color, title, content } = props;
   return (
