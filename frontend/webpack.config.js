@@ -12,7 +12,7 @@ const extractCSS = new ExtractTextPlugin(`${FILENAME}.css`);
 
 module.exports = {
   entry: {
-    'frontend/vendor': ['jquery'],
+    'frontend/global': './src/javascripts/global.ts',
     'frontend/test': './src/javascripts/test',
     'frontend/follow_square': './src/javascripts/follow_square',
     'frontend/mypage_square': './src/javascripts/mypage',
@@ -59,6 +59,10 @@ module.exports = {
     new CleanWebpackPlugin(['frontend'], {
       root: path.resolve(__dirname, `../public/assets`),
       verbose: true
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: isProduction ? 'production' : 'development'
