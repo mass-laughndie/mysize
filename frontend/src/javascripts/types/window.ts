@@ -7,6 +7,8 @@ export interface GonKickspost {
   content: string | null;
   size: number;
   picture_url: string;
+  goodNum: number;
+  commentNum: number;
 }
 
 export interface GonPostUser {

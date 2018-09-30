@@ -42,7 +42,9 @@ class Kickspost < ApplicationRecord
         Hash[
           extract_params_for_gon.map do |ep|
             [ep, k.send(ep)]
-          end
+          end <<
+          ["goodNum", k.goods.size] <<
+          ["commentNum", k.comments.size]
         ]
       end
     end
@@ -52,7 +54,9 @@ class Kickspost < ApplicationRecord
         Hash[
           extract_params_for_gon.map do |ep|
             [ep, k.send(ep)]
-          end
+          end <<
+          ["goodNum", k.goods.size] <<
+          ["commentNum", k.comments.size]
         ]
       end
     end

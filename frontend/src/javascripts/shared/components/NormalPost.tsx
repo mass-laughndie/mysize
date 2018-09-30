@@ -39,6 +39,8 @@ const NormalPost = (props: Props) => {
               post_id={post.id}
               mysize_id={user.mysize_id}
               encodedURI={encodedURI}
+              goodNum={post.goodNum}
+              commentNum={post.commentNum}
             />
             <NormalPostRight
               post_id={post.id}
