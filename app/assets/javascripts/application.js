@@ -12,6 +12,5 @@
 //
 //= require rails-ujs
 //= require jquery
-//= require jquery.turbolinks
 //= require lazysizes.min
 //= require_tree .
