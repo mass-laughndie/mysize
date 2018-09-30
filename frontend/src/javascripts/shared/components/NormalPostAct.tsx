@@ -10,9 +10,6 @@ const NormalPostAct = (props: Props) => {
   const { post_id, mysize_id, encodedURI } = props;
   return (
     <div className="kpost-act  kickspost-act clear">
-      <div className="kpost-time">
-        {/* <%= time_ago_in_words(post.created_at) %>前 */}
-      </div>
       <div className="kpost-alist">
         <div className="kpost-aicon">
           {/* <%= render partial: 'goods/good_form',
