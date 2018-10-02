@@ -5,12 +5,19 @@ import { Post, User } from '../../types/commonTypes';
 interface Props {
   posts: Post[];
   users: User[];
+  logged_in: boolean;
 }
 
 class NormalPosts extends React.Component<Props> {
   private renderNormalPost(post: Post) {
-    const { users } = this.props;
-    return <NormalPost post={post} user={users[post.user_id]} />;
+    const { users, logged_in } = this.props;
+    return (
+      <NormalPost
+        post={post}
+        user={users[post.user_id]}
+        logged_in={logged_in}
+      />
+    );
   }
 
   public render() {
