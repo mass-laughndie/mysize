@@ -8,10 +8,11 @@ import { NormalPostRight } from './NormalPostRight';
 interface Props {
   post: Post;
   user: User;
+  logged_in: boolean;
 }
 
 const NormalPost = (props: Props) => {
-  const { post, user } = props;
+  const { post, user, logged_in } = props;
   const encodedURI = encodeURI(`${user.name}さんの投稿｜${post.title}\n`);
   return (
     <li id={`kickspost-${post.id}`} className="link-list kpost-main clear">
@@ -39,6 +40,7 @@ const NormalPost = (props: Props) => {
               post_id={post.id}
               mysize_id={user.mysize_id}
               encodedURI={encodedURI}
+              logged_in={logged_in}
               goodNum={post.goodNum}
               commentNum={post.commentNum}
             />

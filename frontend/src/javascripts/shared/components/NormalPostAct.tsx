@@ -1,22 +1,29 @@
 import * as React from 'react';
+import GoodForm from './GoodForm';
 
 interface Props {
   post_id: number;
   mysize_id: string;
   encodedURI: string;
+  logged_in: boolean;
   goodNum: number;
   commentNum: number;
 }
 
 const NormalPostAct = (props: Props) => {
-  const { post_id, mysize_id, encodedURI, goodNum, commentNum } = props;
+  const {
+    post_id,
+    mysize_id,
+    encodedURI,
+    logged_in,
+    goodNum,
+    commentNum
+  } = props;
   return (
     <div className="kpost-act  kickspost-act clear">
       <div className="kpost-alist">
         <div className="kpost-aicon">
-          {/* <%= render partial: 'goods/good_form',
-                            locals: { post: post,
-                                      type: type } %> */}
+          <GoodForm logged_in={logged_in} id={post_id} />
         </div>
         <div className="kpost-num" id={`good-num-kickspost-${post_id}`}>
           <a href={`/kicksposts/${post_id}/gooders`}>{goodNum}</a>
