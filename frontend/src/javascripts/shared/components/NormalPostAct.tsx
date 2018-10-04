@@ -6,8 +6,10 @@ interface Props {
   mysize_id: string;
   encodedURI: string;
   logged_in: boolean;
+  postType: string;
   goodNum: number;
   commentNum: number;
+  isGood: boolean;
 }
 
 const NormalPostAct = (props: Props) => {
@@ -16,16 +18,18 @@ const NormalPostAct = (props: Props) => {
     mysize_id,
     encodedURI,
     logged_in,
+    postType,
     goodNum,
-    commentNum
+    commentNum,
+    isGood
   } = props;
   return (
-    <div className="kpost-act  kickspost-act clear">
+    <div className={`kpost-act  ${postType}-act clear`}>
       <div className="kpost-alist">
         <div className="kpost-aicon">
-          <GoodForm logged_in={logged_in} id={post_id} />
+          <GoodForm logged_in={logged_in} id={post_id} isGood={isGood} />
         </div>
-        <div className="kpost-num" id={`good-num-kickspost-${post_id}`}>
+        <div className="kpost-num" id={`good-num-${postType}-${post_id}`}>
           <a href={`/kicksposts/${post_id}/gooders`}>{goodNum}</a>
         </div>
       </div>

@@ -6,14 +6,15 @@ interface Props {
   picture_url: string;
   size: number;
   title: string;
+  postType: string;
 }
 
 const NormalPostRight = (props: Props) => {
-  const { post_id, mysize_id, picture_url, size, title } = props;
+  const { post_id, mysize_id, picture_url, size, title, postType } = props;
   return (
-    <div className="kpost-right kickspost-right">
+    <div className={`kpost-right ${postType}-right`}>
       <div className="c kpost-right-top">
-        <div className="kpost-menu  kickspost-menu clear">
+        <div className={`kpost-menu  ${postType}-menu clear`}>
           {/* <% if current_user == post.user %>
                 <%= render partial: 'shared/post_menu',
                           locals: { post: post,
