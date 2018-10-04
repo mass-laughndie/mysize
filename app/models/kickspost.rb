@@ -39,29 +39,13 @@ class Kickspost < ApplicationRecord
   class << self
     def all_for_gon(user)
       self.all.map do |k|
-        Hash[
-          extract_params_for_gon.map do |ep|
-            [ep, k.send(ep)]
-          end <<
-          ["postType", k.class.name.downcase] <<
-          ["goodNum", k.goods.size] <<
-          ["commentNum", k.comments.size] <<
-          ["isGood", user.present? ? user.good?(k.class.name.downcase, k) : false]
-        ]
+        map_gon_hah(k, user)
       end
     end
 
     def find_for_gon(ids, user)
       self.find(ids).map do |k|
-        Hash[
-          extract_params_for_gon.map do |ep|
-            [ep, k.send(ep)]
-          end <<
-          ["postType", k.class.name.downcase] <<
-          ["goodNum", k.goods.size] <<
-          ["commentNum", k.comments.size] <<
-          ["isGood", user.present? ? user.good?(k.class.name.downcase, k) : false]
-        ]
+        map_gon_hah(k, user)
       end
     end
 
@@ -69,6 +53,18 @@ class Kickspost < ApplicationRecord
 
     def extract_params_for_gon
       [:id, :user_id, :brand, :color, :title, :content, :size, :picture_url]
+    end
+
+    def map_gon_hah(k, user)
+      Hash[
+        extract_params_for_gon.map do |ep|
+          [ep, k.send(ep)]
+        end <<
+        ["postType", k.class.name.downcase] <<
+        ["goodNum", k.goods.size] <<
+        ["commentNum", k.comments.size] <<
+        ["isGood", user.present? ? user.good?(k.class.name.downcase, k) : false]
+      ]
     end
   end
 
