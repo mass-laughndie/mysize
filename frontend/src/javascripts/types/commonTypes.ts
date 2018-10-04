@@ -7,8 +7,10 @@ export interface Post {
   content: string | null;
   size: number;
   picture_url: string;
+  postType: string;
   goodNum: number;
   commentNum: number;
+  isGood: boolean;
 }
 
 export interface User {

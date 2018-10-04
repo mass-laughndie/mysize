@@ -17,13 +17,14 @@ const DummyGoodButton = () => {
 interface Props {
   logged_in: boolean;
   id: number;
+  isGood: boolean;
 }
 
 class GoodForm extends React.Component<Props> {
   public render() {
-    const { logged_in, id } = this.props;
+    const { logged_in, id, isGood } = this.props;
     if (logged_in) {
-      if (true) {
+      if (isGood) {
         return <UngoodButton id={id} />;
       } else {
         return <GoodButton id={id} />;

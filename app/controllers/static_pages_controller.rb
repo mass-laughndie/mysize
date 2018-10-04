@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
     @user = (logged_in? ? current_user : nil)
     @kicksposts = Kickspost.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
-    gon.latestKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.latestKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq, @user)
     gon.users = User.all_for_gon
     gon.currentUser = @user
   end
@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
     @user = current_user
     @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
-    gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq, @user)
     gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
     gon.currentUser = @user
   end
@@ -29,7 +29,7 @@ class StaticPagesController < ApplicationController
     @user = current_user
     @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
-    gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.followingKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq, @user)
     gon.users = User.find_for_gon(@kicksposts.pluck(:user_id).uniq)
     gon.currentUser = @user
   end

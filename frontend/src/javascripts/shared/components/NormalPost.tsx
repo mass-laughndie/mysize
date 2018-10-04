@@ -41,8 +41,10 @@ const NormalPost = (props: Props) => {
               mysize_id={user.mysize_id}
               encodedURI={encodedURI}
               logged_in={logged_in}
+              postType={post.postType}
               goodNum={post.goodNum}
               commentNum={post.commentNum}
+              isGood={post.isGood}
             />
             <NormalPostRight
               post_id={post.id}
@@ -50,6 +52,7 @@ const NormalPost = (props: Props) => {
               picture_url={post.picture_url}
               size={post.size}
               title={post.title}
+              postType={post.postType}
             />
           </div>
         </div>
