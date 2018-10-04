@@ -63,7 +63,8 @@ class Kickspost < ApplicationRecord
         ["postType", k.class.name.downcase] <<
         ["goodNum", k.goods.size] <<
         ["commentNum", k.comments.size] <<
-        ["isGood", user.present? ? user.good?(k.class.name.downcase, k) : false]
+        ["isGood", user.present? ? user.good?(k.class.name.downcase, k) : false] <<
+        ["isMyPost", user == k.user]
       ]
     end
   end

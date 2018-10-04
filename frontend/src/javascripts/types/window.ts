@@ -11,6 +11,7 @@ export interface GonKickspost {
   goodNum: number;
   commentNum: number;
   isGood: boolean;
+  isMyPost: boolean;
 }
 
 export interface GonPostUser {
