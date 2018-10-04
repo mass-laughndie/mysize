@@ -11,6 +11,7 @@ export interface Post {
   goodNum: number;
   commentNum: number;
   isGood: boolean;
+  isMyPost: boolean;
 }
 
 export interface User {
