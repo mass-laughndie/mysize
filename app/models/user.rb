@@ -126,30 +126,35 @@ class User < ApplicationRecord
       end
     end
 
-    def all_for_gon
-      self.all.map do |u|
-        Hash[
-          extract_params_for_gon.map do |ep|
-            [ep, u.send(ep)]
-          end
-        ]
+    def all_format_gon_params
+      self.all.map do |user|
+        map_gon_hah(user)
       end
     end
 
-    def find_for_gon(ids)
-      self.find(ids).map do |u|
-        Hash[
-          extract_params_for_gon.map do |ep|
-            [ep, u.send(ep)]
-          end
-        ]
+    def find_format_gon_params(ids)
+      self.find(ids).map do |user|
+        map_gon_hah(user)
       end
+    end
+
+    def find_format_gon_params_by(id)
+      map_gon_hah(self.find_by(id: id))
     end
 
     private
 
     def extract_params_for_gon
       [:id, :name, :mysize_id, :image_url, :size, :content]
+    end
+
+    def map_gon_hah(user)
+      return if user.blank?
+      Hash[
+        extract_params_for_gon.map do |ep|
+          [ep, user.send(ep)]
+        end
+      ]
     end
   end
 
