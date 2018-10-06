@@ -37,16 +37,20 @@ class Kickspost < ApplicationRecord
   validates :size,    presence: { message: "スニーカーのサイズを選択してください" }
 
   class << self
-    def all_for_gon(user)
-      self.all.map do |k|
-        map_gon_hah(k, user)
+    def all_format_gon_params_for(user)
+      self.all.map do |post|
+        map_gon_hah(post, user)
       end
     end
 
-    def find_for_gon(ids, user)
-      self.find(ids).map do |k|
-        map_gon_hah(k, user)
+    def find_format_gon_params(ids, user)
+      self.find(ids).map do |post|
+        map_gon_hah(post, user)
       end
+    end
+
+    def find_format_gon_params_by(id, user)
+      map_gon_hah(self.find_by(id), user)
     end
 
     private
@@ -55,17 +59,21 @@ class Kickspost < ApplicationRecord
       [:id, :user_id, :brand, :color, :title, :content, :size, :picture_url]
     end
 
-    def map_gon_hah(k, user)
+    def map_gon_hah(post, user)
+      return if post.blank?
+      post_type = post.class.name.downcase
       Hash[
         extract_params_for_gon.map do |ep|
-          [ep, k.send(ep)]
-        end <<
-        ["postType", k.class.name.downcase] <<
-        ["goodNum", k.goods.size] <<
-        ["commentNum", k.comments.size] <<
-        ["isGood", user.present? ? user.good?(k.class.name.downcase, k) : false] <<
-        ["isMyPost", user == k.user]
-      ]
+          [ep, post.send(ep)]
+        end
+      ].merge({
+        postType: post_type,
+        postUser: User.find_format_gon_params_by(post.user_id),
+        goodNum: post.goods.size,
+        commentNum: post.comments.size,
+        isGood: (user.present? ? user.good?(post_type, post) : false),
+        isMyPost: user == post.user
+      })
     end
   end
 
