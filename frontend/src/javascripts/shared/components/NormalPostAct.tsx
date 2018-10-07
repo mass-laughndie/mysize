@@ -4,14 +4,14 @@ import { Post } from '../../types/commonTypes';
 
 interface Props {
   post: Post;
-  encodedURI: string;
+  twitterShareUrl: string;
   logged_in: boolean;
 }
 
 const NormalPostAct = (props: Props) => {
   const { id, postType, goodNum, commentNum } = props.post;
   const { mysize_id } = props.post.postUser;
-  const { encodedURI, logged_in } = props;
+  const { twitterShareUrl, logged_in } = props;
 
   return (
     <div className={`kpost-act  ${postType}-act clear`}>
@@ -36,9 +36,7 @@ const NormalPostAct = (props: Props) => {
       <div className="kpost-alist alist-last">
         <a
           className="kpost-alink"
-          href={`https://twitter.com/intent/tweet?text=${encodedURI}&url=${
-            window.location.origin
-          }/${mysize_id}/kicksposts/${id}`}
+          href={twitterShareUrl}
           onClick={() =>
             "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=31'); return false;"
           }

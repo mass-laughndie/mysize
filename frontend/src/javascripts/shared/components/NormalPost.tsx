@@ -12,9 +12,15 @@ interface Props {
 
 const NormalPost = (props: Props) => {
   const { post, logged_in } = props;
-  const encodedURI = encodeURI(
-    `${post.postUser.name}さんの投稿｜${post.title}\n`
-  );
+  const twitterShareUrl = (post: Post): string => {
+    const encodedURI = encodeURI(
+      `${post.postUser.name}さんの投稿｜${post.title}\n`
+    );
+    return `https://twitter.com/intent/tweet?text=${encodedURI}&url=${
+      window.location.origin
+    }/${post.postUser.mysize_id}/kicksposts/${post.id}`;
+  };
+
   return (
     <li id={`kickspost-${post.id}`} className="link-list kpost-main clear">
       <a
@@ -28,10 +34,13 @@ const NormalPost = (props: Props) => {
             <NormalPostCenter post={post} />
             <NormalPostAct
               post={post}
-              encodedURI={encodedURI}
+              twitterShareUrl={twitterShareUrl(post)}
               logged_in={logged_in}
             />
-            <NormalPostRight post={post} />
+            <NormalPostRight
+              post={post}
+              twitterShareUrl={twitterShareUrl(post)}
+            />
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ interface Props {
 }
 
 const PostDelete = (props: Props) => {
-  const postDeleteUrl = (post: Post) => {
+  const postDeleteUrl = (post: Post): string => {
     const rootUrl = location.protocol + '//' + location.host;
     const { id, postType, postUser } = post;
 
