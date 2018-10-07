@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Post } from '../../types/commonTypes';
+import { Post } from '../../../types/commonTypes';
 
 interface Props {
   post: Post;

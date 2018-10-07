@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GoodButton } from './GoodButton';
 import { UngoodButton } from './UngoodButton';
-import { Post } from '../../types/commonTypes';
+import { Post } from '../../../types/commonTypes';
 
 const DummyGoodButton = () => {
   return (

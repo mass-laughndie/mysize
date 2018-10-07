@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { User } from '../../types/commonTypes';
+import { User } from '../../../types/commonTypes';
 
 interface Props {
   postUser: User;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NormalPost } from './NormalPost';
-import { Post, User } from '../../types/commonTypes';
+import { Post, User } from '../../../types/commonTypes';
 
 interface Props {
   posts: Post[];

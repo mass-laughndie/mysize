@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Post } from '../../types/commonTypes';
-import { PostMenu } from './PostMenu';
+import { Post } from '../../../types/commonTypes';
+import { PostMenu } from '../PostMenu';
 
 interface Props {
   post: Post;
