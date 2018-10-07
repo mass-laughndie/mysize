@@ -9,7 +9,7 @@ interface Props {
 }
 
 const NormalPostAct = (props: Props) => {
-  const { id, postType, goodNum, commentNum, isGood } = props.post;
+  const { id, postType, goodNum, commentNum } = props.post;
   const { mysize_id } = props.post.postUser;
   const { encodedURI, logged_in } = props;
 

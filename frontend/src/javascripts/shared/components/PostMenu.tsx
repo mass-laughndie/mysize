@@ -1,12 +1,12 @@
 import * as React from 'react';
+import { Post } from '../../types/commonTypes';
 
 interface Props {
-  id: number;
-  postType: string;
+  post: Post;
 }
 
 const PostMenu = (props: Props) => {
-  const { postType, id } = props;
+  const { postType, id } = props.post;
   return (
     <React.Fragment>
       <div id={`post-nav-${postType}-${id}`} className="post-nav">
