@@ -8,8 +8,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const FILENAME = isProduction ? '[name]-[chunkhash]' : '[name]';
 
-const extractCSS = new ExtractTextPlugin(`${FILENAME}.css`);
-
 module.exports = {
   entry: {
     'frontend/global': './src/javascripts/global.ts',
@@ -28,23 +26,64 @@ module.exports = {
   devtool: isProduction ? undefined : 'inline-source-map',
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', 'json']
+    extensions: ['.ts', '.tsx', '.js', 'json', '.css', '.scss']
   },
 
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: { loader: require.resolve('babel-loader') }
+      },
+      {
         test: /\.(ts|tsx)$/,
-        use: [{ loader: 'ts-loader' }]
+        exclude: /node_modules/,
+        use: { loader: require.resolve('ts-loader') }
       },
       {
         test: /\.css$/,
-        use: extractCSS.extract(['css-loader'])
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                localIdentName: isProduction
+                  ? '[hash:base64:5]'
+                  : '[path]__[name]__[local]--[hash:base64:5]',
+                modules: true
+              }
+            },
+            'sass-loader'
+          ]
+        })
+      },
+      {
+        test: /\.module\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                localIdentName: isProduction
+                  ? '[hash:base64:5]'
+                  : '[path]__[name]__[local]--[hash:base64:5]',
+                modules: true,
+                sourceMap: true,
+                minimize: isProduction,
+                importLoaders: 2
+              }
+            },
+            'sass-loader'
+          ]
+        })
       },
       {
         test: /\.(jpeg|jpg|gif|png|svg|eot|woff|woff2|ttf|wav|mp3)$/,
         use: {
-          loader: 'file-loader',
+          loader: require.resolve('file-loader'),
           options: {
             name: '[path][name]-[hash].[ext]',
             outputPath: 'frontend/images/',
@@ -67,10 +106,10 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: isProduction ? 'production' : 'development'
     }),
-    extractCSS,
     new WebpackSprocketsRailsManifestPlugin({
       manifestFile: '../../config/sprockets-manifest.json'
-    })
+    }),
+    new ExtractTextPlugin({ filename: 'styles.css', allChunks: true })
   ],
 
   optimization: {
