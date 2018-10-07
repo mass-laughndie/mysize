@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { SquarePost } from './SquarePost';
 
-const post = {
+export const post = {
   id: 2,
   user_id: 1,
   brand: 'Nike',

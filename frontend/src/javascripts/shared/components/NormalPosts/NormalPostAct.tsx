@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GoodForm from '../GoodForm';
+import GoodForm from '../GoodForm/GoodForm';
 import { Post } from '../../../types/commonTypes';
 
 interface Props {
