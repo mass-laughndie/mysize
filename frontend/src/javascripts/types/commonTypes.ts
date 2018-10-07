@@ -19,14 +19,7 @@ export interface User {
   id: number;
   name: string;
   mysize_id: string;
-  image_url: string;
+  image_url: string | undefined;
   size: number;
   content: string;
-}
-
-export interface SquarePostProp {
-  id: number;
-  title: string;
-  size: number;
-  picture_url: string;
 }

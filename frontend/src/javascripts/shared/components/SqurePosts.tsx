@@ -1,22 +1,14 @@
 import * as React from 'react';
-import { SquarePostProp } from '../../types/commonTypes';
+import { Post } from '../../types/commonTypes';
 import { SquarePost } from './SquarePost';
 
 interface Props {
-  posts: SquarePostProp[];
+  posts: Post[];
 }
 
 class SquarePosts extends React.Component<Props> {
-  private renderSquarePost(post: SquarePostProp) {
-    return (
-      <SquarePost
-        key={post.id}
-        id={post.id}
-        title={post.title}
-        size={post.size}
-        picture_url={post.picture_url}
-      />
-    );
+  private renderSquarePost(post: Post) {
+    return <SquarePost post={post} />;
   }
 
   public render() {

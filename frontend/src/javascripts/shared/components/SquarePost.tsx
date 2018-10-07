@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { SquarePostProp } from '../../types/commonTypes';
+import { Post } from '../../types/commonTypes';
 
-type Props = SquarePostProp;
+interface Props {
+  post: Post;
+}
 
 const SquarePost = (props: Props) => {
-  const { id, title, size, picture_url } = props;
+  const { id, title, size, picture_url } = props.post;
+  const { mysize_id } = props.post.postUser;
   return (
     <li id={`square-${id}`} className="square-list">
       <div className="square-picture">
-        <a href={`/-/kicksposts/${id}`}>
+        <a href={`/${mysize_id}/kicksposts/${id}`}>
           <img
             className="cover lazyload"
             src="/images/grey.gif"
