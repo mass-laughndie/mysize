@@ -9,5 +9,7 @@
     "module": "es2015",
     "target": "es5",
     "jsx": "react"
-  }
+  },
+  "includes": ["./custom.d.ts", "./src", "./stories"],
+  "exclude": ["node_modules"]
 }
