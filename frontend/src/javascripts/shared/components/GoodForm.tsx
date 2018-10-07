@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { GoodButton } from './GoodButton';
 import { UngoodButton } from './UngoodButton';
+import { Post } from '../../types/commonTypes';
 
 const DummyGoodButton = () => {
   return (
@@ -16,13 +17,14 @@ const DummyGoodButton = () => {
 
 interface Props {
   logged_in: boolean;
-  id: number;
-  isGood: boolean;
+  post: Post;
 }
 
 class GoodForm extends React.Component<Props> {
   public render() {
-    const { logged_in, id, isGood } = this.props;
+    const { logged_in } = this.props;
+    const { id, isGood } = this.props.post;
+
     if (logged_in) {
       if (isGood) {
         return <UngoodButton id={id} />;

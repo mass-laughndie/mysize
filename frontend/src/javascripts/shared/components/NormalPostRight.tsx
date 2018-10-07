@@ -1,16 +1,14 @@
 import * as React from 'react';
+import { Post } from '../../types/commonTypes';
 
 interface Props {
-  post_id: number;
-  mysize_id: string;
-  picture_url: string;
-  size: number;
-  title: string;
-  postType: string;
+  post: Post;
 }
 
 const NormalPostRight = (props: Props) => {
-  const { post_id, mysize_id, picture_url, size, title, postType } = props;
+  const { id, picture_url, size, title, postType } = props.post;
+  const { mysize_id } = props.post.postUser;
+
   return (
     <div className={`kpost-right ${postType}-right`}>
       <div className="c kpost-right-top">
@@ -22,7 +20,7 @@ const NormalPostRight = (props: Props) => {
               <% end %> */}
         </div>
         <div className="kpost-picture abs-center">
-          <a href={`/${mysize_id}/kicksposts/${post_id}?display='picture'`}>
+          <a href={`/${mysize_id}/kicksposts/${id}?display='picture'`}>
             <img
               className="cover lazyload"
               src="/images/grey.gif"
