@@ -8,6 +8,7 @@ export interface GonKickspost {
   size: number;
   picture_url: string;
   postType: string;
+  postUser: GonPostUser;
   goodNum: number;
   commentNum: number;
   isGood: boolean;
@@ -28,7 +29,6 @@ export interface Gon {
   followingKicksposts: GonKickspost[];
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
-  postUsers: GonPostUser[];
   logged_in: boolean;
 }
 

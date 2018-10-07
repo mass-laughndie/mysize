@@ -1,16 +1,14 @@
 import * as React from 'react';
+import { Post } from '../../../types/commonTypes';
 
 interface Props {
-  name: string;
-  mysize_id: string;
-  brand: string | null;
-  color: string | null;
-  title: string;
-  content: string | null;
+  post: Post;
 }
 
 const NormalPostCenter = (props: Props) => {
-  const { name, mysize_id, brand, color, title, content } = props;
+  const { brand, color, title, content } = props.post;
+  const { name, mysize_id } = props.post.postUser;
+
   return (
     <div className="kpost-center kickspost-center">
       <div className="kpost-name over-name">

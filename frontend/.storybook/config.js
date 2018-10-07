@@ -1,4 +1,5 @@
-import { configure } from "@storybook/react";
+import { configure } from '@storybook/react';
+import 'jquery';
 
 // automatically import all files ending in *.stories.js
 // const req = require.context('../stories', true, /.stories.js$/);
@@ -11,8 +12,8 @@ function importAll(r) {
 }
 
 function loadStories() {
-  importAll(require.context("../src", true, /\.story\.(js|tsx?)$/));
-  importAll(require.context("../stories", true, /\.story\.(js|tsx?)$/));
+  importAll(require.context('../src', true, /\.story\.(js|tsx?)$/));
+  importAll(require.context('../stories', true, /\.story\.(js|tsx?)$/));
 }
 
 configure(loadStories, module);

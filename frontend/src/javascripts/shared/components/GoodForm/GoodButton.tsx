@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HiddenAuthenticityToken } from './HiddenAuthenticityField';
+import { HiddenAuthenticityToken } from '../HiddenAuthenticityField';
 
 interface Props {
   id: number;

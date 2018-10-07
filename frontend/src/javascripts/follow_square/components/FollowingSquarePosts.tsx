@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { gon } from '../../types/window';
-import { SquarePosts } from '../../shared/components/SqurePosts';
+import { SquarePosts } from '../../shared/components/SquarePosts/SqurePosts';
 
 const posts = gon.followingKicksposts;
 

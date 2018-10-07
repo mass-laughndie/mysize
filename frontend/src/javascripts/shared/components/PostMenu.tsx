@@ -1,12 +1,16 @@
 import * as React from 'react';
+import { Post } from '../../types/commonTypes';
+import { PostDelete } from './PostDelete';
 
 interface Props {
-  id: number;
-  postType: string;
+  post: Post;
+  twitterShareUrl: string;
 }
 
 const PostMenu = (props: Props) => {
-  const { postType, id } = props;
+  const { id, postType, postUser } = props.post;
+  const { twitterShareUrl } = props;
+  const isKickspost = postType == 'kickspost';
   return (
     <React.Fragment>
       <div id={`post-nav-${postType}-${id}`} className="post-nav">
@@ -14,27 +18,34 @@ const PostMenu = (props: Props) => {
       </div>
       <ul id={`nav-list-${postType}-${id}`} className="nav-list">
         <li>
-          {/* <%= render partial: 'shared/post_delete',
-                  locals: { post: post,
-                            type: type } %> */}
-          {/* <% if type == "Kickspost" %> */}
+          <PostDelete post={props.post} />
         </li>
-        <li className="bar" />
-        <li>
-          {/* <%= link_to fa_icon("pencil-square-o") + " 投稿を編集する",
-                    edit_kickspost_path(post.user.mysize_id, post) %> */}
-        </li>
-        <li className="bar" />
-        <li>
-          {/* <%= link_to fa_icon("twitter") + " Twitterでシェア",
-                    "https://twitter.com/intent/tweet?text=" +
-                    ERB::Util.url_encode(post.user.name + "さんの投稿｜" +
-                                        post.title + "\n") +
-                    "&url=" + kickspost_url(post.user, post),
-                    class: "kpost-alink",
-                    onclick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" %> */}
-        </li>
-        {/* <% end %> */}
+        {isKickspost && (
+          <React.Fragment>
+            <li className="bar" />
+            <li>
+              <a href={`/${postUser.mysize_id}/kicksposts/${id}/edit`}>
+                <i className="fa fa-pencil-square-o" />
+                {' 投稿を編集する'}
+              </a>
+            </li>
+            <li className="bar" />
+            <li>
+              <a
+                className="kpost-alink"
+                href={twitterShareUrl}
+                onClick={() =>
+                  "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=31'); return false;"
+                }
+              >
+                <div className="kpost-aicon">
+                  <i className="fa fa-twitter" />
+                  {' Twitterでシェア'}
+                </div>
+              </a>
+            </li>
+          </React.Fragment>
+        )}
       </ul>
     </React.Fragment>
   );

@@ -1,28 +1,27 @@
 import * as React from 'react';
+import { Post } from '../../../types/commonTypes';
+import { PostMenu } from '../PostMenu';
 
 interface Props {
-  post_id: number;
-  mysize_id: string;
-  picture_url: string;
-  size: number;
-  title: string;
-  postType: string;
+  post: Post;
+  twitterShareUrl: string;
 }
 
 const NormalPostRight = (props: Props) => {
-  const { post_id, mysize_id, picture_url, size, title, postType } = props;
+  const { id, picture_url, size, title, postType, isMyPost } = props.post;
+  const { twitterShareUrl } = props;
+  const { mysize_id } = props.post.postUser;
+
   return (
     <div className={`kpost-right ${postType}-right`}>
       <div className="c kpost-right-top">
         <div className={`kpost-menu  ${postType}-menu clear`}>
-          {/* <% if current_user == post.user %>
-                <%= render partial: 'shared/post_menu',
-                          locals: { post: post,
-                                    type: type } %>
-              <% end %> */}
+          {isMyPost && (
+            <PostMenu post={props.post} twitterShareUrl={twitterShareUrl} />
+          )}
         </div>
         <div className="kpost-picture abs-center">
-          <a href={`/${mysize_id}/kicksposts/${post_id}?display='picture'`}>
+          <a href={`/${mysize_id}/kicksposts/${id}?display='picture'`}>
             <img
               className="cover lazyload"
               src="/images/grey.gif"
