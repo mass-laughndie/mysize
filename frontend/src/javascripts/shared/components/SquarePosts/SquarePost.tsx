@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Post } from '../../../types/commonTypes';
+import classnames from 'classnames';
 import * as styles from './SquarePost.module.scss';
 
 interface Props {
@@ -14,7 +15,7 @@ const SquarePost = (props: Props) => {
       <div className={styles['square-picture']}>
         <a href={`/${mysize_id}/kicksposts/${id}`}>
           <img
-            className={`${styles.cover} lazyload`}
+            className={classnames(styles.cover, 'lazyload')}
             src="/images/grey.gif"
             data-src={picture_url}
             alt={title}
