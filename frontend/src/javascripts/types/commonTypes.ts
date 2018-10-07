@@ -8,6 +8,7 @@ export interface Post {
   size: number;
   picture_url: string;
   postType: string;
+  postUser: User;
   goodNum: number;
   commentNum: number;
   isGood: boolean;
