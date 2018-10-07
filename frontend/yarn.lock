@@ -830,7 +830,6 @@
     "@storybook/core" "4.0.0-alpha.8"
     "@storybook/react-dev-utils" "^5.0.0"
     airbnb-js-shims "^1.5.1"
-    babel-loader "^7.1.4"
     babel-plugin-macros "^2.2.1"
     babel-plugin-react-docgen "^2.0.0-rc.0"
     babel-plugin-transform-regenerator "^6.26.0"
@@ -1600,14 +1599,6 @@ babel-helpers@^6.24.1:
   dependencies:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
-
-babel-loader@^7.1.4:
-  version "7.1.5"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-7.1.5.tgz#e3ee0cd7394aa557e013b02d3e492bfd07aa6d68"
-  dependencies:
-    find-cache-dir "^1.0.0"
-    loader-utils "^1.0.2"
-    mkdirp "^0.5.1"
 
 babel-loader@^8.0.4:
   version "8.0.4"
