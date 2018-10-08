@@ -93,3 +93,6 @@ declare module '*.mp3' {
   const uri: string;
   export = uri;
 }
+
+declare module 'jquery';
+declare module 'classnames';

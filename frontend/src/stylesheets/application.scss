@@ -1,0 +1,112 @@
+@charset "utf-8";
+// @import 'font-awesome';
+
+/* mixins, variables, ertc. */
+
+$base: #fff; /* white */
+$main: #000; /* black */
+$accent: #ff0000; /* red */
+$waccent: #ff6666; /* weak red*/
+$test: #e6e6fa;
+$back: #f2f2f2; /*(元)#fafafa;*/
+$weak-grey: #f2f2f2;
+$base-grey: #999;
+$twi-blue: #55acee;
+$twi-grey: #657786;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* base */
+
+* {
+  @include box_sizing;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $back;
+  /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', YuGothic, 'Yu Gothic',
+    'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ', Meiryo,
+    'ＭＳ ゴシック', sans-serif;
+  /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
+  font-size: 1em;
+  position: relative;
+  padding: 51px 0 121px;
+}
