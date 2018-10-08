@@ -1,4 +1,4 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
 export default function getCsrfToken(): string {
   const token = $('meta[name="csrf-token"]').attr('content');

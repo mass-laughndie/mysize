@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@storybook/addon-actions": "4.0.0-alpha.8",
     "@storybook/addon-knobs": "4.0.0-alpha.8",
@@ -24,6 +25,7 @@
     "@types/storybook__addon-actions": "^3.4.1",
     "@types/storybook__addon-knobs": "^3.4.1",
     "@types/storybook__react": "^3.0.9",
+    "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "babel-runtime": "^6.26.0",
     "clean-webpack-plugin": "^0.1.19",
@@ -44,6 +46,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
