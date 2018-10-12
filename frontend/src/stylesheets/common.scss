@@ -110,3 +110,14 @@ body {
   position: relative;
   padding: 51px 0 121px;
 }
+
+.kpost-main {
+  position: relative;
+  width: 100%;
+}
+
+.clear:after {
+  content: ' ';
+  display: block;
+  clear: both;
+}

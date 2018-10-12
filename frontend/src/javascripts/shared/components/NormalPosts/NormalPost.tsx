@@ -29,17 +29,26 @@ const NormalPost = (props: Props) => {
       className={classnames(
         styles['link-list'],
         'link-list',
+        styles['kpost-main'],
         'kpost-main',
+        styles.clear,
         'clear'
       )}
     >
       <a
-        className={styles['content-link']}
+        className={classnames(styles['content-link'], 'content-link')}
         href={`/${post.postUser.mysize_id}/kicksposts/${post.id}`}
       />
-      <div className={styles['content-abs']}>
-        <div className={styles['content-height']}>
-          <div className={classnames(styles['list-content'], 'clear')}>
+      <div className={classnames(styles['content-abs'], 'content-abs')}>
+        <div className={classnames(styles['content-height'], 'content-height')}>
+          <div
+            className={classnames(
+              styles['list-content'],
+              'list-content',
+              styles.clear,
+              'clear'
+            )}
+          >
             <NormalPostLeft postUser={post.postUser} />
             <NormalPostCenter post={post} />
             <NormalPostAct
