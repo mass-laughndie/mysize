@@ -44,7 +44,7 @@ const NormalPostRight = (props: Props) => {
           <div
             className={classnames(styles['kpost-size'], styles['index-size'])}
           >
-            {size}
+            {size.toFixed(1)}
           </div>
         </div>
       </div>
