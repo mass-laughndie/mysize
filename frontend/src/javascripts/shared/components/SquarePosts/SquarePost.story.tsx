@@ -15,7 +15,7 @@ export const post = {
   postUser: {
     content: 'test1',
     id: 1,
-    image_url: '',
+    image_url: '/images/default1.png',
     mysize_id: 'test1',
     name: 'test1',
     size: 27

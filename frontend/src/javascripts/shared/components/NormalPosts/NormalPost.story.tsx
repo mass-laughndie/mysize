@@ -7,8 +7,9 @@ import { post } from '../SquarePosts/SquarePost.story';
 const logged_in = boolean('logged_in', true);
 
 const baseStyle = {
+  marginLeft: 50,
   width: 420,
-  height: 190
+  background: 'white'
 };
 
 storiesOf('NormalPost', module)
