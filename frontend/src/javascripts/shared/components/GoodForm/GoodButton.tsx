@@ -15,7 +15,7 @@ const GoodButton = (props: Props) => {
         className="new_good"
         id="new_good"
         action="/goods"
-        accept-charset="UTF-8"
+        acceptCharset="UTF-8"
         data-remote="true"
         method="post"
       >
