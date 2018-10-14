@@ -4,8 +4,6 @@ import { withKnobs, boolean } from '@storybook/addon-knobs/react';
 import { NormalPost } from './NormalPost';
 import { post } from '../SquarePosts/SquarePost.story';
 
-const logged_in = boolean('logged_in', true);
-
 const baseStyle = {
   marginLeft: 50,
   width: 420,
@@ -14,8 +12,16 @@ const baseStyle = {
 
 storiesOf('NormalPost', module)
   .addDecorator(withKnobs)
-  .add('default', () => (
-    <ul style={baseStyle}>
-      <NormalPost post={post} logged_in={logged_in} />
-    </ul>
-  ));
+  .add('default', () => {
+    const logged_in = boolean('logged_in', true);
+    const postProps = {
+      ...post,
+      isGood: boolean('isGood', false),
+      isMyPost: boolean('isMypost', true)
+    };
+    return (
+      <ul style={baseStyle}>
+        <NormalPost post={postProps} logged_in={logged_in} />
+      </ul>
+    );
+  });

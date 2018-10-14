@@ -22,8 +22,8 @@ export const post = {
   },
   goodNum: 2,
   commentNum: 4,
-  isGood: true,
-  isMyPost: false
+  isGood: false,
+  isMyPost: true
 };
 
 storiesOf('SquarePost', module).add('default', () => (
