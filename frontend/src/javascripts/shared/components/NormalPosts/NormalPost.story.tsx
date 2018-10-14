@@ -2,13 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs/react';
 import { NormalPost } from './NormalPost';
-import { post } from '../SquarePosts/SquarePost.story';
-
-const baseStyle = {
-  marginLeft: 50,
-  width: 420,
-  background: 'white'
-};
+import { post, baseStyle } from '../../../../../stories/dummyData';
 
 storiesOf('NormalPost', module)
   .addDecorator(withKnobs)
