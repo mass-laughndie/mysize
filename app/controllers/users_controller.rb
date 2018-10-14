@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @kicksposts = @user.kicksposts.includes(:comments, :goods)
     @comments = @user.comments.includes(:goods)
     @points = @user.passive_goods.where.not(gooder_id: @user.id).size
-    gon.mypageKicksposts = Kickspost.find_for_gon(@kicksposts.ids.uniq)
+    gon.mypageKicksposts = Kickspost.find_format_gon_params(@kicksposts.ids.uniq, @user)
   end
 
   def new
