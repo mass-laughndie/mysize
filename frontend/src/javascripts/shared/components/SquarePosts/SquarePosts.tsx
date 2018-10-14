@@ -8,7 +8,7 @@ interface Props {
 
 class SquarePosts extends React.Component<Props> {
   private renderSquarePost(post: Post) {
-    return <SquarePost post={post} />;
+    return <SquarePost key={post.id} post={post} />;
   }
 
   public render() {
