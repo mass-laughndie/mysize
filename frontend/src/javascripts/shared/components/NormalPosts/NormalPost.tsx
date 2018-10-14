@@ -41,29 +41,17 @@ class NormalPost extends React.Component<Props> {
         id={`kickspost-${post.id}`}
         className={classnames(
           styles['link-list'],
-          'link-list',
           styles['kpost-main'],
-          'kpost-main',
-          styles.clear,
-          'clear'
+          styles.clear
         )}
       >
         <a
-          className={classnames(styles['content-link'], 'content-link')}
+          className={classnames(styles['content-link'])}
           href={`/${post.postUser.mysize_id}/kicksposts/${post.id}`}
         />
-        <div className={classnames(styles['content-abs'], 'content-abs')}>
-          <div
-            className={classnames(styles['content-height'], 'content-height')}
-          >
-            <div
-              className={classnames(
-                styles['list-content'],
-                'list-content',
-                styles.clear,
-                'clear'
-              )}
-            >
+        <div className={classnames(styles['content-abs'])}>
+          <div className={classnames(styles['content-height'])}>
+            <div className={classnames(styles['list-content'], styles.clear)}>
               <NormalPostLeft postUser={post.postUser} />
               <NormalPostCenter post={post} />
               <NormalPostAct

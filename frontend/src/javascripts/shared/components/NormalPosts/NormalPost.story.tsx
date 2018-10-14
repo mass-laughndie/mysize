@@ -17,7 +17,7 @@ storiesOf('NormalPost', module)
     const postProps = {
       ...post,
       isGood: boolean('isGood', false),
-      isMyPost: boolean('isMypost', true)
+      isMyPost: boolean('isMypost', false)
     };
     return (
       <ul style={baseStyle}>
