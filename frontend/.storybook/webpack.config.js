@@ -49,7 +49,7 @@ module.exports = {
             {
               loader: require.resolve('css-loader'),
               options: {
-                localIdentName: '[path]__[name]__[local]--[hash:base64:5]',
+                localIdentName: '[local]',
                 modules: true
               }
             },
@@ -65,7 +65,7 @@ module.exports = {
             {
               loader: require.resolve('css-loader'),
               options: {
-                localIdentName: '[path]__[name]__[local]--[hash:base64:5]',
+                localIdentName: '[local]',
                 modules: true,
                 importLoaders: 2
               }
