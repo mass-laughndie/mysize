@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { gon } from '../../types/window';
-import { NormalPosts } from '../../shared/components/NormalPosts/NormalPosts';
+import NormalPosts from '../../shared/components/NormalPosts/NormalPosts';
 
 const posts = gon.mypageKicksposts;
 const logged_in = gon.logged_in;

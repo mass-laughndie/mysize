@@ -65,4 +65,4 @@ class PostMenu extends React.Component<Props> {
   }
 }
 
-export { PostMenu };
+export default PostMenu;

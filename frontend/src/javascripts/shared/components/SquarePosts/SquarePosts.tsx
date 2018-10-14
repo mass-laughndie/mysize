@@ -17,4 +17,4 @@ class SquarePosts extends React.Component<Props> {
   }
 }
 
-export { SquarePosts };
+export default SquarePosts;

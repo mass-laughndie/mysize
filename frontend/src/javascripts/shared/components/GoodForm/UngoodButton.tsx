@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HiddenAuthenticityToken } from '../HiddenAuthenticityField';
+import HiddenAuthenticityToken from '../HiddenAuthenticityField';
 import classnames from 'classnames';
 import * as styles from './GoodForm.module.scss';
 
