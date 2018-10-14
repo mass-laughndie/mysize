@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Post } from '../../types/commonTypes';
 import { PostDelete } from './PostDelete';
-import classnames from 'classnames';
 import * as styles from './PostMenu.module.scss';
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 interface Props {
   post: Post;
@@ -11,7 +10,10 @@ interface Props {
 }
 
 class PostMenu extends React.Component<Props> {
-  private;
+  private handleClick = () => {
+    const { postType, id } = this.props.post;
+    $('#nav-list-' + postType + '-' + id).slideToggle('fast');
+  };
 
   public render() {
     const { id, postType, postUser } = this.props.post;
@@ -20,7 +22,11 @@ class PostMenu extends React.Component<Props> {
 
     return (
       <React.Fragment>
-        <div id={`post-nav-${postType}-${id}`} className={styles['post-nav']}>
+        <div
+          id={`post-nav-${postType}-${id}`}
+          className={styles['post-nav']}
+          onClick={this.handleClick}
+        >
           <i className="fa fa-angle-down" />
         </div>
         <ul id={`nav-list-${postType}-${id}`} className={styles['nav-list']}>
