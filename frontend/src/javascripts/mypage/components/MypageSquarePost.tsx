@@ -10,4 +10,4 @@ class MypageSquarePosts extends React.Component {
   }
 }
 
-export { MypageSquarePosts };
+export default MypageSquarePosts;

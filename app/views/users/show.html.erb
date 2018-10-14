@@ -2,7 +2,7 @@
 <% provide(:og_title, @user.name + "(@" + @user.mysize_id + ")さん") %>
 <% provide(:og_url, user_url(@user)) %>
 <% content_for :javascript_addition do %>
-  <%= javascript_include_tag "frontend/mypage_square" %>
+  <%= javascript_include_tag "frontend/mypage" %>
 <% end %>
 
 <div class="container content-mspace">
@@ -21,17 +21,7 @@
       <% if params[:display] == "square" %>
         <div class="post-line clear" data-react-entry="MypageSquarePosts"></div>
       <% else %>
-        <div class="post-line clear">
-          <ul>
-            <% @kicksposts.each do |kickspost| %>
-              <%= render partial: 'shared/post_main',
-                  locals: { post: kickspost,
-                            type: 'Kickspost',
-                            reply_on: false,
-                            post_page: false } %>
-            <% end %>
-          </ul>
-        </div>
+        <div class="post-line clear" data-react-entry="MypagePosts"></div>
       <% end %>
     <% end %>
   </div>
