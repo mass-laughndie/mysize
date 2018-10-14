@@ -1,0 +1,35 @@
+@import '../../../stylesheets/common.scss';
+
+.nav-list {
+  background: $base;
+  border: 1px solid $base-grey;
+  display: none;
+  overflow: hidden;
+  position: absolute;
+  left: auto;
+  right: 0;
+  width: 132px;
+  z-index: 50;
+
+  li {
+    background: $base;
+    font-size: 13px;
+    font-weight: 450;
+    line-height: 45px;
+    z-index: 60;
+
+    a {
+      display: block;
+    }
+
+    a,
+    span {
+      color: $main;
+    }
+  }
+
+  .bar {
+    border-top: 1px solid $weak-grey;
+    height: 0;
+  }
+}

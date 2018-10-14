@@ -2,15 +2,15 @@ import * as React from 'react';
 import { GoodButton } from './GoodButton';
 import { UngoodButton } from './UngoodButton';
 import { Post } from '../../../types/commonTypes';
+import classnames from 'classnames';
+import * as styles from './GoodForm.module.scss';
 
 const DummyGoodButton = () => {
   return (
-    <div className="good-form">
-      <div className="c form-good">
-        <a className="ban" href="#">
-          <i className="fa fa-thumbs-o-up" />
-        </a>
-      </div>
+    <div className={classnames(styles.c, styles['form-good'])}>
+      <a className="ban" href="#">
+        <i className="fa fa-thumbs-o-up" />
+      </a>
     </div>
   );
 };
@@ -21,7 +21,7 @@ interface Props {
 }
 
 class GoodForm extends React.Component<Props> {
-  public render() {
+  private renderGoodButton() {
     const { logged_in } = this.props;
     const { id, isGood } = this.props.post;
 
@@ -34,6 +34,15 @@ class GoodForm extends React.Component<Props> {
     } else {
       return <DummyGoodButton />;
     }
+  }
+
+  public render() {
+    const { postType, id } = this.props.post;
+    return (
+      <div id={`good-form-${postType}-${id}`} className={styles['good-form']}>
+        {this.renderGoodButton()}
+      </div>
+    );
   }
 }
 

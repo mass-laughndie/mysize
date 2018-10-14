@@ -1,0 +1,28 @@
+@import '../../../../stylesheets/common.scss';
+
+.good-form {
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  .form-good,
+  .form-ungood {
+    height: 100%;
+    width: 100%;
+    form,
+    button {
+      display: block;
+      height: 100%;
+      width: 100%;
+      .fa {
+        color: $base-grey;
+      }
+    }
+  }
+
+  .form-ungood {
+    form button .fa {
+      color: $waccent;
+    }
+  }
+}

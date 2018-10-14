@@ -49,9 +49,7 @@ module.exports = {
             {
               loader: require.resolve('css-loader'),
               options: {
-                localIdentName: isProduction
-                  ? '[hash:base64:5]'
-                  : '[path]__[name]__[local]--[hash:base64:5]',
+                localIdentName: isProduction ? '[hash:base64:5]' : '[local]',
                 modules: true
               }
             },
@@ -67,9 +65,7 @@ module.exports = {
             {
               loader: require.resolve('css-loader'),
               options: {
-                localIdentName: isProduction
-                  ? '[hash:base64:5]'
-                  : '[path]__[name]__[local]--[hash:base64:5]',
+                localIdentName: isProduction ? '[hash:base64:5]' : '[local]',
                 modules: true,
                 sourceMap: true,
                 minimize: isProduction,
