@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import LatestPosts from './components/LatestPosts';
+import FollowingPosts from './components/FollowingPosts';
 
 ReactDOM.render(
-  <LatestPosts />,
+  <FollowingPosts />,
   document.querySelector('[data-react-entry="NormalPosts"]')
 );

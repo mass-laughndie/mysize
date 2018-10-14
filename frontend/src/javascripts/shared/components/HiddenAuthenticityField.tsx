@@ -26,4 +26,4 @@ class HiddenAuthenticityToken extends React.Component<Props, State> {
   }
 }
 
-export { HiddenAuthenticityToken };
+export default HiddenAuthenticityToken;

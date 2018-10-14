@@ -7,11 +7,7 @@
                            text: 'follow' } %>
     <% else %>
       <div class="post-line clear">
-        <ul>
-          <%= render partial: @kicksposts,
-                     locals: { comment_disnum: nil,
-                               post_page: false } %>
-        </ul>
+        <div data-react-entry="NormalPosts"></div>
       </div>
     <% end %>
   </div>

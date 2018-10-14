@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HiddenAuthenticityToken } from '../HiddenAuthenticityField';
+import HiddenAuthenticityToken from '../HiddenAuthenticityField';
 import classnames from 'classnames';
 import * as styles from './GoodForm.module.scss';
 
@@ -15,7 +15,7 @@ const GoodButton = (props: Props) => {
         className="new_good"
         id="new_good"
         action="/goods"
-        accept-charset="UTF-8"
+        acceptCharset="UTF-8"
         data-remote="true"
         method="post"
       >

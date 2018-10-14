@@ -32,19 +32,21 @@ $(function() {
 
 //post-menuスライドバー
 $(function() {
-  //comment-menu
-  $("[id^=post-nav-comment]").on("click", function() {
-    var str = $(this).attr("id"),
-      num = str.match(/\d/g).join("");
-    $("#nav-list-comment-" + num).slideToggle("fast");
-  });
+  if ($("[data-react-entry]").length === 0) {
+    //comment-menu
+    $("[id^=post-nav-comment]").on("click", function() {
+      var str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $("#nav-list-comment-" + num).slideToggle("fast");
+    });
 
-  //kickspost-menu
-  $("[id^=post-nav-kickspost]").on("click", function() {
-    var str = $(this).attr("id"),
-      num = str.match(/\d/g).join("");
-    $("#nav-list-kickspost-" + num).slideToggle("fast");
-  });
+    //kickspost-menu
+    $("[id^=post-nav-kickspost]").on("click", function() {
+      var str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $("#nav-list-kickspost-" + num).slideToggle("fast");
+    });
+  }
 });
 
 function setReply(_this) {

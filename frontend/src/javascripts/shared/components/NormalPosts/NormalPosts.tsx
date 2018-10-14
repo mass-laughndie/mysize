@@ -19,4 +19,4 @@ class NormalPosts extends React.Component<Props> {
   }
 }
 
-export { NormalPosts };
+export default NormalPosts;

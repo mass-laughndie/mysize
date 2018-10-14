@@ -17,7 +17,6 @@ class NormalPost extends React.Component<Props> {
   public componentDidMount() {
     const $linkList = $('.link-list');
     $linkList.each(function() {
-      //子要素(=absolute要素内の固定長要素)の高さ
       const height = $linkList.find('.content-height').height();
       $linkList.height(height);
       $linkList.find('.content-link').css('padding-bottom', height);

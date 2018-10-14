@@ -9,6 +9,7 @@ interface Props {
 
 const NormalPostLeft = (props: Props) => {
   const { mysize_id, image_url, size } = props.postUser;
+  const image = image_url != null ? image_url : '/images/default1.png';
   return (
     <div
       className={classnames(
@@ -28,12 +29,12 @@ const NormalPostLeft = (props: Props) => {
           className={styles['list-image']}
           href={`/${mysize_id}?display=square`}
         >
-          <img src={image_url} alt={mysize_id} width="40" height="40" />
+          <img src={image} alt={mysize_id} width="40" height="40" />
         </a>
         <div
           className={classnames(styles['index-size'], styles['kpost-shoesize'])}
         >
-          <span>{size}</span>
+          <span>{size.toFixed(1)}</span>
         </div>
       </div>
     </div>
