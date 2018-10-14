@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { HiddenAuthenticityToken } from '../HiddenAuthenticityField';
+import classnames from 'classnames';
+import * as styles from './GoodForm.module.scss';
 
 interface Props {
   id: number;
@@ -8,7 +10,7 @@ interface Props {
 const GoodButton = (props: Props) => {
   const { id } = props;
   return (
-    <div className="form-good">
+    <div className={classnames(styles['form-good'])}>
       <form
         className="new_good"
         id="new_good"
