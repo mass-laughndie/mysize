@@ -3,6 +3,7 @@ import GoodForm from '../GoodForm/GoodForm';
 import { Post } from '../../../types/commonTypes';
 import classnames from 'classnames';
 import * as styles from './NormalPost.module.scss';
+import * as moment from 'moment';
 
 interface Props {
   post: Post;
@@ -11,9 +12,10 @@ interface Props {
 }
 
 const NormalPostAct = (props: Props) => {
-  const { id, postType, goodNum, commentNum } = props.post;
+  const { id, postType, goodNum, commentNum, created_at } = props.post;
   const { mysize_id } = props.post.postUser;
   const { twitterShareUrl, logged_in } = props;
+  moment.locale('ja');
 
   return (
     <div
@@ -23,6 +25,7 @@ const NormalPostAct = (props: Props) => {
         styles.clear
       )}
     >
+      <div className={styles['kpost-time']}>{moment(created_at).fromNow()}</div>
       <div className={styles['kpost-alist']}>
         <div className={styles['kpost-aicon']}>
           <GoodForm logged_in={logged_in} post={props.post} />

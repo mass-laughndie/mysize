@@ -6,6 +6,7 @@ export interface Post {
   title: string;
   content: string | null;
   size: number;
+  created_at: string;
   picture_url: string;
   postType: string;
   postUser: User;
