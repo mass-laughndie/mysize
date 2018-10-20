@@ -830,6 +830,7 @@
     "@storybook/core" "4.0.0-alpha.8"
     "@storybook/react-dev-utils" "^5.0.0"
     airbnb-js-shims "^1.5.1"
+    babel-loader "^7.1.4"
     babel-plugin-macros "^2.2.1"
     babel-plugin-react-docgen "^2.0.0-rc.0"
     babel-plugin-transform-regenerator "^6.26.0"
@@ -5222,7 +5223,7 @@ mixin-object@^2.0.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.22.1:
+moment@^2.22.1, moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 

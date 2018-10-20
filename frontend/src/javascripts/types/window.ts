@@ -6,6 +6,7 @@ export interface GonKickspost {
   title: string;
   content: string | null;
   size: number;
+  created_at: string;
   picture_url: string;
   postType: string;
   postUser: GonPostUser;
@@ -29,6 +30,7 @@ export interface Gon {
   followingKicksposts: GonKickspost[];
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
+  searchKicksposts: GonKickspost[];
   logged_in: boolean;
 }
 

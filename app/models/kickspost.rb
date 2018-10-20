@@ -56,7 +56,7 @@ class Kickspost < ApplicationRecord
     private
 
     def extract_params_for_gon
-      [:id, :user_id, :brand, :color, :title, :content, :size, :picture_url]
+      [:id, :user_id, :brand, :color, :title, :content, :size, :created_at, :picture_url]
     end
 
     def map_gon_hah(post, user)

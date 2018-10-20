@@ -32,6 +32,7 @@ export const post: Post = {
   title: 'Air Jordan1',
   content: 'カメレオン',
   size: 27,
+  created_at: '2018-09-30T23:31:45.000+09:00',
   picture_url: '/uploads/data/kicks1.jpg',
   postType: 'kickspost',
   postUser: {
@@ -56,6 +57,7 @@ export const post2: Post = {
   title: 'Yeezy Boost 350 V2',
   content: 'Test Test Test Test Test Test',
   size: 28.5,
+  created_at: '2018-10-04T11:00:00.000+09:00',
   picture_url: '/uploads/data/kicks8.jpg',
   postType: 'kickspost',
   postUser: {
@@ -81,6 +83,7 @@ export const post3: Post = {
   content:
     'Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
   size: 28.5,
+  created_at: '2018-10-09T11:00:00.000+09:00',
   picture_url: '/uploads/data/kicks4.jpg',
   postType: 'kickspost',
   postUser: {

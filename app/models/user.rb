@@ -39,11 +39,11 @@ class User < ApplicationRecord
                                    source: :gooder
 
   has_many :good_posts,            class_name: "Kickspost",
-                                   through:   :goods,
+                                   through:   :active_goods,
                                    source: :post,
                                    source_type: "Kickspost"
   has_many :good_comments,         class_name: "Comment",
-                                   through:   :goods,
+                                   through:   :active_goods,
                                    source: :post,
                                    source_type: "Comment"
 
