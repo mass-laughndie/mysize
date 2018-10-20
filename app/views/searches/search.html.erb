@@ -3,6 +3,9 @@
 <% provide(:og_url, search_url) %>
 <%= render 'layouts/center_header', header_text: "検 索" %>
 <% provide(:search_url, search_path) %>
+<% content_for :javascript_addition do %>
+  <%= javascript_include_tag "frontend/search" %>
+<% end %>
 
 <div class="content-nspace fixed-space">
   <div class="fixed fixed-top">
@@ -26,15 +29,7 @@
   <div class="container post-main">
     <div class="content-nspace">
       <% if params[:for] == 'post' && @kicksposts.any? %>
-        <ul>
-          <% @kicksposts.each do |kickspost| %>
-            <%= render partial: 'shared/post_main',
-                       locals: { post: kickspost,
-                                 type: 'Kickspost',
-                                 reply_on: false,
-                                 post_page: false } %>
-          <% end %>
-        </ul>
+        <div data-react-entry="SearchKicksposts"></div>
       <% elsif params[:for] == 'com' && @comments.any? %>
         <ul>
           <% @comments.each do |comment| %>

@@ -29,6 +29,7 @@ export interface Gon {
   followingKicksposts: GonKickspost[];
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
+  searchKicksposts: GonKickspost[];
   logged_in: boolean;
 }
 
