@@ -80,26 +80,24 @@ const NormalPostAct = (props: Props) => {
       ) : (
         !isMyPost && (
           <div
-            className={classnames(styles['kpost-alias'], styles['alist-last'])}
+            className={classnames(styles['kpost-alist'], styles['alist-last'])}
           >
             <div className={styles['kpost-aicon']} id={`comment-reply-${id}`}>
-              {() => {
-                if (isPostPage) {
-                  <i className="fa fa-reply" />;
-                } else if (isLoggedIn) {
-                  <a
-                    className={classnames(styles['kpost-alink'], 'jump')}
-                    data-scroll="-51"
-                    href={`/${mysize_id}/kicksposts/${kickspost_id}?reply=on#comment-${id}`}
-                  >
-                    <i className="fa fa-reply" />
-                  </a>;
-                } else {
-                  <a href="#" className="ban">
-                    <i className="fa fa-reply" />
-                  </a>;
-                }
-              }}
+              {isPostPage ? (
+                <i className={classnames('fa', styles['fa-reply'])} />
+              ) : isLoggedIn ? (
+                <a
+                  className={classnames(styles['kpost-alink'], 'jump')}
+                  data-scroll="-51"
+                  href={`/${mysize_id}/kicksposts/${kickspost_id}?reply=on#comment-${id}`}
+                >
+                  <i className={classnames('fa', styles['fa-reply'])} />
+                </a>
+              ) : (
+                <a href="#" className="ban">
+                  <i className={classnames('fa', styles['fa-reply'])} />
+                </a>
+              )}
             </div>
           </div>
         )

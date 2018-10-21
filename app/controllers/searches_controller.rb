@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
     gon.searchComments = Comment.find_format_gon_params(@comments.ids.uniq, logged_in? ? current_user : nil) if params[:for] == "com"
     gon.currentInfo = {
       isLoggedIn: logged_in?,
-      isPostPage: true
+      isPostPage: false
     }
   end
   

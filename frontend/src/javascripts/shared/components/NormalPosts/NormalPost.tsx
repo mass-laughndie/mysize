@@ -47,8 +47,16 @@ class NormalPost extends React.Component<Props> {
         })}
       >
         <a
-          className={classnames(styles['content-link'])}
-          href={`/${post.postUser.mysize_id}/kicksposts/${post.id}`}
+          className={classnames({
+            [styles['content-link']]: true,
+            jump: !isKickspost
+          })}
+          data-scroll={!isKickspost ? '-51' : ''}
+          href={`/${post.postUser.mysize_id}/kicksposts/${
+            isKickspost
+              ? post.id
+              : `${post.kickspost_id}#${post.postType}-${post.id}`
+          }`}
         />
         <div className={classnames(styles['content-abs'])}>
           <div className={classnames(styles['content-height'])}>
