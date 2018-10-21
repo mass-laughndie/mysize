@@ -31,15 +31,7 @@
       <% if params[:for] == 'post' && @kicksposts.any? %>
         <div data-react-entry="SearchKicksposts"></div>
       <% elsif params[:for] == 'com' && @comments.any? %>
-        <ul>
-          <% @comments.each do |comment| %>
-            <%= render partial: 'shared/post_main',
-                       locals: { post: comment,
-                                 type: 'Comment',
-                                 reply_on: false,
-                                 post_page: false } %>
-          <% end %>
-        </ul>
+        <div data-react-entry="SearchComments"></div>
       <% elsif (params[:for] == 'user' || params[:for].blank?) && @users.any? %>
         <div class="setting-select">
           <ul>

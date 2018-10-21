@@ -60,6 +60,7 @@ export interface Gon {
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
   searchKicksposts: GonKickspost[];
+  searchComments: GonComment[];
   currentInfo: GonCurrentInfo;
 }
 
