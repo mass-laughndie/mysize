@@ -47,7 +47,7 @@ class Comment < ApplicationRecord
     private
 
     def extract_params_for_gon
-      [:id, :user_id, :kickspost_id, :reply_id, :content]
+      [:id, :user_id, :kickspost_id, :reply_id, :content, :created_at]
     end
 
     def map_gon_hah(post, user)
