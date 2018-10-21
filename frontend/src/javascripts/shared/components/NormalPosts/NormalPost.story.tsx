@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs/react';
 import { NormalPost } from './NormalPost';
-import { post, baseStyle } from '../../../../../stories/dummyData';
+import { kickspost, baseStyle } from '../../../../../stories/dummyData';
 
 storiesOf('NormalPost', module)
   .addDecorator(withKnobs)
@@ -12,7 +12,7 @@ storiesOf('NormalPost', module)
       isPostPage: boolean('isPostPage', true)
     };
     const postProps = {
-      ...post,
+      ...kickspost,
       isGood: boolean('isGood', false),
       isMyPost: boolean('isMypost', false)
     };

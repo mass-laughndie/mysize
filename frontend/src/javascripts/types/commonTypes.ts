@@ -10,7 +10,7 @@ export interface Kickspost {
   size: number;
   created_at: string;
   picture_url: string;
-  postType: string;
+  postType: 'kickspost';
   postUser: User;
   goodNum: number;
   commentNum: number;
@@ -30,7 +30,7 @@ export interface Comment {
   title?: string;
   size?: number;
   picture_url?: string;
-  postType: string;
+  postType: 'comment';
   postUser: User;
   goodNum: number;
   commentNum?: number;
