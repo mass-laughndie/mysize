@@ -1,4 +1,9 @@
-import { Post, User } from '../src/javascripts/types/commonTypes';
+import {
+  Post,
+  User,
+  Kickspost,
+  Comment
+} from '../src/javascripts/types/commonTypes';
 
 export const baseStyle = {
   marginLeft: 50,
@@ -24,7 +29,7 @@ export const user2: User = {
   content: 'My size is 28.5.'
 };
 
-export const post: Post = {
+export const kickspost: Kickspost = {
   id: 1,
   user_id: 1,
   brand: 'Nike',
@@ -49,7 +54,7 @@ export const post: Post = {
   isMyPost: true
 };
 
-export const post2: Post = {
+export const kickspost2: Kickspost = {
   id: 2,
   user_id: 2,
   brand: 'Adidas',
@@ -74,7 +79,7 @@ export const post2: Post = {
   isMyPost: false
 };
 
-export const post3: Post = {
+export const kickspost3: Kickspost = {
   id: 3,
   user_id: 2,
   brand: 'Nike',
@@ -100,4 +105,52 @@ export const post3: Post = {
   isMyPost: true
 };
 
-export const posts: Post[] = [post, post2, post3];
+export const comment: Comment = {
+  id: 1,
+  user_id: 2,
+  kickspost_id: 1,
+  reply_id: 0,
+  content: 'Nice kicks!!',
+  created_at: '2018-10-01T11:00:00.000+09:00',
+  postType: 'comment',
+  postUser: {
+    id: 2,
+    image_url: '/uploads/data/icon2.jpg',
+    mysize_id: 'mysize2',
+    name: 'Mysize2',
+    size: 28.5,
+    content: 'My size is 28.5.'
+  },
+  goodNum: 1,
+  isGood: true,
+  isMyPost: false
+};
+
+export const reply: Comment = {
+  id: 2,
+  user_id: 1,
+  kickspost_id: 1,
+  reply_id: 1,
+  content: 'Thanks!!',
+  created_at: '2018-10-02T11:00:00.000+09:00',
+  postType: 'comment',
+  postUser: {
+    id: 1,
+    image_url: '/uploads/data/icon1.jpg',
+    mysize_id: 'mysize1',
+    name: 'Mysize1',
+    size: 27,
+    content: 'My size is 27. My favorite brand is KITH.'
+  },
+  goodNum: 1,
+  isGood: false,
+  isMyPost: true
+};
+
+export const posts: Post[] = [
+  kickspost,
+  comment,
+  reply,
+  kickspost2,
+  kickspost3
+];

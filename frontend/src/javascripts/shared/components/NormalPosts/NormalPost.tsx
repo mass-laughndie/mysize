@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import * as $ from 'jquery';
-import { Post } from '../../../types/commonTypes';
+import { Post, CurrentInfo } from '../../../types/commonTypes';
 import { NormalPostLeft } from './NormalPostLeft';
 import { NormalPostCenter } from './NormalPostCenter';
 import { NormalPostAct } from './NormalPostAct';
@@ -10,17 +10,16 @@ import * as styles from './NormalPost.module.scss';
 
 interface Props {
   post: Post;
-  logged_in: boolean;
+  currentInfo: CurrentInfo;
 }
 
 class NormalPost extends React.Component<Props> {
   public componentDidMount() {
-    const $linkList = $('.link-list');
-    $linkList.each(function() {
-      const height = $linkList.find('.content-height').height();
-      $linkList.height(height);
-      $linkList.find('.content-link').css('padding-bottom', height);
-    });
+    const { postType, id } = this.props.post;
+    const $linkList = $(`#${postType}-${id}`);
+    const height = $linkList.find('.content-height').height();
+    $linkList.height(height);
+    $linkList.find('.content-link').css('padding-bottom', height);
   }
 
   private twitterShareUrl = (post: Post): string => {
@@ -33,30 +32,54 @@ class NormalPost extends React.Component<Props> {
   };
 
   public render() {
-    const { post, logged_in } = this.props;
+    const { post, currentInfo } = this.props;
+    const isKickspost = post.postType === 'kickspost';
+    const isReply = post.reply_id != undefined && post.reply_id != 0;
 
     return (
       <li
-        id={`kickspost-${post.id}`}
-        className={classnames(
-          styles['link-list'],
-          styles['kpost-main'],
-          styles.clear
-        )}
+        id={`${post.postType}-${post.id}`}
+        className={classnames({
+          [styles['link-list']]: true,
+          [styles['kpost-main']]: true,
+          [styles[`reply-${post.reply_id}`]]: !isKickspost,
+          [styles.clear]: true
+        })}
       >
         <a
-          className={classnames(styles['content-link'])}
-          href={`/${post.postUser.mysize_id}/kicksposts/${post.id}`}
+          className={classnames({
+            [styles['content-link']]: true,
+            jump: !isKickspost
+          })}
+          data-scroll={!isKickspost ? '-51' : ''}
+          href={`/${post.postUser.mysize_id}/kicksposts/${
+            isKickspost
+              ? post.id
+              : `${post.kickspost_id}#${post.postType}-${post.id}`
+          }`}
         />
         <div className={classnames(styles['content-abs'])}>
           <div className={classnames(styles['content-height'])}>
-            <div className={classnames(styles['list-content'], styles.clear)}>
+            <div
+              className={classnames({
+                [styles['list-content']]: true,
+                [styles['reply-main']]: isReply,
+                [styles.clear]: true
+              })}
+            >
+              {isReply && (
+                <div
+                  className={classnames(styles['kpost-reply-icon'], styles.c)}
+                >
+                  <i className="fa fa-caret-right" />
+                </div>
+              )}
               <NormalPostLeft postUser={post.postUser} />
               <NormalPostCenter post={post} />
               <NormalPostAct
                 post={post}
                 twitterShareUrl={this.twitterShareUrl(post)}
-                logged_in={logged_in}
+                currentInfo={currentInfo}
               />
               <NormalPostRight
                 post={post}

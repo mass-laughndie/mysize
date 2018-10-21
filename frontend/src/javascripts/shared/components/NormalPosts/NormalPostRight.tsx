@@ -13,6 +13,7 @@ const NormalPostRight = (props: Props) => {
   const { id, picture_url, size, title, postType, isMyPost } = props.post;
   const { twitterShareUrl } = props;
   const { mysize_id } = props.post.postUser;
+  const isKickspost = postType === 'kickspost';
 
   return (
     <div
@@ -30,23 +31,28 @@ const NormalPostRight = (props: Props) => {
             <PostMenu post={props.post} twitterShareUrl={twitterShareUrl} />
           )}
         </div>
-        <div
-          className={classnames(styles['kpost-picture'], styles['abs-center'])}
-        >
-          <a href={`/${mysize_id}/kicksposts/${id}?display='picture'`}>
-            <img
-              className={classnames(styles.cover, 'lazyload')}
-              src="/images/grey.gif"
-              data-src={picture_url}
-              alt={title}
-            />
-          </a>
+        {isKickspost && (
           <div
-            className={classnames(styles['kpost-size'], styles['index-size'])}
+            className={classnames(
+              styles['kpost-picture'],
+              styles['abs-center']
+            )}
           >
-            {size.toFixed(1)}
+            <a href={`/${mysize_id}/kicksposts/${id}?display='picture'`}>
+              <img
+                className={classnames(styles.cover, 'lazyload')}
+                src="/images/grey.gif"
+                data-src={picture_url}
+                alt={title}
+              />
+            </a>
+            <div
+              className={classnames(styles['kpost-size'], styles['index-size'])}
+            >
+              {typeof size === 'number' ? size.toFixed(1) : 0.0}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

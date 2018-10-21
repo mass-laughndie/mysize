@@ -1,6 +1,8 @@
-export interface Post {
+export interface Kickspost {
   id: number;
   user_id: number;
+  kickspost_id?: number;
+  reply_id?: number;
   brand: string | null;
   color: string | null;
   title: string;
@@ -8,13 +10,35 @@ export interface Post {
   size: number;
   created_at: string;
   picture_url: string;
-  postType: string;
+  postType: 'kickspost';
   postUser: User;
   goodNum: number;
   commentNum: number;
   isGood: boolean;
   isMyPost: boolean;
 }
+
+export interface Comment {
+  id: number;
+  user_id: number;
+  kickspost_id: number;
+  reply_id: number;
+  content: string | null;
+  created_at: string;
+  brand?: string | null;
+  color?: string | null;
+  title?: string;
+  size?: number;
+  picture_url?: string;
+  postType: 'comment';
+  postUser: User;
+  goodNum: number;
+  commentNum?: number;
+  isGood: boolean;
+  isMyPost: boolean;
+}
+
+export type Post = Kickspost | Comment;
 
 export interface User {
   id: number;
@@ -23,4 +47,9 @@ export interface User {
   image_url: string | undefined;
   size: number;
   content: string;
+}
+
+export interface CurrentInfo {
+  isLoggedIn: boolean;
+  isPostPage: boolean;
 }

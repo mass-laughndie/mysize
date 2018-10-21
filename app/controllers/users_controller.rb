@@ -10,7 +10,10 @@ class UsersController < ApplicationController
     @comments = @user.comments.includes(:goods)
     @points = @user.passive_goods.where.not(gooder_id: @user.id).size
     gon.mypageKicksposts = Kickspost.find_format_gon_params(@kicksposts.ids.uniq, @user)
-    gon.logged_in = logged_in?
+    gon.currentInfo = {
+      isLoggedIn: logged_in?,
+      isPostPage: false
+    }
   end
 
   def new

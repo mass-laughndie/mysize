@@ -8,28 +8,40 @@ interface Props {
 }
 
 const NormalPostCenter = (props: Props) => {
-  const { brand, color, title, content } = props.post;
+  const { brand, color, title, content, postType, id } = props.post;
   const { name, mysize_id } = props.post.postUser;
+  const isKickspost = postType === 'kickspost';
 
   return (
     <div
-      className={classnames(styles['kpost-center'], styles['kickspost-center'])}
+      className={classnames(
+        styles['kpost-center'],
+        styles[`${postType}-center`]
+      )}
     >
       <div className={classnames(styles['kpost-name'], styles['over-name'])}>
         <a href={`/${mysize_id}`}>
           {name}
-          <span>{`@${mysize_id}`}</span>
+          {isKickspost ? (
+            <span>{` @${mysize_id}`}</span>
+          ) : (
+            <span id={`content-name-${id}`}>{` @${mysize_id}`}</span>
+          )}
         </a>
       </div>
-      <div className={styles['kpost-brand']}>
-        <span>{brand}</span>
-      </div>
-      <div className={styles['kpost-title']}>
-        <h2>
-          {`${title} `}
-          <span>{`( ${color} )`}</span>
-        </h2>
-      </div>
+      {isKickspost && (
+        <React.Fragment>
+          <div className={styles['kpost-brand']}>
+            <span>{brand}</span>
+          </div>
+          <div className={styles['kpost-title']}>
+            <h2>
+              {`${title} `}
+              <span>{`( ${color} )`}</span>
+            </h2>
+          </div>
+        </React.Fragment>
+      )}
       <div
         className={classnames(
           styles['kpost-content'],

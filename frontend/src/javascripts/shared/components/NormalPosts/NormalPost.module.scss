@@ -294,3 +294,23 @@
     color: #fff !important;
   }
 }
+
+.reply-main {
+  .kpost-reply-icon {
+    float: left;
+    width: 5%;
+
+    i {
+      color: #fff;
+      font-size: 18px;
+    }
+  }
+
+  .kpost-center {
+    width: 57%;
+  }
+
+  .comment-center {
+    width: 67%;
+  }
+}

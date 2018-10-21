@@ -22,7 +22,9 @@ const SquarePost = (props: Props) => {
           />
         </a>
       </div>
-      <div className={classnames(styles['square-size'])}>{size.toFixed(1)}</div>
+      <div className={classnames(styles['square-size'])}>
+        {typeof size === 'number' && size.toFixed(1)}
+      </div>
     </li>
   );
 };

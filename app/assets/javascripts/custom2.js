@@ -210,16 +210,18 @@ $(function() {
 
 //indexリンクの高さ自動調整
 $(function() {
-  $(".link-list").each(function() {
-    //子要素(=absolute要素内の固定長要素)の高さ
-    var height = $(this)
-      .find(".content-height")
-      .height();
-    $(this).height(height);
-    $(this)
-      .find(".content-link")
-      .css("padding-bottom", height);
-  });
+  if ($("[data-react-entry]").length === 0) {
+    $(".link-list").each(function() {
+      //子要素(=absolute要素内の固定長要素)の高さ
+      var height = $(this)
+        .find(".content-height")
+        .height();
+      $(this).height(height);
+      $(this)
+        .find(".content-link")
+        .css("padding-bottom", height);
+    });
+  }
 });
 
 //現在位置ボタンの色変換(active化)

@@ -2,13 +2,15 @@ import * as React from 'react';
 import { gon } from '../../types/window';
 import NormalPosts from '../../shared/components/NormalPosts/NormalPosts';
 
-const posts = gon.latestKicksposts;
+const posts = gon.searchComments;
 const currentInfo = gon.currentInfo;
 
-class LatestPosts extends React.Component {
+interface Props {}
+
+class SearchComments extends React.Component<Props> {
   render() {
     return <NormalPosts posts={posts} currentInfo={currentInfo} />;
   }
 }
 
-export default LatestPosts;
+export default SearchComments;
