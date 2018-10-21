@@ -10,7 +10,13 @@ interface Props {
 class NormalPosts extends React.Component<Props> {
   private renderNormalPost(post: Post) {
     const { currentInfo } = this.props;
-    return <NormalPost key={post.id} post={post} currentInfo={currentInfo} />;
+    return (
+      <NormalPost
+        key={`${post.postType}-${post.id}`}
+        post={post}
+        currentInfo={currentInfo}
+      />
+    );
   }
 
   public render() {
