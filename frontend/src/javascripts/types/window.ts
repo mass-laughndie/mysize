@@ -25,13 +25,18 @@ export interface GonPostUser {
   content: string;
 }
 
+export interface GonCurrentInfo {
+  isLoggedIn: boolean;
+  isPostPage: boolean;
+}
+
 export interface Gon {
   test: string;
   followingKicksposts: GonKickspost[];
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
   searchKicksposts: GonKickspost[];
-  logged_in: boolean;
+  currentInfo: GonCurrentInfo;
 }
 
 export const gon: Gon = (window as any).gon;

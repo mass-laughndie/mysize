@@ -16,16 +16,16 @@ const DummyGoodButton = () => {
 };
 
 interface Props {
-  logged_in: boolean;
+  isLoggedIn: boolean;
   post: Post;
 }
 
 class GoodForm extends React.Component<Props> {
   private renderGoodButton() {
-    const { logged_in } = this.props;
+    const { isLoggedIn } = this.props;
     const { id, isGood } = this.props.post;
 
-    if (logged_in) {
+    if (isLoggedIn) {
       if (isGood) {
         return <UngoodButton id={id} />;
       } else {

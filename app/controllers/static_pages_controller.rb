@@ -55,6 +55,9 @@ class StaticPagesController < ApplicationController
   end
 
   def setting_gon
-    gon.logged_in = logged_in?
+    gon.currentInfo = {
+      isLoggedIn: logged_in?,
+      isPostPage: false
+    }
   end
 end

@@ -3,13 +3,13 @@ import { gon } from '../../types/window';
 import NormalPosts from '../../shared/components/NormalPosts/NormalPosts';
 
 const posts = gon.searchKicksposts;
-const logged_in = gon.logged_in;
+const currentInfo = gon.currentInfo;
 
 interface Props {}
 
 class SearchKicksposts extends React.Component<Props> {
   render() {
-    return <NormalPosts posts={posts} logged_in={logged_in} />;
+    return <NormalPosts posts={posts} currentInfo={currentInfo} />;
   }
 }
 

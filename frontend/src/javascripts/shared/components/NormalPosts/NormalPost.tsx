@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import * as $ from 'jquery';
-import { Post } from '../../../types/commonTypes';
+import { Post, CurrentInfo } from '../../../types/commonTypes';
 import { NormalPostLeft } from './NormalPostLeft';
 import { NormalPostCenter } from './NormalPostCenter';
 import { NormalPostAct } from './NormalPostAct';
@@ -10,7 +10,7 @@ import * as styles from './NormalPost.module.scss';
 
 interface Props {
   post: Post;
-  logged_in: boolean;
+  currentInfo: CurrentInfo;
 }
 
 class NormalPost extends React.Component<Props> {
@@ -33,7 +33,7 @@ class NormalPost extends React.Component<Props> {
   };
 
   public render() {
-    const { post, logged_in } = this.props;
+    const { post, currentInfo } = this.props;
     const isKickspost = post.postType === 'kickspost';
 
     return (
@@ -57,7 +57,7 @@ class NormalPost extends React.Component<Props> {
               <NormalPostAct
                 post={post}
                 twitterShareUrl={this.twitterShareUrl(post)}
-                logged_in={logged_in}
+                currentInfo={currentInfo}
               />
               <NormalPostRight
                 post={post}

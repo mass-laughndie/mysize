@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { NormalPost } from './NormalPost';
-import { Post } from '../../../types/commonTypes';
+import { Post, CurrentInfo } from '../../../types/commonTypes';
 
 interface Props {
   posts: Post[];
-  logged_in: boolean;
+  currentInfo: CurrentInfo;
 }
 
 class NormalPosts extends React.Component<Props> {
   private renderNormalPost(post: Post) {
-    const { logged_in } = this.props;
-    return <NormalPost key={post.id} post={post} logged_in={logged_in} />;
+    const { currentInfo } = this.props;
+    return <NormalPost key={post.id} post={post} currentInfo={currentInfo} />;
   }
 
   public render() {

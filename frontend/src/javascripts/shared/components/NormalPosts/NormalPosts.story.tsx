@@ -7,11 +7,14 @@ import { posts, baseStyle } from '../../../../../stories/dummyData';
 storiesOf('NormalPosts', module)
   .addDecorator(withKnobs)
   .add('default', () => {
-    const logged_in = boolean('logged_in', true);
+    const currentInfo = {
+      isLoggedIn: boolean('isLoggedIn', true),
+      isPostPage: boolean('isPostPage', true)
+    };
 
     return (
       <ul style={baseStyle}>
-        <NormalPosts posts={posts} logged_in={logged_in} />
+        <NormalPosts posts={posts} currentInfo={currentInfo} />
       </ul>
     );
   });

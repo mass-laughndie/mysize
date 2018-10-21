@@ -1,6 +1,8 @@
 export interface Kickspost {
   id: number;
   user_id: number;
+  kickspost_id?: number;
+  reply_id?: number;
   brand: string | null;
   color: string | null;
   title: string;
@@ -45,4 +47,9 @@ export interface User {
   image_url: string | undefined;
   size: number;
   content: string;
+}
+
+export interface CurrentInfo {
+  isLoggedIn: boolean;
+  isPostPage: boolean;
 }
