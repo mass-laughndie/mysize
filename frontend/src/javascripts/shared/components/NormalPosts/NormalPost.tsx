@@ -34,10 +34,11 @@ class NormalPost extends React.Component<Props> {
 
   public render() {
     const { post, logged_in } = this.props;
+    const isKickspost = post.postType === 'kickspost';
 
     return (
       <li
-        id={`kickspost-${post.id}`}
+        id={`${post.postType}-${post.id}`}
         className={classnames(
           styles['link-list'],
           styles['kpost-main'],

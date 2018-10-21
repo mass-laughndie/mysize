@@ -15,15 +15,17 @@ const NormalPostAct = (props: Props) => {
   const { id, postType, goodNum, commentNum, created_at } = props.post;
   const { mysize_id } = props.post.postUser;
   const { twitterShareUrl, logged_in } = props;
+  const isKickspost = props.post.postType === 'kickspost';
   moment.locale('ja');
 
   return (
     <div
-      className={classnames(
-        styles['kpost-act'],
-        styles[`${postType}-act`],
-        styles.clear
-      )}
+      className={classnames({
+        [styles['kpost-act']]: true,
+        [styles[`${postType}-act`]]: true,
+        [styles['reply-act']]: isKickspost,
+        [styles.clear]: true
+      })}
     >
       <div className={styles['kpost-time']}>{moment(created_at).fromNow()}</div>
       <div className={styles['kpost-alist']}>
@@ -31,22 +33,24 @@ const NormalPostAct = (props: Props) => {
           <GoodForm logged_in={logged_in} post={props.post} />
         </div>
         <div className={styles['kpost-num']} id={`good-num-${postType}-${id}`}>
-          <a href={`/kicksposts/${id}/gooders`}>{goodNum}</a>
+          <a href={`/${postType}s/${id}/gooders`}>{goodNum}</a>
         </div>
       </div>
-      <div className={styles['kpost-alist']}>
-        <a
-          className={styles['kpost-alink']}
-          href={`${mysize_id}/kicksposts/${id}`}
-        >
-          <div className={styles['kpost-aicon']}>
-            <i className="fa fa-comment-o" />
-          </div>
-          <div className={styles['kpost-num']}>
-            <span>{commentNum}</span>
-          </div>
-        </a>
-      </div>
+      {isKickspost && (
+        <div className={styles['kpost-alist']}>
+          <a
+            className={styles['kpost-alink']}
+            href={`${mysize_id}/kicksposts/${id}`}
+          >
+            <div className={styles['kpost-aicon']}>
+              <i className="fa fa-comment-o" />
+            </div>
+            <div className={styles['kpost-num']}>
+              <span>{commentNum}</span>
+            </div>
+          </a>
+        </div>
+      )}
       <div className={classnames(styles['kpost-alist'], styles['alist-last'])}>
         <a
           className={styles['kpost-alink']}

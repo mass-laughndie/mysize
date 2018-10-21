@@ -18,7 +18,7 @@ class PostMenu extends React.Component<Props> {
   public render() {
     const { id, postType, postUser } = this.props.post;
     const { twitterShareUrl } = this.props;
-    const isKickspost = postType == 'kickspost';
+    const isKickspost = postType === 'kickspost';
 
     return (
       <React.Fragment>
