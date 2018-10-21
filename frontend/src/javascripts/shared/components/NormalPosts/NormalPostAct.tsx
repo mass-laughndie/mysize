@@ -25,6 +25,7 @@ const NormalPostAct = (props: Props) => {
   const { twitterShareUrl, currentInfo } = props;
   const { isLoggedIn, isPostPage } = currentInfo;
   const isKickspost = props.post.postType === 'kickspost';
+  const isReply = props.post.reply_id != undefined && props.post.reply_id != 0;
   moment.locale('ja');
 
   return (
@@ -32,7 +33,7 @@ const NormalPostAct = (props: Props) => {
       className={classnames({
         [styles['kpost-act']]: true,
         [styles[`${postType}-act`]]: true,
-        [styles['reply-act']]: isKickspost,
+        [styles['reply-act']]: isReply,
         [styles.clear]: true
       })}
     >

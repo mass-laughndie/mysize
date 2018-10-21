@@ -35,7 +35,7 @@ class NormalPost extends React.Component<Props> {
   public render() {
     const { post, currentInfo } = this.props;
     const isKickspost = post.postType === 'kickspost';
-    const isReply = post.reply_id !== 0;
+    const isReply = post.reply_id != undefined && post.reply_id != 0;
 
     return (
       <li
