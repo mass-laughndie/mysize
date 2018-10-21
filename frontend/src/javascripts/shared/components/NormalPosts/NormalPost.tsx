@@ -15,12 +15,11 @@ interface Props {
 
 class NormalPost extends React.Component<Props> {
   public componentDidMount() {
-    const $linkList = $('.link-list');
-    $linkList.each(function() {
-      const height = $linkList.find('.content-height').height();
-      $linkList.height(height);
-      $linkList.find('.content-link').css('padding-bottom', height);
-    });
+    const { postType, id } = this.props.post;
+    const $linkList = $(`#${postType}-${id}`);
+    const height = $linkList.find('.content-height').height();
+    $linkList.height(height);
+    $linkList.find('.content-link').css('padding-bottom', height);
   }
 
   private twitterShareUrl = (post: Post): string => {
