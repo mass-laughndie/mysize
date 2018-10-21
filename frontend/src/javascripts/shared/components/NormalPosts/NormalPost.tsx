@@ -35,15 +35,17 @@ class NormalPost extends React.Component<Props> {
   public render() {
     const { post, currentInfo } = this.props;
     const isKickspost = post.postType === 'kickspost';
+    const isReply = post.reply_id !== 0;
 
     return (
       <li
         id={`${post.postType}-${post.id}`}
-        className={classnames(
-          styles['link-list'],
-          styles['kpost-main'],
-          styles.clear
-        )}
+        className={classnames({
+          [styles['link-list']]: true,
+          [styles['kpost-main']]: true,
+          [styles[`reply-${post.reply_id}`]]: !isKickspost,
+          [styles.clear]: true
+        })}
       >
         <a
           className={classnames(styles['content-link'])}
@@ -51,7 +53,20 @@ class NormalPost extends React.Component<Props> {
         />
         <div className={classnames(styles['content-abs'])}>
           <div className={classnames(styles['content-height'])}>
-            <div className={classnames(styles['list-content'], styles.clear)}>
+            <div
+              className={classnames({
+                [styles['list-content']]: true,
+                [styles['reply-main']]: isReply,
+                [styles.clear]: true
+              })}
+            >
+              {isReply && (
+                <div
+                  className={classnames(styles['kpost-reply-icon'], styles.c)}
+                >
+                  <i className="fa fa-caret-right" />
+                </div>
+              )}
               <NormalPostLeft postUser={post.postUser} />
               <NormalPostCenter post={post} />
               <NormalPostAct
