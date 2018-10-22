@@ -2,13 +2,14 @@ import * as React from 'react';
 import HiddenAuthenticityToken from '../HiddenAuthenticityField';
 import classnames from 'classnames';
 import * as styles from './GoodForm.module.scss';
+import { Post } from '../../../types/commonTypes';
 
 interface Props {
-  id: number;
+  post: Post;
 }
 
 const UngoodButton = (props: Props) => {
-  const { id } = props;
+  const { id } = props.post;
   return (
     <div className={classnames(styles['form-ungood'])}>
       <form
