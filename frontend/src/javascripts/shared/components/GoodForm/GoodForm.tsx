@@ -22,14 +22,13 @@ interface Props {
 
 class GoodForm extends React.Component<Props> {
   private renderGoodButton() {
-    const { isLoggedIn } = this.props;
-    const { id, isGood } = this.props.post;
+    const { isLoggedIn, post } = this.props;
 
     if (isLoggedIn) {
-      if (isGood) {
-        return <UngoodButton id={id} />;
+      if (post.isGood) {
+        return <UngoodButton post={post} />;
       } else {
-        return <GoodButton id={id} />;
+        return <GoodButton post={post} />;
       }
     } else {
       return <DummyGoodButton />;

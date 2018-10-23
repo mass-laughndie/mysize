@@ -2,13 +2,15 @@ import * as React from 'react';
 import HiddenAuthenticityToken from '../HiddenAuthenticityField';
 import classnames from 'classnames';
 import * as styles from './GoodForm.module.scss';
+import { Post } from '../../../types/commonTypes';
 
 interface Props {
-  id: number;
+  post: Post;
 }
 
 const GoodButton = (props: Props) => {
-  const { id } = props;
+  const { id, postType } = props.post;
+  const formatPoatType = postType.charAt(0).toUpperCase() + postType.slice(1);
   return (
     <div className={classnames(styles['form-good'])}>
       <form
@@ -25,7 +27,7 @@ const GoodButton = (props: Props) => {
             type="hidden"
             name="post_type"
             id="post_type"
-            value="Kickspost"
+            value={formatPoatType}
           />
         </div>
         <div>
