@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { User } from '../../../types/commonTypes';
+import { NormalPostLeft } from '../NormalPosts/NormalPostLeft';
 
 interface Props {
   user: User;
@@ -13,9 +14,7 @@ const UserList = (props: Props) => {
       <div className="content-abs">
         <div className="content-height">
           <div className="list-content clear">
-            <div className="c index-left clear">
-              {/* <%= render  'shared/index_left', user: user %> */}
-            </div>
+            <NormalPostLeft postUser={user} />
             <div className="index-right">
               <div className="index-upper clear">
                 <div className="index-text">
