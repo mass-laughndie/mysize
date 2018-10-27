@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { User } from '../../../types/commonTypes';
 import { NormalPostLeft } from '../NormalPosts/NormalPostLeft';
 import * as styles from '../List.module.scss';
+import { UserListContent } from './UserListContent';
 
 interface Props {
   user: User;
@@ -28,23 +29,7 @@ class UserList extends React.Component<Props> {
           <div className={styles['content-height']}>
             <div className={classnames(styles['list-content'], styles.clear)}>
               <NormalPostLeft postUser={user} />
-              <div className="index-right">
-                <div className="index-upper clear">
-                  <div className="index-text">
-                    <div className="index-name over-name">{user.name}</div>
-                    <div className="index-msid key">{`@${user.mysize_id}`}</div>
-                  </div>
-                  <div className="index-follow">
-                    <div className="abs-center">
-                      {/* <% unless current_user?(user) %>
-                  <%= render partial: 'users/follow_form',
-                             locals: { user: user } %>
-                <% end %> */}
-                    </div>
-                  </div>
-                </div>
-                <div className="index-profile autolink key">{user.content}</div>
-              </div>
+              <UserListContent user={user} />
             </div>
           </div>
         </div>
