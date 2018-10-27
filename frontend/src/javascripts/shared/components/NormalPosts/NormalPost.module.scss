@@ -1,39 +1,5 @@
 @import '../../../../stylesheets/common.scss';
 
-.link-list {
-  background: $base;
-  font-size: 12.5px;
-  position: relative;
-  width: 100%;
-
-  .content-link {
-    display: block;
-    height: 100%;
-    position: relative;
-    width: 100%;
-    z-index: 5;
-  }
-
-  .content-abs {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    .content-height {
-      width: 100%;
-
-      .list-content {
-        border-bottom: 1px solid $weak-grey;
-        padding: 5%;
-        position: relative;
-        width: 100%;
-        word-wrap: break-word;
-      }
-    }
-  }
-}
-
 .list-image {
   display: block;
   float: left;
