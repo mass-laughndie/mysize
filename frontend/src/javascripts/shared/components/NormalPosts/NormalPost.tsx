@@ -6,7 +6,7 @@ import { NormalPostLeft } from './NormalPostLeft';
 import { NormalPostCenter } from './NormalPostCenter';
 import { NormalPostAct } from './NormalPostAct';
 import { NormalPostRight } from './NormalPostRight';
-import * as styles from './NormalPost.module.scss';
+import * as styles from '../List.module.scss';
 
 interface Props {
   post: Post;
