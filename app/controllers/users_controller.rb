@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :logged_in_user, only: [:destroy, :admusrind,
                                         :following, :followers, :good]
   before_action :admin_user,     only: [:admusrind, :destroy]
@@ -91,16 +90,14 @@ class UsersController < ApplicationController
     @points = @user.passive_goods.where.not(gooder_id: @user.id).size
   end
 
-  
   private
 
-    def user_params
-      params.require(:user).permit(:email, :mysize_id, :name, :size,
-                                   :password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:email, :mysize_id, :name, :size,
+                                  :password, :password_confirmation)
+  end
 
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
-  
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
 end
