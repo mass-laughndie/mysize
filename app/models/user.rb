@@ -126,20 +126,20 @@ class User < ApplicationRecord
       end
     end
 
-    def all_format_gon_params
+    def all_format_gon_params(cuser = nil)
       self.all.map do |user|
-        map_gon_hah(user)
+        map_gon_hah(user, cuser)
       end
     end
 
-    def find_format_gon_params(ids)
+    def find_format_gon_params(ids, cuser = nil)
       self.find(ids).map do |user|
-        map_gon_hah(user)
+        map_gon_hah(user, cuser)
       end
     end
 
-    def find_format_gon_params_by(id)
-      map_gon_hah(self.find_by(id: id))
+    def find_format_gon_params_by(id, cuser = nil)
+      map_gon_hah(self.find_by(id: id), cuser)
     end
 
     private
@@ -148,13 +148,16 @@ class User < ApplicationRecord
       [:id, :name, :mysize_id, :image_url, :size, :content]
     end
 
-    def map_gon_hah(user)
+    def map_gon_hah(user, cuser)
       return if user.blank?
       Hash[
         extract_params_for_gon.map do |ep|
           [ep, user.send(ep)]
         end
-      ]
+      ].merge({
+        isFollow: (cuser.present? ? cuser.following?(user) : false),
+        isMyself: user.id == (cuser.present? ? cuser.id : 0)
+      })
     end
   end
 

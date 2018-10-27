@@ -1,5 +1,4 @@
 class StaticPagesController < ApplicationController
-
   before_action :logged_in_user, only: [:follow, :follow_square]
   before_action :setting_gon, only: [:latest, :follow, :follow_square]
 

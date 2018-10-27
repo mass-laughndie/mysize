@@ -1,0 +1,45 @@
+@import '../../../../stylesheets/common.scss';
+
+.user-list-content {
+  float: right;
+  margin-left: 3%;
+  width: 82%;
+
+  .user-list-upper {
+    margin: 5px 0 10px;
+    width: 100%;
+
+    .user-list-text {
+      float: left;
+      margin-right: 2%;
+      width: 79%;
+
+      .user-list-name {
+        font-weight: 550;
+      }
+
+      .user-list-msid {
+        color: $base-grey;
+      }
+    }
+
+    .user-list-follow {
+      float: right;
+      height: 30px;
+      margin-top: 10px;
+      position: relative;
+      width: 19%;
+    }
+  }
+}
+
+.abs-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+
+  a {
+    display: block;
+  }
+}
