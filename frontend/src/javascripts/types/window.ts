@@ -11,7 +11,7 @@ export interface GonKickspost {
   created_at: string;
   picture_url: string;
   postType: 'kickspost';
-  postUser: GonPostUser;
+  postUser: GonUser;
   goodNum: number;
   commentNum: number;
   isGood: boolean;
@@ -31,7 +31,7 @@ export interface GonComment {
   size?: number;
   picture_url?: string;
   postType: 'comment';
-  postUser: GonPostUser;
+  postUser: GonUser;
   goodNum: number;
   commentNum?: number;
   isGood: boolean;
@@ -40,13 +40,15 @@ export interface GonComment {
 
 export type GonPost = GonKickspost | GonComment;
 
-export interface GonPostUser {
+export interface GonUser {
   id: number;
   name: string;
   mysize_id: string;
   image_url: string;
   size: number;
   content: string;
+  isFollow: boolean;
+  isMyself: boolean;
 }
 
 export interface GonCurrentInfo {
@@ -62,6 +64,8 @@ export interface Gon {
   searchKicksposts: GonKickspost[];
   searchComments: GonComment[];
   currentInfo: GonCurrentInfo;
+  followingUsers: GonUser[];
+  followedUsers: GonUser[];
 }
 
 export const gon: Gon = (window as any).gon;
