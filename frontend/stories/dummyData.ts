@@ -17,7 +17,9 @@ export const user: User = {
   mysize_id: 'mysize1',
   name: 'Mysize1',
   size: 27,
-  content: 'My size is 27. My favorite brand is KITH.'
+  content: 'My size is 27. My favorite brand is KITH.',
+  isFollow: false,
+  isMyself: true
 };
 
 export const user2: User = {
@@ -26,7 +28,20 @@ export const user2: User = {
   mysize_id: 'mysize2',
   name: 'Mysize2',
   size: 28.5,
-  content: 'My size is 28.5.'
+  content: 'My size is 28.5.',
+  isFollow: false,
+  isMyself: false
+};
+
+export const user3: User = {
+  id: 3,
+  image_url: '/uploads/data/icon3.jpg',
+  mysize_id: 'mysize3',
+  name: 'Mysize3',
+  size: 25.5,
+  content: 'My size is 25.5.',
+  isFollow: true,
+  isMyself: false
 };
 
 export const kickspost: Kickspost = {
