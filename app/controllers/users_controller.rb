@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     @url = followers_user_url(@user)
     gon.followedUsers = User.find_format_gon_params(@users.ids.uniq, current_user)
     gon.currentInfo = { isLoggedIn: logged_in? }
-    render 'followed'
+    render 'followers'
   end
 
   def good

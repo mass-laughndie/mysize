@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import FollowedUserLists from './components/FollowedUserLists';
+import FollowersUserLists from './components/FollowersUserLists';
 
 ReactDOM.render(
-  <FollowedUserLists />,
-  document.querySelector('[data-react-entry="FollowedUserLists"]')
+  <FollowersUserLists />,
+  document.querySelector('[data-react-entry="FollowersUserLists"]')
 );

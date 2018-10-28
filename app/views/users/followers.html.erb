@@ -6,13 +6,13 @@
 <%= render 'layouts/center_header', header_text: "フォロワー" %>
 
 <% content_for :javascript_addition do %>
-  <%= javascript_include_tag "frontend/followed" %>
+  <%= javascript_include_tag "frontend/followers" %>
 <% end %>
 
 <% unless @users.blank? %>
   <div class="container content-nspace">
     <div class="setting-select">
-      <div data-react-entry="FollowedUserLists"></div>
+      <div data-react-entry="FollowersUserLists"></div>
     </div>
   </div>
 <% else %>
