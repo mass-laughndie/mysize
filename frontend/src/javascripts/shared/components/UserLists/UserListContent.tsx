@@ -1,14 +1,17 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { User } from '../../../types/commonTypes';
+import { User, CurrentInfo } from '../../../types/commonTypes';
+import FollowForm from '../FollowForm';
 import * as styles from './UserListContent.module.scss';
 
 interface Props {
   user: User;
+  currentInfo: CurrentInfo;
 }
 
 const UserListContent = (props: Props) => {
-  const { name, mysize_id, content } = props.user;
+  const { user, currentInfo } = props;
+  const { name, mysize_id, content, isMyself } = user;
 
   return (
     <div className={styles['user-list-content']}>
@@ -28,10 +31,7 @@ const UserListContent = (props: Props) => {
         </div>
         <div className="user-list-follow">
           <div className="abs-center">
-            {/* <% unless current_user?(user) %>
-                  <%= render partial: 'users/follow_form',
-                             locals: { user: user } %>
-                <% end %> */}
+            {!isMyself && <FollowForm user={user} currentInfo={currentInfo} />}
           </div>
         </div>
       </div>

@@ -1,27 +1,32 @@
 import * as React from 'react';
-import { User } from '../../../types/commonTypes';
+import classnames from 'classnames';
+import { User, CurrentInfo } from '../../../types/commonTypes';
 import { FollowButton } from './FollowButton';
 import { UnfollowButton } from './UnfollowButton';
+import * as styles from './FollowForm.module.scss';
 
 const DummyFollowButton = () => {
   return (
-    <div className="c form-follow">
-      {/* <%= link_to fa_icon("user") + fa_icon("plus"), '#', class: 'ban' %> */}
+    <div className={classnames('follow-form', styles.c)}>
+      <a href="#" className="ban">
+        <i className="fa fa-user" />
+        <i className="fa fa-plus" />
+      </a>
     </div>
   );
 };
 
 interface Props {
-  isLoggedIn: boolean;
   user: User;
+  currentInfo: CurrentInfo;
 }
 
 class GoodForm extends React.Component<Props> {
   private renderFollowButton() {
-    const { isLoggedIn, user } = this.props;
+    const { user, currentInfo } = this.props;
 
-    if (isLoggedIn) {
-      if (/*user.isFollow*/ false) {
+    if (currentInfo.isLoggedIn) {
+      if (user.isFollow) {
         return <UnfollowButton user={user} />;
       } else {
         return <FollowButton user={user} />;
@@ -34,7 +39,7 @@ class GoodForm extends React.Component<Props> {
   public render() {
     const { id } = this.props.user;
     return (
-      <div id={`user-follow-form-${id}`} className="form-follow">
+      <div id={`follow-form-${id}`} className="follow-form">
         {this.renderFollowButton()}
       </div>
     );

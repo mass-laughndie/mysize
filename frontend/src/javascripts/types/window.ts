@@ -47,13 +47,13 @@ export interface GonUser {
   image_url: string;
   size: number;
   content: string;
-  isFollow: boolean;
-  isMyself: boolean;
+  isFollow?: boolean;
+  isMyself?: boolean;
 }
 
 export interface GonCurrentInfo {
   isLoggedIn: boolean;
-  isPostPage: boolean;
+  isPostPage?: boolean;
 }
 
 export interface Gon {

@@ -53,5 +53,5 @@ export interface User {
 
 export interface CurrentInfo {
   isLoggedIn: boolean;
-  isPostPage: boolean;
+  isPostPage?: boolean;
 }

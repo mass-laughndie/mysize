@@ -2,21 +2,21 @@
 
 /* mixins, variables, ertc. */
 
-$base: #fff;        /* white */
-$main: #000;        /* black */
-$accent: #ff0000;   /* red */
-$waccent: #ff6666;  /* weak red*/
+$base: #fff; /* white */
+$main: #000; /* black */
+$accent: #ff0000; /* red */
+$waccent: #ff6666; /* weak red*/
 $test: #e6e6fa;
-$back: #f2f2f2;     /*(元)#fafafa;*/
+$back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
 
 @mixin box_sizing {
-  -moz-box-sizing:    border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+  box-sizing: border-box;
 }
 
 /* base */
@@ -25,7 +25,75 @@ $twi-grey: #657786;
   @include box_sizing;
 }
 
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
 }
@@ -33,9 +101,11 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 body {
   background: $back;
   /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
-  font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", YuGothic, "Yu Gothic",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "メイリオ", Meiryo,
+    "ＭＳ ゴシック", sans-serif;
   /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
-  font-size: 1.0em;
+  font-size: 1em;
   position: relative;
   padding: 51px 0 121px;
 }
@@ -43,10 +113,14 @@ body {
 a {
   color: $base-grey;
   text-decoration: none;
-
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 100%;
 }
 
@@ -82,7 +156,7 @@ select {
 }
 
 .logo-font {
-  font-family: 'Chathura', sans-serif;
+  font-family: "Chathura", sans-serif;
 }
 
 .page-title {
@@ -108,7 +182,7 @@ select {
   }
 
   .top-lead {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 
     .about-stitle {
       color: $main;
@@ -116,7 +190,6 @@ select {
     }
 
     a {
-
       font-weight: 500;
     }
   }
@@ -189,13 +262,15 @@ select {
 }
 
 .back-accent {
-  background: rgba(255,0,0,0.05);
+  background: rgba(255, 0, 0, 0.05);
   border-radius: 5px;
   padding: 5px 20px;
 }
 
 .font-accent {
-  a, p, span {
+  a,
+  p,
+  span {
     color: $waccent !important;
   }
 }
@@ -276,7 +351,7 @@ header {
     .font-accent {
       color: $waccent !important;
     }
-  } 
+  }
 }
 
 .to-top {
@@ -324,7 +399,7 @@ header {
 }
 
 .over-text {
-  overflow : hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -427,7 +502,7 @@ nav {
   position: relative;
   float: left;
   line-height: 50px;
-  width: 25.0%; /*追加時変更*/
+  width: 25%; /*追加時変更*/
 
   a {
     display: block;
@@ -440,7 +515,7 @@ nav {
     }
 
     .fa-05x {
-     font-size: 0.5em;
+      font-size: 0.5em;
     }
 
     .fa-bell {
@@ -470,7 +545,6 @@ footer {
   padding: 20px;
 
   .footer-link {
-
     a {
       display: inline-block;
       color: grey;
@@ -507,9 +581,7 @@ footer {
   right: 0;
   z-index: 101;
   border-bottom: 1px solid $back;
-  width: 100%
-
-  a {
+  width: 100% a {
     color: $main;
   }
 }
@@ -532,7 +604,7 @@ footer {
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 99; 
+  z-index: 99;
 }
 
 .fixed-top {
@@ -565,7 +637,7 @@ footer {
   z-index: 90;
 
   a {
-    background: rgba(0,0,0,0.06);
+    background: rgba(0, 0, 0, 0.06);
     border-radius: 10px;
     display: block;
     height: 90px;
@@ -608,7 +680,7 @@ footer {
         display: inline-block;
         font-size: 14px;
         line-height: 30px;
-        padding :0;
+        padding: 0;
         position: relative;
         width: 30px;
         z-index: 99;
@@ -618,7 +690,7 @@ footer {
 }
 
 .popup:before {
-  content: '';
+  content: "";
   display: block;
   height: 0;
   position: absolute;
@@ -663,7 +735,7 @@ footer {
   position: relative;
 
   img {
-    position :relative;
+    position: relative;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
@@ -775,7 +847,7 @@ footer {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-86.5%,-60%);
+        transform: translate(-86.5%, -60%);
         vertical-align: top;
       }
 
@@ -965,9 +1037,7 @@ footer {
   width: 52px;
 }
 
-
 .profile-bottom {
-
   .user-profile {
     font-size: 0.9em;
     margin: 5px 0;
@@ -1004,7 +1074,7 @@ footer {
 /* kickspost */
 
 .post-main {
-/*
+  /*
   background: $base;
   margin: 0 auto;
   max-width: 600px;
@@ -1024,7 +1094,7 @@ footer {
   padding-bottom: 30px;
 }
 
-  /* picture post */
+/* picture post */
 
 .ppost-top {
   height: 50px;
@@ -1050,7 +1120,7 @@ footer {
   }
 
   .ppost-usize {
-    background: rgba(255,0,0,0.40);
+    background: rgba(255, 0, 0, 0.4);
     border-radius: 50%;
     height: 30px;
     line-height: 30px;
@@ -1088,7 +1158,7 @@ footer {
     .ppost-msid {
       font-size: 0.7em;
       line-height: 16px;
-    
+
       a {
         color: $main;
       }
@@ -1298,18 +1368,17 @@ footer {
       top: 0;
       left: 0;
       width: 100%;
-
     }
   }
 
   .square-picture:before {
-    content:"";
+    content: "";
     display: block;
     padding-top: 100%;
   }
 
   .square-size {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     color: $base;
     font-size: 10px;
@@ -1361,7 +1430,7 @@ footer {
     margin: 0 auto;
     padding: 5px 10px;
     width: 150px;
-    
+
     .fa {
       color: $base;
       float: left;
@@ -1512,7 +1581,8 @@ footer {
         font-size: 12.5px;
         line-height: 20px;
 
-        a, span {
+        a,
+        span {
           display: block;
           min-width: 30px;
           padding: 0 10px;
@@ -1565,7 +1635,7 @@ footer {
         position: relative;
         height: 55px;
         width: 55px;
-  
+
         a {
           display: block;
           height: 100%;
@@ -1576,7 +1646,7 @@ footer {
           z-index: 10;
         }
       }
-  
+
       .kpost-picture:before {
         content: "";
         display: block;
@@ -1584,7 +1654,7 @@ footer {
       }
 
       .kpost-size {
-        background: rgba(0,0,0,0.30);
+        background: rgba(0, 0, 0, 0.3);
         color: #fff;
         bottom: -28px;
         right: 11px;
@@ -1620,11 +1690,11 @@ footer {
   }
 
   .comment-center {
-    width: 67%
+    width: 67%;
   }
 }
 
-  /* material */
+/* material */
 
 /* button, form */
 
@@ -1708,8 +1778,6 @@ footer {
     margin: 0 7%;
     width: 34%;
   }
-
-
 }
 
 .button-back {
@@ -1879,9 +1947,9 @@ footer {
       }
 
       .fa-refresh {
-        background: rgba(255,255,255,0.40);
+        background: rgba(255, 255, 255, 0.4);
         border-radius: 17.5%;
-        color: rgba(0,0,0,0.80);
+        color: rgba(0, 0, 0, 0.8);
         display: block;
         font-size: 1.5em;
         height: 34px;
@@ -1971,7 +2039,7 @@ footer {
   select,
   textarea {
     border-radius: 5px;
-    border: 1px solid rgba(36, 36, 36, 0.30);
+    border: 1px solid rgba(36, 36, 36, 0.3);
     color: rgba(0, 0, 0, 0.85);
     display: block;
     font-size: 0.8em;
@@ -2024,7 +2092,6 @@ footer {
     line-height: 28px;
   }
 }
-
 
 .form-unfollow {
   background: $accent;
@@ -2131,7 +2198,7 @@ footer {
 /* flash */
 
 .flash-base {
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   font-size: 16px;
   font-weight: 550;
   height: 50px;
@@ -2145,18 +2212,18 @@ footer {
   z-index: 200;
 
   .flash-success {
-    background: rgba(223,240,216,0.85);
+    background: rgba(223, 240, 216, 0.85);
     color: #3c763d;
   }
 
   .flash-danger {
-    background: rgba(255,246,246,0.9);
+    background: rgba(255, 246, 246, 0.9);
     color: #e5171f;
     font-size: 16px;
   }
 
   .flash-info {
-    background: rgba(224,255,255,0.85);
+    background: rgba(224, 255, 255, 0.85);
     color: #00bfff;
     font-weight: 450;
   }
@@ -2168,7 +2235,7 @@ footer {
   background: $base;
   font-size: 12.5px;
   position: relative;
-  width: 100%; 
+  width: 100%;
 
   .content-link {
     display: block;
@@ -2183,7 +2250,7 @@ footer {
     top: 0;
     left: 0;
     width: 100%;
-  
+
     .content-height {
       width: 100%;
 
@@ -2262,7 +2329,6 @@ footer {
     position: relative;
     height: 60px;
 
-
     .set-text {
       float: left;
       font-weight: 500;
@@ -2301,7 +2367,6 @@ footer {
   }
 }
 
-
 /* search, comment */
 
 .inner-form {
@@ -2318,7 +2383,7 @@ footer {
 
     input,
     textarea {
-      background: rgba(255,0,0,0.12);
+      background: rgba(255, 0, 0, 0.12);
       border-radius: 5px;
       border: none;
       color: #000;
@@ -2338,13 +2403,13 @@ footer {
 
     .inner-button {
       height: 30px;
-      position:absolute;
+      position: absolute;
       bottom: 0;
       right: 0;
       width: 30px;
 
       button {
-        background: rgba(255,0,0,0.0);
+        background: rgba(255, 0, 0, 0);
         border-radius: 5px;
         bottom: 0;
         display: block;
@@ -2359,7 +2424,7 @@ footer {
 
 .search-form {
   height: 50px;
-  padding: 10px 0 ;
+  padding: 10px 0;
 }
 
 .search-select {
@@ -2373,7 +2438,6 @@ footer {
 .match a {
   font-weight: 700;
 }
-
 
 /* comment */
 
@@ -2389,7 +2453,7 @@ footer {
       position: relative;
       vertical-align: middle;
       word-wrap: break-word;
-    
+
       .comment-act {
         height: 100%;
         cursor: pointer;
@@ -2440,8 +2504,8 @@ footer {
 /* notice */
 
 .notice-main {
-  position:relative;
-  width: 100%; 
+  position: relative;
+  width: 100%;
 
   .notice-icon {
     float: left;
@@ -2453,8 +2517,8 @@ footer {
   .notice-text {
     float: right;
     font-size: 12.5px;
-    margin:  5px 0;
-    padding-left: 1.5%; 
+    margin: 5px 0;
+    padding-left: 1.5%;
     width: 83.5%;
 
     .notice-name {
@@ -2484,8 +2548,8 @@ footer {
 
   .npost-text {
     float: right;
-    margin-top:  13.5px;
-    padding-left: 1.5%; 
+    margin-top: 13.5px;
+    padding-left: 1.5%;
     width: 83.5%;
   }
 
@@ -2529,7 +2593,7 @@ footer {
 }
 
 .index-size {
-  background: rgba(255,0,0,0.45);
+  background: rgba(255, 0, 0, 0.45);
   border-radius: 50%;
   font-size: 10px;
   height: 30px;
@@ -2580,6 +2644,39 @@ footer {
   }
 }
 
+.user-list-content {
+  float: right;
+  margin-left: 3%;
+  width: 82%;
+
+  .user-list-upper {
+    margin: 5px 0 10px;
+    width: 100%;
+
+    .user-list-text {
+      float: left;
+      margin-right: 2%;
+      width: 79%;
+
+      .user-list-name {
+        font-weight: 550;
+      }
+
+      .user-list-msid {
+        color: $base-grey;
+      }
+    }
+
+    .user-list-follow {
+      float: right;
+      height: 30px;
+      margin-top: 10px;
+      position: relative;
+      width: 19%;
+    }
+  }
+}
+
 .abs-center {
   position: absolute;
   left: 50%;
@@ -2587,7 +2684,7 @@ footer {
   z-index: 20;
 
   a {
-  display: block;
+    display: block;
   }
 }
 
@@ -2600,42 +2697,58 @@ footer {
 
 /* lazysizes */
 
-
 /* 読み込みバー */
-.turbolinks-progress-bar{
+.turbolinks-progress-bar {
   background-color: $accent;
 }
 
-
-
-
 @media only screen and (max-width: 767px) {
-  
 }
 
 @media only screen and (min-width: 768px) {
-  
 }
-
 
 /* firefox */
 @-moz-document url-prefix() {
-  h1, h2, h3, h4, h5, h6, p, label {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  label {
     transform: rotate(0.001deg);
   }
 }
 
 /* Safari */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    _::-webkit-full-page-media, _:future, :root h1, h2, h3, h4, h5, h6, p, label {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  _::-webkit-full-page-media,
+  _:future,
+  :root h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  label {
     transform: rotate(0.001deg);
   }
 }
 
 /* Chrome || Opera */
-@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
-  h1, h2, h3, h4, h5, h6, p, label {
+@media all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  label {
     transform: rotate(0.05deg);
-    text-shadow: 0 0 0.1px rgba(0,0,0,0.1);
+    text-shadow: 0 0 0.1px rgba(0, 0, 0, 0.1);
   }
 }

@@ -4,16 +4,13 @@ import * as $ from 'jquery';
 import SearchKicksposts from './components/SearchKicksposts';
 import SearchComments from './components/SearchComments';
 
-if ($('[data-react-entry="SearchKicksposts"]').length) {
-  ReactDOM.render(
-    <SearchKicksposts />,
-    document.querySelector('[data-react-entry="SearchKicksposts"]')
-  );
+const entryPoint1 = '[data-react-entry="SearchKicksposts"]';
+const entryPoint2 = '[data-react-entry="SearchComments"]';
+
+if ($(entryPoint1).length) {
+  ReactDOM.render(<SearchKicksposts />, document.querySelector(entryPoint1));
 }
 
-if ($('[data-react-entry="SearchComments"]').length) {
-  ReactDOM.render(
-    <SearchComments />,
-    document.querySelector('[data-react-entry="SearchComments"]')
-  );
+if ($(entryPoint2).length) {
+  ReactDOM.render(<SearchComments />, document.querySelector(entryPoint2));
 }

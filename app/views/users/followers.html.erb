@@ -1,0 +1,24 @@
+<% title = "#{@user.name}(@#{@user.mysize_id})さんのフォロワー" %>
+<% provide(:title, title) %>
+<% provide(:og_title, title) %>
+<% provide(:og_url, @url) %>
+<%= render 'layouts/back', back_path: "#{user_path(@user)}" %>
+<%= render 'layouts/center_header', header_text: "フォロワー" %>
+
+<% content_for :javascript_addition do %>
+  <%= javascript_include_tag "frontend/followers" %>
+<% end %>
+
+<% unless @users.blank? %>
+  <div class="container content-nspace">
+    <div class="setting-select">
+      <div data-react-entry="FollowersUserLists"></div>
+    </div>
+  </div>
+<% else %>
+  <div class="container content-nspace">
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'user',
+                         text: 'post-follow' } %>
+  </div>
+<% end %>

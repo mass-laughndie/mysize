@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as $ from 'jquery';
 import classnames from 'classnames';
-import { User } from '../../../types/commonTypes';
+import { User, CurrentInfo } from '../../../types/commonTypes';
 import { NormalPostLeft } from '../NormalPosts/NormalPostLeft';
 import * as styles from '../List.module.scss';
 import { UserListContent } from './UserListContent';
 
 interface Props {
   user: User;
+  currentInfo: CurrentInfo;
 }
 
 class UserList extends React.Component<Props> {
@@ -20,7 +21,7 @@ class UserList extends React.Component<Props> {
   }
 
   public render() {
-    const { user } = this.props;
+    const { user, currentInfo } = this.props;
 
     return (
       <li id={`user-${user.id}`} className={styles['link-list']}>
@@ -29,7 +30,7 @@ class UserList extends React.Component<Props> {
           <div className={styles['content-height']}>
             <div className={classnames(styles['list-content'], styles.clear)}>
               <NormalPostLeft postUser={user} />
-              <UserListContent user={user} />
+              <UserListContent user={user} currentInfo={currentInfo} />
             </div>
           </div>
         </div>

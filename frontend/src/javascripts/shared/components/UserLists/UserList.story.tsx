@@ -7,9 +7,17 @@ import { user, baseStyle } from '../../../../../stories/dummyData';
 storiesOf('UserList', module)
   .addDecorator(withKnobs)
   .add('default', () => {
+    const currentInfo = {
+      isLoggedIn: boolean('isLoggedIn', true)
+    };
+    const userProps = {
+      ...user,
+      isFollow: boolean('isFollow', false),
+      isMyself: boolean('isMyself', false)
+    };
     return (
       <ul style={baseStyle}>
-        <UserList user={user} />
+        <UserList user={userProps} currentInfo={currentInfo} />
       </ul>
     );
   });

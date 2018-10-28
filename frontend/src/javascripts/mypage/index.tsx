@@ -4,11 +4,10 @@ import * as $ from 'jquery';
 import MypageSquarePosts from './components/MypageSquarePost';
 import MypagePosts from './components/MypagePosts';
 
-if ($('[data-react-entry="MypageSquarePosts"]').length) {
-  ReactDOM.render(
-    <MypageSquarePosts />,
-    document.querySelector('[data-react-entry="MypageSquarePosts"]')
-  );
+const entryPoint = '[data-react-entry="MypageSquarePosts"]';
+
+if ($(entryPoint).length) {
+  ReactDOM.render(<MypageSquarePosts />, document.querySelector(entryPoint));
 } else {
   ReactDOM.render(
     <MypagePosts />,
