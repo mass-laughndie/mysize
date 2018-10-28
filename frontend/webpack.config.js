@@ -17,7 +17,8 @@ module.exports = {
     'frontend/follow_square': './src/javascripts/follow_square',
     'frontend/mypage': './src/javascripts/mypage',
     'frontend/search': './src/javascripts/search',
-    'frontend/following': './src/javascripts/following'
+    'frontend/following': './src/javascripts/following',
+    'frontend/followed': './src/javascripts/followed'
   },
 
   output: {
