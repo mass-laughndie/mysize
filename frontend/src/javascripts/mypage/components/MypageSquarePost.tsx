@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { gon } from '../../types/window';
-import SquarePosts from '../../shared/components/SquarePosts/SquarePosts';
+import SquarePosts from '../../shared/components/SquarePosts';
 
 const posts = gon.mypageKicksposts;
 

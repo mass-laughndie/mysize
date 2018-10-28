@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { gon } from '../../types/window';
-import UserLists from '../../shared/components/UserLists/UserLists';
+import UserLists from '../../shared/components/UserLists';
 
 const users = gon.followedUsers;
 const currentInfo = gon.currentInfo;
