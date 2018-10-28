@@ -1,11 +1,13 @@
 import * as React from 'react';
+import classnames from 'classnames';
 import { User } from '../../../types/commonTypes';
 import { FollowButton } from './FollowButton';
 import { UnfollowButton } from './UnfollowButton';
+import * as styles from './FollowForm.module.scss';
 
 const DummyFollowButton = () => {
   return (
-    <div className="c form-follow">
+    <div className={classnames('follow-form', styles.c)}>
       <a href="#" className="ban">
         <i className="fa fa-user" />
         <i className="fa fa-plus" />
@@ -37,7 +39,7 @@ class GoodForm extends React.Component<Props> {
   public render() {
     const { id } = this.props.user;
     return (
-      <div id={`user-follow-form-${id}`} className="form-follow">
+      <div id={`follow-form-${id}`} className="follow-form">
         {this.renderFollowButton()}
       </div>
     );

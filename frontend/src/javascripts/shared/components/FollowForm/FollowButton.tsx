@@ -1,6 +1,7 @@
 import * as React from 'react';
 import HiddenAuthenticityToken from '../HiddenAuthenticityField';
 import { User } from '../../../types/commonTypes';
+import * as styles from './FollowForm.module.scss';
 
 interface Props {
   user: User;
@@ -9,7 +10,7 @@ interface Props {
 const FollowButton = (props: Props) => {
   const { id } = props.user;
   return (
-    <div className="form-follow">
+    <div className={styles['form-follow']}>
       <form
         className="new_relationship"
         id="new_relationship"
