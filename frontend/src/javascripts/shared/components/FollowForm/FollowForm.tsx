@@ -6,7 +6,10 @@ import { UnfollowButton } from './UnfollowButton';
 const DummyFollowButton = () => {
   return (
     <div className="c form-follow">
-      {/* <%= link_to fa_icon("user") + fa_icon("plus"), '#', class: 'ban' %> */}
+      <a href="#" className="ban">
+        <i className="fa fa-user" />
+        <i className="fa fa-plus" />
+      </a>
     </div>
   );
 };
@@ -21,7 +24,7 @@ class GoodForm extends React.Component<Props> {
     const { isLoggedIn, user } = this.props;
 
     if (isLoggedIn) {
-      if (/*user.isFollow*/ false) {
+      if (user.isFollow) {
         return <UnfollowButton user={user} />;
       } else {
         return <FollowButton user={user} />;
