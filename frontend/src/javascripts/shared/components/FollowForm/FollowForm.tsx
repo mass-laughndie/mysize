@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { User } from '../../../types/commonTypes';
+import { User, CurrentInfo } from '../../../types/commonTypes';
 import { FollowButton } from './FollowButton';
 import { UnfollowButton } from './UnfollowButton';
 import * as styles from './FollowForm.module.scss';
@@ -17,15 +17,15 @@ const DummyFollowButton = () => {
 };
 
 interface Props {
-  isLoggedIn: boolean;
   user: User;
+  currentInfo: CurrentInfo;
 }
 
 class GoodForm extends React.Component<Props> {
   private renderFollowButton() {
-    const { isLoggedIn, user } = this.props;
+    const { user, currentInfo } = this.props;
 
-    if (isLoggedIn) {
+    if (currentInfo.isLoggedIn) {
       if (user.isFollow) {
         return <UnfollowButton user={user} />;
       } else {

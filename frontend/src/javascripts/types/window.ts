@@ -53,7 +53,7 @@ export interface GonUser {
 
 export interface GonCurrentInfo {
   isLoggedIn: boolean;
-  isPostPage: boolean;
+  isPostPage?: boolean;
 }
 
 export interface Gon {
