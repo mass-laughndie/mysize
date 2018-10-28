@@ -69,12 +69,12 @@ class UsersController < ApplicationController
   end
 
   def following
-    @title = "フォロー"
     @user = User.find_by(mysize_id: params[:mysize_id])
     @users = @user.following.order(updated_at: :desc)
     @url = following_user_url(@user)
     gon.followingUsers = User.find_format_gon_params(@users.ids.uniq, current_user)
-    render 'show_follow'
+    gon.currentInfo = { isLoggedIn: logged_in? }
+    render 'following'
   end
 
   def followers
@@ -83,6 +83,7 @@ class UsersController < ApplicationController
     @users = @user.followers.order(updated_at: :desc)
     @url = followers_user_url(@user)
     gon.followedUsers = User.find_format_gon_params(@users.ids.uniq, current_user)
+    gon.currentInfo = { isLoggedIn: logged_in? }
     render 'show_follow'
   end
 
