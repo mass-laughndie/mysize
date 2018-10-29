@@ -96,3 +96,4 @@ declare module '*.mp3' {
 
 declare module 'jquery';
 declare module 'classnames';
+declare module 'qs';
