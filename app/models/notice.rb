@@ -1,5 +1,4 @@
 class Notice < ApplicationRecord
-
   belongs_to :user
   belongs_to :kind, polymorphic: true,
                     optional:    true
