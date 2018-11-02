@@ -1,5 +1,4 @@
 class Contact < ApplicationRecord
-
   validates :name,    presence: { message: "件名を入力してください。" },
                       length:   { maximum: 255,
                                   message: "件名は255文字以内まで有効です" }
@@ -21,5 +20,4 @@ class Contact < ApplicationRecord
     mail.transport_encoding = "8bit"
     mail.deliver_now
   end
-
 end

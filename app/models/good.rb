@@ -1,5 +1,4 @@
 class Good < ApplicationRecord
-
   belongs_to :gooder,    class_name:  "User"
   belongs_to :gooded,    class_name:  "User"
   belongs_to :post,      polymorphic: true,
