@@ -293,29 +293,28 @@ class User < ApplicationRecord
 
   private
 
-    def downcase_email
-      email.downcase!
-    end
+  def downcase_email
+    email.downcase!
+  end
 
-    def downcase_mysizeid
-      mysize_id.downcase!
-    end
+  def downcase_mysizeid
+    mysize_id.downcase!
+  end
 
-    def image_size
-      error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
-    end
+  def image_size
+    error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
+  end
 
-    def self.dummy_email(auth)
-      "#{auth.uid}-#{auth.provider}@example.com"
-    end
+  def self.dummy_email(auth)
+    "#{auth.uid}-#{auth.provider}@example.com"
+  end
 
-    def this_week
-      Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
-    end
+  def this_week
+    Time.zone.now.beginning_of_week..Time.zone.now.end_of_week
+  end
 
-    def follow_notice_kind_id
-      latest_notice = self.latest_follow_notice
-      latest_notice.present? ? latest_notice.kind_id + 1 : 1
-    end
-
+  def follow_notice_kind_id
+    latest_notice = self.latest_follow_notice
+    latest_notice.present? ? latest_notice.kind_id + 1 : 1
+  end
 end
