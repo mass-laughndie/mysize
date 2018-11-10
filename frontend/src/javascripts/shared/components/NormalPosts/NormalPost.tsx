@@ -66,7 +66,7 @@ class NormalPost extends React.Component<Props> {
               className={cx(
                 'list-content',
                 {
-                  ['reply-main']: isReply
+                  'reply-main': isReply
                 },
                 'clear'
               )}

@@ -12,6 +12,7 @@ interface Props {
 }
 
 const NormalPostAct = (props: Props) => {
+  const cx = classnames.bind(styles);
   const {
     id,
     kickspost_id,
@@ -30,48 +31,48 @@ const NormalPostAct = (props: Props) => {
 
   return (
     <div
-      className={classnames({
-        [styles['kpost-act']]: true,
-        [styles[`${postType}-act`]]: true,
-        [styles['reply-act']]: isReply,
-        [styles.clear]: true
-      })}
+      className={cx(
+        'kpost-act',
+        `${postType}-act`,
+        {
+          'reply-act': isReply
+        },
+        'clear'
+      )}
     >
-      <div className={styles['kpost-time']}>{moment(created_at).fromNow()}</div>
-      <div className={styles['kpost-alist']}>
-        <div className={styles['kpost-aicon']}>
+      <div className={cx('kpost-time')}>{moment(created_at).fromNow()}</div>
+      <div className={cx('kpost-alist')}>
+        <div className={cx('kpost-aicon')}>
           <GoodForm isLoggedIn={isLoggedIn} post={props.post} />
         </div>
-        <div className={styles['kpost-num']} id={`good-num-${postType}-${id}`}>
+        <div className={cx('kpost-num')} id={`good-num-${postType}-${id}`}>
           <a href={`/${postType}s/${id}/gooders`}>{goodNum}</a>
         </div>
       </div>
       {isKickspost ? (
         <React.Fragment>
-          <div className={styles['kpost-alist']}>
+          <div className={cx('kpost-alist')}>
             <a
-              className={styles['kpost-alink']}
+              className={cx('kpost-alink')}
               href={`${mysize_id}/kicksposts/${id}`}
             >
-              <div className={styles['kpost-aicon']}>
+              <div className={cx('kpost-aicon')}>
                 <i className="fa fa-comment-o" />
               </div>
-              <div className={styles['kpost-num']}>
+              <div className={cx('kpost-num')}>
                 <span>{commentNum}</span>
               </div>
             </a>
           </div>
-          <div
-            className={classnames(styles['kpost-alist'], styles['alist-last'])}
-          >
+          <div className={cx('kpost-alist', 'alist-last')}>
             <a
-              className={styles['kpost-alink']}
+              className={cx('kpost-alink')}
               href={twitterShareUrl}
               onClick={() =>
                 "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=31'); return false;"
               }
             >
-              <div className={styles['kpost-aicon']}>
+              <div className={cx('kpost-aicon')}>
                 <i className="fa fa-twitter" />
               </div>
             </a>
@@ -79,23 +80,21 @@ const NormalPostAct = (props: Props) => {
         </React.Fragment>
       ) : (
         !isMyPost && (
-          <div
-            className={classnames(styles['kpost-alist'], styles['alist-last'])}
-          >
-            <div className={styles['kpost-aicon']} id={`comment-reply-${id}`}>
+          <div className={cx('kpost-alist', 'alist-last')}>
+            <div className={cx('kpost-aicon')} id={`comment-reply-${id}`}>
               {isPostPage ? (
-                <i className={classnames('fa', styles['fa-reply'])} />
+                <i className={cx('fa', 'fa-reply')} />
               ) : isLoggedIn ? (
                 <a
-                  className={classnames(styles['kpost-alink'], 'jump')}
+                  className={cx('kpost-alink', 'jump')}
                   data-scroll="-51"
                   href={`/${mysize_id}/kicksposts/${kickspost_id}?reply=on#comment-${id}`}
                 >
-                  <i className={classnames('fa', styles['fa-reply'])} />
+                  <i className={cx('fa', 'fa-reply')} />
                 </a>
               ) : (
                 <a href="#" className="ban">
-                  <i className={classnames('fa', styles['fa-reply'])} />
+                  <i className={cx('fa', 'fa-reply')} />
                 </a>
               )}
             </div>
