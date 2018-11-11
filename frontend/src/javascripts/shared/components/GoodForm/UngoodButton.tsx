@@ -9,9 +9,10 @@ interface Props {
 }
 
 const UngoodButton = (props: Props) => {
+  const cx = classnames.bind(styles);
   const { id } = props.post;
   return (
-    <div className={classnames(styles['form-ungood'])}>
+    <div className={cx('form-ungood')}>
       <form
         className="edit_good"
         id={`edit_good_${id}`}
@@ -23,7 +24,7 @@ const UngoodButton = (props: Props) => {
         <HiddenAuthenticityToken />
         <input type="hidden" name="_method" value="delete" />
         <button name="button" type="submit">
-          <i className={classnames(styles.fa, 'fa', 'fa-thumbs-up')} />
+          <i className={cx('fa', 'fa-thumbs-up')} />
         </button>
       </form>
     </div>

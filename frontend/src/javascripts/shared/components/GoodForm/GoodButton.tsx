@@ -9,10 +9,11 @@ interface Props {
 }
 
 const GoodButton = (props: Props) => {
+  const cx = classnames.bind(styles);
   const { id, postType } = props.post;
   const formatPoatType = postType.charAt(0).toUpperCase() + postType.slice(1);
   return (
-    <div className={classnames(styles['form-good'])}>
+    <div className={cx('form-good')}>
       <form
         className="new_good"
         id="new_good"
