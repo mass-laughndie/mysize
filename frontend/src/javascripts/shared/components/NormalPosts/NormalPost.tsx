@@ -32,6 +32,7 @@ class NormalPost extends React.Component<Props> {
   };
 
   public render() {
+    const cx = classnames.bind(styles);
     const { post, currentInfo } = this.props;
     const isKickspost = post.postType === 'kickspost';
     const isReply = post.reply_id != undefined && post.reply_id != 0;
@@ -39,16 +40,17 @@ class NormalPost extends React.Component<Props> {
     return (
       <li
         id={`${post.postType}-${post.id}`}
-        className={classnames({
-          [styles['link-list']]: true,
-          [styles['kpost-main']]: true,
-          [styles[`reply-${post.reply_id}`]]: !isKickspost,
-          [styles.clear]: true
-        })}
+        className={cx(
+          'link-list',
+          'kpost-main',
+          {
+            [`reply-${post.reply_id}`]: !isKickspost
+          },
+          'clear'
+        )}
       >
         <a
-          className={classnames({
-            [styles['content-link']]: true,
+          className={cx('content-link', {
             jump: !isKickspost
           })}
           data-scroll={!isKickspost ? '-51' : ''}
@@ -58,19 +60,19 @@ class NormalPost extends React.Component<Props> {
               : `${post.kickspost_id}#${post.postType}-${post.id}`
           }`}
         />
-        <div className={classnames(styles['content-abs'])}>
-          <div className={classnames(styles['content-height'])}>
+        <div className={cx('content-abs')}>
+          <div className={cx('content-height')}>
             <div
-              className={classnames({
-                [styles['list-content']]: true,
-                [styles['reply-main']]: isReply,
-                [styles.clear]: true
-              })}
+              className={cx(
+                'list-content',
+                {
+                  'reply-main': isReply
+                },
+                'clear'
+              )}
             >
               {isReply && (
-                <div
-                  className={classnames(styles['kpost-reply-icon'], styles.c)}
-                >
+                <div className={cx('kpost-reply-icon', 'c')}>
                   <i className="fa fa-caret-right" />
                 </div>
               )}

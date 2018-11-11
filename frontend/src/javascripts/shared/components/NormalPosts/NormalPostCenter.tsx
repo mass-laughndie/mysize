@@ -8,18 +8,14 @@ interface Props {
 }
 
 const NormalPostCenter = (props: Props) => {
+  const cx = classnames.bind(styles);
   const { brand, color, title, content, postType, id } = props.post;
   const { name, mysize_id } = props.post.postUser;
   const isKickspost = postType === 'kickspost';
 
   return (
-    <div
-      className={classnames(
-        styles['kpost-center'],
-        styles[`${postType}-center`]
-      )}
-    >
-      <div className={classnames(styles['kpost-name'], styles['over-name'])}>
+    <div className={cx('kpost-center', `${postType}-center`)}>
+      <div className={cx('kpost-name', 'over-name')}>
         <a href={`/${mysize_id}`}>
           {name}
           {isKickspost ? (
@@ -31,10 +27,10 @@ const NormalPostCenter = (props: Props) => {
       </div>
       {isKickspost && (
         <React.Fragment>
-          <div className={styles['kpost-brand']}>
+          <div className={cx('kpost-brand')}>
             <span>{brand}</span>
           </div>
-          <div className={styles['kpost-title']}>
+          <div className={cx('kpost-title')}>
             <h2>
               {`${title} `}
               <span>{`( ${color} )`}</span>
@@ -42,13 +38,7 @@ const NormalPostCenter = (props: Props) => {
           </div>
         </React.Fragment>
       )}
-      <div
-        className={classnames(
-          styles['kpost-content'],
-          'autolink',
-          styles['over-text']
-        )}
-      >
+      <div className={cx('kpost-content', 'autolink', 'over-text')}>
         <span>{content}</span>
       </div>
     </div>

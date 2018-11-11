@@ -6,8 +6,10 @@ import { UnfollowButton } from './UnfollowButton';
 import * as styles from './FollowForm.module.scss';
 
 const DummyFollowButton = () => {
+  const cx = classnames.bind(styles);
+
   return (
-    <div className={classnames('follow-form', styles.c)}>
+    <div className={cx('follow-form', 'c')}>
       <a href="#" className="ban">
         <i className="fa fa-user" />
         <i className="fa fa-plus" />
