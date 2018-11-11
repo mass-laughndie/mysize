@@ -21,6 +21,7 @@ class UserList extends React.Component<Props> {
   }
 
   public render() {
+    const cx = classnames.bind(styles);
     const { user, currentInfo } = this.props;
 
     return (
@@ -28,7 +29,7 @@ class UserList extends React.Component<Props> {
         <a className={styles['content-link']} href={`/${user.mysize_id}`} />
         <div className={styles['content-abs']}>
           <div className={styles['content-height']}>
-            <div className={classnames(styles['list-content'], styles.clear)}>
+            <div className={cx('list-content', 'clear')}>
               <NormalPostLeft postUser={user} />
               <UserListContent user={user} currentInfo={currentInfo} />
             </div>
