@@ -4,6 +4,7 @@ import { UngoodButton } from './UngoodButton';
 import { Post } from '../../../types/commonTypes';
 import classnames from 'classnames';
 import * as styles from './GoodForm.module.scss';
+import { addGoodList } from '../../apis/GoodApi';
 
 const DummyGoodButton = () => {
   return (
@@ -28,12 +29,19 @@ class GoodForm extends React.Component<Props> {
       if (post.isGood) {
         return <UngoodButton post={post} />;
       } else {
-        return <GoodButton post={post} />;
+        return <GoodButton post={post} onClick={this.handleAddGoodList} />;
       }
     } else {
       return <DummyGoodButton />;
     }
   }
+
+  private handleAddGoodList = (event: React.SyntheticEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    const { id, postType } = this.props.post;
+    addGoodList(id, postType);
+  };
 
   public render() {
     const { postType, id } = this.props.post;
