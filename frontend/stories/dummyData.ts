@@ -66,7 +66,8 @@ export const kickspost: Kickspost = {
   goodNum: 2,
   commentNum: 1,
   isGood: false,
-  isMyPost: true
+  isMyPost: true,
+  goodId: null
 };
 
 export const kickspost2: Kickspost = {
@@ -91,7 +92,8 @@ export const kickspost2: Kickspost = {
   goodNum: 6,
   commentNum: 3,
   isGood: false,
-  isMyPost: false
+  isMyPost: false,
+  goodId: null
 };
 
 export const kickspost3: Kickspost = {
@@ -117,7 +119,8 @@ export const kickspost3: Kickspost = {
   goodNum: 4,
   commentNum: 0,
   isGood: true,
-  isMyPost: true
+  isMyPost: true,
+  goodId: 1
 };
 
 export const comment: Comment = {
@@ -138,7 +141,8 @@ export const comment: Comment = {
   },
   goodNum: 1,
   isGood: true,
-  isMyPost: false
+  isMyPost: false,
+  goodId: 2
 };
 
 export const reply: Comment = {
@@ -159,7 +163,8 @@ export const reply: Comment = {
   },
   goodNum: 1,
   isGood: false,
-  isMyPost: true
+  isMyPost: true,
+  goodId: null
 };
 
 export const posts: Post[] = [
