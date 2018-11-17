@@ -28,20 +28,20 @@ class Comment < ApplicationRecord
                                        message: "内容は500文字まで入力できます" }
 
   class << self
-    def all_format_gon_params_for(user)
+    def all_format_gon_params_for(cuser)
       self.all.map do |post|
-        map_gon_hah(post, user)
+        map_gon_hah(post, cuser)
       end
     end
 
-    def find_format_gon_params(ids, user)
+    def find_format_gon_params(ids, cuser)
       self.find(ids).map do |post|
-        map_gon_hah(post, user)
+        map_gon_hah(post, cuser)
       end
     end
 
-    def find_format_gon_params_by(id, user)
-      map_gon_hah(self.find_by(id), user)
+    def find_format_gon_params_by(id, cuser)
+      map_gon_hah(self.find_by(id), cuser)
     end
 
     private
@@ -50,9 +50,17 @@ class Comment < ApplicationRecord
       [:id, :user_id, :kickspost_id, :reply_id, :content, :created_at]
     end
 
-    def map_gon_hah(post, user)
+    def map_gon_hah(post, cuser)
       return if post.blank?
       post_type = post.class.name.downcase
+      if cuser.present?
+        is_good = cuser.good?(post_type, post)
+        post_good = cuser.active_goods.find_by(post_type: post_type, post_id: post.id)
+      else
+        is_good = false
+        post_good = nil
+      end
+
       Hash[
         extract_params_for_gon.map do |ep|
           [ep, post.send(ep)]
@@ -61,8 +69,9 @@ class Comment < ApplicationRecord
         postType: post_type,
         postUser: User.find_format_gon_params_by(post.user_id),
         goodNum: post.goods.size,
-        isGood: (user.present? ? user.good?(post_type, post) : false),
-        isMyPost: user == post.user
+        isGood: is_good,
+        isMyPost: cuser == post.user,
+        goodId: post_good.present? ? post_good.id : post_good
       })
     end
   end
