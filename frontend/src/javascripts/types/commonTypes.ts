@@ -16,6 +16,7 @@ export interface Kickspost {
   commentNum: number;
   isGood: boolean;
   isMyPost: boolean;
+  goodId: number | null;
 }
 
 export interface Comment {
@@ -36,6 +37,7 @@ export interface Comment {
   commentNum?: number;
   isGood: boolean;
   isMyPost: boolean;
+  goodId: number | null;
 }
 
 export type Post = Kickspost | Comment;

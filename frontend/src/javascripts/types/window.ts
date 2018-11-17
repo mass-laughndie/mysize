@@ -16,6 +16,7 @@ export interface GonKickspost {
   commentNum: number;
   isGood: boolean;
   isMyPost: boolean;
+  goodId: number | null;
 }
 
 export interface GonComment {
@@ -36,6 +37,7 @@ export interface GonComment {
   commentNum?: number;
   isGood: boolean;
   isMyPost: boolean;
+  goodId: number | null;
 }
 
 export type GonPost = GonKickspost | GonComment;
