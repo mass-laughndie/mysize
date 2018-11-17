@@ -9,6 +9,7 @@
   .form-ungood {
     height: 100%;
     width: 100%;
+    a,
     form,
     button {
       display: block;
@@ -21,6 +22,7 @@
   }
 
   .form-ungood {
+    form a .fa,
     form button .fa {
       color: $waccent;
     }
