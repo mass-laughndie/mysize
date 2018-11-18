@@ -22,11 +22,13 @@ interface Props {
 }
 
 interface State {
+  goodId: number | null;
   isGood: boolean;
 }
 
 class GoodForm extends React.Component<Props, State> {
   state: State = {
+    goodId: this.props.post.goodId,
     isGood: this.props.post.isGood
   };
 
@@ -51,9 +53,10 @@ class GoodForm extends React.Component<Props, State> {
     event.preventDefault();
 
     const { id, postType } = this.props.post;
-    await addGoodList(id, postType);
+    const new_good = await addGoodList(id, postType);
 
     this.setState({
+      goodId: new_good.id,
       isGood: true
     });
   };
@@ -63,10 +66,11 @@ class GoodForm extends React.Component<Props, State> {
   ) => {
     event.preventDefault();
 
-    const { goodId } = this.props.post;
+    const { goodId } = this.state;
     await removeGoodList(goodId);
 
     this.setState({
+      goodId: null,
       isGood: false
     });
   };
