@@ -12,8 +12,8 @@ export const addGoodList = async (id: number, type: string): Promise<any> => {
   return response.data;
 };
 
-export const removeGoodList = async (id: number | null): Promise<any> => {
-  if (typeof id == 'number') {
-    await axios.delete(`/goods/${id}`).catch(value => console.log(value));
+export const removeGoodList = async (goodId: number | null): Promise<any> => {
+  if (typeof goodId == 'number') {
+    await axios.delete(`/goods/${goodId}`).catch(value => console.log(value));
   }
 };

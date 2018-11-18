@@ -23,7 +23,9 @@ const UserListContent = (props: Props) => {
         </div>
         <div className="user-list-follow">
           <div className="abs-center">
-            {!isMyself && <FollowForm user={user} currentInfo={currentInfo} />}
+            {!isMyself && (
+              <FollowForm user={user} isLoggedIn={currentInfo.isLoggedIn} />
+            )}
           </div>
         </div>
       </div>

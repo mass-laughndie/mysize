@@ -49,7 +49,7 @@ export interface GonUser {
   image_url: string;
   size: number;
   content: string;
-  isFollow?: boolean;
+  isFollow: boolean;
   followingId: number | null;
   isMyself?: boolean;
 }

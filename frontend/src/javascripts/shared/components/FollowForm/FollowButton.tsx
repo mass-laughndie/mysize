@@ -1,33 +1,22 @@
 import * as React from 'react';
-import HiddenAuthenticityToken from '../HiddenAuthenticityField';
+import classnames from 'classnames';
 import { User } from '../../../types/commonTypes';
 import * as styles from './FollowForm.module.scss';
 
 interface Props {
   user: User;
+  onClick: React.ReactEventHandler<HTMLElement>;
 }
 
 const FollowButton = (props: Props) => {
-  const { id } = props.user;
+  const cx = classnames.bind(styles);
+
   return (
-    <div className={styles['form-follow']}>
-      <form
-        className="new_relationship"
-        id="new_relationship"
-        action="/relationships"
-        acceptCharset="UTF-8"
-        data-remote="true"
-        method="post"
-      >
-        <HiddenAuthenticityToken />
-        <div>
-          <input type="hidden" name="followed_id" id="followed_id" value={id} />
-        </div>
-        <button name="button" type="submit">
-          <i className="fa fa-user" />
-          <i className="fa fa-plus" />
-        </button>
-      </form>
+    <div className={cx('form-follow')}>
+      <a onClick={props.onClick}>
+        <i className="fa fa-user" />
+        <i className="fa fa-plus" />
+      </a>
     </div>
   );
 };

@@ -49,7 +49,7 @@ export interface User {
   image_url: string | undefined;
   size: number;
   content: string;
-  isFollow?: boolean;
+  isFollow: boolean;
   followingId: number | null;
   isMyself?: boolean;
 }
