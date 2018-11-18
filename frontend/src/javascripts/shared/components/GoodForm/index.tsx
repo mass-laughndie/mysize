@@ -21,12 +21,21 @@ interface Props {
   post: Post;
 }
 
-class GoodForm extends React.Component<Props> {
+interface State {
+  isGood: boolean;
+}
+
+class GoodForm extends React.Component<Props, State> {
+  state: State = {
+    isGood: this.props.post.isGood
+  };
+
   private renderGoodButton() {
     const { isLoggedIn, post } = this.props;
+    const { isGood } = this.state;
 
     if (isLoggedIn) {
-      if (post.isGood) {
+      if (isGood) {
         return <UngoodButton post={post} onClick={this.handleRemoveGoodList} />;
       } else {
         return <GoodButton post={post} onClick={this.handleAddGoodList} />;
@@ -43,6 +52,10 @@ class GoodForm extends React.Component<Props> {
 
     const { id, postType } = this.props.post;
     await addGoodList(id, postType);
+
+    this.setState({
+      isGood: true
+    });
   };
 
   private handleRemoveGoodList = async (
@@ -52,6 +65,10 @@ class GoodForm extends React.Component<Props> {
 
     const { goodId } = this.props.post;
     await removeGoodList(goodId);
+
+    this.setState({
+      isGood: false
+    });
   };
 
   public render() {
