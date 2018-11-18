@@ -18,19 +18,19 @@ module.exports = {
     'frontend/mypage': './src/javascripts/mypage',
     'frontend/search': './src/javascripts/search',
     'frontend/following': './src/javascripts/following',
-    'frontend/followers': './src/javascripts/followers'
+    'frontend/followers': './src/javascripts/followers',
   },
 
   output: {
     path: path.resolve(__dirname, '../public/assets'),
     filename: `${FILENAME}.js`,
-    chunkFilename: `${FILENAME}.js`
+    chunkFilename: `${FILENAME}.js`,
   },
 
   devtool: isProduction ? undefined : 'inline-source-map',
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', 'json', '.css', '.scss']
+    extensions: ['.ts', '.tsx', '.js', 'json', '.css', '.scss'],
   },
 
   module: {
@@ -38,12 +38,12 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: require.resolve('babel-loader') }
+        use: { loader: require.resolve('babel-loader') },
       },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: { loader: require.resolve('ts-loader') }
+        use: { loader: require.resolve('ts-loader') },
       },
       {
         test: /\.css$/,
@@ -54,12 +54,12 @@ module.exports = {
               loader: require.resolve('css-loader'),
               options: {
                 localIdentName: isProduction ? '[hash:base64:5]' : '[local]',
-                modules: true
-              }
+                modules: true,
+              },
             },
-            'sass-loader'
-          ]
-        })
+            'sass-loader',
+          ],
+        }),
       },
       {
         test: /\.module\.scss$/,
@@ -73,12 +73,12 @@ module.exports = {
                 modules: true,
                 sourceMap: true,
                 minimize: isProduction,
-                importLoaders: 2
-              }
+                importLoaders: 2,
+              },
             },
-            'sass-loader'
-          ]
-        })
+            'sass-loader',
+          ],
+        }),
       },
       {
         test: /\.(jpeg|jpg|gif|png|svg|eot|woff|woff2|ttf|wav|mp3)$/,
@@ -87,38 +87,38 @@ module.exports = {
           options: {
             name: '[path][name]-[hash].[ext]',
             outputPath: 'frontend/images/',
-            publicPath: '/assets/frontend/images/'
-          }
-        }
-      }
-    ]
+            publicPath: '/assets/frontend/images/',
+          },
+        },
+      },
+    ],
   },
 
   plugins: [
     new CleanWebpackPlugin(['frontend'], {
       root: path.resolve(__dirname, `../public/assets`),
-      verbose: true
+      verbose: true,
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: isProduction ? 'production' : 'development'
+      NODE_ENV: isProduction ? 'production' : 'development',
     }),
     new WebpackSprocketsRailsManifestPlugin({
-      manifestFile: '../../config/sprockets-manifest.json'
+      manifestFile: '../../config/sprockets-manifest.json',
     }),
-    new ExtractTextPlugin({ filename: 'styles.css', allChunks: true })
+    new ExtractTextPlugin({ filename: 'frontend/styles.css', allChunks: true }),
   ],
 
   optimization: {
     splitChunks: {
       name: true,
-      minChunks: Infinity
+      minChunks: Infinity,
     },
     runtimeChunk: {
-      name: 'frontend/manifest'
-    }
-  }
+      name: 'frontend/manifest',
+    },
+  },
 };

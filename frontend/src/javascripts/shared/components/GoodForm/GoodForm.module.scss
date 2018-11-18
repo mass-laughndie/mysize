@@ -1,4 +1,4 @@
-@import '../../../../stylesheets/common.scss';
+@import '../../../../stylesheets/_common.module.scss';
 
 .good-form {
   height: 100%;
@@ -22,7 +22,7 @@
   }
 
   .form-ungood {
-    form a .fa,
+    a .fa,
     form button .fa {
       color: $waccent;
     }
