@@ -36,18 +36,22 @@ class GoodForm extends React.Component<Props> {
     }
   }
 
-  private handleAddGoodList = (event: React.SyntheticEvent<HTMLElement>) => {
+  private handleAddGoodList = async (
+    event: React.SyntheticEvent<HTMLElement>
+  ) => {
     event.preventDefault();
 
     const { id, postType } = this.props.post;
-    addGoodList(id, postType);
+    await addGoodList(id, postType);
   };
 
-  private handleRemoveGoodList = (event: React.SyntheticEvent<HTMLElement>) => {
+  private handleRemoveGoodList = async (
+    event: React.SyntheticEvent<HTMLElement>
+  ) => {
     event.preventDefault();
 
     const { goodId } = this.props.post;
-    removeGoodList(goodId);
+    await removeGoodList(goodId);
   };
 
   public render() {
