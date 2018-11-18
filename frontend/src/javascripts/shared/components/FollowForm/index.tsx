@@ -60,8 +60,6 @@ class FollowForm extends React.Component<Props, State> {
     const { id } = this.props.user;
     const new_relationship = await followUser(id);
 
-    console.log(new_relationship);
-
     this.setState({
       followingId: new_relationship.id,
       isFollow: true

@@ -7,8 +7,6 @@ export const followUser = async (id: number): Promise<any> => {
     })
     .catch(error => console.log(error));
 
-  console.log(response);
-
   return response.data;
 };
 
