@@ -3,6 +3,7 @@
 <% provide(:og_url, latest_url) %>
 <% content_for :javascript_addition do %>
   <%= javascript_include_tag "frontend/latest" %>
+  <%= stylesheet_link_tag "frontend/latest", media: :all %>
 <% end %>
 
 <%= render 'layouts/right_popup', icon: 'signin' %>
