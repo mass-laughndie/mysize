@@ -28,3 +28,31 @@
     }
   }
 }
+
+.kpost-aicon {
+  cursor: pointer;
+  float: left;
+  height: 100%;
+  line-height: 20px;
+  margin-right: 5px;
+  padding: 0 5px;
+  width: 30px;
+
+  .good-form div form button i {
+    font-size: 15px;
+  }
+
+  a,
+  i {
+    display: block;
+    height: 100%;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .fa-reply {
+    line-height: 22px;
+  }
+}

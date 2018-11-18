@@ -7,8 +7,9 @@ import * as styles from './GoodForm.module.scss';
 import { addGoodList, removeGoodList } from '../../apis/GoodApi';
 
 const DummyGoodButton = () => {
+  const cx = classnames.bind(styles);
   return (
-    <div className={classnames(styles.c, styles['form-good'])}>
+    <div className={cx('c', 'form-good')}>
       <a className="ban" href="#">
         <i className="fa fa-thumbs-o-up" />
       </a>
@@ -24,12 +25,14 @@ interface Props {
 interface State {
   goodId: number | null;
   isGood: boolean;
+  goodNum: number;
 }
 
 class GoodForm extends React.Component<Props, State> {
   state: State = {
     goodId: this.props.post.goodId,
-    isGood: this.props.post.isGood
+    isGood: this.props.post.isGood,
+    goodNum: this.props.post.goodNum
   };
 
   private renderGoodButton() {
@@ -57,7 +60,8 @@ class GoodForm extends React.Component<Props, State> {
 
     this.setState({
       goodId: new_good.id,
-      isGood: true
+      isGood: true,
+      goodNum: this.state.goodNum + 1
     });
   };
 
@@ -71,16 +75,30 @@ class GoodForm extends React.Component<Props, State> {
 
     this.setState({
       goodId: null,
-      isGood: false
+      isGood: false,
+      goodNum: this.state.goodNum - 1
     });
   };
 
   public render() {
+    const cx = classnames.bind(styles);
     const { postType, id } = this.props.post;
+    const { goodNum } = this.state;
+
     return (
-      <div id={`good-form-${postType}-${id}`} className={styles['good-form']}>
-        {this.renderGoodButton()}
-      </div>
+      <React.Fragment>
+        <div className={cx('kpost-aicon')}>
+          <div
+            id={`good-form-${postType}-${id}`}
+            className={styles['good-form']}
+          >
+            {this.renderGoodButton()}
+          </div>
+        </div>
+        <div className={cx('kpost-num')} id={`good-num-${postType}-${id}`}>
+          <a href={`/${postType}s/${id}/gooders`}>{goodNum}</a>
+        </div>
+      </React.Fragment>
     );
   }
 }
