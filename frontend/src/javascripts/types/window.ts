@@ -64,6 +64,7 @@ export interface Gon {
   followingKicksposts: GonKickspost[];
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
+  searchUsers: GonUser[];
   searchKicksposts: GonKickspost[];
   searchComments: GonComment[];
   currentInfo: GonCurrentInfo;

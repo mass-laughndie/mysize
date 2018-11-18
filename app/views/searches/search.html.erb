@@ -35,9 +35,7 @@
         <div data-react-entry="SearchComments"></div>
       <% elsif (params[:for] == 'user' || params[:for].blank?) && @users.any? %>
         <div class="setting-select">
-          <ul>
-            <%= render @users %>
-          </ul>
+          <div data-react-entry="SearchUsers"></div>
         </div>
       <% else %>
         <%= render partial: 'shared/no_data',

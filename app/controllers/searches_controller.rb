@@ -4,8 +4,9 @@ class SearchesController < ApplicationController
     @users = User.search(params[:keyword])
     @kicksposts = Kickspost.search(params[:keyword]).includes(:user, {comments: :user})
     @comments = Comment.search(params[:keyword]).includes(:user)
+    gon.searchUsers = User.find_format_gon_params(@users.ids.uniq, logged_in? ? current_user : nil) if params[:for] == 'user'
     gon.searchKicksposts = Kickspost.find_format_gon_params(@kicksposts.ids.uniq, logged_in? ? current_user : nil) if params[:for] == "post"
-    gon.searchComments = Comment.find_format_gon_params(@comments.ids.uniq, logged_in? ? current_user : nil) if params[:for] == "com"
+    gon.searchComments = Comment.find_format_gon_params(@comments.ids.uniq, logged_in? ? current_user : nil) if params[:for] == 'com'
     gon.currentInfo = {
       isLoggedIn: logged_in?,
       isPostPage: false
