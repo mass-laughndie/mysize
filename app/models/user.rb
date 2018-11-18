@@ -150,12 +150,21 @@ class User < ApplicationRecord
 
     def map_gon_hah(user, cuser)
       return if user.blank?
+      if cuser.present?
+        is_follow = cuser.following?(user)
+        relationship = cuser.active_relationships.find_by(followed_id: user.id)
+      else
+        is_follow = false
+        relationship = nil
+      end
+      
       Hash[
         extract_params_for_gon.map do |ep|
           [ep, user.send(ep)]
         end
       ].merge({
-        isFollow: (cuser.present? ? cuser.following?(user) : false),
+        isFollow: is_follow,
+        followingId: relationship.present? ? relationship.id : relationship,
         isMyself: user.id == (cuser.present? ? cuser.id : 0)
       })
     end

@@ -50,6 +50,7 @@ export interface User {
   size: number;
   content: string;
   isFollow?: boolean;
+  followingId: number | null;
   isMyself?: boolean;
 }
 
