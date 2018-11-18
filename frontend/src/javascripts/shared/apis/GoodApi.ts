@@ -7,7 +7,7 @@ export const addGoodList = async (id: number, type: string): Promise<any> => {
       post_id: id,
       post_type: formatPoatType
     })
-    .catch(value => console.log(value));
+    .catch(error => console.log(error));
 
   return response.data;
 };
