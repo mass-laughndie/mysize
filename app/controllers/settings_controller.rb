@@ -1,5 +1,4 @@
 class SettingsController < ApplicationController
-
   before_action :logged_in_user
 
   def welcome

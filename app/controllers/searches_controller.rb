@@ -1,5 +1,4 @@
 class SearchesController < ApplicationController
-
   def search
     @users = User.search(params[:keyword])
     @kicksposts = Kickspost.search(params[:keyword]).includes(:user, {comments: :user})
@@ -12,5 +11,4 @@ class SearchesController < ApplicationController
       isPostPage: false
     }
   end
-  
 end

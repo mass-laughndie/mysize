@@ -1,6 +1,5 @@
 class KickspostsController < ApplicationController
-  
-  before_action :logged_in_user,          except: [:show]
+  before_action :logged_in_user, except: [:show]
 
   def show
     @kickspost = Kickspost.find_by(id: params[:id])
@@ -75,15 +74,15 @@ class KickspostsController < ApplicationController
 
   private
 
-    def kickspost_params
-      params.require(:kickspost).permit(:title, :color, :brand,
-                                        :content, :picture,
-                                        :picture_cache, :size)
-    end
+  def kickspost_params
+    params.require(:kickspost).permit(:title, :color, :brand,
+                                      :content, :picture,
+                                      :picture_cache, :size)
+  end
 
-    def redirect_if_invalid(user)
-      return if current_user?(user) || current_user.admin?
-      flash[:danger] = "権限がありません"
-      redirect_to(root_url) and return true
-    end
+  def redirect_if_invalid(user)
+    return if current_user?(user) || current_user.admin?
+    flash[:danger] = "権限がありません"
+    redirect_to(root_url) and return true
+  end
 end
