@@ -1,20 +1,22 @@
 @import '../../../../stylesheets/_common.module.scss';
 
 .good-form {
-  height: 100%;
   position: relative;
+  height: 100%;
   width: 100%;
 
   .form-good,
   .form-ungood {
     height: 100%;
     width: 100%;
+
     a,
     form,
     button {
       display: block;
       height: 100%;
       width: 100%;
+
       .fa {
         color: $base-grey;
       }
@@ -30,13 +32,13 @@
 }
 
 .kpost-aicon {
-  cursor: pointer;
   float: left;
   height: 100%;
-  line-height: 20px;
+  width: 30px;
   margin-right: 5px;
   padding: 0 5px;
-  width: 30px;
+  line-height: 20px;
+  cursor: pointer;
 
   .good-form div form button i {
     font-size: 15px;
@@ -46,10 +48,10 @@
   i {
     display: block;
     height: 100%;
+    width: 100%;
     font-size: 15px;
     line-height: 20px;
     text-align: center;
-    width: 100%;
   }
 
   .fa-reply {
