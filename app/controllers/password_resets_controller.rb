@@ -44,20 +44,20 @@ class PasswordResetsController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
 
-    def redirect_if_invalid(user)
-      return if user && user.authenticated?(:reset, params[:rst])
-      flash[:danger] = "そのページへはアクセスできません"
-      redirect_to root_url and return true
-    end
+  def redirect_if_invalid(user)
+    return if user && user.authenticated?(:reset, params[:rst])
+    flash[:danger] = "そのページへはアクセスできません"
+    redirect_to root_url and return true
+  end
 
-    def redirect_if_expired_password_reset_for(user)
-      return unless user && user.password_reset_expired?
-      user.update_attributes(reset_digest: nil, e_token: nil)
-      flash[:danger] = "パスワード再発行期限が切れています"
-      redirect_to new_password_reset_url and return true
-    end
+  def redirect_if_expired_password_reset_for(user)
+    return unless user && user.password_reset_expired?
+    user.update_attributes(reset_digest: nil, e_token: nil)
+    flash[:danger] = "パスワード再発行期限が切れています"
+    redirect_to new_password_reset_url and return true
+  end
 end

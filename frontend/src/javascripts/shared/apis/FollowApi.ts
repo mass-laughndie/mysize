@@ -1,11 +1,19 @@
 import axios from './common/axios';
 
-export const follow = id => {
-  axios.post('/relationships', {
-    id
-  });
+export const followUser = async (id: number): Promise<any> => {
+  const response = await axios
+    .post('/relationships.json', {
+      followed_id: id
+    })
+    .catch(error => console.log(error));
+
+  return response.data;
 };
 
-export const unfollow = id => {
-  axios.delete(`/relationships/${id}`);
+export const unfollowUser = async (
+  followingId: number | null
+): Promise<any> => {
+  if (typeof followingId == 'number') {
+    await axios.delete(`/relationships/${followingId}`);
+  }
 };

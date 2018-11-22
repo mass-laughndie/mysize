@@ -19,6 +19,7 @@ export const user: User = {
   size: 27,
   content: 'My size is 27. My favorite brand is KITH.',
   isFollow: false,
+  followingId: null,
   isMyself: true
 };
 
@@ -30,6 +31,7 @@ export const user2: User = {
   size: 28.5,
   content: 'My size is 28.5.',
   isFollow: false,
+  followingId: null,
   isMyself: false
 };
 
@@ -41,6 +43,7 @@ export const user3: User = {
   size: 25.5,
   content: 'My size is 25.5.',
   isFollow: true,
+  followingId: 1,
   isMyself: false
 };
 
@@ -61,7 +64,9 @@ export const kickspost: Kickspost = {
     mysize_id: 'mysize1',
     name: 'Mysize1',
     size: 27,
-    content: 'My size is 27. My favorite brand is KITH.'
+    content: 'My size is 27. My favorite brand is KITH.',
+    isFollow: false,
+    followingId: null
   },
   goodNum: 2,
   commentNum: 1,
@@ -87,7 +92,9 @@ export const kickspost2: Kickspost = {
     mysize_id: 'mysize2',
     name: 'Mysize2',
     size: 28.5,
-    content: 'My size is 28.5.'
+    content: 'My size is 28.5.',
+    isFollow: false,
+    followingId: null
   },
   goodNum: 6,
   commentNum: 3,
@@ -114,7 +121,9 @@ export const kickspost3: Kickspost = {
     mysize_id: 'mysize1',
     name: 'Mysize1',
     size: 27,
-    content: 'My size is 27. My favorite brand is KITH.'
+    content: 'My size is 27. My favorite brand is KITH.',
+    isFollow: false,
+    followingId: null
   },
   goodNum: 4,
   commentNum: 0,
@@ -137,7 +146,9 @@ export const comment: Comment = {
     mysize_id: 'mysize2',
     name: 'Mysize2',
     size: 28.5,
-    content: 'My size is 28.5.'
+    content: 'My size is 28.5.',
+    isFollow: false,
+    followingId: null
   },
   goodNum: 1,
   isGood: true,
@@ -159,7 +170,9 @@ export const reply: Comment = {
     mysize_id: 'mysize1',
     name: 'Mysize1',
     size: 27,
-    content: 'My size is 27. My favorite brand is KITH.'
+    content: 'My size is 27. My favorite brand is KITH.',
+    isFollow: false,
+    followingId: null
   },
   goodNum: 1,
   isGood: false,

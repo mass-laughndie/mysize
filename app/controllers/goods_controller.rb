@@ -1,5 +1,4 @@
 class GoodsController < ApplicationController
-  
   before_action :logged_in_user
 
   def create
@@ -11,6 +10,7 @@ class GoodsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to current_user }
       format.js
+      format.json { render :json => @good }
     end
   end
 

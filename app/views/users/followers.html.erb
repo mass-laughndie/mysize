@@ -7,6 +7,7 @@
 
 <% content_for :javascript_addition do %>
   <%= javascript_include_tag "frontend/followers" %>
+  <%= stylesheet_link_tag "frontend/followers", media: :all %>
 <% end %>
 
 <% unless @users.blank? %>

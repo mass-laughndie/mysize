@@ -42,12 +42,7 @@ const NormalPostAct = (props: Props) => {
     >
       <div className={cx('kpost-time')}>{moment(created_at).fromNow()}</div>
       <div className={cx('kpost-alist')}>
-        <div className={cx('kpost-aicon')}>
-          <GoodForm isLoggedIn={isLoggedIn} post={props.post} />
-        </div>
-        <div className={cx('kpost-num')} id={`good-num-${postType}-${id}`}>
-          <a href={`/${postType}s/${id}/gooders`}>{goodNum}</a>
-        </div>
+        <GoodForm isLoggedIn={isLoggedIn} post={props.post} />
       </div>
       {isKickspost ? (
         <React.Fragment>

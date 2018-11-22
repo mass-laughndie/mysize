@@ -1,4 +1,4 @@
-@import '../../../../stylesheets/common.scss';
+@import '../../../../stylesheets/_common.module.scss';
 
 .form-follow {
   background: #fff;
@@ -13,6 +13,7 @@
     color: $accent;
     display: block;
     font-size: 14px;
+    line-height: 30px;
     height: 100%;
     width: 100%;
 
@@ -36,11 +37,13 @@
   height: 30px;
   width: 50px;
 
+  a,
   form,
   button {
     color: #fff;
     display: block;
     font-size: 14px;
+    line-height: 30px;
     height: 100%;
     width: 100%;
 

@@ -3,6 +3,7 @@
 <% provide(:og_url, follow_url) %>
 <% content_for :javascript_addition do %>
   <%= javascript_include_tag "frontend/follow" %>
+  <%= stylesheet_link_tag "frontend/follow", media: :all %>
 <% end %>
 
 <%= render partial: 'static_pages/home_logged_in',

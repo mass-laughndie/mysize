@@ -49,7 +49,8 @@ export interface GonUser {
   image_url: string;
   size: number;
   content: string;
-  isFollow?: boolean;
+  isFollow: boolean;
+  followingId: number | null;
   isMyself?: boolean;
 }
 
@@ -63,6 +64,7 @@ export interface Gon {
   followingKicksposts: GonKickspost[];
   mypageKicksposts: GonKickspost[];
   latestKicksposts: GonKickspost[];
+  searchUsers: GonUser[];
   searchKicksposts: GonKickspost[];
   searchComments: GonComment[];
   currentInfo: GonCurrentInfo;

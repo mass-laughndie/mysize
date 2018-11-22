@@ -16,5 +16,4 @@ class Good < ApplicationRecord
   validates :gooded_id, presence: { message: "被ユーザーを特定できません"}
   validates :post_id,   presence: { message: "投稿を特定できません"}
   validates :post_type, presence: { message: "投稿タイプを特定できません"}
-  
 end

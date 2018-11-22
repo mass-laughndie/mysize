@@ -5,6 +5,7 @@
 <% provide(:search_url, search_path) %>
 <% content_for :javascript_addition do %>
   <%= javascript_include_tag "frontend/search" %>
+  <%= stylesheet_link_tag "frontend/search", media: :all %>
 <% end %>
 
 <div class="content-nspace fixed-space">
@@ -34,9 +35,7 @@
         <div data-react-entry="SearchComments"></div>
       <% elsif (params[:for] == 'user' || params[:for].blank?) && @users.any? %>
         <div class="setting-select">
-          <ul>
-            <%= render @users %>
-          </ul>
+          <div data-react-entry="SearchUsers"></div>
         </div>
       <% else %>
         <%= render partial: 'shared/no_data',

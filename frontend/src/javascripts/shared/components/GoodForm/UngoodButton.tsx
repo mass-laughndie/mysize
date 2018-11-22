@@ -14,7 +14,7 @@ const UngoodButton = (props: Props) => {
   return (
     <div className={cx('form-ungood')}>
       <a onClick={props.onClick}>
-        <i className={cx('fa', 'fa-thumbs-up')} />
+        <i className={classnames('fa', 'fa-thumbs-up')} />
       </a>
     </div>
   );
