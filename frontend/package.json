@@ -10,7 +10,8 @@
     "build-storybook": "build-storybook -c .storybook",
     "lint": "npm-run-all lint:*",
     "lint:css": "stylelint 'src/**/*.{css,scss}'",
-    "lint:js": "eslint --ext js,ts,tsx src/javascripts test"
+    "lint:js": "eslint --ext js,ts,tsx src/javascripts test",
+    "format:css": "stylelint --fix 'src/**/*.{css,scss}'"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
