@@ -113,7 +113,6 @@ module.exports = {
       filename: isProduction ? '[name]-[contenthash].css' : '[name].css',
       chunkFilename: isProduction ? '[name]-[contenthash].css' : '[name].css',
     }),
-    // new ExtractTextPlugin({ filename: 'frontend/styles.css', allChunks: true }),
   ],
 
   optimization: {
