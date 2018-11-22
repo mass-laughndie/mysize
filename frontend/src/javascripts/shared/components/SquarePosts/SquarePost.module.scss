@@ -3,43 +3,43 @@
 .square-list {
   display: block;
   float: left;
-  max-width: 200px;
   position: relative;
+  max-width: 200px;
   width: 33.3%;
 
   .square-picture {
-    border: 0.5px solid #fff;
     position: relative;
     width: 100%;
+    border: 0.5px solid #fff;
 
     a {
       display: block;
-      height: 100%;
+      left: 0;
       position: absolute;
       top: 0;
-      left: 0;
+      height: 100%;
       width: 100%;
     }
   }
 
-  .square-picture:before {
-    content: '';
+  .square-picture::before {
     display: block;
     padding-top: 100%;
+    content: '';
   }
 
   .square-size {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    color: white;
-    font-size: 10px;
-    height: 24px;
-    line-height: 12px;
-    letter-spacing: 0.5px;
-    padding: 6px;
-    pointer-events: none;
+    bottom: 3px;
     position: absolute;
     right: 3px;
-    bottom: 3px;
+    height: 24px;
+    padding: 6px;
+    font-size: 10px;
+    color: white;
+    letter-spacing: 0.5px;
+    line-height: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    pointer-events: none;
   }
 }
