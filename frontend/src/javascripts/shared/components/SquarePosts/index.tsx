@@ -13,7 +13,13 @@ class SquarePosts extends React.Component<Props> {
 
   public render() {
     const { posts } = this.props;
-    return <ul>{posts.map(this.renderSquarePost)}</ul>;
+    return (
+      <ul>
+        {posts.map(
+          post => post.postType == 'kickspost' && this.renderSquarePost(post)
+        )}
+      </ul>
+    );
   }
 }
 
