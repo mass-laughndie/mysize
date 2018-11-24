@@ -187,3 +187,5 @@ export const posts: Post[] = [
   kickspost2,
   kickspost3
 ];
+
+export const users: User[] = [user, user2, user3];
