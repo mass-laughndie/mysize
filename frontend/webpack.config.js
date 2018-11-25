@@ -40,7 +40,7 @@ module.exports = {
     'frontend/test': './src/javascripts/test',
     'frontend/latest': './src/javascripts/pages/latest',
     'frontend/follow': './src/javascripts/pages/follow',
-    'frontend/follow_square': './src/javascripts/follow_square',
+    'frontend/follow_square': './src/javascripts/pages/follow_square',
     'frontend/mypage': './src/javascripts/mypage',
     'frontend/search': './src/javascripts/search',
     'frontend/following': './src/javascripts/following',
