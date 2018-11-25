@@ -1,0 +1,16 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as $ from 'jquery';
+import { gon } from '../../types/window';
+import SquarePosts from '../../shared/components/SquarePosts';
+
+const posts = gon.followingKicksposts;
+
+const entryPoint = '[data-react-entry="FollowingSquarePosts"]';
+
+if ($(entryPoint).length) {
+  ReactDOM.render(
+    <SquarePosts posts={posts} />,
+    document.querySelector('[data-react-entry="FollowingSquarePosts"]')
+  );
+}

@@ -38,13 +38,13 @@ module.exports = {
   entry: {
     'frontend/global': './src/javascripts/global.ts',
     'frontend/test': './src/javascripts/test',
-    'frontend/latest': './src/javascripts/latest',
-    'frontend/follow': './src/javascripts/follow',
-    'frontend/follow_square': './src/javascripts/follow_square',
-    'frontend/mypage': './src/javascripts/mypage',
-    'frontend/search': './src/javascripts/search',
-    'frontend/following': './src/javascripts/following',
-    'frontend/followers': './src/javascripts/followers',
+    'frontend/latest': './src/javascripts/pages/latest',
+    'frontend/follow': './src/javascripts/pages/follow',
+    'frontend/follow_square': './src/javascripts/pages/follow_square',
+    'frontend/mypage': './src/javascripts/pages/mypage',
+    'frontend/search': './src/javascripts/pages/search',
+    'frontend/following': './src/javascripts/pages/following',
+    'frontend/followers': './src/javascripts/pages/followers',
   },
 
   output: {
