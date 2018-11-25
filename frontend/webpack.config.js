@@ -39,7 +39,7 @@ module.exports = {
     'frontend/global': './src/javascripts/global.ts',
     'frontend/test': './src/javascripts/test',
     'frontend/latest': './src/javascripts/pages/latest',
-    'frontend/follow': './src/javascripts/follow',
+    'frontend/follow': './src/javascripts/pages/follow',
     'frontend/follow_square': './src/javascripts/follow_square',
     'frontend/mypage': './src/javascripts/mypage',
     'frontend/search': './src/javascripts/search',
