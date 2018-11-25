@@ -38,7 +38,7 @@ module.exports = {
   entry: {
     'frontend/global': './src/javascripts/global.ts',
     'frontend/test': './src/javascripts/test',
-    'frontend/latest': './src/javascripts/latest',
+    'frontend/latest': './src/javascripts/pages/latest',
     'frontend/follow': './src/javascripts/follow',
     'frontend/follow_square': './src/javascripts/follow_square',
     'frontend/mypage': './src/javascripts/mypage',
