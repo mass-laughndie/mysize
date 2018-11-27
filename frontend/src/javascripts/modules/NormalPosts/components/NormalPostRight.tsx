@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Post } from '../../../types/commonTypes';
-import PostMenu from '../../shared/components/PostMenu';
+import PostMenu from '../../Shared/components/PostMenu';
 import classnames from 'classnames';
 import * as styles from './NormalPost.module.scss';
 
