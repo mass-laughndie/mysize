@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as $ from 'jquery';
 import classnames from 'classnames';
 import { User, CurrentInfo } from '../../../types/commonTypes';
-import { NormalPostLeft } from '../NormalPosts/NormalPostLeft';
-import * as styles from '../List.module.scss';
+import { NormalPostLeft } from '../../../modules/NormalPosts/components/NormalPostLeft';
+import * as styles from '../../../modules/Shared/components/List.module.scss';
 import { UserListContent } from './UserListContent';
 
 interface Props {

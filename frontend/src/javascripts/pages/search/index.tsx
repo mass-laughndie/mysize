@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as $ from 'jquery';
 import { gon } from '../../types/window';
-import NormalPosts from '../../shared/components/NormalPosts';
+import NormalPosts from '../../modules/NormalPosts/components';
 import UserLists from '../../shared/components/UserLists';
 
 const searchUsers = gon.searchUsers;

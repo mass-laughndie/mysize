@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GoodForm from '../GoodForm';
+import GoodForm from '../../../shared/components/GoodForm';
 import { Post, CurrentInfo } from '../../../types/commonTypes';
 import classnames from 'classnames';
 import * as styles from './NormalPost.module.scss';
