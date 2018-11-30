@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getCsrfToken from '../../utils/getCsrtToken';
+import getCsrfToken from '../../../modules/Shared/utils/getCsrtToken';
 import * as QueryStringForRails from './QueryStringForRails';
 
 const axiosConfig = {
