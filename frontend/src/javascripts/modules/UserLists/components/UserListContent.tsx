@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import { User, CurrentInfo } from '../../../types/commonTypes';
-import FollowForm from '../FollowForm';
+import FollowForm from '../../../shared/components/FollowForm';
 import * as styles from './UserListContent.module.scss';
 
 interface Props {
