@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Post } from '../../types/commonTypes';
+import { Post } from '../../../types/commonTypes';
 import { PostDelete } from './PostDelete';
 import * as styles from './PostMenu.module.scss';
 import * as $ from 'jquery';

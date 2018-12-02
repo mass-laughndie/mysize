@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as $ from 'jquery';
 import { gon } from '../../types/window';
-import SquarePosts from '../../shared/components/SquarePosts';
+import SquarePosts from '../../modules/SquarePosts/components';
 
 const posts = gon.followingKicksposts;
 

@@ -37,7 +37,6 @@ function getLoaders({ modules }) {
 module.exports = {
   entry: {
     'frontend/global': './src/javascripts/global.ts',
-    'frontend/test': './src/javascripts/test',
     'frontend/latest': './src/javascripts/pages/latest',
     'frontend/follow': './src/javascripts/pages/follow',
     'frontend/follow_square': './src/javascripts/pages/follow_square',
