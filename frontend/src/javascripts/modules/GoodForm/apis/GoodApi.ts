@@ -1,4 +1,4 @@
-import axios from '../../modules/Shared/apis/common/axios';
+import axios from '../../Shared/apis/common/axios';
 
 export const addGoodList = async (id: number, type: string): Promise<any> => {
   const formatPoatType = type.charAt(0).toUpperCase() + type.slice(1);

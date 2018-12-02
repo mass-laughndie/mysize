@@ -4,7 +4,7 @@ import { UngoodButton } from './UngoodButton';
 import { Post } from '../../../types/commonTypes';
 import classnames from 'classnames';
 import * as styles from './GoodForm.module.scss';
-import { addGoodList, removeGoodList } from '../../../shared/apis/GoodApi';
+import { addGoodList, removeGoodList } from '../apis/GoodApi';
 
 const DummyGoodButton = () => {
   const cx = classnames.bind(styles);
