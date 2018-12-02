@@ -9,11 +9,3 @@ export const followUser = async (id: number): Promise<any> => {
 
   return response.data;
 };
-
-export const unfollowUser = async (
-  followingId: number | null
-): Promise<any> => {
-  if (typeof followingId == 'number') {
-    await axios.delete(`/relationships/${followingId}`);
-  }
-};
