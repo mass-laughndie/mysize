@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as $ from 'jquery';
 import { gon } from '../../types/window';
-import NormalPosts from '../../modules/NormalPosts/components';
-import SquarePosts from '../../modules/SquarePosts/components';
+import NormalPosts from '../../features/NormalPosts/components';
+import SquarePosts from '../../features/SquarePosts/components';
 
 const posts = gon.mypageKicksposts;
 const currentInfo = gon.currentInfo;
