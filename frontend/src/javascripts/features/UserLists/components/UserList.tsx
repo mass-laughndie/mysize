@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import classnames from 'classnames';
 import { User, CurrentInfo } from '../../../types/commonTypes';
 import { NormalPostLeft } from '../../NormalPosts/components/NormalPostLeft';
-import * as styles from '../../../modules/Shared/components/List.module.scss';
+import * as styles from '../../../features/Shared/components/List.module.scss';
 import { UserListContent } from './UserListContent';
 
 interface Props {

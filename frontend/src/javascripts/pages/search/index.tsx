@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as $ from 'jquery';
 import { gon } from '../../types/window';
-import NormalPosts from '../../modules/NormalPosts/components';
-import UserLists from '../../modules/UserLists/components';
+import NormalPosts from '../../features/NormalPosts/components';
+import UserLists from '../../features/UserLists/components';
 
 const searchUsers = gon.searchUsers;
 const searchKicksposts = gon.searchKicksposts;

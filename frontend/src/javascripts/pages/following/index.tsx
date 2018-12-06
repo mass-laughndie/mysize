@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as $ from 'jquery';
 import { gon } from '../../types/window';
-import UserLists from '../../modules/UserLists/components';
+import UserLists from '../../features/UserLists/components';
 
 const users = gon.followingUsers;
 const currentInfo = gon.currentInfo;

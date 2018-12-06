@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as $ from 'jquery';
 import { gon } from '../../types/window';
-import NormalPosts from '../../modules/NormalPosts/components';
+import NormalPosts from '../../features/NormalPosts/components';
 
 const posts = gon.latestKicksposts;
 const currentInfo = gon.currentInfo;

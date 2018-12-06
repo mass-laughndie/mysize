@@ -4,7 +4,7 @@ import { User } from '../../../types/commonTypes';
 import { FollowButton } from './FollowButton';
 import { UnfollowButton } from './UnfollowButton';
 import * as styles from './FollowForm.module.scss';
-import { followUser, unfollowUser } from '../apis/FollowApi';
+import { followUser, unfollowUser } from '../apis';
 
 const DummyFollowButton = () => {
   const cx = classnames.bind(styles);
