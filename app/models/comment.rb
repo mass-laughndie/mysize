@@ -41,7 +41,7 @@ class Comment < ApplicationRecord
     end
 
     def find_format_gon_params_by(id, cuser)
-      map_gon_hah(self.find_by(id), cuser)
+      map_gon_hah(self.find_by(id: id), cuser)
     end
 
     private
