@@ -23,6 +23,7 @@ gem 'rack-rewrite',          '~> 1.5.1'    #ドメイン統合
 gem 'gon',                   '~> 6.2.0'
 gem 'mysql2',                '~> 0.4.0'
 gem 'yaml_db'
+gem 'hypernova'
 
 group :development, :test do
   # gem 'sqlite3',       '1.3.13'
