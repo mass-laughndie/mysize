@@ -1,3 +1,6 @@
+require 'hypernova'
+require 'hypernova/plugins/development_mode_plugin'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -54,3 +57,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
+Hypernova.add_plugin!(DevelopmentModePlugin.new)

@@ -44,6 +44,7 @@ module.exports = {
     'frontend/search': './src/javascripts/pages/search',
     'frontend/following': './src/javascripts/pages/following',
     'frontend/followers': './src/javascripts/pages/followers',
+    'frontend/test': './src/javascripts/pages/test',
   },
 
   output: {
