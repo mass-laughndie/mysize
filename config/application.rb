@@ -20,6 +20,11 @@ module Mysize1
     config.autoload_paths += %W(#{config.root}/config/locales)
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
 
+    # Set test generation on Rspec
+    config.generators do |g|
+      g.test_framework :rpsec
+    end
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
