@@ -54,9 +54,9 @@ class NoticesController < ApplicationController
   private
 
   def reset_unread_count_by(notices)
-    urnotices = notices.where.not(unread_count: 0)
-    return if urnotices.none?
-    urnotices.each do |notice|
+    unread_notices = notices.where.not(unread_count: 0)
+    return if unread_notices.none?
+    unread_notices.each do |notice|
       notice.decrement!(:unread_count, notice.unread_count)
     end
   end
