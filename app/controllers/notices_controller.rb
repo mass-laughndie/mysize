@@ -35,7 +35,7 @@ class NoticesController < ApplicationController
       if ntype.in?(["ReplyCom", "NormalCom", "ReplyPost"])
         @posts << post
       elsif ntype.in?(["Comment", "Kickspost"])
-        gooders = post.gooders_without_ownself
+        gooders = post.gooders_without(current_user)
         notice.destroy or next if gooders.blank?
         @posts << post
         @gcommers << gooders if ntype == "Comment"

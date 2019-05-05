@@ -41,6 +41,7 @@ class Comment < ApplicationRecord
     end
 
     def find_format_gon_params_by(id, cuser)
+      return if id.nil?
       map_gon_hah(self.find_by(id: id), cuser)
     end
 
@@ -67,7 +68,7 @@ class Comment < ApplicationRecord
         end
       ].merge({
         postType: post_type,
-        postUser: User.find_format_gon_params_by(post.user_id),
+        postUser: User.find_format_gon_params_by(post&.user_id),
         goodNum: post.goods.size,
         isGood: is_good,
         isMyPost: cuser == post.user,
@@ -123,7 +124,7 @@ class Comment < ApplicationRecord
     user.lose_notice_of("NormalCom", self) unless user == cuser
   end
 
-  def gooders_without_ownself
-    gooders.where.not(id: current_user.id)
+  def gooders_without(user)
+    gooders.where.not(id: user.id)
   end
 end

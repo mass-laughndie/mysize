@@ -139,6 +139,7 @@ class User < ApplicationRecord
     end
 
     def find_format_gon_params_by(id, cuser = nil)
+      return if id.nil?
       map_gon_hah(self.find_by(id: id), cuser)
     end
 

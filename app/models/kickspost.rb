@@ -50,6 +50,7 @@ class Kickspost < ApplicationRecord
     end
 
     def find_format_gon_params_by(id, cuser)
+      return if id.nil?
       map_gon_hah(self.find_by(id: id), cuser)
     end
 
@@ -76,7 +77,7 @@ class Kickspost < ApplicationRecord
         end
       ].merge({
         postType: post_type,
-        postUser: User.find_format_gon_params_by(post.user_id),
+        postUser: User.find_format_gon_params_by(post&.user_id),
         goodNum: post.goods.size,
         commentNum: post.comments.size,
         isGood: is_good,
@@ -125,8 +126,8 @@ class Kickspost < ApplicationRecord
     end
   end
 
-  def gooders_without_ownself
-    gooders.where.not(id: current_user.id)
+  def gooders_without(user)
+    gooders.where.not(id: user.id)
   end
 
   private
