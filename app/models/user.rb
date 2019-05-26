@@ -94,6 +94,8 @@ class User < ApplicationRecord
                                if: :validate_shoesize? }
 
   validate :image_size
+
+  DEFAULT_SHOESIZE = 27.0
   
   class << self
     def digest(string)
@@ -107,23 +109,6 @@ class User < ApplicationRecord
 
     def new_reset_token
       SecureRandom.uuid
-    end
-
-    def find_or_create_from_auth(auth)
-      provider  = auth[:provider]
-      uid       = auth[:uid]
-      name      = auth[:info][:name]
-      mysizeid  = auth[:info][:nickname]
-      email     = User.dummy_email(auth)
-      image     = auth[:info][:image].sub("_normal", "")
-
-      find_or_create_by(provider: provider, uid: uid) do |user|
-        user.name  = name
-        user.email = email
-        user.remote_image_url = image
-        user.size = 27.0
-        user.mysize_id = user.set_mysize_id(mysizeid)
-      end
     end
 
     def all_format_gon_params(cuser = nil)
@@ -168,14 +153,6 @@ class User < ApplicationRecord
         followingId: relationship.present? ? relationship.id : relationship,
         isMyself: user.id == (cuser.present? ? cuser.id : 0)
       })
-    end
-  end
-
-  def set_mysize_id(mysize_id)
-    return mysize_id if User.find_by(mysize_id: mysize_id).nil?
-    while true
-      num = SecureRandom.urlsafe_base64(10)
-      return num if User.find_by(mysize_id: num).nil?
     end
   end
 
@@ -313,10 +290,6 @@ class User < ApplicationRecord
 
   def image_size
     error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
-  end
-
-  def self.dummy_email(auth)
-    "#{auth.uid}-#{auth.provider}@example.com"
   end
 
   def this_week

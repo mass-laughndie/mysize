@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.validate_password = true
     @user.name = params[:user][:mysize_id]
-    @user.size = 27.0
+    @user.size = User::DEFAULT_SHOESIZE
 
     if @user.save
       log_in @user
