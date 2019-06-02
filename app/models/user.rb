@@ -2,7 +2,7 @@ class User < ApplicationRecord
   extend Search
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
-                :remember_token, :reset_token
+                :remember_token
   
   search_fields :name, :mysize_id, :content, size_field: :size
 
@@ -107,10 +107,6 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
 
-    def new_reset_token
-      SecureRandom.uuid
-    end
-
     def all_format_gon_params(cuser = nil)
       self.all.map do |user|
         map_gon_hah(user, cuser)
@@ -182,13 +178,6 @@ class User < ApplicationRecord
     mail.deliver_now
   end
 
-  def create_reset_digest_and_e_token
-    self.reset_token = User.new_reset_token
-    update_columns(reset_digest: User.digest(reset_token),
-                   e_token: User.digest(email),
-                   reset_sent_at: Time.zone.now)
-  end
-
   ["name", "shoesize", "password"].each do |param|
     class_eval <<-EOS
       def validate_#{param}?
@@ -200,11 +189,6 @@ class User < ApplicationRecord
   def feed
     following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
     Kickspost.where("kicksposts.user_id IN (#{following_ids}) OR kicksposts.user_id = :user_id", user_id: id)
-  end
-
-  def password_reset_expired?
-    return true if self.reset_sent_at.nil?
-    reset_sent_at < 2.hours.ago
   end
 
   def follow(other)

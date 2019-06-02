@@ -3,7 +3,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    if @user = User.find_by(email: params[:email].downcase)
+    if @user = ForgotPasswordUser.find_by(email: params[:email].downcase)
       @user.create_reset_digest_and_e_token
       @user.send_email(:password_reset)
       redirect_to confirm_password_reset_path
@@ -21,22 +21,21 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(e_token: params[:e_token])
+    @user = ForgotPasswordUser.find_by(e_token: params[:e_token])
     redirect_if_invalid(@user) and return
     redirect_if_expired_password_reset_for(@user) and return
   end
 
   def update
-    @user = User.find_by(e_token: params[:e_token])
+    @user = ForgotPasswordUser.find_by(e_token: params[:e_token])
     redirect_if_invalid(@user) and return
     redirect_if_expired_password_reset_for(@user) and return
 
-    @user.validate_password = true
     if @user.update_attributes(user_params)
       log_in @user unless logged_in?
       @user.update_attributes(reset_digest: nil, e_token: nil)
       flash[:success] = "パスワードの再発行が完了しました"
-      redirect_to @user
+      redirect_to user_path(@user)
     else
       render 'edit'
     end
@@ -45,11 +44,12 @@ class PasswordResetsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:password, :password_confirmation)
+    params.require(:forgot_password_user).permit(:password, :password_confirmation)
   end
 
   def redirect_if_invalid(user)
-    return if user && user.authenticated?(:reset, params[:rst])
+    return if user && user.reset_token_authenticated?(params[:rst])
+    # return if user && user.authenticated?(:reset, params[:rst])
     flash[:danger] = "そのページへはアクセスできません"
     redirect_to root_url and return true
   end
