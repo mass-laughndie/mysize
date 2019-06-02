@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    @user = NewUser.new
   end
 
   def admusrind
@@ -53,10 +53,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.validate_password = true
-    @user.name = params[:user][:mysize_id]
-    @user.size = User::DEFAULT_SHOESIZE
+    @user = NewUser.new(user_params)
+    @user.name = params[:new_user][:mysize_id]
+    @user.size = NewUser::DEFAULT_SHOESIZE
 
     if @user.save
       log_in @user
@@ -95,7 +94,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :mysize_id, :name, :size,
+    params.require(:new_user).permit(:email, :mysize_id, :name, :size,
                                   :password, :password_confirmation)
   end
 
