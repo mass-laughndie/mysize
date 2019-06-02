@@ -6,9 +6,6 @@ class User < ApplicationRecord
   
   search_fields :name, :mysize_id, :content, size_field: :size
 
-  before_save :downcase_email
-  before_save :downcase_mysizeid
-
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
   has_many :notices,    dependent: :destroy
@@ -263,14 +260,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def downcase_email
-    email.downcase!
-  end
-
-  def downcase_mysizeid
-    mysize_id.downcase!
-  end
 
   def image_size
     error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
