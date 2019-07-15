@@ -14,8 +14,8 @@ const FollowButton = (props: Props) => {
   return (
     <div className={cx('form-follow')}>
       <a onClick={props.onClick}>
-        <i className="fa fa-user" />
-        <i className="fa fa-plus" />
+        <i className='fa fa-user' />
+        <i className='fa fa-plus' />
       </a>
     </div>
   );

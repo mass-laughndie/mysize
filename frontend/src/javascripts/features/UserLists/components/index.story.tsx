@@ -9,7 +9,7 @@ storiesOf('UserLists', module)
   .add('default', () => {
     const currentInfo = {
       isLoggedIn: boolean('isLoggedIn', true),
-      isPostPage: false
+      isPostPage: false,
     };
 
     return (

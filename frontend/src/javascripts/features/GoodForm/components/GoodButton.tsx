@@ -14,7 +14,7 @@ const GoodButton = (props: Props) => {
   return (
     <div className={cx('form-good')}>
       <a onClick={props.onClick}>
-        <i className="fa fa-thumbs-o-up" />
+        <i className='fa fa-thumbs-o-up' />
       </a>
     </div>
   );

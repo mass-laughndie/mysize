@@ -22,12 +22,8 @@ class PostMenu extends React.Component<Props> {
 
     return (
       <React.Fragment>
-        <div
-          id={`post-nav-${postType}-${id}`}
-          className={styles['post-nav']}
-          onClick={this.handleClick}
-        >
-          <i className="fa fa-angle-down" />
+        <div id={`post-nav-${postType}-${id}`} className={styles['post-nav']} onClick={this.handleClick}>
+          <i className='fa fa-angle-down' />
         </div>
         <ul id={`nav-list-${postType}-${id}`} className={styles['nav-list']}>
           <li>
@@ -38,11 +34,11 @@ class PostMenu extends React.Component<Props> {
               <li className={styles['bar']} />
               <li>
                 <a href={`/${postUser.mysize_id}/kicksposts/${id}/edit`}>
-                  <i className="fa fa-pencil-square-o" />
+                  <i className='fa fa-pencil-square-o' />
                   {' 投稿を編集する'}
                 </a>
               </li>
-              <li className="bar" />
+              <li className='bar' />
               <li>
                 <a
                   className={styles['kpost-alink']}
@@ -52,7 +48,7 @@ class PostMenu extends React.Component<Props> {
                   }
                 >
                   <div className={styles['kpost-aicon']}>
-                    <i className="fa fa-twitter" />
+                    <i className='fa fa-twitter' />
                     {' Twitterでシェア'}
                   </div>
                 </a>

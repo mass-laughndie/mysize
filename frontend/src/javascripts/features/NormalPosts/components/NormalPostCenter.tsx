@@ -18,11 +18,7 @@ const NormalPostCenter = (props: Props) => {
       <div className={cx('kpost-name', 'over-name')}>
         <a href={`/${mysize_id}`}>
           {name}
-          {isKickspost ? (
-            <span>{` @${mysize_id}`}</span>
-          ) : (
-            <span id={`content-name-${id}`}>{` @${mysize_id}`}</span>
-          )}
+          {isKickspost ? <span>{` @${mysize_id}`}</span> : <span id={`content-name-${id}`}>{` @${mysize_id}`}</span>}
         </a>
       </div>
       {isKickspost && (

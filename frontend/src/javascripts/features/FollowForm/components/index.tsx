@@ -12,9 +12,9 @@ const DummyFollowButton = () => {
   return (
     <div className={cx('follow-form', 'c')}>
       <div className={cx('form-follow')}>
-        <a href="#" className="ban">
-          <i className="fa fa-user" />
-          <i className="fa fa-plus" />
+        <a href='#' className='ban'>
+          <i className='fa fa-user' />
+          <i className='fa fa-plus' />
         </a>
       </div>
     </div>
@@ -34,7 +34,7 @@ interface State {
 class FollowForm extends React.Component<Props, State> {
   state: State = {
     followingId: this.props.user.followingId,
-    isFollow: this.props.user.isFollow
+    isFollow: this.props.user.isFollow,
   };
 
   private renderFollowButton() {
@@ -52,9 +52,7 @@ class FollowForm extends React.Component<Props, State> {
     }
   }
 
-  private handleFollowUser = async (
-    event: React.SyntheticEvent<HTMLElement>
-  ) => {
+  private handleFollowUser = async (event: React.SyntheticEvent<HTMLElement>) => {
     event.preventDefault();
 
     const { id } = this.props.user;
@@ -62,13 +60,11 @@ class FollowForm extends React.Component<Props, State> {
 
     this.setState({
       followingId: new_relationship.id,
-      isFollow: true
+      isFollow: true,
     });
   };
 
-  private handleUnfollowUser = async (
-    event: React.SyntheticEvent<HTMLElement>
-  ) => {
+  private handleUnfollowUser = async (event: React.SyntheticEvent<HTMLElement>) => {
     event.preventDefault();
 
     const { followingId } = this.state;
@@ -76,7 +72,7 @@ class FollowForm extends React.Component<Props, State> {
 
     this.setState({
       followingId: null,
-      isFollow: false
+      isFollow: false,
     });
   };
 

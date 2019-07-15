@@ -15,17 +15,10 @@ const SquarePost = (props: Props) => {
     <li id={`square-${id}`} className={cx('square-list')}>
       <div className={cx('square-picture')}>
         <a href={`/${mysize_id}/kicksposts/${id}`}>
-          <img
-            className={cx(styles.cover, 'lazyload')}
-            src="/images/grey.gif"
-            data-src={picture_url}
-            alt={title}
-          />
+          <img className={cx(styles.cover, 'lazyload')} src='/images/grey.gif' data-src={picture_url} alt={title} />
         </a>
       </div>
-      <div className={cx('square-size')}>
-        {typeof size === 'number' && size.toFixed(1)}
-      </div>
+      <div className={cx('square-size')}>{typeof size === 'number' && size.toFixed(1)}</div>
     </li>
   );
 };

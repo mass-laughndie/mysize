@@ -23,12 +23,8 @@ class NormalPost extends React.Component<Props> {
   }
 
   private twitterShareUrl = (post: Post): string => {
-    const encodedURI = encodeURI(
-      `${post.postUser.name}さんの投稿｜${post.title}\n`
-    );
-    return `https://twitter.com/intent/tweet?text=${encodedURI}&url=${
-      window.location.origin
-    }/${post.postUser.mysize_id}/kicksposts/${post.id}`;
+    const encodedURI = encodeURI(`${post.postUser.name}さんの投稿｜${post.title}\n`);
+    return `https://twitter.com/intent/tweet?text=${encodedURI}&url=${window.location.origin}/${post.postUser.mysize_id}/kicksposts/${post.id}`;
   };
 
   public render() {
@@ -44,20 +40,18 @@ class NormalPost extends React.Component<Props> {
           'link-list',
           'kpost-main',
           {
-            [`reply-${post.reply_id}`]: !isKickspost
+            [`reply-${post.reply_id}`]: !isKickspost,
           },
           'clear'
         )}
       >
         <a
           className={cx('content-link', {
-            jump: !isKickspost
+            jump: !isKickspost,
           })}
           data-scroll={!isKickspost ? '-51' : ''}
           href={`/${post.postUser.mysize_id}/kicksposts/${
-            isKickspost
-              ? post.id
-              : `${post.kickspost_id}#${post.postType}-${post.id}`
+            isKickspost ? post.id : `${post.kickspost_id}#${post.postType}-${post.id}`
           }`}
         />
         <div className={cx('content-abs')}>
@@ -66,27 +60,20 @@ class NormalPost extends React.Component<Props> {
               className={cx(
                 'list-content',
                 {
-                  'reply-main': isReply
+                  'reply-main': isReply,
                 },
                 'clear'
               )}
             >
               {isReply && (
                 <div className={cx('kpost-reply-icon', 'c')}>
-                  <i className="fa fa-caret-right" />
+                  <i className='fa fa-caret-right' />
                 </div>
               )}
               <NormalPostLeft postUser={post.postUser} />
               <NormalPostCenter post={post} />
-              <NormalPostAct
-                post={post}
-                twitterShareUrl={this.twitterShareUrl(post)}
-                currentInfo={currentInfo}
-              />
-              <NormalPostRight
-                post={post}
-                twitterShareUrl={this.twitterShareUrl(post)}
-              />
+              <NormalPostAct post={post} twitterShareUrl={this.twitterShareUrl(post)} currentInfo={currentInfo} />
+              <NormalPostRight post={post} twitterShareUrl={this.twitterShareUrl(post)} />
             </div>
           </div>
         </div>

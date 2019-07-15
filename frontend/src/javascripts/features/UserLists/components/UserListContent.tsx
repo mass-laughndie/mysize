@@ -21,15 +21,13 @@ const UserListContent = (props: Props) => {
           <div className={cx('user-list-name', 'over-name')}>{name}</div>
           <div className={cx('user-list-msid', 'key')}>{`@${mysize_id}`}</div>
         </div>
-        <div className="user-list-follow">
-          <div className="abs-center">
-            {!isMyself && (
-              <FollowForm user={user} isLoggedIn={currentInfo.isLoggedIn} />
-            )}
+        <div className='user-list-follow'>
+          <div className='abs-center'>
+            {!isMyself && <FollowForm user={user} isLoggedIn={currentInfo.isLoggedIn} />}
           </div>
         </div>
       </div>
-      <div className="index-profile autolink key">{content}</div>
+      <div className='index-profile autolink key'>{content}</div>
     </div>
   );
 };

@@ -3,20 +3,20 @@ import { Action, ActionTypes } from '../actionTypes';
 
 const followUserRequest = (id: number): Action => ({
   type: ActionTypes.FOLLOW_USER_REQUEST,
-  paylaod: { id }
+  paylaod: { id },
 });
 
 const followUserSuccess = (followingId: number): Action => ({
   type: ActionTypes.FOLLOW_USER_SUCCESS,
-  payload: { followingId }
+  payload: { followingId },
 });
 
 const followUserFailure = (): Action => ({
-  type: ActionTypes.FOLLOW_USER_FAILURE
+  type: ActionTypes.FOLLOW_USER_FAILURE,
 });
 
 export const followUser = (id: number) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(followUserRequest(id));
 
     try {

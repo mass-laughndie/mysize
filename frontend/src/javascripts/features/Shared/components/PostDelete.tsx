@@ -19,12 +19,12 @@ const PostDelete = (props: Props) => {
 
   return (
     <a
-      data-confirm="本当に削除してよろしいですか？"
-      rel="nofollow"
-      data-method="delete"
+      data-confirm='本当に削除してよろしいですか？'
+      rel='nofollow'
+      data-method='delete'
       href={postDeleteUrl(props.post)}
     >
-      <i className="fa fa-trash" />
+      <i className='fa fa-trash' />
       {' 投稿を削除する'}
     </a>
   );

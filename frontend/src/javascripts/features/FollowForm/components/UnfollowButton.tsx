@@ -14,8 +14,8 @@ const UnfollowButton = (props: Props) => {
   return (
     <div className={cx('form-unfollow')}>
       <a onClick={props.onClick}>
-        <i className="fa fa-user" />
-        <i className="fa fa-check" />
+        <i className='fa fa-user' />
+        <i className='fa fa-check' />
       </a>
     </div>
   );

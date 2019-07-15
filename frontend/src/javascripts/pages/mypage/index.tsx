@@ -12,10 +12,7 @@ const squarePostsEntryPoint = '[data-react-entry="MypageSquarePosts"]';
 const normalPostsEntryPoint = '[data-react-entry="MypagePosts"]';
 
 if ($(squarePostsEntryPoint).length) {
-  ReactDOM.render(
-    <SquarePosts posts={posts} />,
-    document.querySelector(squarePostsEntryPoint)
-  );
+  ReactDOM.render(<SquarePosts posts={posts} />, document.querySelector(squarePostsEntryPoint));
 }
 
 if ($(normalPostsEntryPoint).length) {

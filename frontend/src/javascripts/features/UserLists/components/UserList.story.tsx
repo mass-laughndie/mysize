@@ -8,12 +8,12 @@ storiesOf('UserList', module)
   .addDecorator(withKnobs)
   .add('default', () => {
     const currentInfo = {
-      isLoggedIn: boolean('isLoggedIn', true)
+      isLoggedIn: boolean('isLoggedIn', true),
     };
     const userProps = {
       ...user,
       isFollow: boolean('isFollow', false),
-      isMyself: boolean('isMyself', false)
+      isMyself: boolean('isMyself', false),
     };
     return (
       <ul style={baseStyle}>
