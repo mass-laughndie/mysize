@@ -15,7 +15,7 @@ class UserLists extends React.Component<Props> {
 
   public render() {
     const { users } = this.props;
-    return <ul>{users.map(user => this.renderUserList(user))}</ul>;
+    return <ul>{users.map((user) => this.renderUserList(user))}</ul>;
   }
 }
 

@@ -9,18 +9,14 @@ interface State {
 
 class HiddenAuthenticityToken extends React.Component<Props, State> {
   state: State = {
-    authenticityToken: getCsrfToken()
+    authenticityToken: getCsrfToken(),
   };
 
   public render() {
     return (
       <div style={{ display: 'none' }}>
-        <input name="utf8" type="hidden" value="✓" />
-        <input
-          type="hidden"
-          name="authenticity_token"
-          value={this.state.authenticityToken}
-        />
+        <input name='utf8' type='hidden' value='✓' />
+        <input type='hidden' name='authenticity_token' value={this.state.authenticityToken} />
       </div>
     );
   }

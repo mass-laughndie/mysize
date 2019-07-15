@@ -13,15 +13,7 @@ interface Props {
 
 const NormalPostAct = (props: Props) => {
   const cx = classnames.bind(styles);
-  const {
-    id,
-    kickspost_id,
-    postType,
-    goodNum,
-    commentNum,
-    created_at,
-    isMyPost
-  } = props.post;
+  const { id, kickspost_id, postType, goodNum, commentNum, created_at, isMyPost } = props.post;
   const { mysize_id } = props.post.postUser;
   const { twitterShareUrl, currentInfo } = props;
   const { isLoggedIn, isPostPage } = currentInfo;
@@ -35,7 +27,7 @@ const NormalPostAct = (props: Props) => {
         'kpost-act',
         `${postType}-act`,
         {
-          'reply-act': isReply
+          'reply-act': isReply,
         },
         'clear'
       )}
@@ -47,12 +39,9 @@ const NormalPostAct = (props: Props) => {
       {isKickspost ? (
         <React.Fragment>
           <div className={cx('kpost-alist')}>
-            <a
-              className={cx('kpost-alink')}
-              href={`${mysize_id}/kicksposts/${id}`}
-            >
+            <a className={cx('kpost-alink')} href={`${mysize_id}/kicksposts/${id}`}>
               <div className={cx('kpost-aicon')}>
-                <i className="fa fa-comment-o" />
+                <i className='fa fa-comment-o' />
               </div>
               <div className={cx('kpost-num')}>
                 <span>{commentNum}</span>
@@ -68,7 +57,7 @@ const NormalPostAct = (props: Props) => {
               }
             >
               <div className={cx('kpost-aicon')}>
-                <i className="fa fa-twitter" />
+                <i className='fa fa-twitter' />
               </div>
             </a>
           </div>
@@ -82,13 +71,13 @@ const NormalPostAct = (props: Props) => {
               ) : isLoggedIn ? (
                 <a
                   className={cx('kpost-alink', 'jump')}
-                  data-scroll="-51"
+                  data-scroll='-51'
                   href={`/${mysize_id}/kicksposts/${kickspost_id}?reply=on#comment-${id}`}
                 >
                   <i className={cx('fa', 'fa-reply')} />
                 </a>
               ) : (
-                <a href="#" className="ban">
+                <a href='#' className='ban'>
                   <i className={cx('fa', 'fa-reply')} />
                 </a>
               )}

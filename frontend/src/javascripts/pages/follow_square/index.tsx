@@ -9,8 +9,5 @@ const posts = gon.followingKicksposts;
 const entryPoint = '[data-react-entry="FollowingSquarePosts"]';
 
 if ($(entryPoint).length) {
-  ReactDOM.render(
-    <SquarePosts posts={posts} />,
-    document.querySelector('[data-react-entry="FollowingSquarePosts"]')
-  );
+  ReactDOM.render(<SquarePosts posts={posts} />, document.querySelector('[data-react-entry="FollowingSquarePosts"]'));
 }

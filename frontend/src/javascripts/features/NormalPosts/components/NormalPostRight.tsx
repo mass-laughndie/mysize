@@ -20,23 +20,14 @@ const NormalPostRight = (props: Props) => {
     <div className={cx('kpost-right', `${postType}-right`)}>
       <div className={cx('c', 'kpost-right-top')}>
         <div className={cx('kpost-menu', `${postType}-menu`, 'clear')}>
-          {isMyPost && (
-            <PostMenu post={props.post} twitterShareUrl={twitterShareUrl} />
-          )}
+          {isMyPost && <PostMenu post={props.post} twitterShareUrl={twitterShareUrl} />}
         </div>
         {isKickspost && (
           <div className={cx('kpost-picture', 'abs-center')}>
             <a href={`/${mysize_id}/kicksposts/${id}?display='picture'`}>
-              <img
-                className={cx('cover', 'lazyload')}
-                src="/images/grey.gif"
-                data-src={picture_url}
-                alt={title}
-              />
+              <img className={cx('cover', 'lazyload')} src='/images/grey.gif' data-src={picture_url} alt={title} />
             </a>
-            <div className={cx('kpost-size', 'index-size')}>
-              {typeof size === 'number' ? size.toFixed(1) : 0.0}
-            </div>
+            <div className={cx('kpost-size', 'index-size')}>{typeof size === 'number' ? size.toFixed(1) : 0.0}</div>
           </div>
         )}
       </div>

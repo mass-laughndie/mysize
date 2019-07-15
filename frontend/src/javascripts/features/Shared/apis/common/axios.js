@@ -8,7 +8,7 @@ const axiosConfig = {
     'X-Requested-With': 'XMLHttpRequest',
   },
   withCredentials: true,
-  paramsSeializer: params => QueryStringForRails.stringify(params),
+  paramsSeializer: (params) => QueryStringForRails.stringify(params),
 };
 
 export default axios.create(axiosConfig);

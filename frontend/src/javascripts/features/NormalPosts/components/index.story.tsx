@@ -9,7 +9,7 @@ storiesOf('NormalPosts', module)
   .add('default', () => {
     const currentInfo = {
       isLoggedIn: boolean('isLoggedIn', true),
-      isPostPage: boolean('isPostPage', true)
+      isPostPage: boolean('isPostPage', true),
     };
 
     return (

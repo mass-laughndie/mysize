@@ -9,12 +9,12 @@ storiesOf('NormalPost', module)
   .add('default', () => {
     const currentInfo = {
       isLoggedIn: boolean('isLoggedIn', true),
-      isPostPage: boolean('isPostPage', true)
+      isPostPage: boolean('isPostPage', true),
     };
     const postProps = {
       ...kickspost,
       isGood: boolean('isGood', false),
-      isMyPost: boolean('isMypost', false)
+      isMyPost: boolean('isMypost', false),
     };
     return (
       <ul style={baseStyle}>

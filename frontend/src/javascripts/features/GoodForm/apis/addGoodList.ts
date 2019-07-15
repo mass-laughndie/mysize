@@ -5,9 +5,9 @@ export const addGoodList = async (id: number, type: string): Promise<any> => {
   const response = await axios
     .post('/goods.json', {
       post_id: id,
-      post_type: formatPoatType
+      post_type: formatPoatType,
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 
   return response.data;
 };

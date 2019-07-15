@@ -10,8 +10,8 @@ const DummyGoodButton = () => {
   const cx = classnames.bind(styles);
   return (
     <div className={cx('c', 'form-good')}>
-      <a className="ban" href="#">
-        <i className="fa fa-thumbs-o-up" />
+      <a className='ban' href='#'>
+        <i className='fa fa-thumbs-o-up' />
       </a>
     </div>
   );
@@ -32,7 +32,7 @@ class GoodForm extends React.Component<Props, State> {
   state: State = {
     goodId: this.props.post.goodId,
     isGood: this.props.post.isGood,
-    goodNum: this.props.post.goodNum
+    goodNum: this.props.post.goodNum,
   };
 
   private renderGoodButton() {
@@ -50,9 +50,7 @@ class GoodForm extends React.Component<Props, State> {
     }
   }
 
-  private handleAddGoodList = async (
-    event: React.SyntheticEvent<HTMLElement>
-  ) => {
+  private handleAddGoodList = async (event: React.SyntheticEvent<HTMLElement>) => {
     event.preventDefault();
 
     const { id, postType } = this.props.post;
@@ -61,13 +59,11 @@ class GoodForm extends React.Component<Props, State> {
     this.setState({
       goodId: new_good.id,
       isGood: true,
-      goodNum: this.state.goodNum + 1
+      goodNum: this.state.goodNum + 1,
     });
   };
 
-  private handleRemoveGoodList = async (
-    event: React.SyntheticEvent<HTMLElement>
-  ) => {
+  private handleRemoveGoodList = async (event: React.SyntheticEvent<HTMLElement>) => {
     event.preventDefault();
 
     const { goodId } = this.state;
@@ -76,7 +72,7 @@ class GoodForm extends React.Component<Props, State> {
     this.setState({
       goodId: null,
       isGood: false,
-      goodNum: this.state.goodNum - 1
+      goodNum: this.state.goodNum - 1,
     });
   };
 
@@ -88,10 +84,7 @@ class GoodForm extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <div className={cx('kpost-aicon')}>
-          <div
-            id={`good-form-${postType}-${id}`}
-            className={styles['good-form']}
-          >
+          <div id={`good-form-${postType}-${id}`} className={styles['good-form']}>
             {this.renderGoodButton()}
           </div>
         </div>
