@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
     @kicksposts = Kickspost.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
     gon.latestKicksposts = Kickspost.find_format_gon_params(@kicksposts.ids.uniq, @user)
-    gon.currentUser = User.find_format_gon_params_by(@user.id)
+    gon.currentUser = User.find_format_gon_params_by(@user&.id)
   end
 
   def follow
@@ -19,7 +19,7 @@ class StaticPagesController < ApplicationController
     @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
     gon.followingKicksposts = Kickspost.find_format_gon_params(@kicksposts.ids.uniq, @user)
-    gon.currentUser = User.find_format_gon_params_by(@user.id)
+    gon.currentUser = User.find_format_gon_params_by(@user&.id)
   end
 
   def follow_square
@@ -27,7 +27,7 @@ class StaticPagesController < ApplicationController
     @kicksposts = current_user.feed.includes(:user, {comments: :user}, {goods: :gooder}).reorder(updated_at: :desc)
     @text = "short"
     gon.followingKicksposts = Kickspost.find_format_gon_params(@kicksposts.ids.uniq, @user)
-    gon.currentUser = User.find_format_gon_params_by(@user.id)
+    gon.currentUser = User.find_format_gon_params_by(@user&.id)
   end
 
   def help

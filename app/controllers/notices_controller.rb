@@ -35,7 +35,7 @@ class NoticesController < ApplicationController
       if ntype.in?(["ReplyCom", "NormalCom", "ReplyPost"])
         @posts << post
       elsif ntype.in?(["Comment", "Kickspost"])
-        gooders = post.gooders_without_ownself
+        gooders = post.gooders_without(current_user)
         notice.destroy or next if gooders.blank?
         @posts << post
         @gcommers << gooders if ntype == "Comment"
@@ -54,9 +54,9 @@ class NoticesController < ApplicationController
   private
 
   def reset_unread_count_by(notices)
-    urnotices = notices.where.not(unread_count: 0)
-    return if urnotices.none?
-    urnotices.each do |notice|
+    unread_notices = notices.where.not(unread_count: 0)
+    return if unread_notices.none?
+    unread_notices.each do |notice|
       notice.decrement!(:unread_count, notice.unread_count)
     end
   end

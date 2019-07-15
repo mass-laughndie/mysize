@@ -27,9 +27,12 @@ gem 'hypernova'
 
 group :development, :test do
   # gem 'sqlite3',       '1.3.13'
-  gem 'pry-rails',  '~> 0.3.6'             #rails console拡張
-  gem 'pry-byebug', '~> 3.6.0'
-  gem 'pry-doc',    '~> 0.13.1'
+  gem 'pry-rails',           '~> 0.3.6'             #rails console拡張
+  gem 'pry-byebug',          '~> 3.6.0'
+  gem 'pry-doc',             '~> 0.13.1'
+  gem 'rspec-rails',            '3.8.2'
+  gem 'factory_bot_rails',      '5.0.2'
+  gem 'database_cleaner',       '1.7.0'
 end
 
 group :development do

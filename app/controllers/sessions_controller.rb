@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_create
-    @user = User.find_or_create_from_auth(auth_params)
+    @user = ExternalSigninUser.find_or_create_from_auth(auth_params)
     log_in @user
     remember @user
 

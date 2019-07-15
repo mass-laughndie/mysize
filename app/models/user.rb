@@ -2,12 +2,9 @@ class User < ApplicationRecord
   extend Search
 
   attr_accessor :validate_name, :validate_password, :validate_shoesize,
-                :remember_token, :reset_token
+                :remember_token
   
   search_fields :name, :mysize_id, :content, size_field: :size
-
-  before_save :downcase_email
-  before_save :downcase_mysizeid
 
   has_many :kicksposts, dependent: :destroy
   has_many :comments,   dependent: :destroy
@@ -94,6 +91,8 @@ class User < ApplicationRecord
                                if: :validate_shoesize? }
 
   validate :image_size
+
+  DEFAULT_SHOESIZE = 27.0
   
   class << self
     def digest(string)
@@ -103,27 +102,6 @@ class User < ApplicationRecord
 
     def new_token
       SecureRandom.urlsafe_base64
-    end
-
-    def new_reset_token
-      SecureRandom.uuid
-    end
-
-    def find_or_create_from_auth(auth)
-      provider  = auth[:provider]
-      uid       = auth[:uid]
-      name      = auth[:info][:name]
-      mysizeid  = auth[:info][:nickname]
-      email     = User.dummy_email(auth)
-      image     = auth[:info][:image].sub("_normal", "")
-
-      find_or_create_by(provider: provider, uid: uid) do |user|
-        user.name  = name
-        user.email = email
-        user.remote_image_url = image
-        user.size = 27.0
-        user.mysize_id = user.set_mysize_id(mysizeid)
-      end
     end
 
     def all_format_gon_params(cuser = nil)
@@ -139,6 +117,7 @@ class User < ApplicationRecord
     end
 
     def find_format_gon_params_by(id, cuser = nil)
+      return if id.nil?
       map_gon_hah(self.find_by(id: id), cuser)
     end
 
@@ -170,14 +149,6 @@ class User < ApplicationRecord
     end
   end
 
-  def set_mysize_id(mysize_id)
-    return mysize_id if User.find_by(mysize_id: mysize_id).nil?
-    while true
-      num = SecureRandom.urlsafe_base64(10)
-      return num if User.find_by(mysize_id: num).nil?
-    end
-  end
-
   def to_param
     mysize_id
   end
@@ -204,13 +175,6 @@ class User < ApplicationRecord
     mail.deliver_now
   end
 
-  def create_reset_digest_and_e_token
-    self.reset_token = User.new_reset_token
-    update_columns(reset_digest: User.digest(reset_token),
-                   e_token: User.digest(email),
-                   reset_sent_at: Time.zone.now)
-  end
-
   ["name", "shoesize", "password"].each do |param|
     class_eval <<-EOS
       def validate_#{param}?
@@ -222,11 +186,6 @@ class User < ApplicationRecord
   def feed
     following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
     Kickspost.where("kicksposts.user_id IN (#{following_ids}) OR kicksposts.user_id = :user_id", user_id: id)
-  end
-
-  def password_reset_expired?
-    return true if self.reset_sent_at.nil?
-    reset_sent_at < 2.hours.ago
   end
 
   def follow(other)
@@ -302,20 +261,8 @@ class User < ApplicationRecord
 
   private
 
-  def downcase_email
-    email.downcase!
-  end
-
-  def downcase_mysizeid
-    mysize_id.downcase!
-  end
-
   def image_size
     error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
-  end
-
-  def self.dummy_email(auth)
-    "#{auth.uid}-#{auth.provider}@example.com"
   end
 
   def this_week
