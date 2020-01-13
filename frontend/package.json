@@ -31,6 +31,7 @@
     "@types/storybook__addon-actions": "^3.4.1",
     "@types/storybook__addon-knobs": "^3.4.1",
     "@types/storybook__react": "^3.0.9",
+    "@types/jquery": "^3.3.31",
     "autoprefixer": "^9.1.5",
     "babel-core": "^7.0.0-0",
     "babel-loader": "^8.0.4",

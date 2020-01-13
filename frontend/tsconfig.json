@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
-    "noImplicitThis": true,
     "noFallthroughCasesInSwitch": false,
-    "noEmitOnError": true,
-    "alwaysStrict": true,
     "rootDir": ".",
     "outDir": "./dist/",
     "sourceMap": true,
