@@ -1,5 +1,4 @@
 import * as React from 'react';
-import renderReact from 'hypernova-react';
 
 interface Props {}
 
@@ -11,4 +10,4 @@ class Hello extends React.Component<Props, State> {
   }
 }
 
-export default renderReact('Hello', Hello);
+export default Hello;
