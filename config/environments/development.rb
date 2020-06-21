@@ -32,8 +32,7 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true   #edit(2018/02/15):false → true
   config.action_mailer.delivery_method = :test        #add(2018/02/15)
-  #hostは各自のdeveloopment環境に合わせる
-  host = 'localhost:3000'      #ローカル環境             #add(2018/02/15)
+  host = 'localhost:4000'
   config.action_mailer.default_url_options = { host: host, protocol: 'https' }    #add(2018/02/15)
 
   # Print deprecation notices to the Rails logger.
