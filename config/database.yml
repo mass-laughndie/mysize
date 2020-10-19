@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -18,8 +18,8 @@ development:
   encoding: utf8
   database: mysize_dev
   pool: 5
-  username: <%= ENV['RAILS_DATABASE_USERNAME'] || 'root' %>
-  password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DATABASE_USERNAME'] || 'root' %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
   socket: /tmp/mysql.sock
 
@@ -35,11 +35,14 @@ test:
   encoding: utf8
   database: mysize_test
   pool: 5
-  username: <%= ENV['RAILS_DATABASE_USERNAME'] || 'root' %>
-  password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DATABASE_USERNAME'] || 'root' %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
   socket: /tmp/mysql.sock
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /tmp/mysql.sock
