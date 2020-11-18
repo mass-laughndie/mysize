@@ -93,4 +93,8 @@ Rails.application.routes.draw do
     delete '/leave',   to: 'settings#destroy'
   end
 
+  # Engine to open mails in the browser
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
