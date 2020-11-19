@@ -14,7 +14,7 @@ const SquarePost = (props: Props) => {
   return (
     <li id={`square-${id}`} className={cx('square-list')}>
       <div className={cx('square-picture')}>
-        <a href={`/${mysize_id}/kicksposts/${id}`}>
+        <a href={`/users/${mysize_id}/kicksposts/${id}`}>
           <img className={cx(styles.cover, 'lazyload')} src='/images/grey.gif' data-src={picture_url} alt={title} />
         </a>
       </div>

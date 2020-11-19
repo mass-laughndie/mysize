@@ -11,7 +11,7 @@ const PostDelete = (props: Props) => {
     const { id, postType, postUser } = post;
 
     if (postType == 'kickspost') {
-      return `${rootUrl}/${postUser.mysize_id}/kickspost/${id}`;
+      return `${rootUrl}/users/${postUser.mysize_id}/kickspost/${id}`;
     } else {
       return `${rootUrl}/postcomment/${id}`;
     }

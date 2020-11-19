@@ -24,7 +24,7 @@ class NormalPost extends React.Component<Props> {
 
   private twitterShareUrl = (post: Post): string => {
     const encodedURI = encodeURI(`${post.postUser.name}さんの投稿｜${post.title}\n`);
-    return `https://twitter.com/intent/tweet?text=${encodedURI}&url=${window.location.origin}/${post.postUser.mysize_id}/kicksposts/${post.id}`;
+    return `https://twitter.com/intent/tweet?text=${encodedURI}&url=${window.location.origin}/users/${post.postUser.mysize_id}/kicksposts/${post.id}`;
   };
 
   public render() {
@@ -50,9 +50,7 @@ class NormalPost extends React.Component<Props> {
             jump: !isKickspost,
           })}
           data-scroll={!isKickspost ? '-51' : ''}
-          href={`/${post.postUser.mysize_id}/kicksposts/${
-            isKickspost ? post.id : `${post.kickspost_id}#${post.postType}-${post.id}`
-          }`}
+          href={`/users/${post.postUser.mysize_id}/kicksposts/${isKickspost ? post.id : `${post.kickspost_id}#${post.postType}-${post.id}`}`}
         />
         <div className={cx('content-abs')}>
           <div className={cx('content-height')}>

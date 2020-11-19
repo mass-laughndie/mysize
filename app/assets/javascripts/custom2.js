@@ -4,7 +4,7 @@ function escapeHtml(string) {
     return string;
   }
 
-  return string.replace(/[&'`"<>=\/]/g, function(match) {
+  return string.replace(/[&'`"<>=\/]/g, function (match) {
     return {
       "&": "&amp;",
       "'": "&#x39;",
@@ -19,29 +19,29 @@ function escapeHtml(string) {
 }
 
 //flash表示非表示
-$(function() {
+$(function () {
   if ($("#flash").length != 0) {
     $("#flash")
       .css("display", "none")
       .slideDown("fast"); //slideさせるために一旦非表示
-    setTimeout(function() {
+    setTimeout(function () {
       $("#flash").slideUp("fast");
     }, 3000);
   }
 });
 
 //post-menuスライドバー
-$(function() {
+$(function () {
   if ($("[data-react-entry]").length === 0) {
     //comment-menu
-    $("[id^=post-nav-comment]").on("click", function() {
+    $("[id^=post-nav-comment]").on("click", function () {
       var str = $(this).attr("id"),
         num = str.match(/\d/g).join("");
       $("#nav-list-comment-" + num).slideToggle("fast");
     });
 
     //kickspost-menu
-    $("[id^=post-nav-kickspost]").on("click", function() {
+    $("[id^=post-nav-kickspost]").on("click", function () {
       var str = $(this).attr("id"),
         num = str.match(/\d/g).join("");
       $("#nav-list-kickspost-" + num).slideToggle("fast");
@@ -70,7 +70,7 @@ function setReply(_this) {
   if (comLink.length != 0) {
     var parentID = forIDs; //親@iD複製(forIDs更新のため)
 
-    comLink.each(function() {
+    comLink.each(function () {
       var rid = $(this).text(); //  返信相手の@ID
       //@IDが親と自分と違う場合
       if (rid != parentID && rid != myID) {
@@ -83,9 +83,9 @@ function setReply(_this) {
 }
 
 //comment返信(reply_idの設定,自動focus)
-$(function() {
+$(function () {
   //同じ要素内でautolink化しているためclick発火には静的な親要素で仕込む必要あり
-  $("body").on("click", "[id^=comment-reply]", function() {
+  $("body").on("click", "[id^=comment-reply]", function () {
     if ($(".comment-text-form").length != 0) {
       setReply($(this));
     }
@@ -94,8 +94,8 @@ $(function() {
 });
 
 //ポスト内容の改行挿入
-$(function() {
-  $(".post-text").each(function() {
+$(function () {
+  $(".post-text").each(function () {
     var txt = escapeHtml($(this).text());
     txt = txt.replace(/\r\n|\r/g, "\n").replace(/\n/g, "<br>");
     $(this).html(txt);
@@ -104,8 +104,8 @@ $(function() {
 
 //reply_idチェック(@IDがない場合 => reply_id:　0　に変える)
 
-$(function() {
-  $("#comment-button").on("click", function() {
+$(function () {
+  $("#comment-button").on("click", function () {
     var content = $("#comment_content").val(),
       uid = content.match(/@[a-zA-Z0-9_]+\s/g);
     if (uid == null) {
@@ -116,13 +116,13 @@ $(function() {
 
 //コメントフォーム自動拡張&格納
 
-$(function() {
+$(function () {
   $(".comment-text-form")
-    .focus(function() {
+    .focus(function () {
       $(".comment-form").css("height", "181px");
       return false;
     })
-    .blur(function() {
+    .blur(function () {
       $(".comment-form").css("height", "71px");
       return false;
     });
@@ -132,7 +132,7 @@ $(function() {
 function indexId() {
   return $.ajax({
     type: "GET",
-    url: "/index?for=mysizeid&key=mysizeid",
+    url: "/users?for=mysizeid&key=mysizeid",
     dataType: "html",
     timeout: 20000
   });
@@ -140,7 +140,7 @@ function indexId() {
 
 //@IDのリンク化
 function changeLink(_iid) {
-  $(".autolink").each(function() {
+  $(".autolink").each(function () {
     var txt = $(this).html(),
       exp = txt.match(/@[a-zA-Z0-9_]+?(\s|<br>|<\/span>)/g); //全「@ID(空白|<br>|</span>)」
     exp = Array.from(new Set(exp)); //重複削除
@@ -151,11 +151,11 @@ function changeLink(_iid) {
         //indexid内のものと一致する場合リンク化
         if (iid.indexOf(msid) >= 0) {
           var url =
-              window.location.protocol +
-              "//" +
-              window.location.host +
-              "/" +
-              msid, //リンクURL
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            "/" +
+            msid, //リンクURL
             str = exp[i].replace(/\s|<br>|<\/span>/g, ""), //「@ID」
             option = exp[i].replace(str, ""), //msidの後続
             txt = $(this).html(), //新たに定義しないと複数置換できない
@@ -164,11 +164,11 @@ function changeLink(_iid) {
             replaceText = txt.replace(
               new RegExp(exp[i], "g"),
               "<a class='id-link' href=" +
-                escapeHtml(url) +
-                ">" +
-                escapeHtml(str) +
-                "</a>" +
-                option
+              escapeHtml(url) +
+              ">" +
+              escapeHtml(str) +
+              "</a>" +
+              option
             );
           $(this).html(replaceText);
         }
@@ -181,12 +181,12 @@ function changeLink(_iid) {
 iid = [];
 
 //comment送信先ユーザーリンク化
-$(function() {
+$(function () {
   if ($(".autolink").length != 0) {
     //data未取得
     if (iid.length == 0) {
       indexId()
-        .done(function(data) {
+        .done(function (data) {
           iid = $(data)
             .find("#index-id")
             .text()
@@ -195,7 +195,7 @@ $(function() {
           iid.pop();
           changeLink(iid);
         })
-        .fail(function(data) {
+        .fail(function (data) {
           alert(
             "ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。"
           );
@@ -209,9 +209,9 @@ $(function() {
 });
 
 //indexリンクの高さ自動調整
-$(function() {
+$(function () {
   if ($("[data-react-entry]").length === 0) {
-    $(".link-list").each(function() {
+    $(".link-list").each(function () {
       //子要素(=absolute要素内の固定長要素)の高さ
       var height = $(this)
         .find(".content-height")
@@ -225,8 +225,8 @@ $(function() {
 });
 
 //現在位置ボタンの色変換(active化)
-$(function() {
-  $(".alist").each(function() {
+$(function () {
+  $(".alist").each(function () {
     var fullPath = location.pathname + location.search,
       link = $(this).find("a"),
       linkPath = link.attr("href");
@@ -237,17 +237,17 @@ $(function() {
 });
 
 //未ログインアラートボタン
-$(function() {
-  $(".ban").on("click", function() {
+$(function () {
+  $(".ban").on("click", function () {
     alert("登録またはログインしてください！");
     return false;
   });
 });
 
 //画像ファイルプレビュー
-$(function() {
+$(function () {
   //from内の該当要素を選択されたら(ファイルを選択しないときは発火しない)
-  $("form").on("change", 'input[type="file"]', function(e) {
+  $("form").on("change", 'input[type="file"]', function (e) {
     var file = e.target.files[0], //ファイルオブジェクト
       reader = new FileReader(),
       $preview = $(".preview");
@@ -258,8 +258,8 @@ $(function() {
     }
 
     //読み込み成功して完了(onload)
-    reader.onload = (function(file) {
-      return function(e) {
+    reader.onload = (function (file) {
+      return function (e) {
         //preview挿入
         $preview.empty();
         $preview.append(
@@ -281,12 +281,12 @@ $(function() {
 });
 
 //textareaの高さ自動変更(要縮小対応)
-$(function() {
+$(function () {
   if ($(".autoheight").length != 0) {
     var maxHeight = $(".autoheight")
       .css("maxHeight")
       .split("px")[0];
-    $(".autoheight").on("keyup", function(e) {
+    $(".autoheight").on("keyup", function (e) {
       var $textarea = $(e.target),
         allHeight = e.target.scrollHeight, //スクロールを含めた全体の高さ
         areaHeight = e.target.offsetHeight; //要素(textarea)の高さ
@@ -299,8 +299,8 @@ $(function() {
 });
 
 //ハッシュタグのリンク化
-$(function() {
-  $(".autolink").each(function() {
+$(function () {
+  $(".autolink").each(function () {
     var txt = $(this).html(),
       exp = txt.match(/#\S+?(\s|<br>)/g), //全「#(任意の文字列)(空白or<br>」
       exp = Array.from(new Set(exp)); //重複削除
@@ -318,11 +318,11 @@ $(function() {
         var replaceText = txt.replace(
           new RegExp(exp[i], "g"),
           "<a class='tag-link' href=" +
-            escapeHtml(url) +
-            ">" +
-            escapeHtml(word) +
-            "</a>" +
-            option
+          escapeHtml(url) +
+          ">" +
+          escapeHtml(word) +
+          "</a>" +
+          option
         );
         $(this).html(replaceText);
       }
@@ -345,8 +345,8 @@ function jumpScroll(_this, _point, time) {
 }
 
 //ページ遷移 or アンカーポイントへジャンプ
-$(function() {
-  $("body").on("click", ".jump", function(e) {
+$(function () {
+  $("body").on("click", ".jump", function (e) {
     var _this = $(this);
     (link = _this.attr("href")), //アンカーリンク先
       (index = link.indexOf("#")),
@@ -377,7 +377,7 @@ $(function() {
 });
 
 //アンカーポイントへジャンプ(kickspost)
-$(function() {
+$(function () {
   if (
     $(".jump").length != 0 &&
     window.location.pathname.match(/kicksposts/) != null
@@ -395,7 +395,7 @@ $(function() {
 
       //他ページからのreplyボタンでの遷移
       if (window.location.search == "?reply=on") {
-        setTimeout(function() {
+        setTimeout(function () {
           setReply(_comment); //スクロール後にsetReply
         }, 510);
       }
@@ -405,7 +405,7 @@ $(function() {
 });
 
 //アンカーポイントへジャンプ(about)
-$(function() {
+$(function () {
   if (
     $(".jump").length != 0 &&
     window.location.pathname.match(/about/) != null
@@ -421,7 +421,7 @@ $(function() {
 
 //スクロール位置での表示非表示
 function scrollOut(_target, _point) {
-  $(window).scroll(function() {
+  $(window).scroll(function () {
     var distance = $(window).scrollTop();
     if (_point >= distance) {
       _target.fadeIn();
@@ -432,14 +432,14 @@ function scrollOut(_target, _point) {
 }
 
 //Aboutページの登録ログインリード表示
-$(function() {
+$(function () {
   if ($("#scroll").length != 0) {
-    setTimeout(function() {
+    setTimeout(function () {
       $("#scroll").slideDown();
     }, 3000);
 
     if ($("#about-lead").length != 0) {
-      setTimeout(function() {
+      setTimeout(function () {
         var point = $("#about-lead").offset().top - 400;
         scrollOut($("#scroll"), point);
       }, 3100);
@@ -448,14 +448,14 @@ $(function() {
   return false;
 });
 
-$(function() {
+$(function () {
   if ($("#popup").length != 0) {
-    setTimeout(function() {
+    setTimeout(function () {
       $("#popup").slideDown();
     }, 1000);
   }
 
-  $("#remove").on("click", function(e) {
+  $("#remove").on("click", function (e) {
     e.preventDefault();
     $("#popup").css("display", "none");
   });

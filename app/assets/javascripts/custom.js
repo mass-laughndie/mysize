@@ -141,7 +141,7 @@ document.addEventListener("turbolinks:load", function() {
 function indexId() {
   return $.ajax({
     type: "GET",
-    url: "/index?for=mysizeid&key=mysizeid",
+    url: "/users?for=mysizeid&key=mysizeid",
     dataType: "html",
     timeout: 20000
   });
