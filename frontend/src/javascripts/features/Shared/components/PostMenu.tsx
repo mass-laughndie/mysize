@@ -33,7 +33,7 @@ class PostMenu extends React.Component<Props> {
             <React.Fragment>
               <li className={styles['bar']} />
               <li>
-                <a href={`/${postUser.mysize_id}/kicksposts/${id}/edit`}>
+                <a href={`/users/${postUser.mysize_id}/kicksposts/${id}/edit`}>
                   <i className='fa fa-pencil-square-o' />
                   {' 投稿を編集する'}
                 </a>

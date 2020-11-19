@@ -39,7 +39,7 @@ const NormalPostAct = (props: Props) => {
       {isKickspost ? (
         <React.Fragment>
           <div className={cx('kpost-alist')}>
-            <a className={cx('kpost-alink')} href={`${mysize_id}/kicksposts/${id}`}>
+            <a className={cx('kpost-alink')} href={`/users/${mysize_id}/kicksposts/${id}`}>
               <div className={cx('kpost-aicon')}>
                 <i className='fa fa-comment-o' />
               </div>
@@ -63,28 +63,28 @@ const NormalPostAct = (props: Props) => {
           </div>
         </React.Fragment>
       ) : (
-        !isMyPost && (
-          <div className={cx('kpost-alist', 'alist-last')}>
-            <div className={cx('kpost-aicon')} id={`comment-reply-${id}`}>
-              {isPostPage ? (
-                <i className={cx('fa', 'fa-reply')} />
-              ) : isLoggedIn ? (
-                <a
-                  className={cx('kpost-alink', 'jump')}
-                  data-scroll='-51'
-                  href={`/${mysize_id}/kicksposts/${kickspost_id}?reply=on#comment-${id}`}
-                >
+          !isMyPost && (
+            <div className={cx('kpost-alist', 'alist-last')}>
+              <div className={cx('kpost-aicon')} id={`comment-reply-${id}`}>
+                {isPostPage ? (
                   <i className={cx('fa', 'fa-reply')} />
-                </a>
-              ) : (
-                <a href='#' className='ban'>
-                  <i className={cx('fa', 'fa-reply')} />
-                </a>
-              )}
+                ) : isLoggedIn ? (
+                  <a
+                    className={cx('kpost-alink', 'jump')}
+                    data-scroll='-51'
+                    href={`/users/${mysize_id}/kicksposts/${kickspost_id}?reply=on#comment-${id}`}
+                  >
+                    <i className={cx('fa', 'fa-reply')} />
+                  </a>
+                ) : (
+                      <a href='#' className='ban'>
+                        <i className={cx('fa', 'fa-reply')} />
+                      </a>
+                    )}
+              </div>
             </div>
-          </div>
-        )
-      )}
+          )
+        )}
     </div>
   );
 };

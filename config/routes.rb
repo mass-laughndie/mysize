@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   get  '/signup',   to: 'users#new'
   post '/signup',   to: 'users#create'
   get '/admusrind', to: 'users#admusrind'
-  get '/index',     to: 'users#index'
 
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
@@ -57,8 +56,7 @@ Rails.application.routes.draw do
   
 
   resources :users, param: :mysize_id,
-                    only: [:show, :destroy],
-                    path: '/' do
+                    only: [:index, :show, :destroy] do
     member do
       resources :kicksposts, except: [:new, :create, :index]
 
