@@ -24,7 +24,7 @@ const NormalPostRight = (props: Props) => {
         </div>
         {isKickspost && (
           <div className={cx('kpost-picture', 'abs-center')}>
-            <a href={`/${mysize_id}/kicksposts/${id}?display='picture'`}>
+            <a href={`/users/${mysize_id}/kicksposts/${id}?display='picture'`}>
               <img className={cx('cover', 'lazyload')} src='/images/grey.gif' data-src={picture_url} alt={title} />
             </a>
             <div className={cx('kpost-size', 'index-size')}>{typeof size === 'number' ? size.toFixed(1) : 0.0}</div>

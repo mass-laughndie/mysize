@@ -26,7 +26,7 @@ class UserList extends React.Component<Props> {
 
     return (
       <li id={`user-${user.id}`} className={styles['link-list']}>
-        <a className={styles['content-link']} href={`/${user.mysize_id}`} />
+        <a className={styles['content-link']} href={`/users/${user.mysize_id}`} />
         <div className={styles['content-abs']}>
           <div className={styles['content-height']}>
             <div className={cx('list-content', 'clear')}>
